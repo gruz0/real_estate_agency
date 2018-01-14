@@ -13,6 +13,10 @@ Things you may want to cover:
 
 * Database creation
 
+```bash
+$ docker-compose exec app rake db:create
+```
+
 * Database initialization
 
 * How to run the test suite
