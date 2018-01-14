@@ -1,0 +1,55 @@
+AllCops:
+  TargetRubyVersion: 2.3
+  Include:
+    - Gemfile
+    - Rakefile
+    - config.ru
+    - lib/**/*.rake
+
+  Exclude:
+    - db/schema.rb
+    - tmp/**/*.rb
+    - vendor/**/*.rb
+
+#
+# Linters
+#
+
+#
+# Naming
+#
+
+#
+# Metrics
+#
+Metrics/LineLength:
+  Max: 150
+
+# Metrics/ClassLength:
+#   Enabled: false
+#
+# Metrics/ModuleLength:
+#   Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+#
+# Style
+#
+Style/Documentation:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/MixinUsage:
+  Enabled: false
+
+#
+# Rails
+#
+
