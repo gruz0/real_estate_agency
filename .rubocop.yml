@@ -1,11 +1,11 @@
 AllCops:
   TargetRubyVersion: 2.3
+  DisplayCopNames: true
   Include:
     - Gemfile
     - Rakefile
     - config.ru
     - lib/**/*.rake
-
   Exclude:
     - db/schema.rb
     - tmp/**/*.rb
@@ -24,6 +24,10 @@ AllCops:
 #
 Metrics/LineLength:
   Max: 150
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*.rb
 
 # Metrics/ClassLength:
 #   Enabled: false
@@ -52,4 +56,5 @@ Style/MixinUsage:
 #
 # Rails
 #
-
+Rails:
+  Enabled: true
