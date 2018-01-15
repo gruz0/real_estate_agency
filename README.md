@@ -19,6 +19,15 @@ $ docker-compose exec app rake db:create
 
 * Database initialization
 
+* Database diagram (ERD)
+
+The diagram must be created after each of use the `db:migrate` command:
+```bash
+$ docker-compose exec app bundle exec erd
+```
+
+This command will generate the file `erd.pdf` in the project directory.
+
 * How to run the test suite
 
 * Services (job queues, cache servers, search engines, etc.)
