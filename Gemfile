@@ -41,6 +41,7 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'database_cleaner'
   gem 'rspec-rails', '~> 3.7'
+  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -55,8 +56,8 @@ end
 
 group :test do
   gem 'bundle-audit', require: false
-  gem 'rspec'
   gem 'rubocop', require: false
+  gem 'shoulda-matchers', '~> 3.1'
   gem 'capybara'
   gem 'selenium-webdriver'
 end
