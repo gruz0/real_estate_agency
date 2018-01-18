@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(version: 20180117121910) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["city_id"], name: "index_streets_on_city_id"
-    t.index ["name"], name: "index_streets_on_name"
+    t.index ["name"], name: "index_streets_on_name", unique: true
   end
 
   add_foreign_key "addresses", "streets"
