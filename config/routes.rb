@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
   resources :people
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :clients, controller: 'people', type: 'Client'
+  resources :employees, controller: 'people', type: 'Employee'
+
+  root 'people#index'
 end

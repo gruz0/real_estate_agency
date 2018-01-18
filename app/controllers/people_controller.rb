@@ -1,26 +1,21 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: %i[show edit update destroy]
+  before_action :set_type
 
-  # GET /people
-  # GET /people.json
+  include PeopleHelper
+
   def index
-    @people = Person.all
+    @people = type_class.all
   end
 
-  # GET /people/1
-  # GET /people/1.json
   def show; end
 
-  # GET /people/new
   def new
-    @person = Person.new
+    @person = type_class.new
   end
 
-  # GET /people/1/edit
   def edit; end
 
-  # POST /people
-  # POST /people.json
   def create
     @person = Person.new(person_params)
 
@@ -35,12 +30,10 @@ class PeopleController < ApplicationController
     end
   end
 
-  # PATCH/PUT /people/1
-  # PATCH/PUT /people/1.json
   def update
     respond_to do |format|
       if @person.update(person_params)
-        format.html { redirect_to @person, notice: 'Person was successfully updated.' }
+        format.html { redirect_to sti_person_path(@person.type, @person), notice: 'Person was successfully updated.' }
         format.json { render :show, status: :ok, location: @person }
       else
         format.html { render :edit }
@@ -49,8 +42,6 @@ class PeopleController < ApplicationController
     end
   end
 
-  # DELETE /people/1
-  # DELETE /people/1.json
   def destroy
     @person.destroy
     respond_to do |format|
@@ -61,13 +52,25 @@ class PeopleController < ApplicationController
 
   private
 
+  def set_type
+    @type = type
+  end
+
+  def type
+    Person.types.include?(params[:type]) ? params[:type] : 'Person'
+  end
+
+  def type_class
+    type.constantize
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_person
-    @person = Person.find(params[:id])
+    @person = type_class.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def person_params
-    params.require(:person).permit(:first_name, :last_name, :middle_name, :primary_phone, :email)
+    params.require(type.underscore.to_sym).permit(:type, :first_name, :last_name, :middle_name, :phone_numbers)
   end
 end

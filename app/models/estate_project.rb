@@ -1,3 +1,3 @@
-class Client < Person
+class EstateProject < ApplicationRecord
   has_many :estate, dependent: :destroy
 end

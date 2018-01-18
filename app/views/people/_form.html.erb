@@ -12,6 +12,15 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :type %>
+    <%= form.select :type, Person.types.map { |t| [t.humanize, t.camelcase] }, {}, disabled: @type != 'Person' %>
+
+    <% if @type != 'Person' %>
+      <%= form.hidden_field :type, value: @type %>
+    <% end %>
+  </div>
+
+  <div class="field">
     <%= form.label :first_name %>
     <%= form.text_field :first_name, id: :person_first_name %>
   </div>
@@ -27,13 +36,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :primary_phone %>
-    <%= form.text_field :primary_phone, id: :person_primary_phone %>
-  </div>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email, id: :person_email %>
+    <%= form.label :phone_numbers %>
+    <%= form.text_field :phone_numbers, id: :person_phone_numbers %>
   </div>
 
   <div class="actions">

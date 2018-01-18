@@ -1,15 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<h1>People</h1>
+<h1><%= "#{@type.pluralize.capitalize}" %></h1>
 
 <table>
   <thead>
     <tr>
+      <th>Type</th>
       <th>First name</th>
       <th>Last name</th>
       <th>Middle name</th>
-      <th>Primary phone</th>
-      <th>Email</th>
+      <th>Phone numbers</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,14 +17,14 @@
   <tbody>
     <% @people.each do |person| %>
       <tr>
+        <td><%= person.type %></td>
         <td><%= person.first_name %></td>
         <td><%= person.last_name %></td>
         <td><%= person.middle_name %></td>
-        <td><%= person.primary_phone %></td>
-        <td><%= person.email %></td>
-        <td><%= link_to 'Show', person %></td>
-        <td><%= link_to 'Edit', edit_person_path(person) %></td>
-        <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= person.phone_numbers %></td>
+        <td><%= link_to 'Show', sti_person_path(person.type, person) %></td>
+        <td><%= link_to 'Edit', sti_person_path(person.type, person, :edit) %></td>
+        <td><%= link_to 'Destroy', sti_person_path(person.type, person), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -32,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Person', new_person_path %>
+<%= link_to "New #{@type}", sti_person_path(@type, nil, :new) %>
