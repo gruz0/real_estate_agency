@@ -1,10 +1,15 @@
 class Person < ApplicationRecord
-  scope :employees, -> { where(type: 'Employee') }
-  scope :clients, -> { where(type: 'Client') }
+  TYPES = %w[Employee Client].freeze
+
+  validates :type, presence: true, inclusion: { in: TYPES }
+  validates :last_name, presence: true, length: { minimum: 1 }
+  validates :first_name, presence: true, length: { minimum: 1 }
+  validates :phone_numbers, presence: true, length: { minimum: 10 }
+  validates :active, presence: true, acceptance: true
 
   class << self
     def types
-      %w[Employee Client]
+      TYPES
     end
   end
 end

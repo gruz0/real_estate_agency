@@ -7,7 +7,7 @@ RSpec.describe 'people/edit', type: :view do
                                 first_name: 'MyString',
                                 last_name: 'MyString',
                                 middle_name: 'MyString',
-                                phone_numbers: 'MyString'
+                                phone_numbers: '+79001112233'
     ))
   end
 
