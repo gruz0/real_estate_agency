@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20180117121910) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_estate_types_on_name"
+    t.index ["name"], name: "index_estate_types_on_name", unique: true
   end
 
   create_table "estates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
