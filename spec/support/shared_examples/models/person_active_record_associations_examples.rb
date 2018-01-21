@@ -10,4 +10,6 @@ RSpec.shared_examples :person_active_model_validations do
 
   it { expect(subject).to have_db_column(:phone_numbers).of_type(:string).with_options(null: false) }
   it { expect(subject).to have_db_index(:phone_numbers) }
+
+  it { expect(subject).to have_db_column(:active).of_type(:integer).with_options(null: false, default: 1) }
 end

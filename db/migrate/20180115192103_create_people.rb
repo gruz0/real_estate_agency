@@ -6,7 +6,7 @@ class CreatePeople < ActiveRecord::Migration[5.1]
       t.string :first_name, null: false
       t.string :middle_name
       t.string :phone_numbers, null: false, index: true
-      t.boolean :active, default: true
+      t.integer :active, null: false, default: 1
 
       t.timestamps
     end

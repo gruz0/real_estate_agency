@@ -1,15 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe PeopleController, type: :controller do
-  # This should return the minimal set of attributes required to create a valid
-  # Person. As you add validations to Person, be sure to
-  # adjust the attributes here as well.
   let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
+    attributes_for(:person)
   end
 
   let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
+    {
+      type: 'Person',
+      last_name: '',
+      first_name: '',
+      phone_numbers: ''
+    }
   end
 
   # This should return the minimal set of values that should be in the session
@@ -73,14 +75,25 @@ RSpec.describe PeopleController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
+        {
+          last_name: FFaker::NameRU.last_name,
+          first_name: FFaker::NameRU.first_name,
+          middle_name: FFaker::NameRU.patronymic,
+          phone_numbers: FFaker::PhoneNumber.phone_number,
+          active: 0
+        }
       end
 
       it 'updates the requested person' do
         person = Person.create! valid_attributes
         put :update, params: { id: person.to_param, person: new_attributes }, session: valid_session
         person.reload
-        skip('Add assertions for updated state')
+
+        expect(person.last_name).to eq(new_attributes[:last_name])
+        expect(person.first_name).to eq(new_attributes[:first_name])
+        expect(person.middle_name).to eq(new_attributes[:middle_name])
+        expect(person.phone_numbers).to eq(new_attributes[:phone_numbers])
+        expect(person.active).to eq(new_attributes[:active])
       end
 
       it 'redirects to the person' do

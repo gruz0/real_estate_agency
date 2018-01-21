@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 20180117121910) do
     t.string "first_name", null: false
     t.string "middle_name"
     t.string "phone_numbers", null: false
-    t.boolean "active", default: true
+    t.integer "active", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["last_name"], name: "index_people_on_last_name"

@@ -5,7 +5,7 @@ class Person < ApplicationRecord
   validates :last_name, presence: true, length: { minimum: 1 }
   validates :first_name, presence: true, length: { minimum: 1 }
   validates :phone_numbers, presence: true, length: { minimum: 10 }
-  validates :active, presence: true, acceptance: true
+  validates :active, presence: true, inclusion: { in: [0, 1] }
 
   class << self
     def types

@@ -71,6 +71,6 @@ class PeopleController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def person_params
-    params.require(type.underscore.to_sym).permit(:type, :first_name, :last_name, :middle_name, :phone_numbers)
+    params.require(type.underscore.to_sym).permit(:type, :first_name, :last_name, :middle_name, :phone_numbers, :active)
   end
 end
