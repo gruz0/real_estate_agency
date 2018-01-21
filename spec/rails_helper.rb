@@ -42,6 +42,9 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
+  config.before(:all)  { FFaker::Random.seed = config.seed }
+  config.before(:each) { FFaker::Random.reset! }
 end
 
 Shoulda::Matchers.configure do |config|
