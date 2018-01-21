@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :person do
+  factory :client do
     type 'Client'
     last_name { FFaker::NameRU.last_name }
     first_name { FFaker::NameRU.first_name }
