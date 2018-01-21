@@ -7,10 +7,10 @@ class CreateEstates < ActiveRecord::Migration[5.1]
       t.references :estate_type, null: false, foreign_key: true
 
       # Уральский, ленинградский, саратовский, ...
-      t.references :estate_project, foreign_key: true
+      t.references :estate_project, null: false, foreign_key: true
 
       # Панельный, заливной, блочный, кирпичный, ...
-      t.references :estate_material, foreign_key: true
+      t.references :estate_material, null: false, foreign_key: true
 
       t.references :address, null: false, foreign_key: true
       t.references :client, null: false, index: true, foreign_key: { to_table: :people }

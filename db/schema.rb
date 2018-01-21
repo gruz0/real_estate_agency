@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 20180117121910) do
   create_table "estates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "deal_type", limit: 1, default: 1, null: false
     t.bigint "estate_type_id", null: false
-    t.bigint "estate_project_id"
-    t.bigint "estate_material_id"
+    t.bigint "estate_project_id", null: false
+    t.bigint "estate_material_id", null: false
     t.bigint "address_id", null: false
     t.bigint "client_id", null: false
     t.bigint "employee_id", null: false
