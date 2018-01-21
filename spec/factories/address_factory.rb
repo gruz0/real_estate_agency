@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :address do
-    building_number '7а'
+    building_number { FFaker::AddressRU.building_number }
 
     street
   end

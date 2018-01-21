@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :city do
-    name 'Нефтеюганск'
+    name { FFaker::AddressRU.unique.city }
   end
 end

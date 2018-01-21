@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :estate_type do
-    name 'Квартира'
+    name { FFaker::LoremRU.unique.word * 3 }
   end
 end
