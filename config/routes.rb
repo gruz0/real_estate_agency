@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :employees, controller: 'people', type: 'Employee'
   resources :estate_materials
   resources :estate_projects
+  resources :estate_types
 
   root 'people#index'
 end
