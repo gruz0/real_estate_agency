@@ -1,0 +1,22 @@
+<%= form_with(model: estate_material, local: true) do |form| %>
+  <% if estate_material.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(estate_material.errors.count, "error") %> prohibited this estate_material from being saved:</h2>
+
+      <ul>
+      <% estate_material.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :estate_material_name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
