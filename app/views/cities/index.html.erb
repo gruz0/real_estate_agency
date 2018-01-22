@@ -1,11 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Cities</h1>
+<h1><%= t('views.city.index.title') %></h1>
+
+<%= link_to t('views.city.index.new'), new_city_path %>
 
 <table>
   <thead>
     <tr>
-      <th>Name</th>
+      <th><%= City.human_attribute_name(:id) %></th>
+      <th><%= City.human_attribute_name(:name) %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -13,15 +16,12 @@
   <tbody>
     <% @cities.each do |city| %>
       <tr>
+        <td><%= city.id %></td>
         <td><%= city.name %></td>
-        <td><%= link_to 'Show', city %></td>
-        <td><%= link_to 'Edit', edit_city_path(city) %></td>
-        <td><%= link_to 'Destroy', city, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('views.show'), city %></td>
+        <td><%= link_to t('views.edit'), edit_city_path(city) %></td>
+        <td><%= link_to t('views.destroy'), city, method: :delete, data: { confirm: t('views.are_you_sure') } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New City', new_city_path %>

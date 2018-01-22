@@ -1,6 +1,6 @@
-<h1>Editing City</h1>
+<h1><%= t('views.city.edit.title') %></h1>
 
 <%= render 'form', city: @city %>
 
-<%= link_to 'Show', @city %> |
-<%= link_to 'Back', cities_path %>
+<%= link_to t('views.show'), @city %> |
+<%= link_to t('views.back'), cities_path %>

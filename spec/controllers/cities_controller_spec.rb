@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe CitiesController, type: :controller do
+  let(:city) { City.create!(valid_attributes) }
+
   let(:valid_attributes) do
     attributes_for(:city)
   end
@@ -18,7 +20,7 @@ RSpec.describe CitiesController, type: :controller do
 
   describe 'GET #index' do
     it 'returns a success response' do
-      City.create! valid_attributes
+      city
       get :index, params: {}, session: valid_session
       expect(response).to be_success
     end
@@ -26,7 +28,6 @@ RSpec.describe CitiesController, type: :controller do
 
   describe 'GET #show' do
     it 'returns a success response' do
-      city = City.create! valid_attributes
       get :show, params: { id: city.to_param }, session: valid_session
       expect(response).to be_success
     end
@@ -41,7 +42,6 @@ RSpec.describe CitiesController, type: :controller do
 
   describe 'GET #edit' do
     it 'returns a success response' do
-      city = City.create! valid_attributes
       get :edit, params: { id: city.to_param }, session: valid_session
       expect(response).to be_success
     end
@@ -58,6 +58,11 @@ RSpec.describe CitiesController, type: :controller do
       it 'redirects to the created city' do
         post :create, params: { city: valid_attributes }, session: valid_session
         expect(response).to redirect_to(City.last)
+      end
+
+      it 'renders flash notice' do
+        post :create, params: { city: valid_attributes }, session: valid_session
+        expect(flash[:notice]).to eq(I18n.t('views.city.flash_messages.city_was_successfully_created'))
       end
     end
 
@@ -78,7 +83,6 @@ RSpec.describe CitiesController, type: :controller do
       end
 
       it 'updates the requested city' do
-        city = City.create! valid_attributes
         put :update, params: { id: city.to_param, city: new_attributes }, session: valid_session
         city.reload
 
@@ -86,15 +90,18 @@ RSpec.describe CitiesController, type: :controller do
       end
 
       it 'redirects to the city' do
-        city = City.create! valid_attributes
         put :update, params: { id: city.to_param, city: valid_attributes }, session: valid_session
         expect(response).to redirect_to(city)
+      end
+
+      it 'renders flash notice' do
+        put :update, params: { id: city.to_param, city: valid_attributes }, session: valid_session
+        expect(flash[:notice]).to eq(I18n.t('views.city.flash_messages.city_was_successfully_updated'))
       end
     end
 
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
-        city = City.create! valid_attributes
         put :update, params: { id: city.to_param, city: invalid_attributes }, session: valid_session
         expect(response).to be_success
       end
@@ -103,16 +110,20 @@ RSpec.describe CitiesController, type: :controller do
 
   describe 'DELETE #destroy' do
     it 'destroys the requested city' do
-      city = City.create! valid_attributes
+      city
       expect do
         delete :destroy, params: { id: city.to_param }, session: valid_session
       end.to change(City, :count).by(-1)
     end
 
     it 'redirects to the cities list' do
-      city = City.create! valid_attributes
       delete :destroy, params: { id: city.to_param }, session: valid_session
       expect(response).to redirect_to(cities_url)
+    end
+
+    it 'renders flash notice' do
+      delete :destroy, params: { id: city.to_param }, session: valid_session
+      expect(flash[:notice]).to eq(I18n.t('views.city.flash_messages.city_was_successfully_destroyed'))
     end
   end
 end

@@ -1,0 +1,14 @@
+ru:
+  views:
+    city:
+      index:
+        title: 'Список городов'
+        new: 'Новый город'
+      new:
+        title: 'Создание города'
+      edit:
+        title: 'Редактирование города'
+      flash_messages:
+        city_was_successfully_created: 'Город был успешно создан'
+        city_was_successfully_updated: 'Город был успешно обновлён'
+        city_was_successfully_destroyed: 'Город был успешно удалён'
