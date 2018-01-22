@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :estate_projects
   resources :estate_types
   resources :cities
+  resources :streets
 
   root 'people#index'
 end
