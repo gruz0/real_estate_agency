@@ -1,0 +1,7 @@
+ru:
+  activerecord:
+    models:
+      estate_material: 'Тип материала строения'
+    attributes:
+      estate_material:
+        name: 'Название'

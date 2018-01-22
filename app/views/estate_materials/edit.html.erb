@@ -1,6 +1,6 @@
-<h1>Editing Estate Material</h1>
+<h1><%= t('views.estate_material.edit.title') %></h1>
 
 <%= render 'form', estate_material: @estate_material %>
 
-<%= link_to 'Show', @estate_material %> |
-<%= link_to 'Back', estate_materials_path %>
+<%= link_to t('views.show'), @estate_material %> |
+<%= link_to t('views.back'), estate_materials_path %>

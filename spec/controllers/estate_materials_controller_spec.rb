@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe EstateMaterialsController, type: :controller do
+  let(:estate_material) { EstateMaterial.create!(valid_attributes) }
+
   let(:valid_attributes) do
     attributes_for(:estate_material)
   end
@@ -18,7 +20,7 @@ RSpec.describe EstateMaterialsController, type: :controller do
 
   describe 'GET #index' do
     it 'returns a success response' do
-      EstateMaterial.create! valid_attributes
+      estate_material
       get :index, params: {}, session: valid_session
       expect(response).to be_success
     end
@@ -26,7 +28,6 @@ RSpec.describe EstateMaterialsController, type: :controller do
 
   describe 'GET #show' do
     it 'returns a success response' do
-      estate_material = EstateMaterial.create! valid_attributes
       get :show, params: { id: estate_material.to_param }, session: valid_session
       expect(response).to be_success
     end
@@ -41,7 +42,6 @@ RSpec.describe EstateMaterialsController, type: :controller do
 
   describe 'GET #edit' do
     it 'returns a success response' do
-      estate_material = EstateMaterial.create! valid_attributes
       get :edit, params: { id: estate_material.to_param }, session: valid_session
       expect(response).to be_success
     end
@@ -58,6 +58,12 @@ RSpec.describe EstateMaterialsController, type: :controller do
       it 'redirects to the created estate_material' do
         post :create, params: { estate_material: valid_attributes }, session: valid_session
         expect(response).to redirect_to(EstateMaterial.last)
+      end
+
+      it 'renders flash notice' do
+        post :create, params: { estate_material: valid_attributes }, session: valid_session
+        expect(flash[:notice])
+          .to eq(I18n.t('views.estate_material.flash_messages.estate_material_was_successfully_created'))
       end
     end
 
@@ -78,7 +84,6 @@ RSpec.describe EstateMaterialsController, type: :controller do
       end
 
       it 'updates the requested estate_material' do
-        estate_material = EstateMaterial.create! valid_attributes
         put :update, params: { id: estate_material.to_param, estate_material: new_attributes }, session: valid_session
         estate_material.reload
 
@@ -86,15 +91,19 @@ RSpec.describe EstateMaterialsController, type: :controller do
       end
 
       it 'redirects to the estate_material' do
-        estate_material = EstateMaterial.create! valid_attributes
         put :update, params: { id: estate_material.to_param, estate_material: valid_attributes }, session: valid_session
         expect(response).to redirect_to(estate_material)
+      end
+
+      it 'renders flash notice' do
+        put :update, params: { id: estate_material.to_param, estate_material: valid_attributes }, session: valid_session
+        expect(flash[:notice])
+          .to eq(I18n.t('views.estate_material.flash_messages.estate_material_was_successfully_updated'))
       end
     end
 
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
-        estate_material = EstateMaterial.create! valid_attributes
         put :update, params: { id: estate_material.to_param, estate_material: invalid_attributes }, session: valid_session
         expect(response).to be_success
       end
@@ -103,16 +112,21 @@ RSpec.describe EstateMaterialsController, type: :controller do
 
   describe 'DELETE #destroy' do
     it 'destroys the requested estate_material' do
-      estate_material = EstateMaterial.create! valid_attributes
+      estate_material
       expect do
         delete :destroy, params: { id: estate_material.to_param }, session: valid_session
       end.to change(EstateMaterial, :count).by(-1)
     end
 
     it 'redirects to the estate_materials list' do
-      estate_material = EstateMaterial.create! valid_attributes
       delete :destroy, params: { id: estate_material.to_param }, session: valid_session
       expect(response).to redirect_to(estate_materials_url)
+    end
+
+    it 'renders flash notice' do
+      delete :destroy, params: { id: estate_material.to_param }, session: valid_session
+      expect(flash[:notice])
+        .to eq(I18n.t('views.estate_material.flash_messages.estate_material_was_successfully_destroyed'))
     end
   end
 end

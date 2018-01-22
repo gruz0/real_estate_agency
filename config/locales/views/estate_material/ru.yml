@@ -1,0 +1,14 @@
+ru:
+  views:
+    estate_material:
+      index:
+        title: 'Список материалов строения'
+        new: 'Новый тип материала'
+      new:
+        title: 'Создание типа материала'
+      edit:
+        title: 'Редактирование типа материала'
+      flash_messages:
+        estate_material_was_successfully_created: 'Тип материала был успешно создан'
+        estate_material_was_successfully_updated: 'Тип материала был успешно обновлён'
+        estate_material_was_successfully_destroyed: 'Тип материала был успешно удалён'

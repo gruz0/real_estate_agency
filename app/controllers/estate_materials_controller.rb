@@ -18,7 +18,10 @@ class EstateMaterialsController < ApplicationController
 
     respond_to do |format|
       if @estate_material.save
-        format.html { redirect_to @estate_material, notice: 'Estate material was successfully created.' }
+        format.html do
+          redirect_to @estate_material,
+                      notice: t('views.estate_material.flash_messages.estate_material_was_successfully_created')
+        end
         format.json { render :show, status: :created, location: @estate_material }
       else
         format.html { render :new }
@@ -30,7 +33,10 @@ class EstateMaterialsController < ApplicationController
   def update
     respond_to do |format|
       if @estate_material.update(estate_material_params)
-        format.html { redirect_to @estate_material, notice: 'Estate material was successfully updated.' }
+        format.html do
+          redirect_to @estate_material,
+                      notice: t('views.estate_material.flash_messages.estate_material_was_successfully_updated')
+        end
         format.json { render :show, status: :ok, location: @estate_material }
       else
         format.html { render :edit }
@@ -42,7 +48,10 @@ class EstateMaterialsController < ApplicationController
   def destroy
     @estate_material.destroy
     respond_to do |format|
-      format.html { redirect_to estate_materials_url, notice: 'Estate material was successfully destroyed.' }
+      format.html do
+        redirect_to estate_materials_url,
+                    notice: t('views.estate_material.flash_messages.estate_material_was_successfully_destroyed')
+      end
       format.json { head :no_content }
     end
   end
