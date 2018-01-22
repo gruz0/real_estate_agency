@@ -1,4 +1,4 @@
-<%= form_with(model: street, local: true) do |form| %>
+<%= form_with(model: street, url: [city, street], local: true) do |form| %>
   <% if street.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(street.errors.count, "error") %> prohibited this street from being saved:</h2>
@@ -10,15 +10,6 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :city %>
-    <%= form.select :city, City.all.map { |c| [c.name, c.id] }, { selected: @street.city_id }, disabled: action == :put %>
-
-    <% if action == :put %>
-      <%= form.hidden_field :city, value: @street.city.id %>
-    <% end %>
-  </div>
 
   <div class="field">
     <%= form.label :name %>

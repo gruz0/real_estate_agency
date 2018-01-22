@@ -2,7 +2,7 @@
 
 <p>
   <strong>City:</strong>
-  <%= @street.city_name %>
+  <%= @city.name %>
 </p>
 
 <p>
@@ -10,5 +10,5 @@
   <%= @street.name %>
 </p>
 
-<%= link_to 'Edit', edit_street_path(@street) %> |
-<%= link_to 'Back', streets_path %>
+<%= link_to 'Edit', edit_city_street_path(@city, @street) %> |
+<%= link_to 'Back', city_streets_path(@city) %>

@@ -1,5 +1,5 @@
-<h1>New Street</h1>
+<h1>New Street in <%= @city.name %></h1>
 
-<%= render 'form', street: @street, action: :post %>
+<%= render 'form', city: @city, street: @street, action: :post %>
 
-<%= link_to 'Back', streets_path %>
+<%= link_to 'Back', city_streets_path(@city) %>

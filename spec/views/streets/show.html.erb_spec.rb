@@ -1,8 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'streets/show', type: :view do
+  let(:city) { create(:city, name: 'Нефтеюганск') }
+
   before(:each) do
-    @street = assign(:street, Street.create!(city: create(:city, name: 'Нефтеюганск'), name: 'ул. Ленина'))
+    @city = assign(:city, city)
+    @street = assign(:street, Street.create!(city: city, name: 'ул. Ленина'))
   end
 
   it 'renders attributes in <p>' do
