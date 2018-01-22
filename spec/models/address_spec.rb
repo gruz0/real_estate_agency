@@ -9,7 +9,7 @@ RSpec.describe Address, type: :model do
 
   describe 'ActiveModel validations' do
     # Basic validations
-    it { expect(subject).to validate_presence_of(:building_number).with_message("can't be blank") }
+    it { expect(subject).to validate_presence_of(:building_number).with_message(I18n.t('errors.messages.blank')) }
     it { expect(subject).not_to validate_uniqueness_of(:building_number) }
 
     it { expect(subject).not_to validate_presence_of(:apartment_number) }

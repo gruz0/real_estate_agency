@@ -9,7 +9,7 @@ RSpec.describe City, type: :model do
 
   describe 'ActiveModel validations' do
     # Basic validations
-    it { expect(subject).to validate_presence_of(:name).with_message("can't be blank") }
+    it { expect(subject).to validate_presence_of(:name).with_message(I18n.t('errors.messages.blank')) }
     it { expect(subject).to validate_uniqueness_of(:name).case_insensitive }
 
     # Format validations

@@ -1,10 +1,10 @@
 RSpec.shared_examples :person_active_record_associations do
   # Basic validations
-  it { expect(subject).to validate_presence_of(:type).with_message("can't be blank") }
-  it { expect(subject).to validate_presence_of(:last_name).with_message("can't be blank") }
-  it { expect(subject).to validate_presence_of(:first_name).with_message("can't be blank") }
-  it { expect(subject).to validate_presence_of(:phone_numbers).with_message("can't be blank") }
-  it { expect(subject).to validate_presence_of(:active).with_message("can't be blank") }
+  it { expect(subject).to validate_presence_of(:type).with_message(I18n.t('errors.messages.blank')) }
+  it { expect(subject).to validate_presence_of(:last_name).with_message(I18n.t('errors.messages.blank')) }
+  it { expect(subject).to validate_presence_of(:first_name).with_message(I18n.t('errors.messages.blank')) }
+  it { expect(subject).to validate_presence_of(:phone_numbers).with_message(I18n.t('errors.messages.blank')) }
+  it { expect(subject).to validate_presence_of(:active).with_message(I18n.t('errors.messages.blank')) }
 
   # Format validations
   it { expect(subject).not_to allow_value('Person').for(:type) }

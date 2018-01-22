@@ -9,14 +9,14 @@ RSpec.describe Estate, type: :model do
 
   describe 'ActiveModel validations' do
     # Basic validations
-    it { expect(subject).to validate_presence_of(:deal_type).with_message("can't be blank") }
-    it { expect(subject).to validate_presence_of(:price).with_message("can't be blank") }
-    it { expect(subject).to validate_presence_of(:client).with_message('must exist') }
-    it { expect(subject).to validate_presence_of(:employee).with_message('must exist') }
-    it { expect(subject).to validate_presence_of(:address).with_message('must exist') }
-    it { expect(subject).to validate_presence_of(:estate_type).with_message('must exist') }
-    it { expect(subject).to validate_presence_of(:estate_project).with_message('must exist') }
-    it { expect(subject).to validate_presence_of(:estate_material).with_message('must exist') }
+    it { expect(subject).to validate_presence_of(:deal_type).with_message(I18n.t('errors.messages.blank')) }
+    it { expect(subject).to validate_presence_of(:price).with_message(I18n.t('errors.messages.blank')) }
+    it { expect(subject).to validate_presence_of(:client).with_message(I18n.t('errors.messages.required')) }
+    it { expect(subject).to validate_presence_of(:employee).with_message(I18n.t('errors.messages.required')) }
+    it { expect(subject).to validate_presence_of(:address).with_message(I18n.t('errors.messages.required')) }
+    it { expect(subject).to validate_presence_of(:estate_type).with_message(I18n.t('errors.messages.required')) }
+    it { expect(subject).to validate_presence_of(:estate_project).with_message(I18n.t('errors.messages.required')) }
+    it { expect(subject).to validate_presence_of(:estate_material).with_message(I18n.t('errors.messages.required')) }
 
     # Format validations
     it { expect(subject).to allow_value(:sale).for(:deal_type) }
