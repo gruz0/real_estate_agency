@@ -29,5 +29,9 @@ module RealEstateAgency
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', 'models', '*', '*.yml').to_s]
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', 'views', '*', '*.yml').to_s]
+    config.i18n.default_locale = :ru
   end
 end

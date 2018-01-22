@@ -1,0 +1,43 @@
+ru:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'Возникли ошибки: %{errors}'
+        restrict_dependent_destroy:
+          has_one: 'Невозможно удалить запись, так как существует зависимость: %{record}'
+          has_many: 'Невозможно удалить запись, так как существуют зависимости: %{record}'
+      template:
+        body: 'Проблемы возникли со следующими полями:'
+        header:
+          few: "%{model}: сохранение не удалось из-за %{count} ошибок"
+          many: "%{model}: сохранение не удалось из-за %{count} ошибок"
+          one: "%{model}: сохранение не удалось из-за %{count} ошибки"
+          other: "%{model}: сохранение не удалось из-за %{count} ошибок"
+
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      blank: не может быть пустым
+      greater_than: может иметь значение большее %{count}
+      inclusion: имеет недопустимое значение
+      not_a_number: не является числом
+      required: не может отсутствовать
+      taken: уже существует
+      too_short:
+        few: недостаточной длины (не может быть меньше %{count} символов)
+        many: недостаточной длины (не может быть меньше %{count} символов)
+        one: недостаточной длины (не может быть меньше %{count} символа)
+        other: недостаточной длины (не может быть меньше %{count} символов)
+
+  helpers:
+    submit:
+      create: 'Создать'
+      update: 'Обновить'
+
+  views:
+    new: 'Новая запись'
+    show: 'Показать'
+    edit: 'Изменить'
+    destroy: 'Удалить'
+    are_you_sure: 'Вы уверены?'
+    back: 'Назад'
