@@ -9,7 +9,7 @@ AllCops:
   Exclude:
     - db/schema.rb
     - tmp/**/*.rb
-    - vendor/**/*.rb
+    - vendor/
 
 #
 # Linters

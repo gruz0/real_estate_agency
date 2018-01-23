@@ -58,6 +58,7 @@ end
 group :test do
   gem 'bundle-audit', require: false
   gem 'rubocop', require: false
+  gem 'brakeman', require: false
   gem 'shoulda-matchers', '~> 3.1'
   gem 'capybara'
   gem 'selenium-webdriver'

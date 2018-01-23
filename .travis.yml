@@ -1,0 +1,35 @@
+dist: trusty
+group: deprecated-2017Q4
+sudo: required
+
+language: ruby
+rvm:
+  - 2.3.4
+
+cache:
+  directories:
+    - $HOME/.rvm
+    - $HOME/bundle
+
+bundler_args: --without production development --path $HOME/bundle
+
+before_install:
+  - sudo service mysql stop
+  - docker-compose up -d --build
+
+before_script:
+  - docker-compose exec app cp .env.sample .env
+  - docker-compose exec app rake db:drop db:create db:test:load
+
+script:
+  - docker-compose exec app rspec
+  - docker-compose exec app bundle exec brakeman -A -z
+  - docker-compose exec app bundle exec bundle-audit update
+  - docker-compose exec app bundle exec bundle-audit -v
+  - docker-compose exec app bundle exec rubocop -c .rubocop.yml --force-exclusion
+
+after_script:
+  - docker-compose down
+
+services:
+  - docker
