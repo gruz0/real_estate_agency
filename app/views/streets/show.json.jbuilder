@@ -1,1 +1,1 @@
-json.partial! "streets/street", street: @street
+json.partial! 'streets/street', street: @street

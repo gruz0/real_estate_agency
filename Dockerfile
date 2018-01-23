@@ -9,6 +9,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 COPY Gemfile Gemfile.lock /app/
+RUN gem install bundler
 RUN bundle install
 COPY . /app
 
