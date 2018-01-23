@@ -1,0 +1,7 @@
+ru:
+  activerecord:
+    models:
+      street: 'Улица'
+    attributes:
+      street:
+        name: 'Название'

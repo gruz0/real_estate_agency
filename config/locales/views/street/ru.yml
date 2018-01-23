@@ -1,0 +1,14 @@
+ru:
+  views:
+    street:
+      index:
+        title: 'Список улиц в %{city}'
+        new: 'Новая улица'
+      new:
+        title: 'Создание улицы в %{city}'
+      edit:
+        title: 'Редактирование улицы в %{city}'
+      flash_messages:
+        street_was_successfully_created: 'Улица была успешно создана'
+        street_was_successfully_updated: 'Улица была успешно обновлена'
+        street_was_successfully_destroyed: 'Улица была успешно удалена'

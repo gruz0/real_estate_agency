@@ -1,14 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>City:</strong>
+  <strong><%= City.model_name.human %>:</strong>
   <%= @city.name %>
 </p>
 
 <p>
-  <strong>Name:</strong>
+  <strong><%= Street.human_attribute_name(:name) %>:</strong>
   <%= @street.name %>
 </p>
 
-<%= link_to 'Edit', edit_city_street_path(@city, @street) %> |
-<%= link_to 'Back', city_streets_path(@city) %>
+<%= link_to t('views.edit'), edit_city_street_path(@city, @street) %> |
+<%= link_to t('views.back'), city_streets_path(@city) %>

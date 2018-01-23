@@ -1,6 +1,6 @@
-<h1>Editing Street in <%= @city.name %></h1>
+<h1><%= t('views.street.edit.title', city: @city.name) %></h1>
 
 <%= render 'form', city: @city, street: @street, action: :put %>
 
-<%= link_to 'Show', city_street_path(@city, @street) %> |
-<%= link_to 'Back', city_streets_path(@city) %>
+<%= link_to t('views.show'), city_street_path(@city, @street) %> |
+<%= link_to t('views.back'), city_streets_path(@city) %>

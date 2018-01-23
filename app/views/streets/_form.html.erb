@@ -1,7 +1,7 @@
 <%= form_with(model: street, url: [city, street], local: true) do |form| %>
   <% if street.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(street.errors.count, "error") %> prohibited this street from being saved:</h2>
+      <h2><%= t('activerecord.errors.template.header', model: Street.model_name.human, count: street.errors.count) %></h2>
 
       <ul>
       <% street.errors.full_messages.each do |message| %>

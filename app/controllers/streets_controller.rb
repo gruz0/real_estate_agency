@@ -17,7 +17,10 @@ class StreetsController < ApplicationController
 
     respond_to do |format|
       if @street.save
-        format.html { redirect_to city_street_path(@city, @street), notice: 'Street was successfully created.' }
+        format.html do
+          redirect_to city_street_path(@city, @street),
+                      notice: t('views.street.flash_messages.street_was_successfully_created')
+        end
         format.json { render :show, status: :created, location: city_street_url(@city, @street) }
       else
         format.html { render :new }
@@ -32,7 +35,10 @@ class StreetsController < ApplicationController
       new_params.delete(:city)
 
       if @street.update(new_params)
-        format.html { redirect_to city_street_path(@city, @street), notice: 'Street was successfully updated.' }
+        format.html do
+          redirect_to city_street_path(@city, @street),
+                      notice: t('views.street.flash_messages.street_was_successfully_updated')
+        end
         format.json { render :show, status: :ok, location: city_street_url(@city, @street) }
       else
         format.html { render :edit }
@@ -44,7 +50,10 @@ class StreetsController < ApplicationController
   def destroy
     @street.destroy
     respond_to do |format|
-      format.html { redirect_to city_streets_url(@city), notice: 'Street was successfully destroyed.' }
+      format.html do
+        redirect_to city_streets_url(@city),
+                    notice: t('views.street.flash_messages.street_was_successfully_destroyed')
+      end
       format.json { head :no_content }
     end
   end

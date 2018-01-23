@@ -60,6 +60,12 @@ RSpec.describe StreetsController, type: :controller do
         post :create, params: { city_id: city.to_param, street: valid_attributes }, session: valid_session
         expect(response).to redirect_to(city_street_path(city, Street.last))
       end
+
+      it 'renders flash notice' do
+        post :create, params: { city_id: city.to_param, street: valid_attributes }, session: valid_session
+        expect(flash[:notice])
+          .to eq(I18n.t('views.street.flash_messages.street_was_successfully_created'))
+      end
     end
 
     context 'with invalid params' do
@@ -89,6 +95,12 @@ RSpec.describe StreetsController, type: :controller do
         put :update, params: { city_id: city.to_param, id: street.to_param, street: valid_attributes }, session: valid_session
         expect(response).to redirect_to(city_street_path(city, street))
       end
+
+      it 'renders flash notice' do
+        put :update, params: { city_id: city.to_param, id: street.to_param, street: valid_attributes }, session: valid_session
+        expect(flash[:notice])
+          .to eq(I18n.t('views.street.flash_messages.street_was_successfully_updated'))
+      end
     end
 
     context 'with invalid params' do
@@ -110,6 +122,12 @@ RSpec.describe StreetsController, type: :controller do
     it 'redirects to the streets list' do
       delete :destroy, params: { city_id: city.to_param, id: street.to_param }, session: valid_session
       expect(response).to redirect_to(city_streets_url(city))
+    end
+
+    it 'renders flash notice' do
+      delete :destroy, params: { city_id: city.to_param, id: street.to_param }, session: valid_session
+      expect(flash[:notice])
+        .to eq(I18n.t('views.street.flash_messages.street_was_successfully_destroyed'))
     end
   end
 end
