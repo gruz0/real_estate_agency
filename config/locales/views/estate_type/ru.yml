@@ -1,0 +1,14 @@
+ru:
+  views:
+    estate_type:
+      index:
+        title: 'Список типов строения'
+        new: 'Новый тип строения'
+      new:
+        title: 'Создание типа строения'
+      edit:
+        title: 'Редактирование типа строения'
+      flash_messages:
+        estate_type_was_successfully_created: 'Тип строения был успешно создан'
+        estate_type_was_successfully_updated: 'Тип строения был успешно обновлён'
+        estate_type_was_successfully_destroyed: 'Тип строения был успешно удалён'

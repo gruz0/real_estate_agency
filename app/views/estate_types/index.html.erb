@@ -1,11 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Estate Types</h1>
+<h1><%= t('views.estate_type.index.title') %></h1>
+
+<%= link_to t('views.estate_type.index.new'), new_estate_type_path %>
 
 <table>
   <thead>
     <tr>
-      <th>Name</th>
+      <th><%= EstateType.human_attribute_name(:id) %></th>
+      <th><%= EstateType.human_attribute_name(:name) %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -13,15 +16,12 @@
   <tbody>
     <% @estate_types.each do |estate_type| %>
       <tr>
+        <td><%= estate_type.id %></td>
         <td><%= estate_type.name %></td>
-        <td><%= link_to 'Show', estate_type %></td>
-        <td><%= link_to 'Edit', edit_estate_type_path(estate_type) %></td>
-        <td><%= link_to 'Destroy', estate_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('views.show'), estate_type %></td>
+        <td><%= link_to t('views.edit'), edit_estate_type_path(estate_type) %></td>
+        <td><%= link_to t('views.destroy'), estate_type, method: :delete, data: { confirm: t('views.are_you_sure') } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Estate Type', new_estate_type_path %>
