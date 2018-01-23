@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong><%= EstateProject.human_attribute_name(:name) %>:</strong>
   <%= @estate_project.name %>
 </p>
 
-<%= link_to 'Edit', edit_estate_project_path(@estate_project) %> |
-<%= link_to 'Back', estate_projects_path %>
+<%= link_to t('views.edit'), edit_estate_project_path(@estate_project) %> |
+<%= link_to t('views.back'), estate_projects_path %>

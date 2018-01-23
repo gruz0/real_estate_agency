@@ -1,0 +1,7 @@
+ru:
+  activerecord:
+    models:
+      estate_project: 'Тип проекта строения'
+    attributes:
+      estate_project:
+        name: 'Название'

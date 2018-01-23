@@ -18,7 +18,10 @@ class EstateProjectsController < ApplicationController
 
     respond_to do |format|
       if @estate_project.save
-        format.html { redirect_to @estate_project, notice: 'Estate project was successfully created.' }
+        format.html do
+          redirect_to @estate_project,
+                      notice: t('views.estate_project.flash_messages.estate_project_was_successfully_created')
+        end
         format.json { render :show, status: :created, location: @estate_project }
       else
         format.html { render :new }
@@ -30,7 +33,10 @@ class EstateProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @estate_project.update(estate_project_params)
-        format.html { redirect_to @estate_project, notice: 'Estate project was successfully updated.' }
+        format.html do
+          redirect_to @estate_project,
+                      notice: t('views.estate_project.flash_messages.estate_project_was_successfully_updated')
+        end
         format.json { render :show, status: :ok, location: @estate_project }
       else
         format.html { render :edit }
@@ -42,7 +48,10 @@ class EstateProjectsController < ApplicationController
   def destroy
     @estate_project.destroy
     respond_to do |format|
-      format.html { redirect_to estate_projects_url, notice: 'Estate project was successfully destroyed.' }
+      format.html do
+        redirect_to estate_projects_url,
+                    notice: t('views.estate_project.flash_messages.estate_project_was_successfully_destroyed')
+      end
       format.json { head :no_content }
     end
   end
