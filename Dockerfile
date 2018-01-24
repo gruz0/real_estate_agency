@@ -1,15 +1,7 @@
-FROM ruby:2.3.5
+FROM gruz0/real_estate_agency:0.1
 MAINTAINER Alexander Kadyrov <gruz0.mail@gmail.com>
 
-RUN apt-get update -qq && \
-    apt-get install -y --no-install-recommends build-essential libpq-dev graphviz graphviz-dev && \
-    rm -rf /var/lib/apt/lists/*
-
-RUN mkdir -p /app
-WORKDIR /app
-
 COPY Gemfile Gemfile.lock /app/
-RUN gem install bundler
 RUN bundle install
 COPY . /app
 
