@@ -1,0 +1,16 @@
+plugins:
+  fixme:
+    enabled: true
+    config:
+      strings:
+      - FIXME
+      - TODO
+
+  markdownlint:
+    enabled: true
+
+  rubocop:
+    enabled: true
+
+  bundler-audit:
+    enabled: true
