@@ -1,6 +1,6 @@
-<h1>Editing <%= "#{@type.capitalize}" %></h1>
+<h1><%= t('views.person.edit.title') %></h1>
 
 <%= render 'form', person: @person %>
 
-<%= link_to 'Show', @person %> |
-<%= link_to 'Back', sti_person_path(@person.type) %>
+<%= link_to t('views.show'), @person %> |
+<%= link_to t('views.back'), sti_person_path(@person.type) %>

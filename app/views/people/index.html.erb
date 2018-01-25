@@ -1,15 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= "#{@type.pluralize.capitalize}" %></h1>
+<h1><%= t('views.person.index.title') %></h1>
+
+<%= link_to t('views.person.index.new'), sti_person_path(@type, nil, :new) %>
 
 <table>
   <thead>
     <tr>
-      <th>Type</th>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Middle name</th>
-      <th>Phone numbers</th>
+      <th><%= Person.human_attribute_name(:id) %></th>
+      <th><%= Person.human_attribute_name(:fullname) %></th>
+      <th><%= Person.human_attribute_name(:phone_numbers) %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,19 +17,13 @@
   <tbody>
     <% @people.each do |person| %>
       <tr>
-        <td><%= person.type %></td>
-        <td><%= person.first_name %></td>
-        <td><%= person.last_name %></td>
-        <td><%= person.middle_name %></td>
+        <td><%= person.id %></td>
+        <td><%= person.fullname %></td>
         <td><%= person.phone_numbers %></td>
-        <td><%= link_to 'Show', sti_person_path(person.type, person) %></td>
-        <td><%= link_to 'Edit', sti_person_path(person.type, person, :edit) %></td>
-        <td><%= link_to 'Destroy', sti_person_path(person.type, person), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('views.show'), sti_person_path(person.type, person) %></td>
+        <td><%= link_to t('views.edit'), sti_person_path(person.type, person, :edit) %></td>
+        <td><%= link_to t('views.destroy'), sti_person_path(person.type, person), method: :delete, data: { confirm: t('views.are_you_sure') } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to "New #{@type}", sti_person_path(@type, nil, :new) %>

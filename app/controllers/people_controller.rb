@@ -21,7 +21,10 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.save
-        format.html { redirect_to @person, notice: 'Person was successfully created.' }
+        format.html do
+          redirect_to @person,
+                      notice: t('views.person.flash_messages.person_was_successfully_created')
+        end
         format.json { render :show, status: :created, location: @person }
       else
         format.html { render :new }
@@ -33,7 +36,10 @@ class PeopleController < ApplicationController
   def update
     respond_to do |format|
       if @person.update(person_params)
-        format.html { redirect_to sti_person_path(@person.type, @person), notice: 'Person was successfully updated.' }
+        format.html do
+          redirect_to sti_person_path(@person.type, @person),
+                      notice: t('views.person.flash_messages.person_was_successfully_updated')
+        end
         format.json { render :show, status: :ok, location: @person }
       else
         format.html { render :edit }
@@ -45,7 +51,10 @@ class PeopleController < ApplicationController
   def destroy
     @person.destroy
     respond_to do |format|
-      format.html { redirect_to people_url, notice: 'Person was successfully destroyed.' }
+      format.html do
+        redirect_to people_url,
+                    notice: t('views.person.flash_messages.person_was_successfully_destroyed')
+      end
       format.json { head :no_content }
     end
   end

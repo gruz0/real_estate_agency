@@ -1,0 +1,12 @@
+ru:
+  activerecord:
+    models:
+      person: 'Пользователь'
+    attributes:
+      person:
+        type: 'Тип'
+        fullname: 'Ф.И.О.'
+        last_name: 'Фамилия'
+        first_name: 'Имя'
+        middle_name: 'Отчество'
+        phone_numbers: 'Телефоны'

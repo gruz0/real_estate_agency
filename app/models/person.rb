@@ -12,4 +12,8 @@ class Person < ApplicationRecord
       TYPES
     end
   end
+
+  def fullname
+    "#{last_name} #{first_name} #{middle_name}".strip
+  end
 end
