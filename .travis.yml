@@ -1,3 +1,7 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID="e41b23cbcad58898c8f2d27aeb89b246db9a0b70345ae5472561c1c04cadd128"
+
 dist: trusty
 group: deprecated-2017Q4
 sudo: required
@@ -17,6 +21,9 @@ before_script:
   - sudo service mysql stop
   - docker-compose up -d --build
   - sleep 10
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 script:
   - docker-compose exec app cp .env.sample .env
@@ -28,6 +35,7 @@ script:
   - docker-compose exec app bundle exec rubocop -c .rubocop.yml --force-exclusion
 
 after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   - docker-compose down
 
 services:
