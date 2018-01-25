@@ -13,15 +13,14 @@ cache:
 
 bundler_args: --without production development --path $HOME/bundle
 
-before_install:
+before_script:
   - sudo service mysql stop
   - docker-compose up -d --build
-
-before_script:
-  - docker-compose exec app cp .env.sample .env
-  - docker-compose exec app rake db:drop db:create db:test:load
+  - sleep 10
 
 script:
+  - docker-compose exec app cp .env.sample .env
+  - docker-compose exec app rake db:drop db:create db:test:load
   - docker-compose exec app rspec
   - docker-compose exec app bundle exec brakeman -A -z
   - docker-compose exec app bundle exec bundle-audit update

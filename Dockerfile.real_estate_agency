@@ -1,0 +1,20 @@
+FROM ruby:2.3.5
+MAINTAINER Alexander Kadyrov <gruz0.mail@gmail.com>
+
+RUN echo '\
+Dpkg {\n\
+  Cache "";\n\
+  Cache::archives "";\n\
+  Post-Invoke {"rm -rf /var/lib/apt/lists";};\n\
+}\n\
+APT {\n\
+  Install-Recommends "false";\n\
+}\n\
+DSELECT::Clean "always";' >> /etc/apt/apt.conf.d/docker-no-cache
+
+RUN apt-get update -qq && \
+    apt-get install -y build-essential libpq-dev graphviz graphviz-dev && \
+    gem install bundler && \
+    mkdir /app
+
+WORKDIR /app
