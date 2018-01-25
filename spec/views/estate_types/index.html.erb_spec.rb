@@ -3,10 +3,7 @@ require 'rails_helper'
 RSpec.describe 'estate_types/index', type: :view do
   let(:estate_type1) { EstateType.create!(name: 'Квартира') }
   let(:estate_type2) { EstateType.create!(name: 'Дом') }
-
-  before(:each) do
-    @estate_types = assign(:estate_types, [estate_type1, estate_type2])
-  end
+  let!(:estate_types) { assign(:estate_types, [estate_type1, estate_type2]) }
 
   it 'renders a list of estate_types' do
     render
@@ -28,7 +25,7 @@ RSpec.describe 'estate_types/index', type: :view do
       end
     end
 
-    @estate_types.each do |estate_type|
+    estate_types.each do |estate_type|
       expect(response.body).to have_link(I18n.t('views.show'), href: estate_type_path(estate_type))
       expect(response.body).to have_link(I18n.t('views.edit'), href: edit_estate_type_path(estate_type))
       expect(response.body).to have_link(I18n.t('views.destroy'), href: estate_type_path(estate_type))

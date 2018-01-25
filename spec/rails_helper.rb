@@ -25,7 +25,7 @@ RSpec.configure do |config|
     FactoryBot.lint
   end
 
-  config.before(:each) do
+  config.before do
     DatabaseCleaner.strategy = :transaction
   end
 
@@ -35,16 +35,16 @@ RSpec.configure do |config|
 
   # This block must be here, do not combine with the other `before(:each)` block.
   # This makes it so Capybara can see the database.
-  config.before(:each) do
+  config.before do
     DatabaseCleaner.start
   end
 
-  config.after(:each) do
+  config.after do
     DatabaseCleaner.clean
   end
 
-  config.before(:all)  { FFaker::Random.seed = config.seed }
-  config.before(:each) { FFaker::Random.reset! }
+  config.before(:all) { FFaker::Random.seed = config.seed }
+  config.before { FFaker::Random.reset! }
 end
 
 Shoulda::Matchers.configure do |config|

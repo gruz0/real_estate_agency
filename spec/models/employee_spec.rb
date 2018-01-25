@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Employee, type: :model do
-  it 'has a valid factory' do
-    expect(build(:employee)).to be_valid
-  end
+  let(:person) { build(:employee) }
 
-  let(:subject) { build(:employee) }
+  it 'has a valid factory' do
+    expect(person).to be_valid
+  end
 
   describe 'ActiveModel validations' do
     include_examples :person_active_model_validations
@@ -13,7 +13,7 @@ RSpec.describe Employee, type: :model do
 
   describe 'ActiveRecord associations' do
     # Associations
-    it { expect(subject).to have_many(:estate).dependent(:destroy) }
+    it { expect(person).to have_many(:estate).dependent(:destroy) }
 
     include_examples :person_active_record_associations
   end

@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'people/new', type: :view do
-  before(:each) do
-    assign(:type, 'Client')
-    @client = assign(:person, build(:client))
-  end
+  let(:client) { build(:client) }
 
   it 'renders new person form' do
+    assign(:type, 'Client')
+    assign(:person, client)
+
     render
 
     assert_select 'h1', text: I18n.t('views.person.new.title'), count: 1
@@ -24,6 +24,6 @@ RSpec.describe 'people/new', type: :view do
     end
 
     expect(response.body).to have_button(I18n.t('helpers.submit.create'))
-    expect(response.body).to have_link(I18n.t('views.back'), href: sti_person_path(@client.type))
+    expect(response.body).to have_link(I18n.t('views.back'), href: sti_person_path(client.type))
   end
 end

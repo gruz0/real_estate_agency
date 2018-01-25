@@ -36,6 +36,7 @@ group :test do
   gem 'bundle-audit', require: false
   gem 'capybara'
   gem 'rubocop', require: false
+  gem 'rubocop-rspec'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 3.1'
 end

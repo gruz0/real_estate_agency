@@ -3,12 +3,11 @@ require 'rails_helper'
 RSpec.describe 'estate_projects/index', type: :view do
   let(:estate_project1) { EstateProject.create!(name: 'Уральский') }
   let(:estate_project2) { EstateProject.create!(name: 'Ленинградский') }
-
-  before(:each) do
-    @estate_projects = assign(:estate_projects, [estate_project1, estate_project2])
-  end
+  let(:estate_projects) { [estate_project1, estate_project2] }
 
   it 'renders a list of estate_projects' do
+    assign(:estate_projects, estate_projects)
+
     render
 
     assert_select 'h1', text: I18n.t('views.estate_project.index.title'), count: 1
@@ -28,7 +27,7 @@ RSpec.describe 'estate_projects/index', type: :view do
       end
     end
 
-    @estate_projects.each do |estate_project|
+    estate_projects.each do |estate_project|
       expect(response.body).to have_link(I18n.t('views.show'), href: estate_project_path(estate_project))
       expect(response.body).to have_link(I18n.t('views.edit'), href: edit_estate_project_path(estate_project))
       expect(response.body).to have_link(I18n.t('views.destroy'), href: estate_project_path(estate_project))

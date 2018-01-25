@@ -2,27 +2,17 @@ require 'rails_helper'
 
 RSpec.describe 'people/index', type: :view do
   let(:client1) do
-    Client.create!(
-      last_name: 'Иванов',
-      first_name: 'Иван',
-      middle_name: 'Иванович',
-      phone_numbers: '+79001112233'
-    )
+    create(:client, last_name: 'Иванов', first_name: 'Иван', middle_name: 'Иванович', phone_numbers: '+79001112233')
   end
   let(:client2) do
-    Client.create!(
-      last_name: 'Петров',
-      first_name: 'Сергей',
-      phone_numbers: '+79993334455'
-    )
+    create(:client, last_name: 'Петров', first_name: 'Сергей', phone_numbers: '+79993334455')
   end
-
-  before(:each) do
-    assign(:type, 'Client')
-    @clients = assign(:people, [client1, client2])
-  end
+  let(:clients) { [client1, client2] }
 
   it 'renders a list of people' do
+    assign(:type, 'Client')
+    assign(:people, clients)
+
     render
 
     assert_select 'h1', text: I18n.t('views.person.index.title'), count: 1
@@ -46,7 +36,7 @@ RSpec.describe 'people/index', type: :view do
       end
     end
 
-    @clients.each do |client|
+    clients.each do |client|
       expect(response.body).to have_link(I18n.t('views.show'), href: sti_person_path(client.type, client))
       expect(response.body).to have_link(I18n.t('views.edit'), href: sti_person_path(client.type, client, :edit))
       expect(response.body).to have_link(I18n.t('views.destroy'), href: sti_person_path(client.type, client))

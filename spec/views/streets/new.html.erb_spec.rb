@@ -4,13 +4,11 @@ RSpec.describe 'streets/new', type: :view do
   let(:city) { create(:city) }
   let(:street) { build(:street, city: city) }
 
-  before(:each) do
+  it 'renders new street form' do
     assign(:action, :post)
     assign(:city, city)
     assign(:street, street)
-  end
 
-  it 'renders new street form' do
     render
 
     assert_select 'h1', text: I18n.t('views.street.new.title', city: city.name), count: 1

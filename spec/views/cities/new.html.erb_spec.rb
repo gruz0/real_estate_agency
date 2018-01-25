@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'cities/new', type: :view do
-  before(:each) do
-    assign(:city, City.new(name: 'Нефтеюганск'))
-  end
-
   it 'renders new city form' do
+    assign(:city, build(:city))
+
     render
 
     assert_select 'h1', text: I18n.t('views.city.new.title'), count: 1

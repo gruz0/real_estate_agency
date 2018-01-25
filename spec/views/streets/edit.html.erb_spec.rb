@@ -4,13 +4,11 @@ RSpec.describe 'streets/edit', type: :view do
   let(:city) { create(:city) }
   let(:street) { create(:street, city: city) }
 
-  before(:each) do
+  it 'renders the edit street form' do
     assign(:action, :put)
     assign(:city, city)
     assign(:street, street)
-  end
 
-  it 'renders the edit street form' do
     render
 
     assert_select 'h1', text: I18n.t('views.street.edit.title', city: city.name), count: 1

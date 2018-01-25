@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'estate_materials/new', type: :view do
-  before(:each) do
-    assign(:estate_material, EstateMaterial.new(name: 'Деревянный'))
-  end
-
   it 'renders new estate_material form' do
+    assign(:estate_material, build(:estate_material))
+
     render
 
     assert_select 'h1', text: I18n.t('views.estate_material.new.title'), count: 1

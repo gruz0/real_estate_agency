@@ -3,12 +3,11 @@ require 'rails_helper'
 RSpec.describe 'cities/index', type: :view do
   let(:city1) { create(:city, name: 'Нефтеюганск') }
   let(:city2) { create(:city, name: 'Сургут') }
-
-  before(:each) do
-    @cities = assign(:cities, [city1, city2])
-  end
+  let(:cities) { [city1, city2] }
 
   it 'renders a list of cities' do
+    assign(:cities, cities)
+
     render
 
     assert_select 'h1', text: I18n.t('views.city.index.title'), count: 1
@@ -28,7 +27,7 @@ RSpec.describe 'cities/index', type: :view do
       end
     end
 
-    @cities.each do |city|
+    cities.each do |city|
       expect(response.body).to have_link(I18n.t('views.show'), href: city_path(city))
       expect(response.body).to have_link(I18n.t('views.edit'), href: edit_city_path(city))
       expect(response.body).to have_link(I18n.t('views.destroy'), href: city_path(city))

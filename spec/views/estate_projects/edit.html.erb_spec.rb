@@ -1,16 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe 'estate_projects/edit', type: :view do
-  before(:each) do
-    @estate_project = assign(:estate_project, EstateProject.create!(name: 'Уральский'))
-  end
+  let(:estate_project) { create(:estate_project) }
 
   it 'renders the edit estate_project form' do
+    assign(:estate_project, estate_project)
+
     render
 
     assert_select 'h1', text: I18n.t('views.estate_project.edit.title'), count: 1
 
-    assert_select 'form[action=?][method=?]', estate_project_path(@estate_project), 'post' do
+    assert_select 'form[action=?][method=?]', estate_project_path(estate_project), 'post' do
       assert_select 'input[name=?]', 'estate_project[name]'
     end
 

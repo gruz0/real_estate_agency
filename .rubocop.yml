@@ -1,3 +1,5 @@
+require: rubocop-rspec
+
 AllCops:
   TargetRubyVersion: 2.3
   DisplayCopNames: true
@@ -63,3 +65,17 @@ Style/MixinUsage:
 #
 Rails:
   Enabled: true
+
+#
+# RSpec
+#
+RSpec/MultipleExpectations:
+  Max: 6
+
+RSpec/ExampleLength:
+  Exclude:
+    - spec/views/**/*.rb
+    - spec/support/shared_examples/**/*.rb
+
+RSpec/NestedGroups:
+  Max: 4

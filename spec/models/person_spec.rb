@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Person, type: :model do
-  it 'has a valid factory' do
-    expect(build(:person)).to be_valid
-  end
+  let(:person) { build(:person) }
 
-  let(:subject) { build(:person) }
+  it 'has a valid factory' do
+    expect(person).to be_valid
+  end
 
   describe 'ActiveModel validations' do
     include_examples :person_active_model_validations
@@ -13,18 +13,18 @@ RSpec.describe Person, type: :model do
 
   describe 'ActiveRecord associations' do
     # Associations
-    it { expect(subject).not_to have_many(:estate) }
+    it { expect(person).not_to have_many(:estate) }
 
     include_examples :person_active_record_associations
   end
 
   describe 'public class methods' do
-    context 'responds to its methods' do
+    describe 'responds to its methods' do
       it { expect(Person).to respond_to(:types) }
     end
 
-    context 'executes methods correctly' do
-      context '#types' do
+    describe 'executes methods correctly' do
+      describe '#types' do
         it 'returns available types' do
           expect(Person.types).to eq(%w[Employee Client])
         end
