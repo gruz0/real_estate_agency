@@ -16,10 +16,3 @@ plugins:
 
   bundler-audit:
     enabled: true
-
-  duplication:
-    enabled: true
-    config:
-      languages:
-        ruby:
-          mass_threshold: 40
