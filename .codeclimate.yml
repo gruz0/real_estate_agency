@@ -22,4 +22,4 @@ plugins:
     config:
       languages:
         ruby:
-          mass_threshold: 30
+          mass_threshold: 40
