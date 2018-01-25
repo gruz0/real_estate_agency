@@ -3,8 +3,8 @@ plugins:
     enabled: true
     config:
       strings:
-      - FIXME
-      - TODO
+      - # FIXME:
+      - # TODO:
 
   markdownlint:
     enabled: true
@@ -14,3 +14,11 @@ plugins:
 
   bundler-audit:
     enabled: true
+
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+        ruby:
+          mass_threshold: 10

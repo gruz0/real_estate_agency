@@ -73,6 +73,7 @@ The first one uses by `docker-compose` to build development environment
 
 To build a new version of public image you should:
 
-1. Run `make docker_build` (ensure that you increment tag version in `Makefile` if some changes happened)
+1. Run `make docker_build`
+(ensure that you increment tag version in `Makefile` if some changes happened)
 1. Run `docker login` with username and password from hub.docker.com
 1. Run `make docker_push` to publish container in hub.docker.com
