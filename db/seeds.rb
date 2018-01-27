@@ -29,7 +29,7 @@ streets = ['1-й мкрн', '2-й мкрн', '3-й мкрн', 'ул. Ленин�
 end
 
 addresses = ['1', '3а', '17/3'].map do |building_number|
-  Address.create!(street: streets.sample, building_number: building_number, apartment_number: rand(100).to_s)
+  Address.create!(street: streets.sample, building_number: building_number)
 end
 
 3.times do |_|
@@ -41,6 +41,10 @@ end
     estate_type: estate_types.sample,
     estate_project: estate_projects.sample,
     estate_material: estate_materials.sample,
+    floor: rand(1..5),
+    number_of_floors: rand(5..9),
+    number_of_rooms: [nil, rand(1..4)].sample,
+    apartment_number: rand(100).to_s,
     price: rand(30_000.00..99_000.99),
     status: :active
   )
@@ -55,6 +59,10 @@ end
     estate_type: estate_types.sample,
     estate_project: estate_projects.sample,
     estate_material: estate_materials.sample,
+    floor: [nil, rand(1..5)].sample,
+    number_of_floors: [nil, rand(5..9)].sample,
+    number_of_rooms: rand(1..4),
+    apartment_number: rand(100).to_s,
     price: rand(30_000.00..99_000.99),
     status: :archived
   )

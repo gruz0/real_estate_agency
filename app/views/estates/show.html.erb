@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= Estate.human_attribute_name(:deal_type) %>:</strong>
+  <%= @estate.deal_type %>
+</p>
+
+<p>
+  <strong><%= Estate.human_attribute_name(:address) %>:</strong>
+  <%= @estate.address.full_name %>
+</p>
+
+<p>
+  <strong><%= Estate.human_attribute_name(:price) %>:</strong>
+  <%= @estate.price %>
+</p>
+
+<p>
+  <strong><%= Estate.human_attribute_name(:client) %>:</strong>
+  <%= person_fullname(@estate.client) %>
+</p>
+
+<p>
+  <strong><%= Person.human_attribute_name(:phone_numbers) %>:</strong>
+  <%= @estate.client.phone_numbers %>
+</p>
+
+<p>
+  <strong><%= Estate.human_attribute_name(:employee) %>:</strong>
+  <%= person_fullname(@estate.employee) %>
+</p>
+
+<p>
+  <strong><%= EstateType.model_name.human %>:</strong>
+  <%= @estate.estate_type.name %>
+</p>
+
+<p>
+  <strong><%= EstateProject.model_name.human %>:</strong>
+  <%= @estate.estate_project.name %>
+</p>
+
+<p>
+  <strong><%= EstateMaterial.model_name.human %>:</strong>
+  <%= @estate.estate_material.name %>
+</p>
+
+<p>
+  <strong><%= Estate.human_attribute_name(:number_of_rooms) %>:</strong>
+  <%= number_of_rooms_for(@estate) %>
+</p>
+
+<p>
+  <strong><%= Estate.human_attribute_name(:floor) %>:</strong>
+  <%= number_of_floors_for(@estate) %>
+</p>
+
+<p>
+  <strong><%= Estate.human_attribute_name(:total_square_meters) %>:</strong>
+  <%= @estate.total_square_meters %>
+</p>
+
+<p>
+  <strong><%= Estate.human_attribute_name(:kitchen_square_meters) %>:</strong>
+  <%= @estate.kitchen_square_meters %>
+</p>
+
+<p>
+  <strong><%= Estate.human_attribute_name(:description) %>:</strong>
+  <%= @estate.description %>
+</p>
+
+<%= link_to t('views.edit'), edit_estate_path(@estate) %> |
+<%= link_to t('views.back'), estates_path %>

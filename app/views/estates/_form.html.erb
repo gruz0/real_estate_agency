@@ -1,0 +1,102 @@
+<%= form_with(model: estate, local: true) do |form| %>
+  <% if estate.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= t('activerecord.errors.template.header', model: Estate.model_name.human, count: estate.errors.count) %></h2>
+
+      <ul>
+      <% estate.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :deal_type %>
+    <%= form.select :deal_type, Estate.deal_types.map { |dt| [dt.to_s.humanize, dt.to_s.downcase] }, {} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :client %>
+    <%= form.select :client, Client.all.map { |c| [person_fullname(c), c.id] }, {} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :employee %>
+    <%= form.select :employee, Employee.all.map { |e| [person_fullname(e), e.id] }, {} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %>
+    <%= form.select :city, City.all.map { |c| [c.name, c.id] }, {} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :street%>
+    <%= form.select :street, Street.all.map { |s| [s.name, s.id] }, {} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :building_number %>
+    <%= form.text_field :building_number, id: :estate_building_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :apartment_number %>
+    <%= form.text_field :apartment_number, id: :estate_apartment_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :estate_type %>
+    <%= form.select :estate_type, EstateType.all.map { |et| [et.name, et.id] }, {} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :estate_project %>
+    <%= form.select :estate_project, EstateProject.all.map { |ep| [ep.name, ep.id] }, {} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :estate_material %>
+    <%= form.select :estate_material, EstateMaterial.all.map { |em| [em.name, em.id] }, {} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :number_of_rooms %>
+    <%= form.text_field :number_of_rooms, id: :estate_number_of_rooms %>
+  </div>
+
+  <div class="field">
+    <%= form.label :floor %>
+    <%= form.text_field :floor, id: :estate_floor %>
+  </div>
+
+  <div class="field">
+    <%= form.label :number_of_floors %>
+    <%= form.text_field :number_of_floors, id: :estate_number_of_floors %>
+  </div>
+
+  <div class="field">
+    <%= form.label :total_square_meters %>
+    <%= form.text_field :total_square_meters, id: :estate_total_square_meters %>
+  </div>
+
+  <div class="field">
+    <%= form.label :kitchen_square_meters %>
+    <%= form.text_field :kitchen_square_meters, id: :estate_kitchen_square_meters %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.text_field :price, id: :estate_price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description, id: :estate_description %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :cities do
     resources :streets
   end
+  resources :estates
 
   root 'people#index'
 end

@@ -22,6 +22,7 @@ class CreateEstates < ActiveRecord::Migration[5.1]
       t.float :total_square_meters
       t.float :kitchen_square_meters
       t.string :description
+      t.string :apartment_number
       t.decimal :price, null: false, index: true, precision: 12, scale: 2
       t.integer :status, null: false, index: true, limit: 1, default: 1
 

@@ -18,7 +18,7 @@
     <% @people.each do |person| %>
       <tr>
         <td><%= person.id %></td>
-        <td><%= person.fullname %></td>
+        <td><%= person_fullname(person) %></td>
         <td><%= person.phone_numbers %></td>
         <td><%= link_to t('views.show'), sti_person_path(person.type, person) %></td>
         <td><%= link_to t('views.edit'), sti_person_path(person.type, person, :edit) %></td>

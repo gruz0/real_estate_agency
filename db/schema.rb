@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20180117121910) do
   create_table "addresses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "street_id", null: false
     t.string "building_number", null: false
-    t.string "apartment_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["building_number"], name: "index_addresses_on_building_number"
@@ -64,6 +63,7 @@ ActiveRecord::Schema.define(version: 20180117121910) do
     t.float "total_square_meters", limit: 24
     t.float "kitchen_square_meters", limit: 24
     t.string "description"
+    t.string "apartment_number"
     t.decimal "price", precision: 12, scale: 2, null: false
     t.integer "status", limit: 1, default: 1, null: false
     t.datetime "created_at", null: false

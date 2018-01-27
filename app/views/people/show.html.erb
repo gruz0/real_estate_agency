@@ -2,12 +2,12 @@
 
 <p>
   <strong><%= Person.human_attribute_name(:fullname) %>:</strong>
-  <%= @person.fullname %>
+  <%= person_fullname(@person) %>
 </p>
 
 <p>
   <strong><%= Person.human_attribute_name(:phone_numbers) %>:</strong>
-  <%= @person.phone_numbers%>
+  <%= @person.phone_numbers %>
 </p>
 
 <%= link_to t('views.edit'), sti_person_path(@person.type, @person, :edit) %> |

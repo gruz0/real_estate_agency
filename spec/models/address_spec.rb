@@ -12,12 +12,8 @@ RSpec.describe Address, type: :model do
     it { expect(address).to validate_presence_of(:building_number).with_message(I18n.t('errors.messages.blank')) }
     it { expect(address).not_to validate_uniqueness_of(:building_number) }
 
-    it { expect(address).not_to validate_presence_of(:apartment_number) }
-    it { expect(address).not_to validate_uniqueness_of(:apartment_number) }
-
     # Format validations
     it { expect(address).to allow_value('7а').for(:building_number) }
-    it { expect(address).to allow_value('55').for(:apartment_number) }
 
     # Inclusion/acceptance of values
     it { expect(address).to validate_length_of(:building_number).is_at_least(1) }
@@ -31,9 +27,6 @@ RSpec.describe Address, type: :model do
     # Database columns/indexes
     it { expect(address).to have_db_column(:building_number).of_type(:string).with_options(null: false) }
     it { expect(address).to have_db_index(:building_number).unique(false) }
-
-    it { expect(address).to have_db_column(:apartment_number).of_type(:string).with_options(null: true) }
-    it { expect(address).not_to have_db_index(:apartment_number) }
 
     it { expect(address).to have_db_column(:street_id).of_type(:integer).with_options(null: false) }
     it { expect(address).to have_db_index(:street_id) }

@@ -1,4 +1,6 @@
 class Estate < ApplicationRecord
+  DEAL_TYPES = %i[sale rent].freeze
+
   scope :sales, -> { where(deal_type: :sale) }
   scope :rents, -> { where(deal_type: :rent) }
 
@@ -20,4 +22,19 @@ class Estate < ApplicationRecord
   validates :estate_project, presence: true
   validates :estate_material, presence: true
   validates :price, presence: true, numericality: { greater_than: 0 }
+  validates :number_of_rooms, allow_blank: true, numericality: { greater_than: 0 }
+  validates :floor, allow_blank: true, numericality: { greater_than: 0 }
+  validates :number_of_floors, allow_blank: true, numericality: { greater_than: 0 }
+  validates :total_square_meters, allow_blank: true, numericality: { greater_than: 0 }
+  validates :kitchen_square_meters, allow_blank: true, numericality: { greater_than: 0 }
+
+  class << self
+    def deal_types
+      DEAL_TYPES
+    end
+  end
+
+  def building_number
+    address&.building_number
+  end
 end

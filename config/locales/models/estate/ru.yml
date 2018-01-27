@@ -1,0 +1,24 @@
+ru:
+  activerecord:
+    models:
+      estate: 'Объект'
+    attributes:
+      estate:
+        deal_type: 'Тип сделки'
+        price: 'Цена'
+        client: 'Клиент'
+        employee: 'Риэлтор'
+        address: 'Адрес'
+        city: 'Город'
+        street: 'Улица'
+        building_number: 'Номер строения'
+        apartment_number: 'Номер квартиры'
+        estate_type: 'Тип'
+        estate_project: 'Проект'
+        estate_material: 'Материал'
+        floor: 'Этаж'
+        number_of_floors: 'Кол-во этажей'
+        number_of_rooms: 'Комнаты'
+        total_square_meters: 'Общая площадь'
+        kitchen_square_meters: 'Площадь кухни'
+        description: 'Описание объекта'
