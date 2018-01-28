@@ -10,3 +10,5 @@ ru:
         first_name: 'Имя'
         middle_name: 'Отчество'
         phone_numbers: 'Телефоны'
+        created_at: 'Дата создания'
+        updated_at: 'Дата обновления'

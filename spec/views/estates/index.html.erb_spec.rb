@@ -26,11 +26,11 @@ RSpec.describe 'estates/index', type: :view do
       estate_type: estate_type,
       estate_project: estate_project,
       estate_material: estate_material,
-      number_of_rooms: 3,
+      number_of_rooms: 8,
       floor: 4,
       number_of_floors: 10,
       total_square_meters: 122.1,
-      kitchen_square_meters: 17.8,
+      kitchen_square_meters: 17.9,
       description: 'Описание объекта',
       price: 99_999.99
     }
@@ -55,17 +55,20 @@ RSpec.describe 'estates/index', type: :view do
         assert_select 'th', text: Estate.human_attribute_name(:price), count: 1
         assert_select 'th', text: Person.human_attribute_name(:phone_numbers), count: 1
         assert_select 'th', text: Estate.human_attribute_name(:employee), count: 1
+        assert_select 'th', text: Estate.human_attribute_name(:created_at), count: 1
+        assert_select 'th', text: Estate.human_attribute_name(:updated_at), count: 1
       end
 
       assert_select 'tbody' do
         assert_select 'tr', count: 1
         assert_select 'tr>td', text: 'Нефтеюганск, Ленина, 9а'.to_s, count: 1
         assert_select 'tr>td', text: 'Уральский'.to_s, count: 1
-        assert_select 'tr>td', text: '3'.to_s, count: 1
+        assert_select 'tr>td', text: '8'.to_s, count: 1
         assert_select 'tr>td', text: '4/10'.to_s, count: 1
         assert_select 'tr>td', text: '99999.99'.to_s, count: 1
         assert_select 'tr>td', text: '+79991112233'.to_s, count: 1
         assert_select 'tr>td', text: 'Ли М.П.'.to_s, count: 1
+        assert_select 'tr td', text: estate1.created_at.to_s, count: 2
       end
     end
 

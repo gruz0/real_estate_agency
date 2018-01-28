@@ -24,6 +24,8 @@ RSpec.describe 'people/index', type: :view do
         assert_select 'th', text: Person.human_attribute_name(:id), count: 1
         assert_select 'th', text: Person.human_attribute_name(:fullname), count: 1
         assert_select 'th', text: Person.human_attribute_name(:phone_numbers), count: 1
+        assert_select 'th', text: Person.human_attribute_name(:created_at), count: 1
+        assert_select 'th', text: Person.human_attribute_name(:updated_at), count: 1
       end
 
       assert_select 'tbody' do
@@ -33,6 +35,8 @@ RSpec.describe 'people/index', type: :view do
 
         assert_select 'tr>td', text: 'Петров Сергей'.to_s, count: 1
         assert_select 'tr>td', text: '+79993334455'.to_s, count: 1
+
+        assert_select 'tr td', text: client1.created_at.to_s, count: 4
       end
     end
 

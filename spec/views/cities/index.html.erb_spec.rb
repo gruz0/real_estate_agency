@@ -18,12 +18,15 @@ RSpec.describe 'cities/index', type: :view do
       assert_select 'thead' do
         assert_select 'th', text: City.human_attribute_name(:id), count: 1
         assert_select 'th', text: City.human_attribute_name(:name), count: 1
+        assert_select 'th', text: City.human_attribute_name(:created_at), count: 1
+        assert_select 'th', text: City.human_attribute_name(:updated_at), count: 1
       end
 
       assert_select 'tbody' do
         assert_select 'tr', count: 2
         assert_select 'tr td', text: 'Нефтеюганск', count: 1
         assert_select 'tr td', text: 'Сургут', count: 1
+        assert_select 'tr td', text: city1.created_at.to_s, count: 4
       end
     end
 

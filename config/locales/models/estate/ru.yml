@@ -22,3 +22,5 @@ ru:
         total_square_meters: 'Общая площадь'
         kitchen_square_meters: 'Площадь кухни'
         description: 'Описание объекта'
+        created_at: 'Дата создания'
+        updated_at: 'Дата обновления'

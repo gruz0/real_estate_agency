@@ -16,12 +16,15 @@ RSpec.describe 'estate_types/index', type: :view do
       assert_select 'thead' do
         assert_select 'th', text: EstateType.human_attribute_name(:id), count: 1
         assert_select 'th', text: EstateType.human_attribute_name(:name), count: 1
+        assert_select 'th', text: EstateType.human_attribute_name(:created_at), count: 1
+        assert_select 'th', text: EstateType.human_attribute_name(:updated_at), count: 1
       end
 
       assert_select 'tbody' do
         assert_select 'tr', count: 2
         assert_select 'tr>td', text: 'Квартира'.to_s, count: 1
         assert_select 'tr>td', text: 'Дом'.to_s, count: 1
+        assert_select 'tr td', text: estate_type1.created_at.to_s, count: 4
       end
     end
 
