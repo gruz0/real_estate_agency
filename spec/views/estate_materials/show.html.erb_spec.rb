@@ -9,6 +9,8 @@ RSpec.describe 'estate_materials/show', type: :view do
     render
 
     expect(rendered).to match(/Деревянный/)
+    expect(rendered).to match(/#{estate_material.created_at}/)
+    expect(rendered).to match(/#{estate_material.updated_at}/)
 
     expect(response.body).to have_link(I18n.t('views.edit'), href: edit_estate_material_path(estate_material))
     expect(response.body).to have_link(I18n.t('views.back'), href: estate_materials_path)

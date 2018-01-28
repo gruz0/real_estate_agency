@@ -70,5 +70,15 @@
   <%= @estate.description %>
 </p>
 
+<p>
+  <strong><%= Estate.human_attribute_name(:created_at) %>:</strong>
+  <%= @estate.created_at %>
+</p>
+
+<p>
+  <strong><%= Estate.human_attribute_name(:updated_at) %>:</strong>
+  <%= @estate.updated_at %>
+</p>
+
 <%= link_to t('views.edit'), edit_estate_path(@estate) %> |
 <%= link_to t('views.back'), estates_path %>

@@ -5,5 +5,15 @@
   <%= @city.name %>
 </p>
 
+<p>
+  <strong><%= City.human_attribute_name(:created_at) %>:</strong>
+  <%= @city.created_at %>
+</p>
+
+<p>
+  <strong><%= City.human_attribute_name(:updated_at) %>:</strong>
+  <%= @city.updated_at %>
+</p>
+
 <%= link_to t('views.edit'), edit_city_path(@city) %> |
 <%= link_to t('views.back'), cities_path %>

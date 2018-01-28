@@ -10,5 +10,15 @@
   <%= @person.phone_numbers %>
 </p>
 
+<p>
+  <strong><%= Person.human_attribute_name(:created_at) %>:</strong>
+  <%= @person.created_at %>
+</p>
+
+<p>
+  <strong><%= Person.human_attribute_name(:updated_at) %>:</strong>
+  <%= @person.updated_at %>
+</p>
+
 <%= link_to t('views.edit'), sti_person_path(@person.type, @person, :edit) %> |
 <%= link_to t('views.back'), sti_person_path(@person.type) %>

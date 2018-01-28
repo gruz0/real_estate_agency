@@ -14,6 +14,8 @@ RSpec.describe 'people/show', type: :view do
     expect(rendered).to match(/Олег/)
     expect(rendered).to match(/Сергеевич/)
     expect(rendered).to match(/\+79991112233/)
+    expect(rendered).to match(/#{client.created_at}/)
+    expect(rendered).to match(/#{client.updated_at}/)
 
     expect(response.body).to have_link(I18n.t('views.edit'), href: sti_person_path(client.type, client, :edit))
     expect(response.body).to have_link(I18n.t('views.back'), href: sti_person_path(client.type))

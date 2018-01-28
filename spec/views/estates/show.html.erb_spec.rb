@@ -54,6 +54,8 @@ RSpec.describe 'estates/show', type: :view do
     expect(rendered).to match(/122\.1/)
     expect(rendered).to match(/17\.8/)
     expect(rendered).to match(/Описание объекта/)
+    expect(rendered).to match(/#{estate.created_at}/)
+    expect(rendered).to match(/#{estate.updated_at}/)
 
     expect(response.body).to have_link(I18n.t('views.edit'), href: edit_estate_path(estate))
     expect(response.body).to have_link(I18n.t('views.back'), href: estates_path)

@@ -10,5 +10,15 @@
   <%= @street.name %>
 </p>
 
+<p>
+  <strong><%= Street.human_attribute_name(:created_at) %>:</strong>
+  <%= @street.created_at %>
+</p>
+
+<p>
+  <strong><%= Street.human_attribute_name(:updated_at) %>:</strong>
+  <%= @street.updated_at %>
+</p>
+
 <%= link_to t('views.edit'), edit_city_street_path(@city, @street) %> |
 <%= link_to t('views.back'), city_streets_path(@city) %>

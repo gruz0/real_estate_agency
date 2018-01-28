@@ -5,5 +5,15 @@
   <%= @estate_material.name %>
 </p>
 
+<p>
+  <strong><%= EstateMaterial.human_attribute_name(:created_at) %>:</strong>
+  <%= @estate_material.created_at %>
+</p>
+
+<p>
+  <strong><%= EstateMaterial.human_attribute_name(:updated_at) %>:</strong>
+  <%= @estate_material.updated_at %>
+</p>
+
 <%= link_to t('views.edit'), edit_estate_material_path(@estate_material) %> |
 <%= link_to t('views.back'), estate_materials_path %>
