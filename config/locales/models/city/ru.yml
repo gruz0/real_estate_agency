@@ -5,5 +5,6 @@ ru:
     attributes:
       city:
         name: 'Название'
+        number_of_streets: 'Кол-во улиц'
         created_at: 'Дата создания'
         updated_at: 'Дата обновления'

@@ -9,6 +9,7 @@ table
     tr
       th = City.human_attribute_name(:id)
       th = City.human_attribute_name(:name)
+      th = City.human_attribute_name(:number_of_streets)
       th = City.human_attribute_name(:created_at)
       th = City.human_attribute_name(:updated_at)
       th[colspan="3"]
@@ -17,6 +18,7 @@ table
       tr
         td = city.id
         td = city.name
+        td = link_to city.street.size, city_streets_path(city)
         td = city.created_at
         td = city.updated_at
         td = link_to t('views.show'), city
