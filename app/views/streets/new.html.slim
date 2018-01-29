@@ -1,0 +1,3 @@
+h1 = t('views.street.new.title', city: @city.name)
+= render 'form', city: @city, street: @street, action: :post
+= link_to t('views.back'), city_streets_path(@city)

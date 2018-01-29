@@ -1,0 +1,14 @@
+= form_with(model: street, url: [city, street], local: true) do |form|
+  - if street.errors.any?
+    #error_explanation
+      h2 = t('activerecord.errors.template.header', model: Street.model_name.human, count: street.errors.count)
+      ul
+        - street.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = form.label :name
+    = form.text_field :name, id: :street_name
+
+  .actions
+    = form.submit

@@ -1,0 +1,24 @@
+p#notice = notice
+p
+  strong
+    = City.model_name.human
+    | :
+  = @city.name
+p
+  strong
+    = Street.human_attribute_name(:name)
+    | :
+  = @street.name
+p
+  strong
+    = Street.human_attribute_name(:created_at)
+    | :
+  = @street.created_at
+p
+  strong
+    = Street.human_attribute_name(:updated_at)
+    | :
+  = @street.updated_at
+
+= link_to t('views.edit'), edit_city_street_path(@city, @street)
+= link_to t('views.back'), city_streets_path(@city)

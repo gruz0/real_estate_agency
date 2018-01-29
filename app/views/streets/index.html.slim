@@ -1,0 +1,23 @@
+p#notice = notice
+
+h1 = t('views.street.index.title', city: @city.name)
+
+= link_to t('views.street.index.new'), new_city_street_path(@city)
+
+table
+  thead
+    tr
+      th = Street.human_attribute_name(:id)
+      th = Street.human_attribute_name(:name)
+      th = Street.human_attribute_name(:created_at)
+      th = Street.human_attribute_name(:updated_at)
+      th[colspan="3"]
+  tbody
+    - @city.street.each do |street|
+      tr
+        td = street.name
+        td = street.created_at
+        td = street.updated_at
+        td = link_to t('views.show'), city_street_path(@city, street)
+        td = link_to t('views.edit'), edit_city_street_path(@city, street)
+        td = link_to t('views.destroy'), city_street_path(@city, street), method: :delete, data: { confirm: t('views.are_you_sure') }
