@@ -15,6 +15,7 @@ table
   tbody
     - @city.street.each do |street|
       tr
+        td = street.id
         td = street.name
         td = street.created_at
         td = street.updated_at
