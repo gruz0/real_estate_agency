@@ -1,0 +1,24 @@
+p#notice = notice
+
+h1 = t('views.estate_type.index.title')
+
+= link_to t('views.estate_type.index.new'), new_estate_type_path
+
+table
+  thead
+    tr
+      th = EstateType.human_attribute_name(:id)
+      th = EstateType.human_attribute_name(:name)
+      th = EstateType.human_attribute_name(:created_at)
+      th = EstateType.human_attribute_name(:updated_at)
+      th[colspan="3"]
+  tbody
+    - @estate_types.each do |estate_type|
+      tr
+        td = estate_type.id
+        td = estate_type.name
+        td = estate_type.created_at
+        td = estate_type.updated_at
+        td = link_to t('views.show'), estate_type
+        td = link_to t('views.edit'), edit_estate_type_path(estate_type)
+        td = link_to t('views.destroy'), estate_type, method: :delete, data: { confirm: t('views.are_you_sure') }

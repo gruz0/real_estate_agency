@@ -1,0 +1,19 @@
+p#notice = notice
+p
+  strong
+    = EstateType.human_attribute_name(:name)
+    | :
+  = @estate_type.name
+p
+  strong
+    = EstateType.human_attribute_name(:created_at)
+    | :
+  = @estate_type.created_at
+p
+  strong
+    = EstateType.human_attribute_name(:updated_at)
+    | :
+  = @estate_type.updated_at
+
+= link_to t('views.edit'), edit_estate_type_path(@estate_type)
+= link_to t('views.back'), estate_types_path
