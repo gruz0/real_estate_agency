@@ -1,0 +1,84 @@
+p#notice = notice
+p
+  strong
+    = Estate.human_attribute_name(:deal_type)
+    | :
+  = @estate.deal_type
+p
+  strong
+    = Estate.human_attribute_name(:address)
+    | :
+  = @estate.address.full_name
+p
+  strong
+    = Estate.human_attribute_name(:price)
+    | :
+  = @estate.price
+p
+  strong
+    = Estate.human_attribute_name(:client)
+    | :
+  = person_fullname(@estate.client)
+p
+  strong
+    = Person.human_attribute_name(:phone_numbers)
+    | :
+  = @estate.client.phone_numbers
+p
+  strong
+    = Estate.human_attribute_name(:employee)
+    | :
+  = person_fullname(@estate.employee)
+p
+  strong
+    = EstateType.model_name.human
+    | :
+  = @estate.estate_type.name
+p
+  strong
+    = EstateProject.model_name.human
+    | :
+  = @estate.estate_project.name
+p
+  strong
+    = EstateMaterial.model_name.human
+    | :
+  = @estate.estate_material.name
+p
+  strong
+    = Estate.human_attribute_name(:number_of_rooms)
+    | :
+  = number_of_rooms_for(@estate)
+p
+  strong
+    = Estate.human_attribute_name(:floor)
+    | :
+  = number_of_floors_for(@estate)
+p
+  strong
+    = Estate.human_attribute_name(:total_square_meters)
+    | :
+  = @estate.total_square_meters
+p
+  strong
+    = Estate.human_attribute_name(:kitchen_square_meters)
+    | :
+  = @estate.kitchen_square_meters
+p
+  strong
+    = Estate.human_attribute_name(:description)
+    | :
+  = @estate.description
+p
+  strong
+    = Estate.human_attribute_name(:created_at)
+    | :
+  = @estate.created_at
+p
+  strong
+    = Estate.human_attribute_name(:updated_at)
+    | :
+  = @estate.updated_at
+
+= link_to t('views.edit'), edit_estate_path(@estate)
+= link_to t('views.back'), estates_path
