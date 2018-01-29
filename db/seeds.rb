@@ -23,9 +23,14 @@ estate_materials = %w[Панельный Деревянный Заливной �
   EstateMaterial.create!(name: material)
 end
 
-city = City.create!(name: 'Нефтеюганск')
+cities = [
+  City.create!(name: 'Нефтеюганск'),
+  City.create!(name: 'Сургут'),
+  City.create!(name: 'Нижневартовск')
+]
+
 streets = ['1-й мкрн', '2-й мкрн', '3-й мкрн', 'ул. Ленина', 'ул. Усть-Балыкская'].map do |street|
-  Street.create!(city: city, name: street)
+  Street.create!(city: cities.sample, name: street)
 end
 
 addresses = ['1', '3а', '17/3'].map do |building_number|
