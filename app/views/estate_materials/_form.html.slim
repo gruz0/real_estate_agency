@@ -1,0 +1,14 @@
+= form_with(model: estate_material, local: true) do |form|
+  - if estate_material.errors.any?
+    #error_explanation
+      h2 = t('activerecord.errors.template.header', model: EstateMaterial.model_name.human, count: estate_material.errors.count)
+      ul
+        - estate_material.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = form.label :name
+    = form.text_field :name, id: :estate_material_name
+
+  .actions
+    = form.submit

@@ -1,0 +1,19 @@
+p#notice = notice
+p
+  strong
+    = EstateMaterial.human_attribute_name(:name)
+    | :
+  = @estate_material.name
+p
+  strong
+    = EstateMaterial.human_attribute_name(:created_at)
+    | :
+  = @estate_material.created_at
+p
+  strong
+    = EstateMaterial.human_attribute_name(:updated_at)
+    | :
+  = @estate_material.updated_at
+
+= link_to t('views.edit'), edit_estate_material_path(@estate_material)
+= link_to t('views.back'), estate_materials_path
