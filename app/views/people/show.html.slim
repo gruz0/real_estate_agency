@@ -1,0 +1,24 @@
+p#notice = notice
+p
+  strong
+    = Person.human_attribute_name(:fullname)
+    | :
+  = person_fullname(@person)
+p
+  strong
+    = Person.human_attribute_name(:phone_numbers)
+    | :
+  = @person.phone_numbers
+p
+  strong
+    = Person.human_attribute_name(:created_at)
+    | :
+  = @person.created_at
+p
+  strong
+    = Person.human_attribute_name(:updated_at)
+    | :
+  = @person.updated_at
+
+= link_to t('views.edit'), sti_person_path(@person.type, @person, :edit)
+= link_to t('views.back'), sti_person_path(@person.type)
