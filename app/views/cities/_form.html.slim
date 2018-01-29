@@ -1,0 +1,15 @@
+= form_with(model: city, local: true) do |form|
+  - if city.errors.any?
+    #error_explanation
+      h2 = t('activerecord.errors.template.header', model: City.model_name.human, count: city.errors.count)
+      ul
+        - city.errors.full_messages.each do |message|
+          li
+            = message
+
+  .field
+    = form.label :name
+    = form.text_field :name, id: :city_name
+
+  .actions
+    = form.submit

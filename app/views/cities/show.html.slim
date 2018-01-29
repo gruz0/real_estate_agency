@@ -1,0 +1,20 @@
+p#notice = notice
+
+p
+  strong
+    = City.human_attribute_name(:name)
+    | :
+  = @city.name
+p
+  strong
+    = City.human_attribute_name(:created_at)
+    | :
+  = @city.created_at
+p
+  strong
+    = City.human_attribute_name(:updated_at)
+    | :
+  = @city.updated_at
+
+= link_to t('views.edit'), edit_city_path(@city)
+= link_to t('views.back'), cities_path

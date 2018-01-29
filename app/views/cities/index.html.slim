@@ -1,0 +1,24 @@
+p#notice = notice
+
+h1 = t('views.city.index.title')
+
+= link_to t('views.city.index.new'), new_city_path
+
+table
+  thead
+    tr
+      th = City.human_attribute_name(:id)
+      th = City.human_attribute_name(:name)
+      th = City.human_attribute_name(:created_at)
+      th = City.human_attribute_name(:updated_at)
+      th[colspan="3"]
+  tbody
+    - @cities.each do |city|
+      tr
+        td = city.id
+        td = city.name
+        td = city.created_at
+        td = city.updated_at
+        td = link_to t('views.show'), city
+        td = link_to t('views.edit'), edit_city_path(city)
+        td = link_to t('views.destroy'), city, method: :delete, data: { confirm: t('views.are_you_sure') }
