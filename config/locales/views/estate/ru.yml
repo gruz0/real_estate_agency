@@ -9,6 +9,6 @@ ru:
       edit:
         title: 'Редактирование объекта'
       flash_messages:
-        estate_was_successfully_created: 'Тип объекта был успешно создан'
-        estate_was_successfully_updated: 'Тип объекта был успешно обновлён'
-        estate_was_successfully_destroyed: 'Тип объекта был успешно удалён'
+        estate_was_successfully_created: 'Объект был успешно создан'
+        estate_was_successfully_updated: 'Объект был успешно обновлён'
+        estate_was_successfully_destroyed: 'Объект был успешно удалён'
