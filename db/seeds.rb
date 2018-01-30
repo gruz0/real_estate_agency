@@ -37,7 +37,7 @@ addresses = ['1', '3а', '17/3'].map do |building_number|
   Address.create!(street: streets.sample, building_number: building_number)
 end
 
-3.times do |_|
+10.times do |_|
   Estate.create(
     deal_type: :sale,
     employee: employee,
@@ -55,7 +55,7 @@ end
   )
 end
 
-3.times do |_|
+10.times do |_|
   Estate.create(
     deal_type: :rent,
     employee: employee,
