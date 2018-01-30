@@ -1,10 +1,42 @@
 doctype html
-html
+html lang="en"
   head
+    meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"
     title
-      | RealEstateAgency
+      = t('views.layout.title')
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    = yield
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      = link_to('/', class: 'navbar-brand') do
+        = t('views.layout.brand')
+
+      button.navbar-toggler type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"
+        span.navbar-toggler-icon
+
+      #navbar.collapse.navbar-collapse
+        ul.navbar-nav
+          li.nav-item
+            = link_to(estates_path, class: 'nav-link') do
+              = t('views.layout.menu.estates')
+          li.nav-item.dropdown
+            a#navbar-dictionaries.nav-link.dropdown-toggle href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+              = t('views.layout.menu.dictionaries')
+            .dropdown-menu aria-labelledby="navbar-dictionaries"
+              = link_to(clients_path, class: 'dropdown-item') do
+                = t('views.layout.menu.clients')
+              = link_to(employees_path, class: 'dropdown-item') do
+                = t('views.layout.menu.employees')
+              = link_to(estate_types_path, class: 'dropdown-item') do
+                = t('views.layout.menu.estate_types')
+              = link_to(estate_materials_path, class: 'dropdown-item') do
+                = t('views.layout.menu.estate_materials')
+              = link_to(estate_projects_path, class: 'dropdown-item') do
+                = t('views.layout.menu.estate_projects')
+              = link_to(cities_path, class: 'dropdown-item') do
+                = t('views.layout.menu.cities')
+
+    .container
+      .row
+        = yield

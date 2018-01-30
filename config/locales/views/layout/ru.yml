@@ -1,0 +1,14 @@
+ru:
+  views:
+    layout:
+      brand: 'Агентство недвижимости'
+      title: 'Агентство недвижимости'
+      menu:
+        estates: 'Объекты'
+        dictionaries: 'Справочники'
+        clients: 'Клиенты'
+        employees: 'Сотрудники'
+        estate_types: 'Типы объектов'
+        estate_materials: 'Материалы зданий'
+        estate_projects: 'Проекты зданий'
+        cities: 'Справочники'
