@@ -8,7 +8,7 @@ html lang="en"
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    nav.navbar.navbar-expand-lg.sticky-top.navbar-light.bg-dark.navbar-dark
       = link_to('/', class: 'navbar-brand') do
         = t('views.layout.brand')
 
@@ -37,6 +37,6 @@ html lang="en"
               = link_to(cities_path, class: 'dropdown-item') do
                 = t('views.layout.menu.cities')
 
-    .container
-      .row
+    .container-fluid
+      .row.col-lg-12
         = yield
