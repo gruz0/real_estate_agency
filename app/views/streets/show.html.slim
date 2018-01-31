@@ -1,24 +1,26 @@
-p#notice = notice
-p
-  strong
-    = City.model_name.human
-    | :
-  = @city.name
-p
-  strong
-    = Street.human_attribute_name(:name)
-    | :
-  = @street.name
-p
-  strong
-    = Street.human_attribute_name(:created_at)
-    | :
-  = @street.created_at
-p
-  strong
-    = Street.human_attribute_name(:updated_at)
-    | :
-  = @street.updated_at
+h1
+  = t('views.street.show.title', id: @street.id, city: @city.name)
 
-= link_to t('views.edit'), edit_city_street_path(@city, @street)
-= link_to t('views.back'), city_streets_path(@city)
+table.table.table-sm.table-hover
+  tbody
+    tr
+      th.w-25 scope="row"
+        = Street.human_attribute_name(:name)
+      td
+        = @street.name
+
+    tr
+      th scope="row"
+        = Street.human_attribute_name(:created_at)
+      td
+        = @street.created_at
+
+    tr
+      th scope="row"
+        = Street.human_attribute_name(:updated_at)
+      td
+        = @street.updated_at
+
+.btn-group role="group" aria-label="#{t('views.action')}"
+  = link_to t('views.back'), city_streets_path(@city), class: 'btn btn-secondary'
+  = link_to t('views.edit'), edit_city_street_path(@city, @street), class: 'btn btn-warning'

@@ -8,6 +8,8 @@ ru:
         title: 'Создание улицы в %{city}'
       edit:
         title: 'Редактирование улицы в %{city}'
+      show:
+        title: 'Карточка улицы #%{id} в %{city}'
       flash_messages:
         street_was_successfully_created: 'Улица была успешно создана'
         street_was_successfully_updated: 'Улица была успешно обновлена'

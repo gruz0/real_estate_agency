@@ -1,4 +1,7 @@
-h1 = t('views.street.edit.title', city: @city.name)
-= render 'form', city: @city, street: @street, action: :put
-= link_to t('views.show'), city_street_path(@city, @street)
-= link_to t('views.back'), city_streets_path(@city)
+.row.col-lg-10
+  .col-lg-9
+    h1 = t('views.street.edit.title', city: @city.name)
+
+.row.col-lg-10
+  .col
+    = render 'form', city: @city, street: @street, action: :put
