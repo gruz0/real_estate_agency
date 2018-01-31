@@ -38,9 +38,11 @@ RSpec.describe 'estates/index', type: :view do
 
   it 'renders a list of estates' do
     assign(:estates, estates)
+    flash[:notice] = 'Notice'
 
     render
 
+    assert_select '.alert span', text: 'Notice', count: 1
     assert_select 'h1', text: I18n.t('views.estate.index.title'), count: 1
 
     expect(response.body).to have_link(I18n.t('views.estate.index.new'), href: new_estate_path)
@@ -77,5 +79,7 @@ RSpec.describe 'estates/index', type: :view do
       expect(response.body).to have_link(I18n.t('views.edit'), href: edit_estate_path(estate))
       expect(response.body).to have_link(I18n.t('views.destroy'), href: estate_path(estate))
     end
+
+    expect(response.body).to have_link(I18n.t('views.action'), href: '#', count: estates.size)
   end
 end

@@ -6,73 +6,112 @@
         - estate.errors.full_messages.each do |message|
           li = message
 
-  .field
-    = form.label :deal_type
-    = form.select :deal_type, Estate.deal_types.map { |dt| [dt.to_s.humanize, dt.to_s.downcase] }, {}
+  table.table.table-sm.table-bordered
+    tbody
+      tr
+        td
+          .form-group
+            = form.label :deal_type
+            = form.select :deal_type, Estate.deal_types.map { |dt| [dt.to_s.humanize, dt.to_s.downcase] }, {}, class: 'form-control'
 
-  .field
-    = form.label :client
-    = form.select :client, Client.all.map { |c| [person_fullname(c), c.id] }, {}
+        td
+          .form-group
+            = form.label :estate_type
+            = form.select :estate_type, EstateType.all.map { |et| [et.name, et.id] }, {}, class: 'form-control'
 
-  .field
-    = form.label :employee
-    = form.select :employee, Employee.all.map { |e| [person_fullname(e), e.id] }, {}
+      tr
+        td
+          .form-group
+            = form.label :client
+            = form.select :client, Client.all.map { |c| [person_fullname(c), c.id] }, {}, class: 'form-control'
 
-  .field
-    = form.label :city
-    = form.select :city, City.all.map { |c| [c.name, c.id] }, {}
+        td
+          .form-group
+            = form.label :employee
+            = form.select :employee, Employee.all.map { |e| [person_fullname(e), e.id] }, {}, class: 'form-control'
 
-  .field
-    = form.label :street
-    = form.select :street, Street.all.map { |s| [s.name, s.id] }, {}
+      tr
+        td
+          .form-group
+            = form.label :city
+            = form.select :city, City.all.map { |c| [c.name, c.id] }, {}, class: 'form-control'
 
-  .field
-    = form.label :building_number
-    = form.text_field :building_number, id: :estate_building_number
+        td
+          .form-group
+            = form.label :street
+            = form.select :street, Street.all.map { |s| [s.name, s.id] }, {}, class: 'form-control'
 
-  .field
-    = form.label :apartment_number
-    = form.text_field :apartment_number, id: :estate_apartment_number
+      tr
+        td
+          .form-group
+            = form.label :building_number
+            = form.text_field :building_number, id: :estate_building_number, class: 'form-control'
 
-  .field
-    = form.label :estate_type
-    = form.select :estate_type, EstateType.all.map { |et| [et.name, et.id] }, {}
+        td
+          .form-group
+            = form.label :apartment_number
+            = form.text_field :apartment_number, id: :estate_apartment_number, class: 'form-control'
 
-  .field
-    = form.label :estate_project
-    = form.select :estate_project, EstateProject.all.map { |ep| [ep.name, ep.id] }, {}
+      tr
+        td
+          .form-group
+            = form.label :estate_project
+            = form.select :estate_project, EstateProject.all.map { |ep| [ep.name, ep.id] }, {}, class: 'form-control'
 
-  .field
-    = form.label :estate_material
-    = form.select :estate_material, EstateMaterial.all.map { |em| [em.name, em.id] }, {}
+        td
+          .form-group
+            = form.label :estate_material
+            = form.select :estate_material, EstateMaterial.all.map { |em| [em.name, em.id] }, {}, class: 'form-control'
 
-  .field
-    = form.label :number_of_rooms
-    = form.text_field :number_of_rooms, id: :estate_number_of_rooms
+      tr
+        td
+          .form-group
+            = form.label :price
+            .input-group.mb-2
+              .input-group-prepend
+                .input-group-text
+                  | ₽
+              = form.text_field :price, id: :estate_price, class: 'form-control'
 
-  .field
-    = form.label :floor
-    = form.text_field :floor, id: :estate_floor
+        td
+          .form-row
+            .form-group.col-md-6
+              = form.label :floor
+              = form.text_field :floor, id: :estate_floor, class: 'form-control'
+            .form-group.col-md-6
+              = form.label :number_of_floors
+              = form.text_field :number_of_floors, id: :estate_number_of_floors, class: 'form-control'
 
-  .field
-    = form.label :number_of_floors
-    = form.text_field :number_of_floors, id: :estate_number_of_floors
+      tr
+        td
+          .form-group
+            = form.label :number_of_rooms
+            = form.text_field :number_of_rooms, id: :estate_number_of_rooms, class: 'form-control'
 
-  .field
-    = form.label :total_square_meters
-    = form.text_field :total_square_meters, id: :estate_total_square_meters
+        td
+          .form-row
+            .form-group.col-md-6
+              = form.label :total_square_meters
+              .input-group.mb-2
+                = form.text_field :total_square_meters, id: :estate_total_square_meters, class: 'form-control'
+                .input-group-append
+                  .input-group-text
+                    | м<sup>2</sup>
 
-  .field
-    = form.label :kitchen_square_meters
-    = form.text_field :kitchen_square_meters, id: :estate_kitchen_square_meters
+            .form-group.col-md-6
+              = form.label :kitchen_square_meters
+              .input-group.mb-2
+                = form.text_field :kitchen_square_meters, id: :estate_kitchen_square_meters, class: 'form-control'
+                .input-group-append
+                  .input-group-text
+                    | м<sup>2</sup>
 
-  .field
-    = form.label :price
-    = form.text_field :price, id: :estate_price
+      tr
+        td colspan=2
+          .form-group
+            = form.label :description
+            = form.text_area :description, id: :estate_description, class: 'form-control'
 
-  .field
-    = form.label :description
-    = form.text_field :description, id: :estate_description
-
-  .actions
-    = form.submit
+  .btn-group role="group" aria-label="#{t('views.action')}"
+    = link_to t('views.back'), estates_path, class: 'btn btn-secondary', role: 'button'
+    = form.submit class: 'btn btn-success'

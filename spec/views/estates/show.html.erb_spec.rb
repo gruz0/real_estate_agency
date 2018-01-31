@@ -40,6 +40,8 @@ RSpec.describe 'estates/show', type: :view do
 
     render
 
+    expect(rendered).to match(I18n.t('views.estate.show.title', id: estate.id))
+
     expect(rendered).to match(/sale/)
     expect(rendered).to match(/Нефтеюганск, Ленина, 9а/)
     expect(rendered).to match(/99999\.99/)

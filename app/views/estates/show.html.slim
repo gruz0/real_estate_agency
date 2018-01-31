@@ -1,84 +1,105 @@
-p#notice = notice
-p
-  strong
-    = Estate.human_attribute_name(:deal_type)
-    | :
-  = @estate.deal_type
-p
-  strong
-    = Estate.human_attribute_name(:address)
-    | :
-  = @estate.address.full_name
-p
-  strong
-    = Estate.human_attribute_name(:price)
-    | :
-  = @estate.price
-p
-  strong
-    = Estate.human_attribute_name(:client)
-    | :
-  = person_fullname(@estate.client)
-p
-  strong
-    = Person.human_attribute_name(:phone_numbers)
-    | :
-  = @estate.client.phone_numbers
-p
-  strong
-    = Estate.human_attribute_name(:employee)
-    | :
-  = person_fullname(@estate.employee)
-p
-  strong
-    = EstateType.model_name.human
-    | :
-  = @estate.estate_type.name
-p
-  strong
-    = EstateProject.model_name.human
-    | :
-  = @estate.estate_project.name
-p
-  strong
-    = EstateMaterial.model_name.human
-    | :
-  = @estate.estate_material.name
-p
-  strong
-    = Estate.human_attribute_name(:number_of_rooms)
-    | :
-  = number_of_rooms_for(@estate)
-p
-  strong
-    = Estate.human_attribute_name(:floor)
-    | :
-  = number_of_floors_for(@estate)
-p
-  strong
-    = Estate.human_attribute_name(:total_square_meters)
-    | :
-  = @estate.total_square_meters
-p
-  strong
-    = Estate.human_attribute_name(:kitchen_square_meters)
-    | :
-  = @estate.kitchen_square_meters
-p
-  strong
-    = Estate.human_attribute_name(:description)
-    | :
-  = @estate.description
-p
-  strong
-    = Estate.human_attribute_name(:created_at)
-    | :
-  = @estate.created_at
-p
-  strong
-    = Estate.human_attribute_name(:updated_at)
-    | :
-  = @estate.updated_at
+h1
+  = t('views.estate.show.title', id: @estate.id)
 
-= link_to t('views.edit'), edit_estate_path(@estate)
-= link_to t('views.back'), estates_path
+table.table.table-sm.table-hover
+  tbody
+    tr
+      th.w-25 scope="row"
+        = Estate.human_attribute_name(:deal_type)
+      td
+        = @estate.deal_type
+
+    tr
+      th scope="row"
+        = Estate.human_attribute_name(:address)
+      td
+        = @estate.address.full_name
+
+    tr
+      th scope="row"
+        = Estate.human_attribute_name(:price)
+      td
+        = @estate.price
+
+    tr
+      th scope="row"
+        = Estate.human_attribute_name(:client)
+      td
+        = person_fullname(@estate.client)
+
+    tr
+      th scope="row"
+        = Person.human_attribute_name(:phone_numbers)
+      td
+        = @estate.client.phone_numbers
+
+    tr
+      th scope="row"
+        = Estate.human_attribute_name(:employee)
+      td
+        = person_fullname(@estate.employee)
+
+    tr
+      th scope="row"
+        = EstateType.model_name.human
+      td
+        = @estate.estate_type.name
+
+    tr
+      th scope="row"
+        = EstateProject.model_name.human
+      td
+        = @estate.estate_project.name
+
+    tr
+      th scope="row"
+        = EstateMaterial.model_name.human
+      td
+        = @estate.estate_material.name
+
+    tr
+      th scope="row"
+        = Estate.human_attribute_name(:number_of_rooms)
+      td
+        = number_of_rooms_for(@estate)
+
+    tr
+      th scope="row"
+        = Estate.human_attribute_name(:floor)
+      td
+        = number_of_floors_for(@estate)
+
+    tr
+      th scope="row"
+        = Estate.human_attribute_name(:total_square_meters)
+      td
+        = @estate.total_square_meters.to_s
+
+    tr
+      th scope="row"
+        = Estate.human_attribute_name(:kitchen_square_meters)
+      td
+        = @estate.kitchen_square_meters
+
+    tr
+      th scope="row"
+        = Estate.human_attribute_name(:description)
+      td
+        = @estate.description
+
+    tr
+      th scope="row"
+        = Estate.human_attribute_name(:created_at)
+      td
+        = @estate.created_at
+
+    tr
+      th scope="row"
+        = Estate.human_attribute_name(:updated_at)
+      td
+        = @estate.updated_at
+
+
+.btn-group role="group" aria-label="#{t('views.action')}"
+  = link_to t('views.back'), estates_path, class: 'btn btn-secondary'
+  = link_to t('views.edit'), edit_estate_path(@estate), class: 'btn btn-warning'

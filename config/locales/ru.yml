@@ -41,6 +41,7 @@ ru:
     destroy: 'Удалить'
     are_you_sure: 'Вы уверены?'
     back: 'Назад'
+    action: 'Действия'
     is_not_set:
       one: 'Не задан'
       other: 'Не задано'

@@ -48,7 +48,7 @@ RSpec.describe 'estates/edit', type: :view do
       assert_select 'input[name=?]', 'estate[total_square_meters]'
       assert_select 'input[name=?]', 'estate[kitchen_square_meters]'
       assert_select 'input[name=?]', 'estate[price]'
-      assert_select 'input[name=?]', 'estate[description]'
+      assert_select 'textarea[name=?]', 'estate[description]'
     end
 
     expect(response.body).to have_button(I18n.t('helpers.submit.update'))

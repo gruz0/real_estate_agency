@@ -1,27 +1,34 @@
-p#notice = notice
+- if notice.present?
+  .alert.alert-primary.alert-dismissible.fade.show role="alert"
+    span
+      = notice
+    button.close type="button" data-dismiss="alert" aria-label="Close"
+      span aria-hidden="true" &times;
 
-h1 = t('views.estate.index.title')
+.row.col-lg-12
+  .col-lg-9
+    h1 = t('views.estate.index.title')
+  .col-lg-3
+    = link_to t('views.estate.index.new'), new_estate_path, class: 'btn btn-primary btn-lg float-right', role: 'button'
 
-= link_to t('views.estate.index.new'), new_estate_path
-
-table
-  thead
+table.table.table-sm.table-hover
+  thead.thead-light
     tr
-      th = Estate.human_attribute_name(:id)
-      th = Estate.human_attribute_name(:address)
-      th = Estate.human_attribute_name(:estate_project)
-      th = Estate.human_attribute_name(:number_of_rooms)
-      th = Estate.human_attribute_name(:floor)
-      th = Estate.human_attribute_name(:price)
-      th = Person.human_attribute_name(:phone_numbers)
-      th = Estate.human_attribute_name(:employee)
-      th = Estate.human_attribute_name(:created_at)
-      th = Estate.human_attribute_name(:updated_at)
-      th[colspan="3"]
+      th scope="col" = Estate.human_attribute_name(:id)
+      th scope="col" = Estate.human_attribute_name(:address)
+      th scope="col" = Estate.human_attribute_name(:estate_project)
+      th scope="col" = Estate.human_attribute_name(:number_of_rooms)
+      th scope="col" = Estate.human_attribute_name(:floor)
+      th scope="col" = Estate.human_attribute_name(:price)
+      th scope="col" = Person.human_attribute_name(:phone_numbers)
+      th scope="col" = Estate.human_attribute_name(:employee)
+      th scope="col" = Estate.human_attribute_name(:created_at)
+      th scope="col" = Estate.human_attribute_name(:updated_at)
+      th scope="col"
   tbody
     - @estates.each do |estate|
       tr
-        td = estate.id
+        th scope="row" = estate.id
         td = estate.address.full_name
         td = estate.estate_project.name
         td = number_of_rooms_for(estate)
@@ -31,6 +38,13 @@ table
         td = person_shortname(estate.employee)
         td = estate.created_at
         td = estate.updated_at
-        td = link_to t('views.show'), estate
-        td = link_to t('views.edit'), edit_estate_path(estate)
-        td = link_to t('views.destroy'), estate, method: :delete, data: { confirm: t('views.are_you_sure') }
+        td
+          .dropdown.show
+            = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \
+              data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }
+            .dropdown-menu.dropdown-menu-right
+              = link_to t('views.show'), estate, class: 'dropdown-item'
+              = link_to t('views.edit'), edit_estate_path(estate), class: 'dropdown-item'
+              .dropdown-divider
+              = link_to t('views.destroy'), estate, class: 'dropdown-item text-danger', method: :delete, \
+                data: { confirm: t('views.are_you_sure') }

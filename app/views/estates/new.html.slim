@@ -1,3 +1,7 @@
-h1 = t('views.estate.new.title')
-= render 'form', estate: @estate
-= link_to t('views.back'), estates_path
+.row.col-lg-10
+  .col-lg-9
+    h1 = t('views.estate.new.title')
+
+.row.col-lg-10
+  .col
+    = render 'form', estate: @estate
