@@ -8,6 +8,8 @@ RSpec.describe 'cities/show', type: :view do
 
     render
 
+    expect(rendered).to match(I18n.t('views.city.show.title', id: city.id))
+
     expect(rendered).to match(/Нефтеюганск/)
     expect(rendered).to match(/#{city.created_at}/)
     expect(rendered).to match(/#{city.updated_at}/)

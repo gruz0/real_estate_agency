@@ -1,3 +1,7 @@
-h1 = t('views.city.new.title')
-= render 'form', city: @city
-= link_to t('views.back'), cities_path
+.row.col-lg-10
+  .col-lg-9
+    h1 = t('views.city.new.title')
+
+.row.col-lg-10
+  .col
+    = render 'form', city: @city

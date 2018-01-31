@@ -8,6 +8,8 @@ ru:
         title: 'Создание города'
       edit:
         title: 'Редактирование города'
+      show:
+        title: 'Карточка города #%{id}'
       flash_messages:
         city_was_successfully_created: 'Город был успешно создан'
         city_was_successfully_updated: 'Город был успешно обновлён'

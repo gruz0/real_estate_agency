@@ -1,26 +1,35 @@
-p#notice = notice
+= render 'application/notice'
 
-h1 = t('views.city.index.title')
+.row.col-lg-12
+  .col-lg-9
+    h1 = t('views.city.index.title')
+  .col-lg-3
+    = link_to t('views.city.index.new'), new_city_path, class: 'btn btn-primary btn-lg float-right', role: 'button'
 
-= link_to t('views.city.index.new'), new_city_path
-
-table
-  thead
+table.table.table-sm.table-hover
+  thead.thead-light
     tr
-      th = City.human_attribute_name(:id)
-      th = City.human_attribute_name(:name)
-      th = City.human_attribute_name(:number_of_streets)
-      th = City.human_attribute_name(:created_at)
-      th = City.human_attribute_name(:updated_at)
-      th[colspan="3"]
+      th scope="col" = City.human_attribute_name(:id)
+      th scope="col" = City.human_attribute_name(:name)
+      th scope="col" = City.human_attribute_name(:number_of_streets)
+      th scope="col" = City.human_attribute_name(:created_at)
+      th scope="col" = City.human_attribute_name(:updated_at)
+      th scope="col"
   tbody
     - @cities.each do |city|
       tr
-        td = city.id
+        th scope="row" = city.id
         td = city.name
         td = link_to city.street.size, city_streets_path(city)
         td = city.created_at
         td = city.updated_at
-        td = link_to t('views.show'), city
-        td = link_to t('views.edit'), edit_city_path(city)
-        td = link_to t('views.destroy'), city, method: :delete, data: { confirm: t('views.are_you_sure') }
+        td
+          .dropdown.show
+            = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \
+              data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }
+            .dropdown-menu.dropdown-menu-right
+              = link_to t('views.show'), city, class: 'dropdown-item'
+              = link_to t('views.edit'), edit_city_path(city), class: 'dropdown-item'
+              .dropdown-divider
+              = link_to t('views.destroy'), city, class: 'dropdown-item text-danger', method: :delete, \
+                data: { confirm: t('views.are_you_sure') }

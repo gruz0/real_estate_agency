@@ -4,12 +4,16 @@
       h2 = t('activerecord.errors.template.header', model: City.model_name.human, count: city.errors.count)
       ul
         - city.errors.full_messages.each do |message|
-          li
-            = message
+          li = message
 
-  .field
-    = form.label :name
-    = form.text_field :name, id: :city_name
+  table.table.table-sm.table-bordered
+    tbody
+      tr
+        td
+          .form-group
+            = form.label :name
+            = form.text_field :name, id: :city_name, class: 'form-control'
 
-  .actions
-    = form.submit
+  .btn-group role="group" aria-label="#{t('views.action')}"
+    = link_to t('views.back'), cities_path, class: 'btn btn-secondary', role: 'button'
+    = form.submit class: 'btn btn-success'
