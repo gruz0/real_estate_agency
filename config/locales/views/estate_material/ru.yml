@@ -8,6 +8,8 @@ ru:
         title: 'Создание типа материала'
       edit:
         title: 'Редактирование типа материала'
+      show:
+        title: 'Карточка типа материала #%{id}'
       flash_messages:
         estate_material_was_successfully_created: 'Тип материала был успешно создан'
         estate_material_was_successfully_updated: 'Тип материала был успешно обновлён'

@@ -1,24 +1,33 @@
-p#notice = notice
+= render 'application/notice'
 
-h1 = t('views.estate_material.index.title')
+.row.col-lg-12
+  .col-lg-9
+    h1 = t('views.estate_material.index.title')
+  .col-lg-3
+    = link_to t('views.estate_material.index.new'), new_estate_material_path, class: 'btn btn-primary btn-lg float-right', role: 'button'
 
-= link_to t('views.estate_material.index.new'), new_estate_material_path
-
-table
-  thead
+table.table.table-sm.table-hover
+  thead.thead-light
     tr
-      th = EstateMaterial.human_attribute_name(:id)
-      th = EstateMaterial.human_attribute_name(:name)
-      th = EstateMaterial.human_attribute_name(:created_at)
-      th = EstateMaterial.human_attribute_name(:updated_at)
-      th[colspan="3"]
+      th scope="col" = EstateMaterial.human_attribute_name(:id)
+      th scope="col" = EstateMaterial.human_attribute_name(:name)
+      th scope="col" = EstateMaterial.human_attribute_name(:created_at)
+      th scope="col" = EstateMaterial.human_attribute_name(:updated_at)
+      th scope="col"
   tbody
     - @estate_materials.each do |estate_material|
       tr
-        td = estate_material.id
+        th scope="row" = estate_material.id
         td = estate_material.name
         td = estate_material.created_at
         td = estate_material.updated_at
-        td = link_to t('views.show'), estate_material
-        td = link_to t('views.edit'), edit_estate_material_path(estate_material)
-        td = link_to t('views.destroy'), estate_material, method: :delete, data: { confirm: t('views.are_you_sure') }
+        td
+          .dropdown.show
+            = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \
+              data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }
+            .dropdown-menu.dropdown-menu-right
+              = link_to t('views.show'), estate_material, class: 'dropdown-item'
+              = link_to t('views.edit'), edit_estate_material_path(estate_material), class: 'dropdown-item'
+              .dropdown-divider
+              = link_to t('views.destroy'), estate_material, class: 'dropdown-item text-danger', method: :delete, \
+                data: { confirm: t('views.are_you_sure') }

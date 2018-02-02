@@ -1,19 +1,26 @@
-p#notice = notice
-p
-  strong
-    = EstateMaterial.human_attribute_name(:name)
-    | :
-  = @estate_material.name
-p
-  strong
-    = EstateMaterial.human_attribute_name(:created_at)
-    | :
-  = @estate_material.created_at
-p
-  strong
-    = EstateMaterial.human_attribute_name(:updated_at)
-    | :
-  = @estate_material.updated_at
+h1
+  = t('views.estate_material.show.title', id: @estate_material.id)
 
-= link_to t('views.edit'), edit_estate_material_path(@estate_material)
-= link_to t('views.back'), estate_materials_path
+table.table.table-sm.table-hover
+  tbody
+    tr
+      th.w-25 scope="row"
+        = EstateMaterial.human_attribute_name(:name)
+      td
+        = @estate_material.name
+
+    tr
+      th scope="row"
+        = EstateMaterial.human_attribute_name(:created_at)
+      td
+        = @estate_material.created_at
+
+    tr
+      th scope="row"
+        = EstateMaterial.human_attribute_name(:updated_at)
+      td
+        = @estate_material.updated_at
+
+.btn-group role="group" aria-label="#{t('views.action')}"
+  = link_to t('views.back'), estate_materials_path, class: 'btn btn-secondary'
+  = link_to t('views.edit'), edit_estate_material_path(@estate_material), class: 'btn btn-warning'
