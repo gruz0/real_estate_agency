@@ -25,28 +25,50 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).to allow_value(:archived).for(:status) }
     it { expect(estate).to allow_value(:active).for(:status) }
 
+    it { expect(estate).not_to allow_value(nil).for(:client) }
+    it { expect(estate).not_to allow_value(nil).for(:employee) }
+    it { expect(estate).not_to allow_value(nil).for(:address) }
+    it { expect(estate).not_to allow_value(nil).for(:estate_type) }
+    it { expect(estate).not_to allow_value(nil).for(:estate_project) }
+    it { expect(estate).not_to allow_value(nil).for(:estate_material) }
+
     it { expect(estate).to allow_value('55').for(:apartment_number) }
+
     it { expect(estate).to allow_value(99_999_999).for(:price) }
     it { expect(estate).to allow_value(1).for(:price) }
     it { expect(estate).not_to allow_value(0).for(:price) }
-    it { expect(estate).to allow_value(10).for(:number_of_rooms) }
+    it { expect(estate).not_to allow_value('qwe').for(:price) }
+
+    it { expect(estate).to allow_value(9).for(:number_of_rooms) }
     it { expect(estate).to allow_value(nil).for(:number_of_rooms) }
+    it { expect(estate).not_to allow_value(10).for(:number_of_rooms) }
+    it { expect(estate).not_to allow_value('qwe').for(:number_of_rooms) }
+
     it { expect(estate).to allow_value(15).for(:floor) }
     it { expect(estate).to allow_value(nil).for(:floor) }
+    it { expect(estate).not_to allow_value(100).for(:floor) }
+    it { expect(estate).not_to allow_value('qwe').for(:floor) }
+
     it { expect(estate).to allow_value(20).for(:number_of_floors) }
     it { expect(estate).to allow_value(nil).for(:number_of_floors) }
+    it { expect(estate).not_to allow_value(1_000).for(:number_of_floors) }
+    it { expect(estate).not_to allow_value('qwe').for(:number_of_floors) }
+
     it { expect(estate).to allow_value(100.1).for(:total_square_meters) }
     it { expect(estate).to allow_value(nil).for(:total_square_meters) }
+    it { expect(estate).not_to allow_value('qwe').for(:total_square_meters) }
+
     it { expect(estate).to allow_value(33.11).for(:kitchen_square_meters) }
     it { expect(estate).to allow_value(nil).for(:kitchen_square_meters) }
+    it { expect(estate).not_to allow_value('qwe').for(:kitchen_square_meters) }
 
     # Inclusion/acceptance of values
     it { expect(estate).to validate_numericality_of(:price).is_greater_than(0) }
-    it { expect(estate).to validate_numericality_of(:number_of_rooms).is_greater_than(0) }
-    it { expect(estate).to validate_numericality_of(:floor).is_greater_than(0) }
-    it { expect(estate).to validate_numericality_of(:number_of_floors).is_greater_than(0) }
-    it { expect(estate).to validate_numericality_of(:total_square_meters).is_greater_than(0) }
-    it { expect(estate).to validate_numericality_of(:kitchen_square_meters).is_greater_than(0) }
+    it { expect(estate).to validate_numericality_of(:number_of_rooms).is_greater_than(0).is_less_than(10) }
+    it { expect(estate).to validate_numericality_of(:floor).is_greater_than(0).is_less_than(100) }
+    it { expect(estate).to validate_numericality_of(:number_of_floors).is_greater_than(0).is_less_than(100) }
+    it { expect(estate).to validate_numericality_of(:total_square_meters).is_greater_than(0).is_less_than(1000) }
+    it { expect(estate).to validate_numericality_of(:kitchen_square_meters).is_greater_than(0).is_less_than(1000) }
   end
 
   describe 'ActiveRecord associations' do

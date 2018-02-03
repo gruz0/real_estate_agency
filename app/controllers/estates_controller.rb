@@ -74,7 +74,7 @@ class EstatesController < ApplicationController
 
     city = City.find_by(id: estate_params[:city])
     street = Street.find_by(city: city, id: estate_params[:street])
-    address = Address.find_or_create_by!(street: street, building_number: estate_params[:building_number])
+    address = Address.find_or_create_by(street: street, building_number: estate_params[:building_number])
 
     @attributes = estate_params.to_h
     @attributes.except!(:city, :street, :building_number)

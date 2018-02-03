@@ -34,15 +34,18 @@ RSpec.describe EstatesController, type: :controller do
 
   let(:invalid_attributes) do
     {
-      client: 1,
-      employee: 2,
-      city: city,
-      street: street,
-      building_number: '9а',
-      estate_type: 4,
-      estate_project: 5,
-      estate_material: 6,
-      price: 0
+      client: '',
+      employee: '',
+      city: '',
+      street: '',
+      building_number: '',
+      estate_type: '',
+      estate_project: '',
+      estate_material: '',
+      number_of_rooms: 333,
+      floor: 100,
+      number_of_floors: 1_000,
+      price: 'abc'
     }
   end
 
