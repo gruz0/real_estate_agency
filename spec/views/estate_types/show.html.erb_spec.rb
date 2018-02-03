@@ -7,6 +7,9 @@ RSpec.describe 'estate_types/show', type: :view do
     assign(:estate_type, estate_type)
 
     render
+
+    expect(rendered).to match(I18n.t('views.estate_type.show.title', id: estate_type.id))
+
     expect(rendered).to match(/Квартира/)
     expect(rendered).to match(/#{estate_type.created_at}/)
     expect(rendered).to match(/#{estate_type.updated_at}/)
