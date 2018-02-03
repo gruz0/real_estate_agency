@@ -3,9 +3,11 @@ require 'rails_helper'
 RSpec.describe 'estate_types/index', type: :view do
   let(:estate_type1) { EstateType.create!(name: 'Квартира') }
   let(:estate_type2) { EstateType.create!(name: 'Дом') }
-  let!(:estate_types) { assign(:estate_types, [estate_type1, estate_type2]) }
+  let(:estate_types) { [estate_type1, estate_type2] }
 
   it 'renders a list of estate_types' do
+    assign(:estate_types, estate_types)
+
     render
 
     assert_select 'h1', text: I18n.t('views.estate_type.index.title'), count: 1

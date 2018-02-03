@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'layouts/application', type: :view do
   it 'renders a list of cities' do
+    flash[:notice] = 'Notice'
+
     render
 
     assert_select 'title', text: I18n.t('views.layout.title')
@@ -26,5 +28,7 @@ RSpec.describe 'layouts/application', type: :view do
         end
       end
     end
+
+    assert_select '.alert span', text: 'Notice', count: 1
   end
 end
