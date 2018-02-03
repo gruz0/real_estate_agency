@@ -37,6 +37,7 @@ RSpec.describe 'cities/index', type: :view do
     end
 
     cities.each do |city|
+      expect(response.body).to have_link(I18n.t('views.city.index.new_street'), href: new_city_street_path(city))
       expect(response.body).to have_link(I18n.t('views.show'), href: city_path(city))
       expect(response.body).to have_link(I18n.t('views.edit'), href: edit_city_path(city))
       expect(response.body).to have_link(I18n.t('views.destroy'), href: city_path(city))

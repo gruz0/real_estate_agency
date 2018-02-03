@@ -4,6 +4,7 @@ ru:
       index:
         title: 'Список городов'
         new: 'Новый город'
+        new_street: 'Добавить улицу'
       new:
         title: 'Создание города'
       edit:

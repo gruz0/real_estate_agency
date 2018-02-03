@@ -26,6 +26,8 @@ table.table.table-sm.table-hover
             = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \
               data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }
             .dropdown-menu.dropdown-menu-right
+              = link_to t('views.city.index.new_street'), new_city_street_path(city), class: 'dropdown-item'
+              .dropdown-divider
               = link_to t('views.show'), city, class: 'dropdown-item'
               = link_to t('views.edit'), edit_city_path(city), class: 'dropdown-item'
               .dropdown-divider
