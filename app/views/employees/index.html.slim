@@ -1,0 +1,35 @@
+= render 'application/notice'
+
+.row.col-lg-12
+  .col-lg-9
+    h1 = t('views.employee.index.title')
+  .col-lg-3
+    = link_to t('views.employee.index.new'), new_employee_path, class: 'btn btn-primary btn-lg float-right', role: 'button'
+
+table.table.table-sm.table-hover
+  thead.thead-light
+    tr
+      th scope="col" = Employee.human_attribute_name(:id)
+      th scope="col" = Employee.human_attribute_name(:fullname)
+      th scope="col" = Employee.human_attribute_name(:phone_numbers)
+      th scope="col" = Employee.human_attribute_name(:created_at)
+      th scope="col" = Employee.human_attribute_name(:updated_at)
+      th scope="col"
+  tbody
+    - @employees.each do |employee|
+      tr
+        th scope="row" = employee.id
+        td = person_fullname(employee)
+        td = employee.phone_numbers
+        td = employee.created_at
+        td = employee.updated_at
+        td
+          .dropdown.show
+            = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \
+              data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }
+            .dropdown-menu.dropdown-menu-right
+              = link_to t('views.show'), employee, class: 'dropdown-item'
+              = link_to t('views.edit'), edit_employee_path(employee), class: 'dropdown-item'
+              .dropdown-divider
+              = link_to t('views.destroy'), employee, class: 'dropdown-item text-danger', method: :delete, \
+                data: { confirm: t('views.are_you_sure') }

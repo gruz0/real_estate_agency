@@ -1,4 +1,5 @@
-Person.delete_all
+Client.delete_all
+Employee.delete_all
 EstateType.delete_all
 EstateProject.delete_all
 EstateMaterial.delete_all

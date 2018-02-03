@@ -1,0 +1,37 @@
+= form_with(model: employee, local: true) do |form|
+  - if employee.errors.any?
+    #error_explanation
+      h2 = t('activerecord.errors.template.header', model: Employee.model_name.human, count: employee.errors.count)
+      ul
+        - employee.errors.full_messages.each do |message|
+          li = message
+
+  table.table.table-sm.table-bordered
+    tbody
+      tr
+        td
+          .form-group
+            = form.label :last_name
+            = form.text_field :last_name, id: :employee_last_name, class: 'form-control'
+
+      tr
+        td
+          .form-group
+            = form.label :first_name
+            = form.text_field :first_name, id: :employee_first_name, class: 'form-control'
+
+      tr
+        td
+          .form-group
+            = form.label :middle_name
+            = form.text_field :middle_name, id: :employee_middle_name, class: 'form-control'
+
+      tr
+        td
+          .form-group
+            = form.label :phone_numbers
+            = form.text_field :phone_numbers, id: :employee_phone_numbers, class: 'form-control'
+
+  .btn-group role="group" aria-label="#{t('views.action')}"
+    = link_to t('views.back'), employees_path, class: 'btn btn-secondary', role: 'button'
+    = form.submit class: 'btn btn-success'

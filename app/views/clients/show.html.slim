@@ -1,0 +1,32 @@
+h1
+  = t('views.client.show.title', id: @client.id)
+
+table.table.table-sm.table-hover
+  tbody
+    tr
+      th.w-25 scope="row"
+        = Client.human_attribute_name(:fullname)
+      td
+        = person_fullname(@client)
+
+    tr
+      th scope="row"
+        = Client.human_attribute_name(:phone_numbers)
+      td
+        = @client.phone_numbers
+
+    tr
+      th scope="row"
+        = Client.human_attribute_name(:created_at)
+      td
+        = @client.created_at
+
+    tr
+      th scope="row"
+        = Client.human_attribute_name(:updated_at)
+      td
+        = @client.updated_at
+
+.btn-group role="group" aria-label="#{t('views.action')}"
+  = link_to t('views.back'), clients_path, class: 'btn btn-secondary'
+  = link_to t('views.edit'), edit_client_path(@client), class: 'btn btn-warning'

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe PeopleHelper, type: :helper do
   let(:person) do
-    create(:person, last_name: 'Иванов', first_name: 'Пётр', middle_name: middle_name)
+    create(:client, last_name: 'Иванов', first_name: 'Пётр', middle_name: middle_name)
   end
   let(:middle_name) { 'Сергеевич' }
 

@@ -28,6 +28,28 @@ ActiveRecord::Schema.define(version: 20180117121910) do
     t.index ["name"], name: "index_cities_on_name", unique: true
   end
 
+  create_table "clients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "last_name", null: false
+    t.string "first_name", null: false
+    t.string "middle_name"
+    t.string "phone_numbers", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["last_name"], name: "index_clients_on_last_name"
+    t.index ["phone_numbers"], name: "index_clients_on_phone_numbers"
+  end
+
+  create_table "employees", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "last_name", null: false
+    t.string "first_name", null: false
+    t.string "middle_name"
+    t.string "phone_numbers", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["last_name"], name: "index_employees_on_last_name"
+    t.index ["phone_numbers"], name: "index_employees_on_phone_numbers"
+  end
+
   create_table "estate_materials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -79,20 +101,6 @@ ActiveRecord::Schema.define(version: 20180117121910) do
     t.index ["status"], name: "index_estates_on_status"
   end
 
-  create_table "people", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "type", null: false
-    t.string "last_name", null: false
-    t.string "first_name", null: false
-    t.string "middle_name"
-    t.string "phone_numbers", null: false
-    t.integer "active", default: 1, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["last_name"], name: "index_people_on_last_name"
-    t.index ["phone_numbers"], name: "index_people_on_phone_numbers"
-    t.index ["type"], name: "index_people_on_type"
-  end
-
   create_table "streets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
     t.bigint "city_id", null: false
@@ -107,7 +115,5 @@ ActiveRecord::Schema.define(version: 20180117121910) do
   add_foreign_key "estates", "estate_materials"
   add_foreign_key "estates", "estate_projects"
   add_foreign_key "estates", "estate_types"
-  add_foreign_key "estates", "people", column: "client_id"
-  add_foreign_key "estates", "people", column: "employee_id"
   add_foreign_key "streets", "cities"
 end

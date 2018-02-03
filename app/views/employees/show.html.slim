@@ -1,0 +1,32 @@
+h1
+  = t('views.employee.show.title', id: @employee.id)
+
+table.table.table-sm.table-hover
+  tbody
+    tr
+      th.w-25 scope="row"
+        = Employee.human_attribute_name(:fullname)
+      td
+        = person_fullname(@employee)
+
+    tr
+      th scope="row"
+        = Employee.human_attribute_name(:phone_numbers)
+      td
+        = @employee.phone_numbers
+
+    tr
+      th scope="row"
+        = Employee.human_attribute_name(:created_at)
+      td
+        = @employee.created_at
+
+    tr
+      th scope="row"
+        = Employee.human_attribute_name(:updated_at)
+      td
+        = @employee.updated_at
+
+.btn-group role="group" aria-label="#{t('views.action')}"
+  = link_to t('views.back'), employees_path, class: 'btn btn-secondary'
+  = link_to t('views.edit'), edit_employee_path(@employee), class: 'btn btn-warning'

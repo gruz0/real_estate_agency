@@ -1,0 +1,35 @@
+= render 'application/notice'
+
+.row.col-lg-12
+  .col-lg-9
+    h1 = t('views.client.index.title')
+  .col-lg-3
+    = link_to t('views.client.index.new'), new_client_path, class: 'btn btn-primary btn-lg float-right', role: 'button'
+
+table.table.table-sm.table-hover
+  thead.thead-light
+    tr
+      th scope="col" = Client.human_attribute_name(:id)
+      th scope="col" = Client.human_attribute_name(:fullname)
+      th scope="col" = Client.human_attribute_name(:phone_numbers)
+      th scope="col" = Client.human_attribute_name(:created_at)
+      th scope="col" = Client.human_attribute_name(:updated_at)
+      th scope="col"
+  tbody
+    - @clients.each do |client|
+      tr
+        th scope="row" = client.id
+        td = person_fullname(client)
+        td = client.phone_numbers
+        td = client.created_at
+        td = client.updated_at
+        td
+          .dropdown.show
+            = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \
+              data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }
+            .dropdown-menu.dropdown-menu-right
+              = link_to t('views.show'), client, class: 'dropdown-item'
+              = link_to t('views.edit'), edit_client_path(client), class: 'dropdown-item'
+              .dropdown-divider
+              = link_to t('views.destroy'), client, class: 'dropdown-item text-danger', method: :delete, \
+                data: { confirm: t('views.are_you_sure') }

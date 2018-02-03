@@ -1,0 +1,16 @@
+ru:
+  views:
+    client:
+      index:
+        title: 'Список клиентов'
+        new: 'Новый клиент'
+      new:
+        title: 'Создание клиента'
+      edit:
+        title: 'Редактирование клиента'
+      show:
+        title: 'Карточка клиента #%{id}'
+      flash_messages:
+        client_was_successfully_created: 'Клиент был успешно создан'
+        client_was_successfully_updated: 'Клиент был успешно обновлён'
+        client_was_successfully_destroyed: 'Клиент был успешно удалён'
