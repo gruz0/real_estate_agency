@@ -36,6 +36,14 @@ ru:
       create: 'Создать'
       update: 'Обновить'
 
+  number:
+    currency:
+      format:
+        unit: '₽'
+    length:
+      format:
+        unit: 'м'
+
   views:
     new: 'Новая запись'
     show: 'Показать'

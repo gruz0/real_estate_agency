@@ -70,7 +70,7 @@
             .input-group.mb-2
               .input-group-prepend
                 .input-group-text
-                  | ₽
+                  = t('number.currency.format.unit')
               = form.text_field :price, id: :estate_price, class: 'form-control'
 
         td
@@ -96,7 +96,8 @@
                 = form.text_field :total_square_meters, id: :estate_total_square_meters, class: 'form-control'
                 .input-group-append
                   .input-group-text
-                    | м<sup>2</sup>
+                    = t('number.length.format.unit')
+                    | <sup>2</sup>
 
             .form-group.col-md-6
               = form.label :kitchen_square_meters
@@ -104,7 +105,8 @@
                 = form.text_field :kitchen_square_meters, id: :estate_kitchen_square_meters, class: 'form-control'
                 .input-group-append
                   .input-group-text
-                    | м<sup>2</sup>
+                    = t('number.length.format.unit')
+                    | <sup>2</sup>
 
       tr
         td colspan=2
