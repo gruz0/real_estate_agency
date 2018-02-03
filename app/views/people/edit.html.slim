@@ -1,4 +1,7 @@
-h1 = t('views.person.edit.title')
-= render 'form', person: @person
-= link_to t('views.show'), @person
-= link_to t('views.back'), sti_person_path(@person.type)
+.row.col-lg-10
+  .col-lg-9
+    h1 = t('views.person.edit.title')
+
+.row.col-lg-10
+  .col
+    = render 'form', person: @person

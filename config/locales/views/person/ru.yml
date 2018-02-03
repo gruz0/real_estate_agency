@@ -8,6 +8,8 @@ ru:
         title: 'Создание пользователя'
       edit:
         title: 'Редактирование пользователя'
+      show:
+        title: 'Карточка пользователя #%{id}'
       flash_messages:
         person_was_successfully_created: 'Запись была успешно создана'
         person_was_successfully_updated: 'Запись была успешно обновлена'

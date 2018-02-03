@@ -10,6 +10,8 @@ RSpec.describe 'people/show', type: :view do
 
     render
 
+    expect(rendered).to match(I18n.t('views.person.show.title', id: client.id))
+
     expect(rendered).to match(/Иванов/)
     expect(rendered).to match(/Олег/)
     expect(rendered).to match(/Сергеевич/)

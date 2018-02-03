@@ -1,26 +1,35 @@
-p#notice = notice
+= render 'application/notice'
 
-h1 = t('views.person.index.title')
+.row.col-lg-12
+  .col-lg-9
+    h1 = t('views.person.index.title')
+  .col-lg-3
+    = link_to t('views.person.index.new'), sti_person_path(@type, nil, :new), class: 'btn btn-primary btn-lg float-right', role: 'button'
 
-= link_to t('views.person.index.new'), sti_person_path(@type, nil, :new)
-
-table
-  thead
+table.table.table-sm.table-hover
+  thead.thead-light
     tr
-      th = Person.human_attribute_name(:id)
-      th = Person.human_attribute_name(:fullname)
-      th = Person.human_attribute_name(:phone_numbers)
-      th = Person.human_attribute_name(:created_at)
-      th = Person.human_attribute_name(:updated_at)
-      th[colspan="3"]
+      th scope="col" = Person.human_attribute_name(:id)
+      th scope="col" = Person.human_attribute_name(:fullname)
+      th scope="col" = Person.human_attribute_name(:phone_numbers)
+      th scope="col" = Person.human_attribute_name(:created_at)
+      th scope="col" = Person.human_attribute_name(:updated_at)
+      th scope="col"
   tbody
     - @people.each do |person|
       tr
-        td = person.id
+        th scope="row" = person.id
         td = person_fullname(person)
         td = person.phone_numbers
         td = person.created_at
         td = person.updated_at
-        td = link_to t('views.show'), sti_person_path(person.type, person)
-        td = link_to t('views.edit'), sti_person_path(person.type, person, :edit)
-        td = link_to t('views.destroy'), sti_person_path(person.type, person), method: :delete, data: { confirm: t('views.are_you_sure') }
+        td
+          .dropdown.show
+            = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \
+              data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }
+            .dropdown-menu.dropdown-menu-right
+              = link_to t('views.show'), sti_person_path(person.type, person), class: 'dropdown-item'
+              = link_to t('views.edit'), sti_person_path(person.type, person, :edit), class: 'dropdown-item'
+              .dropdown-divider
+              = link_to t('views.destroy'), sti_person_path(person.type, person), class: 'dropdown-item text-danger', method: :delete, \
+                data: { confirm: t('views.are_you_sure') }
