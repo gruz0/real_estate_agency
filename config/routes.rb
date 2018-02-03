@@ -10,5 +10,5 @@ Rails.application.routes.draw do
   end
   resources :estates
 
-  root 'people#index'
+  root 'estates#index'
 end
