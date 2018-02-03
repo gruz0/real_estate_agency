@@ -8,6 +8,8 @@ ru:
         title: 'Создание типа проекта'
       edit:
         title: 'Редактирование типа проекта'
+      show:
+        title: 'Карточка проекта #%{id}'
       flash_messages:
         estate_project_was_successfully_created: 'Тип проекта был успешно создан'
         estate_project_was_successfully_updated: 'Тип проекта был успешно обновлён'

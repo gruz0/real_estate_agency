@@ -1,4 +1,7 @@
-h1 = t('views.estate_project.edit.title')
-= render 'form', estate_project: @estate_project
-= link_to t('views.show'), @estate_project
-= link_to t('views.back'), estate_projects_path
+.row.col-lg-10
+  .col-lg-9
+    h1 = t('views.estate_project.edit.title')
+
+.row.col-lg-10
+  .col
+    = render 'form', estate_project: @estate_project

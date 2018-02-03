@@ -8,6 +8,8 @@ RSpec.describe 'estate_projects/show', type: :view do
 
     render
 
+    expect(rendered).to match(I18n.t('views.estate_project.show.title', id: estate_project.id))
+
     expect(rendered).to match(/Уральский/)
     expect(rendered).to match(/#{estate_project.created_at}/)
     expect(rendered).to match(/#{estate_project.updated_at}/)

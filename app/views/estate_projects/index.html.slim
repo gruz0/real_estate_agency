@@ -1,24 +1,33 @@
-p#notice = notice
+= render 'application/notice'
 
-h1 = t('views.estate_project.index.title')
+.row.col-lg-12
+  .col-lg-9
+    h1 = t('views.estate_project.index.title')
+  .col-lg-3
+    = link_to t('views.estate_project.index.new'), new_estate_project_path, class: 'btn btn-primary btn-lg float-right', role: 'button'
 
-= link_to t('views.estate_project.index.new'), new_estate_project_path
-
-table
-  thead
+table.table.table-sm.table-hover
+  thead.thead-light
     tr
-      th = EstateProject.human_attribute_name(:id)
-      th = EstateProject.human_attribute_name(:name)
-      th = EstateProject.human_attribute_name(:created_at)
-      th = EstateProject.human_attribute_name(:updated_at)
-      th[colspan="3"]
+      th scope="col" = EstateProject.human_attribute_name(:id)
+      th scope="col" = EstateProject.human_attribute_name(:name)
+      th scope="col" = EstateProject.human_attribute_name(:created_at)
+      th scope="col" = EstateProject.human_attribute_name(:updated_at)
+      th scope="col"
   tbody
     - @estate_projects.each do |estate_project|
       tr
-        td = estate_project.id
+        th scope="row" = estate_project.id
         td = estate_project.name
         td = estate_project.created_at
         td = estate_project.updated_at
-        td = link_to t('views.show'), estate_project
-        td = link_to t('views.edit'), edit_estate_project_path(estate_project)
-        td = link_to t('views.destroy'), estate_project, method: :delete, data: { confirm: t('views.are_you_sure') }
+        td
+          .dropdown.show
+            = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \
+              data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }
+            .dropdown-menu.dropdown-menu-right
+              = link_to t('views.show'), estate_project, class: 'dropdown-item'
+              = link_to t('views.edit'), edit_estate_project_path(estate_project), class: 'dropdown-item'
+              .dropdown-divider
+              = link_to t('views.destroy'), estate_project, class: 'dropdown-item text-danger', method: :delete, \
+                data: { confirm: t('views.are_you_sure') }
