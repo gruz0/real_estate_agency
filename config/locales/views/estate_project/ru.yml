@@ -2,14 +2,14 @@ ru:
   views:
     estate_project:
       index:
-        title: 'Список проектов строения'
+        title: 'Список проектов объектов'
         new: 'Новый тип проекта'
       new:
         title: 'Создание типа проекта'
       edit:
         title: 'Редактирование типа проекта'
       show:
-        title: 'Карточка проекта #%{id}'
+        title: 'Карточка типа проекта #%{id}'
       flash_messages:
         estate_project_was_successfully_created: 'Тип проекта был успешно создан'
         estate_project_was_successfully_updated: 'Тип проекта был успешно обновлён'

@@ -9,6 +9,6 @@ ru:
         clients: 'Клиенты'
         employees: 'Сотрудники'
         estate_types: 'Типы объектов'
-        estate_materials: 'Материалы зданий'
-        estate_projects: 'Проекты зданий'
+        estate_materials: 'Материалы объектов'
+        estate_projects: 'Проекты объектов'
         cities: 'Города'
