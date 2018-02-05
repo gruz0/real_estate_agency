@@ -8,6 +8,7 @@ FactoryBot.define do
     estate_material
     address
     client
-    employee
+    responsible_employee
+    created_by_employee
   end
 end

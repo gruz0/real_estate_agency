@@ -20,7 +20,8 @@ RSpec.describe 'estates/index', type: :view do
     {
       deal_type: :sale,
       client: client,
-      employee: employee,
+      created_by_employee: employee,
+      responsible_employee: employee,
       address: address,
       apartment_number: 55,
       estate_type: estate_type,
@@ -54,7 +55,7 @@ RSpec.describe 'estates/index', type: :view do
         assert_select 'th', text: Estate.human_attribute_name(:floor), count: 1
         assert_select 'th', text: Estate.human_attribute_name(:price), count: 1
         assert_select 'th', text: Client.human_attribute_name(:phone_numbers), count: 1
-        assert_select 'th', text: Estate.human_attribute_name(:employee), count: 1
+        assert_select 'th', text: Estate.human_attribute_name(:responsible_employee), count: 1
         assert_select 'th', text: Estate.human_attribute_name(:created_at), count: 1
         assert_select 'th', text: Estate.human_attribute_name(:updated_at), count: 1
       end

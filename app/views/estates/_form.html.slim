@@ -26,9 +26,14 @@
             = form.select :client, Client.all.map { |c| [person_fullname(c), c.id] }, {}, class: 'form-control'
 
         td
-          .form-group
-            = form.label :employee
-            = form.select :employee, Employee.all.map { |e| [person_fullname(e), e.id] }, {}, class: 'form-control'
+          .form-row
+            .form-group.col-md-6
+              = form.label :created_by_employee
+              = form.select :created_by_employee, Employee.all.map { |e| [person_fullname(e), e.id] }, {}, class: 'form-control'
+
+            .form-group.col-md-6
+              = form.label :responsible_employee
+              = form.select :responsible_employee, Employee.all.map { |e| [person_fullname(e), e.id] }, {}, class: 'form-control'
 
       tr
         td

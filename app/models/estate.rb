@@ -5,7 +5,12 @@ class Estate < ApplicationRecord
   scope :rents, -> { where(deal_type: :rent) }
 
   belongs_to :client, required: true, validate: true
-  belongs_to :employee, required: true, validate: true
+  belongs_to :responsible_employee, class_name: 'Employee', inverse_of: :estate,
+                                    foreign_key: :responsible_employee_id, required: true, validate: true
+  belongs_to :created_by_employee, class_name: 'Employee', inverse_of: :estate,
+                                   foreign_key: :created_by_employee_id, required: true, validate: true
+  belongs_to :updated_by_employee, class_name: 'Employee', inverse_of: :estate,
+                                   foreign_key: :updated_by_employee_id, required: false, validate: true
   belongs_to :address, required: true, validate: true
   belongs_to :estate_type, required: true, validate: true
   belongs_to :estate_project, required: true, validate: true

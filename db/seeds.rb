@@ -41,8 +41,9 @@ end
 10.times do |_|
   Estate.create(
     deal_type: :sale,
-    employee: employee,
     client: client,
+    created_by_employee: employee,
+    responsible_employee: employee,
     address: addresses.sample,
     estate_type: estate_types.sample,
     estate_project: estate_projects.sample,
@@ -59,8 +60,9 @@ end
 10.times do |_|
   Estate.create(
     deal_type: :rent,
-    employee: employee,
     client: client,
+    created_by_employee: employee,
+    responsible_employee: employee,
     address: addresses.sample,
     estate_type: estate_types.sample,
     estate_project: estate_projects.sample,

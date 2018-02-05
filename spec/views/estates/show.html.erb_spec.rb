@@ -19,7 +19,8 @@ RSpec.describe 'estates/show', type: :view do
     {
       deal_type: :sale,
       client: client,
-      employee: employee,
+      created_by_employee: employee,
+      responsible_employee: employee,
       address: address,
       apartment_number: 55,
       estate_type: estate_type,

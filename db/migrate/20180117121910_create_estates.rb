@@ -13,8 +13,10 @@ class CreateEstates < ActiveRecord::Migration[5.1]
       t.references :estate_material, null: false, foreign_key: true
 
       t.references :address, null: false, foreign_key: true
-      t.references :client, null: false, index: true
-      t.references :employee, null: false, index: true
+      t.references :client, null: false, foreign_key: true
+      t.references :responsible_employee, null: false, foreign_key: { to_table: :employees }
+      t.references :created_by_employee, null: false, foreign_key: { to_table: :employees }
+      t.references :updated_by_employee, foreign_key: { to_table: :employees }
 
       t.integer :number_of_rooms, limit: 1
       t.integer :floor, limit: 1

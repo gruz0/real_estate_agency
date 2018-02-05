@@ -17,7 +17,8 @@ RSpec.describe EstatesHelper, type: :helper do
   let(:valid_attributes) do
     {
       client: client,
-      employee: employee,
+      created_by_employee: employee,
+      responsible_employee: employee,
       address: address,
       estate_type: estate_type,
       estate_project: estate_project,

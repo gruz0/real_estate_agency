@@ -12,7 +12,8 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).to validate_presence_of(:deal_type).with_message(I18n.t('errors.messages.blank')) }
     it { expect(estate).to validate_presence_of(:price).with_message(I18n.t('errors.messages.blank')) }
     it { expect(estate).to validate_presence_of(:client).with_message(I18n.t('errors.messages.required')) }
-    it { expect(estate).to validate_presence_of(:employee).with_message(I18n.t('errors.messages.required')) }
+    it { expect(estate).to validate_presence_of(:responsible_employee).with_message(I18n.t('errors.messages.required')) }
+    it { expect(estate).to validate_presence_of(:created_by_employee).with_message(I18n.t('errors.messages.required')) }
     it { expect(estate).to validate_presence_of(:address).with_message(I18n.t('errors.messages.required')) }
     it { expect(estate).to validate_presence_of(:estate_type).with_message(I18n.t('errors.messages.required')) }
     it { expect(estate).to validate_presence_of(:estate_project).with_message(I18n.t('errors.messages.required')) }
@@ -26,7 +27,9 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).to allow_value(:active).for(:status) }
 
     it { expect(estate).not_to allow_value(nil).for(:client) }
-    it { expect(estate).not_to allow_value(nil).for(:employee) }
+    it { expect(estate).not_to allow_value(nil).for(:responsible_employee) }
+    it { expect(estate).not_to allow_value(nil).for(:created_by_employee) }
+    it { expect(estate).to allow_value(nil).for(:updated_by_employee) }
     it { expect(estate).not_to allow_value(nil).for(:address) }
     it { expect(estate).not_to allow_value(nil).for(:estate_type) }
     it { expect(estate).not_to allow_value(nil).for(:estate_project) }
@@ -74,7 +77,9 @@ RSpec.describe Estate, type: :model do
   describe 'ActiveRecord associations' do
     # Associations
     it { expect(estate).to belong_to(:client) }
-    it { expect(estate).to belong_to(:employee) }
+    it { expect(estate).to belong_to(:responsible_employee).class_name('Employee').with_foreign_key(:responsible_employee_id) }
+    it { expect(estate).to belong_to(:created_by_employee).class_name('Employee').with_foreign_key(:created_by_employee_id) }
+    it { expect(estate).to belong_to(:updated_by_employee).class_name('Employee').with_foreign_key(:updated_by_employee_id) }
     it { expect(estate).to belong_to(:address) }
     it { expect(estate).to belong_to(:estate_type) }
     it { expect(estate).to belong_to(:estate_project) }
@@ -99,8 +104,14 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).to have_db_column(:client_id).of_type(:integer).with_options(null: false) }
     it { expect(estate).to have_db_index(:client_id) }
 
-    it { expect(estate).to have_db_column(:employee_id).of_type(:integer).with_options(null: false) }
-    it { expect(estate).to have_db_index(:employee_id) }
+    it { expect(estate).to have_db_column(:responsible_employee_id).of_type(:integer).with_options(null: false) }
+    it { expect(estate).to have_db_index(:responsible_employee_id) }
+
+    it { expect(estate).to have_db_column(:created_by_employee_id).of_type(:integer).with_options(null: false) }
+    it { expect(estate).to have_db_index(:created_by_employee_id) }
+
+    it { expect(estate).to have_db_column(:updated_by_employee_id).of_type(:integer).with_options(null: true) }
+    it { expect(estate).to have_db_index(:updated_by_employee_id) }
 
     it { expect(estate).to have_db_column(:price).of_type(:decimal).with_options(null: false, precision: 12, scale: 2) }
     it { expect(estate).to have_db_index(:price) }

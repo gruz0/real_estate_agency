@@ -14,7 +14,8 @@ RSpec.describe EstatesController, type: :controller do
     {
       deal_type: :sale,
       client: client,
-      employee: employee,
+      created_by_employee: employee,
+      responsible_employee: employee,
       city: city,
       street: street,
       building_number: '9а',
@@ -35,7 +36,8 @@ RSpec.describe EstatesController, type: :controller do
   let(:invalid_attributes) do
     {
       client: '',
-      employee: '',
+      created_by_employee: '',
+      responsible_employee: '',
       city: '',
       street: '',
       building_number: '',
@@ -116,7 +118,8 @@ RSpec.describe EstatesController, type: :controller do
         {
           deal_type: :rent,
           client: create(:client),
-          employee: create(:employee),
+          created_by_employee: create(:employee),
+          responsible_employee: create(:employee),
           city: city,
           street: street,
           building_number: '11/2',
@@ -141,7 +144,8 @@ RSpec.describe EstatesController, type: :controller do
 
         expect(estate.deal_type).to eq(new_attributes[:deal_type].to_s)
         expect(estate.client).to eq(new_attributes[:client])
-        expect(estate.employee).to eq(new_attributes[:employee])
+        expect(estate.created_by_employee).to eq(new_attributes[:created_by_employee])
+        expect(estate.responsible_employee).to eq(new_attributes[:responsible_employee])
         expect(estate.address).to eq(Address.last)
         expect(estate.apartment_number).to eq(new_attributes[:apartment_number].to_s)
         expect(estate.estate_type).to eq(new_attributes[:estate_type])

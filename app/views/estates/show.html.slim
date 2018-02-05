@@ -35,9 +35,15 @@ table.table.table-sm.table-hover
 
     tr
       th scope="row"
-        = Estate.human_attribute_name(:employee)
+        = Estate.human_attribute_name(:created_by_employee)
       td
-        = person_fullname(@estate.employee)
+        = person_fullname(@estate.created_by_employee)
+
+    tr
+      th scope="row"
+        = Estate.human_attribute_name(:responsible_employee)
+      td
+        = person_fullname(@estate.responsible_employee)
 
     tr
       th scope="row"

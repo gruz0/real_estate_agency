@@ -78,7 +78,9 @@ ActiveRecord::Schema.define(version: 20180117121910) do
     t.bigint "estate_material_id", null: false
     t.bigint "address_id", null: false
     t.bigint "client_id", null: false
-    t.bigint "employee_id", null: false
+    t.bigint "responsible_employee_id", null: false
+    t.bigint "created_by_employee_id", null: false
+    t.bigint "updated_by_employee_id"
     t.integer "number_of_rooms", limit: 1
     t.integer "floor", limit: 1
     t.integer "number_of_floors", limit: 1
@@ -92,13 +94,15 @@ ActiveRecord::Schema.define(version: 20180117121910) do
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_estates_on_address_id"
     t.index ["client_id"], name: "index_estates_on_client_id"
+    t.index ["created_by_employee_id"], name: "index_estates_on_created_by_employee_id"
     t.index ["deal_type"], name: "index_estates_on_deal_type"
-    t.index ["employee_id"], name: "index_estates_on_employee_id"
     t.index ["estate_material_id"], name: "index_estates_on_estate_material_id"
     t.index ["estate_project_id"], name: "index_estates_on_estate_project_id"
     t.index ["estate_type_id"], name: "index_estates_on_estate_type_id"
     t.index ["price"], name: "index_estates_on_price"
+    t.index ["responsible_employee_id"], name: "index_estates_on_responsible_employee_id"
     t.index ["status"], name: "index_estates_on_status"
+    t.index ["updated_by_employee_id"], name: "index_estates_on_updated_by_employee_id"
   end
 
   create_table "streets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -112,6 +116,10 @@ ActiveRecord::Schema.define(version: 20180117121910) do
 
   add_foreign_key "addresses", "streets"
   add_foreign_key "estates", "addresses"
+  add_foreign_key "estates", "clients"
+  add_foreign_key "estates", "employees", column: "created_by_employee_id"
+  add_foreign_key "estates", "employees", column: "responsible_employee_id"
+  add_foreign_key "estates", "employees", column: "updated_by_employee_id"
   add_foreign_key "estates", "estate_materials"
   add_foreign_key "estates", "estate_projects"
   add_foreign_key "estates", "estate_types"
