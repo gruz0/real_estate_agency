@@ -43,11 +43,10 @@ ActiveRecord::Schema.define(version: 20180117121910) do
     t.string "last_name", null: false
     t.string "first_name", null: false
     t.string "middle_name"
-    t.string "phone_numbers", null: false
+    t.string "phone_numbers"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["last_name"], name: "index_employees_on_last_name"
-    t.index ["phone_numbers"], name: "index_employees_on_phone_numbers"
   end
 
   create_table "estate_materials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

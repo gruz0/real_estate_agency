@@ -8,13 +8,29 @@ RSpec.describe Employee, type: :model do
   end
 
   describe 'ActiveModel validations' do
-    include_examples :person_active_model_validations
+    # Basic validations
+    it { expect(person).to validate_presence_of(:last_name).with_message(I18n.t('errors.messages.blank')) }
+    it { expect(person).to validate_presence_of(:first_name).with_message(I18n.t('errors.messages.blank')) }
+
+    # Format validations
+    it { expect(person).to allow_value('Петрова').for(:last_name) }
+    it { expect(person).to allow_value('Ольга').for(:first_name) }
+
+    # Inclusion/acceptance of values
+    it { expect(person).to validate_length_of(:last_name).is_at_least(1) }
+    it { expect(person).to validate_length_of(:first_name).is_at_least(1) }
   end
 
   describe 'ActiveRecord associations' do
     # Associations
     it { expect(person).to have_many(:estate).dependent(:destroy) }
 
-    include_examples :person_active_record_associations
+    # Database columns/indexes
+    it { expect(person).to have_db_column(:last_name).of_type(:string).with_options(null: false) }
+    it { expect(person).to have_db_index(:last_name) }
+
+    it { expect(person).to have_db_column(:first_name).of_type(:string).with_options(null: false) }
+
+    it { expect(person).to have_db_column(:phone_numbers).of_type(:string).with_options(null: true) }
   end
 end
