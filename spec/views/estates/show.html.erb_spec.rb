@@ -32,7 +32,7 @@ RSpec.describe 'estates/show', type: :view do
       total_square_meters: 122.1,
       kitchen_square_meters: 17.8,
       description: 'Описание объекта',
-      price: 99_999.99
+      price: 99_999
     }
   end
 
@@ -45,7 +45,7 @@ RSpec.describe 'estates/show', type: :view do
 
     expect(rendered).to match(/sale/)
     expect(rendered).to match(/Нефтеюганск, Ленина, 9а/)
-    expect(rendered).to match(/99999\.99/)
+    expect(rendered).to match(/99999/)
     expect(rendered).to match(/Иванов Сергей Николаевич/)
     expect(rendered).to match(/\+79991112233/)
     expect(rendered).to match(/Ли Мария Петровна/)

@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 20180117121910) do
     t.float "kitchen_square_meters", limit: 24
     t.string "description"
     t.string "apartment_number"
-    t.decimal "price", precision: 12, scale: 2, null: false
+    t.integer "price", null: false
     t.integer "status", limit: 1, default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

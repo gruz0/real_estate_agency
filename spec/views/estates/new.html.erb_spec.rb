@@ -20,7 +20,7 @@ RSpec.describe 'estates/new', type: :view do
       estate_type: estate_type,
       estate_project: estate_project,
       estate_material: estate_material,
-      price: 99_999.99,
+      price: 99_999,
       deal_type: :sale
     }
   end

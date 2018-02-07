@@ -29,7 +29,7 @@ RSpec.describe EstatesController, type: :controller do
       total_square_meters: 103.1,
       kitchen_square_meters: 30.8,
       description: 'Описание объекта',
-      price: 99_999.99
+      price: 99_999
     }
   end
 
@@ -133,7 +133,7 @@ RSpec.describe EstatesController, type: :controller do
           total_square_meters: 103.1,
           kitchen_square_meters: 30.8,
           description: 'Новое описание объекта',
-          price: 1_000_000.00,
+          price: 88_888,
           status: :archived
         }
       end

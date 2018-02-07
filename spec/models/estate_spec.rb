@@ -37,8 +37,9 @@ RSpec.describe Estate, type: :model do
 
     it { expect(estate).to allow_value('55').for(:apartment_number) }
 
-    it { expect(estate).to allow_value(99_999_999).for(:price) }
+    it { expect(estate).to allow_value(99_999).for(:price) }
     it { expect(estate).to allow_value(1).for(:price) }
+    it { expect(estate).not_to allow_value(100_000).for(:price) }
     it { expect(estate).not_to allow_value(0).for(:price) }
     it { expect(estate).not_to allow_value('qwe').for(:price) }
 
@@ -66,7 +67,7 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).not_to allow_value('qwe').for(:kitchen_square_meters) }
 
     # Inclusion/acceptance of values
-    it { expect(estate).to validate_numericality_of(:price).is_greater_than(0) }
+    it { expect(estate).to validate_numericality_of(:price).is_greater_than(0).is_less_than(100_000) }
     it { expect(estate).to validate_numericality_of(:number_of_rooms).is_greater_than(0).is_less_than(10) }
     it { expect(estate).to validate_numericality_of(:floor).is_greater_than(0).is_less_than(100) }
     it { expect(estate).to validate_numericality_of(:number_of_floors).is_greater_than(0).is_less_than(100) }
@@ -113,7 +114,7 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).to have_db_column(:updated_by_employee_id).of_type(:integer).with_options(null: true) }
     it { expect(estate).to have_db_index(:updated_by_employee_id) }
 
-    it { expect(estate).to have_db_column(:price).of_type(:decimal).with_options(null: false, precision: 12, scale: 2) }
+    it { expect(estate).to have_db_column(:price).of_type(:integer).with_options(null: false) }
     it { expect(estate).to have_db_index(:price) }
 
     it { expect(estate).to have_db_column(:status).of_type(:integer).with_options(null: false, default: :active) }

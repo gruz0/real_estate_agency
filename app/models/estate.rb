@@ -20,7 +20,7 @@ class Estate < ApplicationRecord
   enum status: { archived: 0, active: 1 }
 
   validates :deal_type, presence: true
-  validates :price, presence: true, numericality: { greater_than: 0 }
+  validates :price, presence: true, numericality: { greater_than: 0, less_than: 100_000 }
   validates :number_of_rooms, allow_blank: true, numericality: { greater_than: 0, less_than: 10 }
   validates :floor, allow_blank: true, numericality: { greater_than: 0, less_than: 100 }
   validates :number_of_floors, allow_blank: true, numericality: { greater_than: 0, less_than: 100 }

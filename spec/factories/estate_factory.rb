@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :estate do
     deal_type :sale
-    price 99_999.99
+    price 99_999
 
     estate_type
     estate_project

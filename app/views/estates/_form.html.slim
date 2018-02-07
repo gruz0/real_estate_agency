@@ -76,7 +76,11 @@
               .input-group-prepend
                 .input-group-text
                   = t('number.currency.format.unit')
-              = form.text_field :price, id: :estate_price, class: 'form-control'
+              = form.text_field :price, id: :estate_price, class: 'form-control', maxlength: 5
+
+              .input-group-append
+                .input-group-text
+                  | 000
 
         td
           .form-row
