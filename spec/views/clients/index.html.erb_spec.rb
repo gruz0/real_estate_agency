@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'clients/index', type: :view do
   let(:client1) do
-    create(:client, last_name: 'Иванов', first_name: 'Иван', middle_name: 'Иванович', phone_numbers: '+79001112233')
+    create(:client, full_name: 'Иванов Иван Иванович', phone_numbers: '+79001112233')
   end
   let(:client2) do
-    create(:client, last_name: 'Петров', first_name: 'Сергей', phone_numbers: '+79993334455')
+    create(:client, full_name: 'Петров Сергей', phone_numbers: '+79993334455')
   end
   let(:clients) { [client1, client2] }
 
@@ -21,7 +21,7 @@ RSpec.describe 'clients/index', type: :view do
     assert_select 'table' do
       assert_select 'thead' do
         assert_select 'th', text: Client.human_attribute_name(:id), count: 1
-        assert_select 'th', text: Client.human_attribute_name(:fullname), count: 1
+        assert_select 'th', text: Client.human_attribute_name(:full_name), count: 1
         assert_select 'th', text: Client.human_attribute_name(:phone_numbers), count: 1
         assert_select 'th', text: Client.human_attribute_name(:created_at), count: 1
         assert_select 'th', text: Client.human_attribute_name(:updated_at), count: 1

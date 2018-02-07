@@ -8,7 +8,7 @@ table.table.table-sm.table-hover
   thead.thead-light
     tr
       th scope="col" = Client.human_attribute_name(:id)
-      th scope="col" = Client.human_attribute_name(:fullname)
+      th scope="col" = Client.human_attribute_name(:full_name)
       th scope="col" = Client.human_attribute_name(:phone_numbers)
       th scope="col" = Client.human_attribute_name(:created_at)
       th scope="col" = Client.human_attribute_name(:updated_at)
@@ -17,7 +17,7 @@ table.table.table-sm.table-hover
     - @clients.each do |client|
       tr
         th scope="row" = client.id
-        td = person_fullname(client)
+        td = client.full_name
         td = client.phone_numbers
         td = client.created_at
         td = client.updated_at

@@ -25,7 +25,7 @@ table.table.table-sm.table-hover
       th scope="row"
         = Estate.human_attribute_name(:client)
       td
-        = person_fullname(@estate.client)
+        = @estate.client.full_name
 
     tr
       th scope="row"

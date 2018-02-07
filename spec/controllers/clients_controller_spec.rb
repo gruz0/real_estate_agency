@@ -14,8 +14,7 @@ RSpec.describe ClientsController, type: :controller do
 
   let(:invalid_attributes) do
     {
-      last_name: '',
-      first_name: '',
+      full_name: '',
       phone_numbers: ''
     }
   end
@@ -81,9 +80,7 @@ RSpec.describe ClientsController, type: :controller do
     context 'with valid params' do
       let(:new_attributes) do
         {
-          last_name: FFaker::NameRU.last_name,
-          first_name: FFaker::NameRU.first_name,
-          middle_name: FFaker::NameRU.patronymic,
+          full_name: "#{FFaker::NameRU.last_name} #{FFaker::NameRU.first_name}",
           phone_numbers: FFaker::PhoneNumber.phone_number
         }
       end
@@ -92,9 +89,7 @@ RSpec.describe ClientsController, type: :controller do
         put :update, params: { id: client.to_param, client: new_attributes }, session: valid_session
         client.reload
 
-        expect(client.last_name).to eq(new_attributes[:last_name])
-        expect(client.first_name).to eq(new_attributes[:first_name])
-        expect(client.middle_name).to eq(new_attributes[:middle_name])
+        expect(client.full_name).to eq(new_attributes[:full_name])
         expect(client.phone_numbers).to eq(new_attributes[:phone_numbers])
       end
 

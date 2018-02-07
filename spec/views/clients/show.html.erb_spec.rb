@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'clients/show', type: :view do
   let(:client) do
-    create(:client, last_name: 'Иванов', first_name: 'Олег', middle_name: 'Сергеевич', phone_numbers: '+79991112233')
+    create(:client, full_name: 'Иванов Олег Сергеевич', phone_numbers: '+79991112233')
   end
 
   it 'renders attributes in <p>' do
@@ -12,9 +12,7 @@ RSpec.describe 'clients/show', type: :view do
 
     expect(rendered).to match(I18n.t('views.client.show.title', id: client.id))
 
-    expect(rendered).to match(/Иванов/)
-    expect(rendered).to match(/Олег/)
-    expect(rendered).to match(/Сергеевич/)
+    expect(rendered).to match(/Иванов Олег Сергеевич/)
     expect(rendered).to match(/\+79991112233/)
     expect(rendered).to match(/#{client.created_at}/)
     expect(rendered).to match(/#{client.updated_at}/)

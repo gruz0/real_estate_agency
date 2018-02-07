@@ -8,7 +8,7 @@ Street.delete_all
 City.delete_all
 Estate.delete_all
 
-client   = Client.create!(last_name: 'Пупкин', first_name: 'Василий', phone_numbers: '+79151112233,+75159393132')
+client   = Client.create!(full_name: 'Пупкин Василий', phone_numbers: '+79151112233,+75159393132')
 employee = Employee.create!(last_name: 'Иванова', first_name: 'Наталья', middle_name: 'Сергеевна',
                             phone_numbers: '+79001112233')
 

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'estates/show', type: :view do
   let(:client) do
-    create(:client, last_name: 'Иванов', first_name: 'Сергей', middle_name: 'Николаевич', phone_numbers: '+79991112233')
+    create(:client, full_name: 'Иванов Сергей Николаевич', phone_numbers: '+79991112233')
   end
   let(:employee) do
     create(:employee, last_name: 'Ли', first_name: 'Мария', middle_name: 'Петровна', phone_numbers: '+79004445577')

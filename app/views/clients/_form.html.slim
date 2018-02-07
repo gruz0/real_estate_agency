@@ -11,20 +11,8 @@
       tr
         td
           .form-group
-            = form.label :last_name
-            = form.text_field :last_name, id: :client_last_name, class: 'form-control'
-
-      tr
-        td
-          .form-group
-            = form.label :first_name
-            = form.text_field :first_name, id: :client_first_name, class: 'form-control'
-
-      tr
-        td
-          .form-group
-            = form.label :middle_name
-            = form.text_field :middle_name, id: :client_middle_name, class: 'form-control'
+            = form.label :full_name
+            = form.text_field :full_name, id: :client_full_name, class: 'form-control'
 
       tr
         td

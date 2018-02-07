@@ -5,9 +5,9 @@ table.table.table-sm.table-hover
   tbody
     tr
       th.w-25 scope="row"
-        = Client.human_attribute_name(:fullname)
+        = Client.human_attribute_name(:full_name)
       td
-        = person_fullname(@client)
+        = @client.full_name
 
     tr
       th scope="row"

@@ -11,11 +11,7 @@ RSpec.describe 'clients/edit', type: :view do
     assert_select 'h1', text: I18n.t('views.client.edit.title'), count: 1
 
     assert_select 'form[action=?][method=?]', client_path(client), 'post' do
-      assert_select 'input[name=?]', 'client[first_name]'
-
-      assert_select 'input[name=?]', 'client[last_name]'
-
-      assert_select 'input[name=?]', 'client[middle_name]'
+      assert_select 'input[name=?]', 'client[full_name]'
 
       assert_select 'input[name=?]', 'client[phone_numbers]'
     end

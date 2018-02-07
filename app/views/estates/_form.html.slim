@@ -23,7 +23,7 @@
         td
           .form-group
             = form.label :client
-            = form.select :client, Client.all.map { |c| [person_fullname(c), c.id] }, {}, class: 'form-control'
+            = form.select :client, Client.all.map { |c| [c.full_name, c.id] }, {}, class: 'form-control'
 
         td
           .form-row
