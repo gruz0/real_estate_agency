@@ -126,7 +126,7 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).to have_db_column(:number_of_floors).of_type(:integer).with_options(null: true) }
     it { expect(estate).to have_db_column(:total_square_meters).of_type(:float).with_options(null: true) }
     it { expect(estate).to have_db_column(:kitchen_square_meters).of_type(:float).with_options(null: true) }
-    it { expect(estate).to have_db_column(:description).of_type(:string).with_options(null: true) }
+    it { expect(estate).to have_db_column(:description).of_type(:text).with_options(null: true) }
   end
 
   describe 'public class methods' do
