@@ -29,6 +29,7 @@ Metrics/LineLength:
 
 Metrics/BlockLength:
   Exclude:
+    - config/environments/*.rb
     - spec/**/*.rb
 
 Metrics/MethodLength:
