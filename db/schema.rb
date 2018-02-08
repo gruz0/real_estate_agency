@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20180117121910) do
     t.integer "number_of_floors", limit: 1
     t.float "total_square_meters", limit: 24
     t.float "kitchen_square_meters", limit: 24
-    t.string "description"
+    t.text "description"
     t.string "apartment_number"
     t.integer "price", null: false
     t.integer "status", limit: 1, default: 1, null: false
