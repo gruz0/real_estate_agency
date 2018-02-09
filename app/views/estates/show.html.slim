@@ -4,12 +4,6 @@ h1
 table.table.table-sm.table-hover
   tbody
     tr
-      th.w-25 scope="row"
-        = Estate.human_attribute_name(:deal_type)
-      td
-        = @estate.deal_type
-
-    tr
       th scope="row"
         = Estate.human_attribute_name(:address)
       td
@@ -31,7 +25,7 @@ table.table.table-sm.table-hover
       th scope="row"
         = Client.human_attribute_name(:phone_numbers)
       td
-        = @estate.client.phone_numbers
+        = clicable_phones_for(@estate.client)
 
     tr
       th scope="row"

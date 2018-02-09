@@ -20,8 +20,7 @@ RSpec.describe 'estates/edit', type: :view do
       estate_type: estate_type,
       estate_project: estate_project,
       estate_material: estate_material,
-      price: 99_999,
-      deal_type: :sale
+      price: 99_999
     }
   end
 
@@ -33,7 +32,6 @@ RSpec.describe 'estates/edit', type: :view do
     assert_select 'h1', text: I18n.t('views.estate.edit.title'), count: 1
 
     assert_select 'form[action=?][method=?]', estate_path(estate), 'post' do
-      assert_select 'select[name=?]', 'estate[deal_type]'
       assert_select 'select[name=?]', 'estate[client]'
       assert_select 'select[name=?]', 'estate[created_by_employee]'
       assert_select 'select[name=?]', 'estate[responsible_employee]'

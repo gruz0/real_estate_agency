@@ -12,7 +12,6 @@ RSpec.describe EstatesController, type: :controller do
 
   let(:valid_attributes) do
     {
-      deal_type: :sale,
       client: client,
       created_by_employee: employee,
       responsible_employee: employee,
@@ -116,7 +115,6 @@ RSpec.describe EstatesController, type: :controller do
     context 'with valid params' do
       let(:new_attributes) do
         {
-          deal_type: :rent,
           client: create(:client),
           created_by_employee: create(:employee),
           responsible_employee: create(:employee),
@@ -142,7 +140,6 @@ RSpec.describe EstatesController, type: :controller do
         put :update, params: { id: estate.to_param, estate: new_attributes }, session: valid_session
         estate.reload
 
-        expect(estate.deal_type).to eq(new_attributes[:deal_type].to_s)
         expect(estate.client).to eq(new_attributes[:client])
         expect(estate.created_by_employee).to eq(new_attributes[:created_by_employee])
         expect(estate.responsible_employee).to eq(new_attributes[:responsible_employee])

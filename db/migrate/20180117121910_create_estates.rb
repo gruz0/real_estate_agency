@@ -1,8 +1,6 @@
 class CreateEstates < ActiveRecord::Migration[5.1]
   def change
     create_table :estates do |t|
-      t.integer :deal_type, null: false, index: true, limit: 1, default: 1
-
       # Квартира, дом, комната, нежилое помещение
       t.references :estate_type, null: false, foreign_key: true
 

@@ -1,12 +1,4 @@
-Client.delete_all
-Employee.delete_all
-EstateType.delete_all
-EstateProject.delete_all
-EstateMaterial.delete_all
-Address.delete_all
-Street.delete_all
-City.delete_all
-Estate.delete_all
+DatabaseCleaner.clean_with(:truncation)
 
 client   = Client.create!(full_name: 'Пупкин Василий', phone_numbers: '+79151112233,+75159393132')
 employee = Employee.create!(last_name: 'Иванова', first_name: 'Наталья', middle_name: 'Сергеевна',
@@ -40,7 +32,6 @@ end
 
 10.times do |_|
   Estate.create(
-    deal_type: :sale,
     client: client,
     created_by_employee: employee,
     responsible_employee: employee,
@@ -54,24 +45,5 @@ end
     apartment_number: rand(100).to_s,
     price: rand(30_000.00..99_000.99),
     status: :active
-  )
-end
-
-10.times do |_|
-  Estate.create(
-    deal_type: :rent,
-    client: client,
-    created_by_employee: employee,
-    responsible_employee: employee,
-    address: addresses.sample,
-    estate_type: estate_types.sample,
-    estate_project: estate_projects.sample,
-    estate_material: estate_materials.sample,
-    floor: [nil, rand(1..5)].sample,
-    number_of_floors: [nil, rand(5..9)].sample,
-    number_of_rooms: rand(1..4),
-    apartment_number: rand(100).to_s,
-    price: rand(30_000.00..99_000.99),
-    status: :archived
   )
 end

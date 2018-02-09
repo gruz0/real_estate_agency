@@ -69,7 +69,6 @@ ActiveRecord::Schema.define(version: 20180117121910) do
   end
 
   create_table "estates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "deal_type", limit: 1, default: 1, null: false
     t.bigint "estate_type_id", null: false
     t.bigint "estate_project_id", null: false
     t.bigint "estate_material_id", null: false
@@ -92,7 +91,6 @@ ActiveRecord::Schema.define(version: 20180117121910) do
     t.index ["address_id"], name: "index_estates_on_address_id"
     t.index ["client_id"], name: "index_estates_on_client_id"
     t.index ["created_by_employee_id"], name: "index_estates_on_created_by_employee_id"
-    t.index ["deal_type"], name: "index_estates_on_deal_type"
     t.index ["estate_material_id"], name: "index_estates_on_estate_material_id"
     t.index ["estate_project_id"], name: "index_estates_on_estate_project_id"
     t.index ["estate_type_id"], name: "index_estates_on_estate_type_id"

@@ -4,7 +4,6 @@ ru:
       estate: 'Объект'
     attributes:
       estate:
-        deal_type: 'Тип сделки'
         price: 'Цена'
         client: 'Клиент'
         created_by_employee: 'Создатель'

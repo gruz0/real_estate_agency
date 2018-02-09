@@ -85,7 +85,7 @@ class EstatesController < ApplicationController
   end
 
   def estate_params
-    params.require(:estate).permit(:deal_type, :client, :created_by_employee, :responsible_employee,
+    params.require(:estate).permit(:client, :created_by_employee, :responsible_employee,
                                    :city, :street, :building_number, :apartment_number,
                                    :estate_type, :estate_project, :estate_material, :number_of_rooms,
                                    :floor, :number_of_floors, :total_square_meters, :kitchen_square_meters,

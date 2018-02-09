@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :estate do
-    deal_type :sale
     price 99_999
 
     estate_type

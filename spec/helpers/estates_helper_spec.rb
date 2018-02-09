@@ -24,7 +24,6 @@ RSpec.describe EstatesHelper, type: :helper do
       estate_project: estate_project,
       estate_material: estate_material,
       price: 99_999.99,
-      deal_type: :sale,
       floor: floor,
       number_of_floors: number_of_floors,
       number_of_rooms: number_of_rooms

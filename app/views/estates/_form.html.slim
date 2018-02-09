@@ -11,27 +11,22 @@
       tr
         td
           .form-group
-            = form.label :deal_type
-            = form.select :deal_type, Estate.deal_types.map { |dt| [dt.to_s.humanize, dt.to_s.downcase] }, {}, class: 'form-control'
+            = form.label :estate_type
+            = form.select :estate_type, EstateType.all.map { |et| [et.name, et.id] }, {}, class: 'form-control'
 
         td
           .form-group
-            = form.label :estate_type
-            = form.select :estate_type, EstateType.all.map { |et| [et.name, et.id] }, {}, class: 'form-control'
+            = form.label :client
+            = form.select :client, Client.all.map { |c| ["#{c.full_name} (#{c.phone_numbers})", c.id] }, {}, class: 'form-control'
 
       tr
         td
           .form-group
-            = form.label :client
-            = form.select :client, Client.all.map { |c| [c.full_name, c.id] }, {}, class: 'form-control'
-
-        td
-          .form-row
-            .form-group.col-md-6
               = form.label :created_by_employee
               = form.select :created_by_employee, Employee.all.map { |e| [person_fullname(e), e.id] }, {}, class: 'form-control'
 
-            .form-group.col-md-6
+        td
+          .form-group
               = form.label :responsible_employee
               = form.select :responsible_employee, Employee.all.map { |e| [person_fullname(e), e.id] }, {}, class: 'form-control'
 
@@ -83,39 +78,41 @@
                   | 000
 
         td
-          .form-row
-            .form-group.col-md-6
-              = form.label :floor
-              = form.text_field :floor, id: :estate_floor, class: 'form-control'
-            .form-group.col-md-6
+          .form-group
+            = form.label :number_of_rooms
+            = form.text_field :number_of_rooms, id: :estate_number_of_rooms, class: 'form-control'
+
+      tr
+        td
+          .form-group
+            = form.label :floor
+            = form.text_field :floor, id: :estate_floor, class: 'form-control'
+
+        td
+          .form-group
               = form.label :number_of_floors
               = form.text_field :number_of_floors, id: :estate_number_of_floors, class: 'form-control'
 
       tr
         td
           .form-group
-            = form.label :number_of_rooms
-            = form.text_field :number_of_rooms, id: :estate_number_of_rooms, class: 'form-control'
+            = form.label :total_square_meters
+            .input-group.mb-2
+              = form.text_field :total_square_meters, id: :estate_total_square_meters, class: 'form-control'
+              .input-group-append
+                .input-group-text
+                  = t('number.length.format.unit')
+                  | <sup>2</sup>
 
         td
-          .form-row
-            .form-group.col-md-6
-              = form.label :total_square_meters
-              .input-group.mb-2
-                = form.text_field :total_square_meters, id: :estate_total_square_meters, class: 'form-control'
-                .input-group-append
-                  .input-group-text
-                    = t('number.length.format.unit')
-                    | <sup>2</sup>
-
-            .form-group.col-md-6
-              = form.label :kitchen_square_meters
-              .input-group.mb-2
-                = form.text_field :kitchen_square_meters, id: :estate_kitchen_square_meters, class: 'form-control'
-                .input-group-append
-                  .input-group-text
-                    = t('number.length.format.unit')
-                    | <sup>2</sup>
+          .form-group
+            = form.label :kitchen_square_meters
+            .input-group.mb-2
+              = form.text_field :kitchen_square_meters, id: :estate_kitchen_square_meters, class: 'form-control'
+              .input-group-append
+                .input-group-text
+                  = t('number.length.format.unit')
+                  | <sup>2</sup>
 
       tr
         td colspan=2

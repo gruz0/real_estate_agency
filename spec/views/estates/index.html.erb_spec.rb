@@ -18,7 +18,6 @@ RSpec.describe 'estates/index', type: :view do
 
   let(:valid_attributes) do
     {
-      deal_type: :sale,
       client: client,
       created_by_employee: employee,
       responsible_employee: employee,

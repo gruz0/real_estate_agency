@@ -9,7 +9,6 @@ RSpec.describe Estate, type: :model do
 
   describe 'ActiveModel validations' do
     # Basic validations
-    it { expect(estate).to validate_presence_of(:deal_type).with_message(I18n.t('errors.messages.blank')) }
     it { expect(estate).to validate_presence_of(:price).with_message(I18n.t('errors.messages.blank')) }
     it { expect(estate).to validate_presence_of(:client).with_message(I18n.t('errors.messages.required')) }
     it { expect(estate).to validate_presence_of(:responsible_employee).with_message(I18n.t('errors.messages.required')) }
@@ -20,9 +19,6 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).to validate_presence_of(:estate_material).with_message(I18n.t('errors.messages.required')) }
 
     # Format validations
-    it { expect(estate).to allow_value(:sale).for(:deal_type) }
-    it { expect(estate).to allow_value(:rent).for(:deal_type) }
-
     it { expect(estate).to allow_value(:archived).for(:status) }
     it { expect(estate).to allow_value(:active).for(:status) }
 
@@ -87,9 +83,6 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).to belong_to(:estate_material) }
 
     # Database columns/indexes
-    it { expect(estate).to have_db_column(:deal_type).of_type(:integer).with_options(null: false, default: :sale) }
-    it { expect(estate).to have_db_index(:deal_type) }
-
     it { expect(estate).to have_db_column(:estate_type_id).of_type(:integer).with_options(null: false) }
     it { expect(estate).to have_db_index(:estate_type_id) }
 
@@ -127,19 +120,5 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).to have_db_column(:total_square_meters).of_type(:float).with_options(null: true) }
     it { expect(estate).to have_db_column(:kitchen_square_meters).of_type(:float).with_options(null: true) }
     it { expect(estate).to have_db_column(:description).of_type(:text).with_options(null: true) }
-  end
-
-  describe 'public class methods' do
-    describe 'responds to its methods' do
-      it { expect(Estate).to respond_to(:deal_types) }
-    end
-
-    describe 'executes methods correctly' do
-      describe '#deal_types' do
-        it 'returns available types' do
-          expect(Estate.deal_types).to eq(%i[sale rent])
-        end
-      end
-    end
   end
 end

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'estates/show', type: :view do
   let(:client) do
-    create(:client, full_name: 'Иванов Сергей Николаевич', phone_numbers: '+79991112233')
+    create(:client, full_name: 'Иванов Сергей Николаевич', phone_numbers: '+79991112233, +73331112244или2')
   end
   let(:employee) do
     create(:employee, last_name: 'Ли', first_name: 'Мария', middle_name: 'Петровна', phone_numbers: '+79004445577')
@@ -17,7 +17,6 @@ RSpec.describe 'estates/show', type: :view do
 
   let(:valid_attributes) do
     {
-      deal_type: :sale,
       client: client,
       created_by_employee: employee,
       responsible_employee: employee,
@@ -41,24 +40,30 @@ RSpec.describe 'estates/show', type: :view do
 
     render
 
-    expect(rendered).to match(I18n.t('views.estate.show.title', id: estate.id))
+    expect(response.body).to match(I18n.t('views.estate.show.title', id: estate.id))
 
-    expect(rendered).to match(/sale/)
-    expect(rendered).to match(/Нефтеюганск, Ленина, 9а/)
-    expect(rendered).to match(/99999/)
-    expect(rendered).to match(/Иванов Сергей Николаевич/)
-    expect(rendered).to match(/\+79991112233/)
-    expect(rendered).to match(/Ли Мария Петровна/)
-    expect(rendered).to match(/Квартира/)
-    expect(rendered).to match(/Уральский/)
-    expect(rendered).to match(/Арбоблочный/)
-    expect(rendered).to match(/6/)
-    expect(rendered).to match(%r{4/10})
-    expect(rendered).to match(/122\.1/)
-    expect(rendered).to match(/17\.8/)
-    expect(rendered).to match(/Описание объекта/)
-    expect(rendered).to match(/#{estate.created_at}/)
-    expect(rendered).to match(/#{estate.updated_at}/)
+    expect(response.body).to match(/Нефтеюганск, Ленина, 9а/)
+    expect(response.body).to match(/99999/)
+    expect(response.body).to match(/Иванов Сергей Николаевич/)
+    expect(response.body).to match(/Ли Мария Петровна/)
+    expect(response.body).to match(/Квартира/)
+    expect(response.body).to match(/Уральский/)
+    expect(response.body).to match(/Арбоблочный/)
+    expect(response.body).to match(/6/)
+    expect(response.body).to match(%r{4/10})
+    expect(response.body).to match(/122\.1/)
+    expect(response.body).to match(/17\.8/)
+    expect(response.body).to match(/Описание объекта/)
+    expect(response.body).to match(/#{estate.created_at}/)
+    expect(response.body).to match(/#{estate.updated_at}/)
+
+    client.phone_numbers.split(',').each do |phone_number|
+      if phone_number =~ /\A[+\d]+\z/
+        expect(response.body).to have_link(phone_number.strip, href: "tel://#{phone_number.strip}")
+      else
+        expect(response.body).to have_content(phone_number.strip)
+      end
+    end
 
     expect(response.body).to have_link(I18n.t('views.edit'), href: edit_estate_path(estate))
     expect(response.body).to have_link(I18n.t('views.back'), href: estates_path)
