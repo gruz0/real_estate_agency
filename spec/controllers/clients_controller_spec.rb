@@ -81,7 +81,7 @@ RSpec.describe ClientsController, type: :controller do
       let(:new_attributes) do
         {
           full_name: "#{FFaker::NameRU.last_name} #{FFaker::NameRU.first_name}",
-          phone_numbers: FFaker::PhoneNumber.phone_number
+          phone_numbers: '+79993334455'
         }
       end
 

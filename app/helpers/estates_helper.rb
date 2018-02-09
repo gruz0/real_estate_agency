@@ -19,16 +19,12 @@ module EstatesHelper
     t('views.is_not_set.other')
   end
 
-  def clicable_phones_for(client)
+  def clickable_phones_for(client)
     phone_numbers = client.phone_numbers
     return '' if phone_numbers.blank?
 
     content = phone_numbers.split(',').map do |phone_number|
-      if phone_number =~ /\A[+\d]+\z/
-        content_tag(:a, phone_number.strip, href: "tel://#{phone_number.strip}")
-      else
-        content_tag(:span, phone_number.strip)
-      end
+      content_tag(:a, phone_number.strip, href: "tel://#{phone_number.strip}")
     end
 
     safe_join content, ', '

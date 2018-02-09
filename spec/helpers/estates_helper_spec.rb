@@ -79,4 +79,40 @@ RSpec.describe EstatesHelper, type: :helper do
       end
     end
   end
+
+  describe '#clickable_phones_for' do
+    let(:link_format) { '<a href="tel://%<href>s">%<phone_number>s</a>' }
+    let(:phone_numbers) { estate.client.phone_numbers }
+
+    describe 'client has one phone number' do
+      it 'returns value' do
+        expect(helper.clickable_phones_for(estate.client))
+          .to eq(format(link_format, href: phone_numbers, phone_number: phone_numbers))
+      end
+    end
+
+    describe 'client has multiple phone numbers without spaces' do
+      let(:client) { create(:client, phone_numbers: '+71112223344,89992224455') }
+
+      it 'returns value' do
+        expected = phone_numbers.split(',').map do |phone_number|
+          format(link_format, href: phone_number, phone_number: phone_number)
+        end.join(', ')
+
+        expect(helper.clickable_phones_for(estate.client)).to eq(expected)
+      end
+    end
+
+    describe 'client has multiple phone numbers with short phone number and spaces' do
+      let(:client) { create(:client, phone_numbers: ' +71112223344  , 89992224455   ,111222') }
+
+      it 'returns value' do
+        expected = phone_numbers.split(',').map do |phone_number|
+          format(link_format, href: phone_number, phone_number: phone_number)
+        end.join(', ')
+
+        expect(helper.clickable_phones_for(estate.client)).to eq(expected)
+      end
+    end
+  end
 end

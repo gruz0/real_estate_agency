@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'estates/show', type: :view do
   let(:client) do
-    create(:client, full_name: 'Иванов Сергей Николаевич', phone_numbers: '+79991112233, +73331112244или2')
+    create(:client, full_name: 'Иванов Сергей Николаевич', phone_numbers: '+79991112233, 83331112244')
   end
   let(:employee) do
     create(:employee, last_name: 'Ли', first_name: 'Мария', middle_name: 'Петровна', phone_numbers: '+79004445577')
@@ -58,11 +58,7 @@ RSpec.describe 'estates/show', type: :view do
     expect(response.body).to match(/#{estate.updated_at}/)
 
     client.phone_numbers.split(',').each do |phone_number|
-      if phone_number =~ /\A[+\d]+\z/
-        expect(response.body).to have_link(phone_number.strip, href: "tel://#{phone_number.strip}")
-      else
-        expect(response.body).to have_content(phone_number.strip)
-      end
+      expect(response.body).to have_link(phone_number.strip, href: "tel://#{phone_number.strip}")
     end
 
     expect(response.body).to have_link(I18n.t('views.edit'), href: edit_estate_path(estate))
