@@ -1,0 +1,25 @@
+= form_with(model: competitor, local: true) do |form|
+  - if competitor.errors.any?
+    #error_explanation
+      h2 = t('activerecord.errors.template.header', model: Competitor.model_name.human, count: competitor.errors.count)
+      ul
+        - competitor.errors.full_messages.each do |message|
+          li = message
+
+  table.table.table-sm.table-bordered
+    tbody
+      tr
+        td
+          .form-group
+            = form.label :phone_numbers
+            = form.text_field :phone_numbers, id: :competitor_phone_numbers, class: 'form-control'
+
+      tr
+        td
+          .form-group
+            = form.label :name
+            = form.text_field :name, id: :competitor_name, class: 'form-control'
+
+  .btn-group role="group" aria-label="#{t('views.action')}"
+    = link_to t('views.back'), competitors_path, class: 'btn btn-secondary', role: 'button'
+    = form.submit class: 'btn btn-success'

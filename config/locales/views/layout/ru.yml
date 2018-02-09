@@ -8,6 +8,7 @@ ru:
         dictionaries: 'Справочники'
         clients: 'Клиенты'
         employees: 'Сотрудники'
+        competitors: 'Конкуренты'
         estate_types: 'Типы объектов'
         estate_materials: 'Материалы объектов'
         estate_projects: 'Проекты объектов'

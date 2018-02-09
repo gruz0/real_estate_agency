@@ -1,0 +1,10 @@
+ru:
+  activerecord:
+    models:
+      competitor: 'Конкурент'
+    attributes:
+      competitor:
+        name: 'Наименование'
+        phone_numbers: 'Телефоны'
+        created_at: 'Дата создания'
+        updated_at: 'Дата обновления'

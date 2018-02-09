@@ -21,6 +21,7 @@ RSpec.describe 'layouts/application', type: :view do
         assert_select('.dropdown-menu') do |menu|
           expect(menu).to have_link(I18n.t('views.layout.menu.clients'), href: clients_path)
           expect(menu).to have_link(I18n.t('views.layout.menu.employees'), href: employees_path)
+          expect(menu).to have_link(I18n.t('views.layout.menu.competitors'), href: competitors_path)
           expect(menu).to have_link(I18n.t('views.layout.menu.estate_types'), href: estate_types_path)
           expect(menu).to have_link(I18n.t('views.layout.menu.estate_materials'), href: estate_materials_path)
           expect(menu).to have_link(I18n.t('views.layout.menu.estate_projects'), href: estate_projects_path)

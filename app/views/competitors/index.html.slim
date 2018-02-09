@@ -1,0 +1,33 @@
+.row.col-lg-12
+  .col-lg-9
+    h1 = t('views.competitor.index.title')
+  .col-lg-3
+    = link_to t('views.competitor.index.new'), new_competitor_path, class: 'btn btn-primary btn-lg float-right', role: 'button'
+
+table.table.table-sm.table-hover
+  thead.thead-light
+    tr
+      th scope="col" = Competitor.human_attribute_name(:id)
+      th scope="col" = Competitor.human_attribute_name(:name)
+      th scope="col" = Competitor.human_attribute_name(:phone_numbers)
+      th scope="col" = Competitor.human_attribute_name(:created_at)
+      th scope="col" = Competitor.human_attribute_name(:updated_at)
+      th scope="col"
+  tbody
+    - @competitors.each do |competitor|
+      tr
+        th scope="row" = competitor.id
+        td = competitor.name
+        td = competitor.phone_numbers
+        td = competitor.created_at
+        td = competitor.updated_at
+        td
+          .dropdown.show
+            = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \
+              data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }
+            .dropdown-menu.dropdown-menu-right
+              = link_to t('views.show'), competitor, class: 'dropdown-item'
+              = link_to t('views.edit'), edit_competitor_path(competitor), class: 'dropdown-item'
+              .dropdown-divider
+              = link_to t('views.destroy'), competitor, class: 'dropdown-item text-danger', method: :delete, \
+                data: { confirm: t('views.are_you_sure') }

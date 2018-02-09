@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :competitors
   resources :clients
   resources :employees
   resources :estate_materials
