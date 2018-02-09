@@ -4,6 +4,6 @@ ru:
       estate_type: 'Тип строения'
     attributes:
       estate_type:
-        name: 'Название'
+        name: 'Наименование'
         created_at: 'Дата создания'
         updated_at: 'Дата обновления'
