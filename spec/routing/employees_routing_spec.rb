@@ -19,7 +19,7 @@ RSpec.describe EmployeesController, type: :routing do
     end
 
     it 'routes to #create' do
-      expect(post: '/employees').to route_to('employees#create')
+      expect(post: '/employees').to route_to('devise/registrations#create')
     end
 
     it 'routes to #update via PUT' do

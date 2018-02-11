@@ -3,7 +3,8 @@ DatabaseCleaner.clean_with(:truncation)
 Competitor.create!(name: 'ООО "Рога и Копыта"', phone_numbers: '+79991110000, 222333')
 
 client   = Client.create!(full_name: 'Пупкин Василий', phone_numbers: '+79151112233,+75159393132')
-employee = Employee.create!(last_name: 'Иванова', first_name: 'Наталья', middle_name: 'Сергеевна',
+employee = Employee.create!(email: 'me@example.com', password: '123456',
+                            last_name: 'Иванова', first_name: 'Наталья', middle_name: 'Сергеевна',
                             phone_numbers: '+79001112233')
 
 estate_types = ['Квартира', 'Дом', 'Комната', 'Нежилое помещение'].map do |type|

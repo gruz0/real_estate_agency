@@ -13,68 +13,75 @@ RSpec.describe CitiesController, type: :controller do
     }
   end
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # CitiesController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
-
   describe 'GET #index' do
+    login_employee
+
     it 'returns a success response' do
       city
-      get :index, params: {}, session: valid_session
+      get :index, params: {}
       expect(response).to be_success
     end
   end
 
   describe 'GET #show' do
+    login_employee
+
     it 'returns a success response' do
-      get :show, params: { id: city.to_param }, session: valid_session
+      get :show, params: { id: city.to_param }
       expect(response).to be_success
     end
   end
 
   describe 'GET #new' do
+    login_employee
+
     it 'returns a success response' do
-      get :new, params: {}, session: valid_session
+      get :new, params: {}
       expect(response).to be_success
     end
   end
 
   describe 'GET #edit' do
+    login_employee
+
     it 'returns a success response' do
-      get :edit, params: { id: city.to_param }, session: valid_session
+      get :edit, params: { id: city.to_param }
       expect(response).to be_success
     end
   end
 
   describe 'POST #create' do
+    login_employee
+
     context 'with valid params' do
       it 'creates a new City' do
         expect do
-          post :create, params: { city: valid_attributes }, session: valid_session
+          post :create, params: { city: valid_attributes }
         end.to change(City, :count).by(1)
       end
 
       it 'redirects to the created city' do
-        post :create, params: { city: valid_attributes }, session: valid_session
+        post :create, params: { city: valid_attributes }
         expect(response).to redirect_to(City.last)
       end
 
       it 'renders flash notice' do
-        post :create, params: { city: valid_attributes }, session: valid_session
+        post :create, params: { city: valid_attributes }
         expect(flash[:notice]).to eq(I18n.t('views.city.flash_messages.city_was_successfully_created'))
       end
     end
 
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: { city: invalid_attributes }, session: valid_session
+        post :create, params: { city: invalid_attributes }
         expect(response).to be_success
       end
     end
   end
 
   describe 'PUT #update' do
+    login_employee
+
     context 'with valid params' do
       let(:new_attributes) do
         {
@@ -83,46 +90,48 @@ RSpec.describe CitiesController, type: :controller do
       end
 
       it 'updates the requested city' do
-        put :update, params: { id: city.to_param, city: new_attributes }, session: valid_session
+        put :update, params: { id: city.to_param, city: new_attributes }
         city.reload
 
         expect(city.name).to eq(new_attributes[:name])
       end
 
       it 'redirects to the city' do
-        put :update, params: { id: city.to_param, city: valid_attributes }, session: valid_session
+        put :update, params: { id: city.to_param, city: valid_attributes }
         expect(response).to redirect_to(city)
       end
 
       it 'renders flash notice' do
-        put :update, params: { id: city.to_param, city: valid_attributes }, session: valid_session
+        put :update, params: { id: city.to_param, city: valid_attributes }
         expect(flash[:notice]).to eq(I18n.t('views.city.flash_messages.city_was_successfully_updated'))
       end
     end
 
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
-        put :update, params: { id: city.to_param, city: invalid_attributes }, session: valid_session
+        put :update, params: { id: city.to_param, city: invalid_attributes }
         expect(response).to be_success
       end
     end
   end
 
   describe 'DELETE #destroy' do
+    login_employee
+
     it 'destroys the requested city' do
       city
       expect do
-        delete :destroy, params: { id: city.to_param }, session: valid_session
+        delete :destroy, params: { id: city.to_param }
       end.to change(City, :count).by(-1)
     end
 
     it 'redirects to the cities list' do
-      delete :destroy, params: { id: city.to_param }, session: valid_session
+      delete :destroy, params: { id: city.to_param }
       expect(response).to redirect_to(cities_url)
     end
 
     it 'renders flash notice' do
-      delete :destroy, params: { id: city.to_param }, session: valid_session
+      delete :destroy, params: { id: city.to_param }
       expect(flash[:notice]).to eq(I18n.t('views.city.flash_messages.city_was_successfully_destroyed'))
     end
   end
