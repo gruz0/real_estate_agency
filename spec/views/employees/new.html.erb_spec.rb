@@ -11,12 +11,12 @@ RSpec.describe 'employees/new', type: :view do
     assert_select 'h1', text: I18n.t('views.employee.new.title'), count: 1
 
     assert_select 'form[action=?][method=?]', employees_path, 'post' do
-      assert_select 'input[name=?]', 'employee[first_name]'
-
+      assert_select 'input[name=?][type=email]', 'employee[email]'
+      assert_select 'input[name=?][type=password]', 'employee[password]'
+      assert_select 'input[name=?][type=password]', 'employee[password_confirmation]'
       assert_select 'input[name=?]', 'employee[last_name]'
-
+      assert_select 'input[name=?]', 'employee[first_name]'
       assert_select 'input[name=?]', 'employee[middle_name]'
-
       assert_select 'input[name=?]', 'employee[phone_numbers]'
     end
 

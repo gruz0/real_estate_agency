@@ -4,6 +4,7 @@ ru:
       brand: 'Агентство недвижимости'
       title: 'Агентство недвижимости'
       menu:
+        logout: 'Выйти'
         estates: 'Объекты'
         dictionaries: 'Справочники'
         clients: 'Клиенты'

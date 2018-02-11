@@ -18,6 +18,7 @@ ru:
     format: "%{attribute} %{message}"
     messages:
       blank: не может быть пустым
+      confirmation: не совпадает со значением поля %{attribute}
       greater_than: может иметь значение большее %{count}
       inclusion: имеет недопустимое значение
       invalid: имеет неверное значение
@@ -43,6 +44,12 @@ ru:
     length:
       format:
         unit: 'м'
+
+  support:
+    array:
+      last_word_connector: " и "
+      two_words_connector: " и "
+      words_connector: ", "
 
   views:
     new: 'Новая запись'

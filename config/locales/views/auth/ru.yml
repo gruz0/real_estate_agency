@@ -1,0 +1,16 @@
+ru:
+  views:
+    auth:
+      new:
+        title: 'Вход в систему'
+        log_in: 'Войти'
+        forgot_your_password: 'Забыли пароль?'
+        did_not_receive_unlock_instructions: 'Не получили инструкцию по восстановлению?'
+      passwords:
+        new:
+          title: 'Восстановление пароля'
+          send_me_reset_password_instructions: 'Отправить инструкцию по восстановлению пароля'
+      unlocks:
+        new:
+          title: 'Повторная отправка инструкций по восстановлению'
+          resend_unlock_instructions: 'Отправить инструкцию повторно'

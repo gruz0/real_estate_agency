@@ -50,68 +50,75 @@ RSpec.describe EstatesController, type: :controller do
     }
   end
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # EstatesController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
-
   describe 'GET #index' do
+    login_employee
+
     it 'returns a success response' do
       estate
-      get :index, params: {}, session: valid_session
+      get :index, params: {}
       expect(response).to be_success
     end
   end
 
   describe 'GET #show' do
+    login_employee
+
     it 'returns a success response' do
-      get :show, params: { id: estate.to_param }, session: valid_session
+      get :show, params: { id: estate.to_param }
       expect(response).to be_success
     end
   end
 
   describe 'GET #new' do
+    login_employee
+
     it 'returns a success response' do
-      get :new, params: {}, session: valid_session
+      get :new, params: {}
       expect(response).to be_success
     end
   end
 
   describe 'GET #edit' do
+    login_employee
+
     it 'returns a success response' do
-      get :edit, params: { id: estate.to_param }, session: valid_session
+      get :edit, params: { id: estate.to_param }
       expect(response).to be_success
     end
   end
 
   describe 'POST #create' do
+    login_employee
+
     context 'with valid params' do
       it 'creates a new Estate' do
         expect do
-          post :create, params: { estate: valid_attributes }, session: valid_session
+          post :create, params: { estate: valid_attributes }
         end.to change(Estate, :count).by(1)
       end
 
       it 'redirects to the created estate' do
-        post :create, params: { estate: valid_attributes }, session: valid_session
+        post :create, params: { estate: valid_attributes }
         expect(response).to redirect_to(Estate.last)
       end
 
       it 'renders flash notice' do
-        post :create, params: { estate: valid_attributes }, session: valid_session
+        post :create, params: { estate: valid_attributes }
         expect(flash[:notice]).to eq(I18n.t('views.estate.flash_messages.estate_was_successfully_created'))
       end
     end
 
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: { estate: invalid_attributes }, session: valid_session
+        post :create, params: { estate: invalid_attributes }
         expect(response).to be_success
       end
     end
   end
 
   describe 'PUT #update' do
+    login_employee
+
     context 'with valid params' do
       let(:new_attributes) do
         {
@@ -137,7 +144,7 @@ RSpec.describe EstatesController, type: :controller do
       end
 
       it 'updates the requested estate' do
-        put :update, params: { id: estate.to_param, estate: new_attributes }, session: valid_session
+        put :update, params: { id: estate.to_param, estate: new_attributes }
         estate.reload
 
         expect(estate.client).to eq(new_attributes[:client])
@@ -159,39 +166,41 @@ RSpec.describe EstatesController, type: :controller do
       end
 
       it 'redirects to the estate' do
-        put :update, params: { id: estate.to_param, estate: valid_attributes }, session: valid_session
+        put :update, params: { id: estate.to_param, estate: valid_attributes }
         expect(response).to redirect_to(estate)
       end
 
       it 'renders flash notice' do
-        put :update, params: { id: estate.to_param, estate: valid_attributes }, session: valid_session
+        put :update, params: { id: estate.to_param, estate: valid_attributes }
         expect(flash[:notice]).to eq(I18n.t('views.estate.flash_messages.estate_was_successfully_updated'))
       end
     end
 
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
-        put :update, params: { id: estate.to_param, estate: invalid_attributes }, session: valid_session
+        put :update, params: { id: estate.to_param, estate: invalid_attributes }
         expect(response).to be_success
       end
     end
   end
 
   describe 'DELETE #destroy' do
+    login_employee
+
     it 'destroys the requested estate' do
       estate
       expect do
-        delete :destroy, params: { id: estate.to_param }, session: valid_session
+        delete :destroy, params: { id: estate.to_param }
       end.to change(Estate, :count).by(-1)
     end
 
     it 'redirects to the estates list' do
-      delete :destroy, params: { id: estate.to_param }, session: valid_session
+      delete :destroy, params: { id: estate.to_param }
       expect(response).to redirect_to(estates_url)
     end
 
     it 'renders flash notice' do
-      delete :destroy, params: { id: estate.to_param }, session: valid_session
+      delete :destroy, params: { id: estate.to_param }
       expect(flash[:notice]).to eq(I18n.t('views.estate.flash_messages.estate_was_successfully_destroyed'))
     end
   end

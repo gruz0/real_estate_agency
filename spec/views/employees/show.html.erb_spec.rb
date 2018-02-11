@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'employees/show', type: :view do
   let(:employee) do
-    create(:employee, last_name: 'Иванов', first_name: 'Олег', middle_name: 'Сергеевич', phone_numbers: '+79991112233')
+    create(:employee,
+           email: 'me@domain.tld', last_name: 'Иванов', first_name: 'Олег', middle_name: 'Сергеевич',
+           phone_numbers: '+79991112233')
   end
 
   it 'renders attributes in <p>' do
@@ -16,6 +18,7 @@ RSpec.describe 'employees/show', type: :view do
     expect(rendered).to match(/Олег/)
     expect(rendered).to match(/Сергеевич/)
     expect(rendered).to match(/\+79991112233/)
+    expect(rendered).to match(/me@domain.tld/)
     expect(rendered).to match(/#{employee.created_at}/)
     expect(rendered).to match(/#{employee.updated_at}/)
 

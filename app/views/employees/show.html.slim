@@ -17,6 +17,12 @@ table.table.table-sm.table-hover
 
     tr
       th scope="row"
+        = Employee.human_attribute_name(:email)
+      td
+        = @employee.email
+
+    tr
+      th scope="row"
         = Employee.human_attribute_name(:created_at)
       td
         = @employee.created_at

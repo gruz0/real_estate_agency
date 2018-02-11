@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :employees, path: 'auth', controllers: {
+    sessions: 'admin/sessions'
+  }
+
   resources :competitors
   resources :clients
   resources :employees
