@@ -11,6 +11,24 @@
       tr
         td
           .form-group
+            = form.label :email
+            = form.email_field :email, id: :employee_email, autocomplete: 'email', class: 'form-control'
+
+      tr
+        td
+          .form-row
+            .form-group.col-md-6
+              = form.label :password
+              = form.password_field :password, id: :employee_password, autocomplete: 'off', class: 'form-control'
+
+            .form-group.col-md-6
+              = form.label :password_confirmation
+              = form.password_field :password_confirmation, id: :employee_password_confirmation, autocomplete: 'off', \
+                class: 'form-control'
+
+      tr
+        td
+          .form-group
             = form.label :last_name
             = form.text_field :last_name, id: :employee_last_name, class: 'form-control'
 

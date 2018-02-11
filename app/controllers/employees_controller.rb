@@ -1,5 +1,6 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: %i[show edit update destroy]
+  before_action :allow_without_password, only: [:update]
 
   include PeopleHelper
 
@@ -62,6 +63,14 @@ class EmployeesController < ApplicationController
   end
 
   def employee_params
-    params.require(:employee).permit(:email, :password, :first_name, :last_name, :middle_name, :phone_numbers)
+    params.require(:employee).permit(:email, :password, :password_confirmation,
+                                     :first_name, :last_name, :middle_name, :phone_numbers)
+  end
+
+  def allow_without_password
+    return unless params[:employee][:password].blank? && params[:employee][:password_confirmation].blank?
+
+    params[:employee].delete(:password)
+    params[:employee].delete(:password_confirmation)
   end
 end

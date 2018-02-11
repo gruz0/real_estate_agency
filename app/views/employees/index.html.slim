@@ -10,6 +10,7 @@ table.table.table-sm.table-hover
       th scope="col" = Employee.human_attribute_name(:id)
       th scope="col" = Employee.human_attribute_name(:fullname)
       th scope="col" = Employee.human_attribute_name(:phone_numbers)
+      th scope="col" = Employee.human_attribute_name(:email)
       th scope="col" = Employee.human_attribute_name(:created_at)
       th scope="col" = Employee.human_attribute_name(:updated_at)
       th scope="col"
@@ -19,6 +20,7 @@ table.table.table-sm.table-hover
         th scope="row" = employee.id
         td = person_fullname(employee)
         td = employee.phone_numbers
+        td = employee.email
         td = employee.created_at
         td = employee.updated_at
         td
