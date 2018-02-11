@@ -12,6 +12,11 @@ class AddDeviseToEmployees < ActiveRecord::Migration[5.1]
       ## Rememberable
       t.datetime :remember_created_at
 
+      ## Lockable
+      t.integer  :failed_attempts, default: 0, null: false
+      t.string   :unlock_token
+      t.datetime :locked_at
+
       ## Trackable
       t.integer  :sign_in_count, default: 0, null: false
       t.datetime :current_sign_in_at
@@ -22,6 +27,7 @@ class AddDeviseToEmployees < ActiveRecord::Migration[5.1]
 
     add_index :employees, :email,                unique: true
     add_index :employees, :reset_password_token, unique: true
+    add_index :employees, :unlock_token,         unique: true
   end
 
   def self.down

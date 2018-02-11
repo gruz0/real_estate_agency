@@ -58,6 +58,9 @@ ActiveRecord::Schema.define(version: 20180209131147) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "unlock_token"
+    t.datetime "locked_at"
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
@@ -66,6 +69,7 @@ ActiveRecord::Schema.define(version: 20180209131147) do
     t.index ["email"], name: "index_employees_on_email", unique: true
     t.index ["last_name"], name: "index_employees_on_last_name"
     t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true
+    t.index ["unlock_token"], name: "index_employees_on_unlock_token", unique: true
   end
 
   create_table "estate_materials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

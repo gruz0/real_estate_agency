@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'layouts/application', type: :view do
-  it 'renders a list of cities' do
+  login_employee
+
+  it 'renders a layout' do
     flash[:notice] = 'Notice'
 
     render

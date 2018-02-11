@@ -1,23 +1,26 @@
-h2
-  | Log in
+.row.col-lg-10
+  .col-lg-9
+    h2 = t('views.auth.new.title')
 
-= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .field
-    = f.label :email
-    br
-    = f.email_field :email, autofocus: true, autocomplete: 'email'
+.row.col-lg-6
+  .col
+    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      .form-group
+        = f.label :email
+        = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control'
 
-  .field
-    = f.label :password
-    br
-    = f.password_field :password, autocomplete: 'off'
+      .form-group
+        = f.label :password
+        = f.password_field :password, autocomplete: 'off', class: 'form-control'
 
-  - if devise_mapping.rememberable?
-    .field
-      = f.check_box :remember_me
-      = f.label :remember_me
+      - if devise_mapping.rememberable?
+        .form-group
+          .form-check
+            = f.check_box :remember_me, class: 'form-check-input'
+            = f.label :remember_me, class: 'form-check-label'
 
-  .actions
-    = f.submit 'Log in'
+      .form-group
+        .actions
+          = f.submit t('views.auth.new.log_in'), class: 'btn btn-success'
 
-= render 'devise/shared/links'
+    = render 'devise/shared/links'

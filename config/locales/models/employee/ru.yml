@@ -4,6 +4,9 @@ ru:
       employee: 'Сотрудник'
     attributes:
       employee:
+        email: 'Электронная почта'
+        password: 'Пароль'
+        remember_me: 'Запомнить меня'
         fullname: 'Ф.И.О.'
         last_name: 'Фамилия'
         first_name: 'Имя'

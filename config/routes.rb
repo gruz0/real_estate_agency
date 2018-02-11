@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :employees, controllers: {
+  devise_for :employees, path: 'auth', controllers: {
     sessions: 'admin/sessions'
   }
 

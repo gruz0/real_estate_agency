@@ -21,9 +21,11 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
 
   config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
   config.include Devise::Test::IntegrationHelpers, type: :request
 
   config.extend ControllersMacros, type: :controller
+  config.extend ControllersMacros, type: :view
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
