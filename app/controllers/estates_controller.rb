@@ -17,7 +17,7 @@ class EstatesController < ApplicationController
   def edit; end
 
   def create
-    @estate = Estate.new(@attributes)
+    @estate = Estate.new(@attributes.merge!(created_by_employee: current_employee))
 
     respond_to do |format|
       if @estate.save
@@ -67,7 +67,6 @@ class EstatesController < ApplicationController
 
   def set_attributes!
     client = Client.find_by(id: estate_params[:client])
-    created_by_employee = Employee.find_by(id: estate_params[:created_by_employee])
     responsible_employee = Employee.find_by(id: estate_params[:responsible_employee])
     estate_type = EstateType.find_by(id: estate_params[:estate_type])
     estate_project = EstateProject.find_by(id: estate_params[:estate_project])
@@ -79,13 +78,12 @@ class EstatesController < ApplicationController
 
     @attributes = estate_params.to_h
     @attributes.except!(:city, :street, :building_number)
-               .merge!(client: client, created_by_employee: created_by_employee,
-                       responsible_employee: responsible_employee, address: address,
+               .merge!(client: client, responsible_employee: responsible_employee, address: address,
                        estate_type: estate_type, estate_project: estate_project, estate_material: estate_material)
   end
 
   def estate_params
-    params.require(:estate).permit(:client, :created_by_employee, :responsible_employee,
+    params.require(:estate).permit(:client, :responsible_employee,
                                    :city, :street, :building_number, :apartment_number,
                                    :estate_type, :estate_project, :estate_material, :number_of_rooms,
                                    :floor, :number_of_floors, :total_square_meters, :kitchen_square_meters,

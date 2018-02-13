@@ -13,7 +13,6 @@ RSpec.describe EstatesController, type: :controller do
   let(:valid_attributes) do
     {
       client: client,
-      created_by_employee: employee,
       responsible_employee: employee,
       city: city,
       street: street,
@@ -35,7 +34,6 @@ RSpec.describe EstatesController, type: :controller do
   let(:invalid_attributes) do
     {
       client: '',
-      created_by_employee: '',
       responsible_employee: '',
       city: '',
       street: '',
@@ -123,7 +121,6 @@ RSpec.describe EstatesController, type: :controller do
       let(:new_attributes) do
         {
           client: create(:client),
-          created_by_employee: create(:employee),
           responsible_employee: create(:employee),
           city: city,
           street: street,
@@ -148,7 +145,6 @@ RSpec.describe EstatesController, type: :controller do
         estate.reload
 
         expect(estate.client).to eq(new_attributes[:client])
-        expect(estate.created_by_employee).to eq(new_attributes[:created_by_employee])
         expect(estate.responsible_employee).to eq(new_attributes[:responsible_employee])
         expect(estate.address).to eq(Address.first)
         expect(estate.apartment_number).to eq(new_attributes[:apartment_number].to_s)

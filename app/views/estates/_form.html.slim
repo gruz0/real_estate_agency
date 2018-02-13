@@ -23,7 +23,8 @@
         td
           .form-group
               = form.label :created_by_employee
-              = form.select :created_by_employee, Employee.all.map { |e| [person_fullname(e), e.id] }, {}, class: 'form-control'
+              = form.text_field :created_by_employee, id: :created_by_employee, class: 'form-control', \
+                value: person_fullname(current_employee), disabled: 'disabled'
 
         td
           .form-group

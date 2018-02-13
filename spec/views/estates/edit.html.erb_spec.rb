@@ -14,7 +14,6 @@ RSpec.describe 'estates/edit', type: :view do
   let(:valid_attributes) do
     {
       client: client,
-      created_by_employee: employee,
       responsible_employee: employee,
       address: address,
       estate_type: estate_type,
@@ -23,6 +22,8 @@ RSpec.describe 'estates/edit', type: :view do
       price: 99_999
     }
   end
+
+  login_employee
 
   it 'renders the edit estate form' do
     assign(:estate, estate)
@@ -33,7 +34,7 @@ RSpec.describe 'estates/edit', type: :view do
 
     assert_select 'form[action=?][method=?]', estate_path(estate), 'post' do
       assert_select 'select[name=?]', 'estate[client]'
-      assert_select 'select[name=?]', 'estate[created_by_employee]'
+      assert_select 'input[name=?][disabled=disabled]', 'estate[created_by_employee]'
       assert_select 'select[name=?]', 'estate[responsible_employee]'
       assert_select 'select[name=?]', 'estate[city]'
       assert_select 'select[name=?]', 'estate[street]'
