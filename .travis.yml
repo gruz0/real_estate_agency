@@ -19,7 +19,6 @@ bundler_args: --without production development --path $HOME/bundle
 
 before_script:
   - sudo service mysql stop
-  - docker-compose down
   - docker-compose up -d --build
   - sleep 20
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -27,7 +26,6 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
-  - docker-compose exec app cp .env.sample .env
   - docker-compose exec app rake db:drop db:create db:test:load
   - docker-compose exec app rspec
   - docker-compose exec app bundle exec brakeman -A -z
