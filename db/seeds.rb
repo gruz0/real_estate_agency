@@ -1,40 +1,59 @@
 DatabaseCleaner.clean_with(:truncation)
 
-Competitor.create!(name: 'ООО "Рога и Копыта"', phone_numbers: '+79991110000, 222333')
-
-client   = Client.create!(full_name: 'Пупкин Василий', phone_numbers: '+79151112233,+75159393132')
-employee = Employee.create!(email: 'me@example.com', password: '123456',
-                            last_name: 'Иванова', first_name: 'Наталья', middle_name: 'Сергеевна',
-                            phone_numbers: '+79001112233')
-
-estate_types = ['Квартира', 'Дом', 'Комната', 'Нежилое помещение'].map do |type|
-  EstateType.create!(name: type)
+#
+# Competitors
+#
+Array.new(30).each do
+  FactoryBot.create(:competitor, name: FFaker::NameRU.last_name, phone_numbers: "+7000111223#{rand(100)}")
 end
 
-estate_projects = %w[Уральский Ленинградский Саратовский Московский].map do |project|
-  EstateProject.create!(name: project)
-end
+#
+# Clients
+#
+Array.new(30).each { FactoryBot.create(:client, phone_numbers: "+7999111223#{rand(100)}") }
+client = Client.first
 
-estate_materials = %w[Панельный Деревянный Заливной Блочный Кирпичный].map do |material|
-  EstateMaterial.create!(name: material)
-end
+#
+# Employees
+#
+Array.new(30).each { FactoryBot.create(:employee, phone_numbers: "+7999999887#{rand(100)}") }
+employee = FactoryBot.create(:employee, email: 'me@example.com', password: '123456')
 
-cities = [
-  City.create!(name: 'Нефтеюганск'),
-  City.create!(name: 'Сургут'),
-  City.create!(name: 'Нижневартовск')
-]
+#
+# EstateTypes
+#
+estate_types = Array.new(30).map { FactoryBot.create(:estate_type) }
 
-streets = ['1-й мкрн', '2-й мкрн', '3-й мкрн', 'ул. Ленина', 'ул. Усть-Балыкская'].map do |street|
-  Street.create!(city: cities.sample, name: street)
-end
+#
+# EstateProjects
+#
+estate_projects = Array.new(30).map { FactoryBot.create(:estate_project) }
 
-addresses = ['1', '3а', '17/3'].map do |building_number|
-  Address.create!(street: streets.sample, building_number: building_number)
-end
+#
+# EstateMaterials
+#
+estate_materials = Array.new(30).map { FactoryBot.create(:estate_material) }
 
-10.times do |_|
-  Estate.create(
+#
+# Cities
+#
+cities = Array.new(30).map { FactoryBot.create(:city) }
+
+#
+# Streets
+#
+streets = Array.new(30).map { FactoryBot.create(:street, city: cities.sample) }
+
+#
+# Addresses
+#
+addresses = Array.new(30).map { FactoryBot.create(:address, street: streets.sample, building_number: rand(100)) }
+
+#
+# Estates
+#
+500.times do |_|
+  Estate.create!(
     client: client,
     created_by_employee: employee,
     responsible_employee: employee,
