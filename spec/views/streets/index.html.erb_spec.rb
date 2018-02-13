@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'streets/index', type: :view do
   let(:city) { create(:city, name: 'Нефтеюганск') }
-  let!(:streets) do
+  let(:streets) do
     [
       Street.create!(city: city, name: 'ул. Ленина'),
       Street.create!(city: city, name: 'ул. Усть-Балыкская')
@@ -11,6 +11,8 @@ RSpec.describe 'streets/index', type: :view do
 
   it 'renders a list of streets' do
     Street.create!(city: create(:city, name: 'Сургут'), name: 'ул. Нефтеюганская')
+
+    assign(:streets, Kaminari.paginate_array(streets).page(1))
     assign(:city, city)
 
     render

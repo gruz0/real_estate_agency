@@ -37,7 +37,7 @@ RSpec.describe 'estates/index', type: :view do
   end
 
   it 'renders a list of estates' do
-    assign(:estates, estates)
+    assign(:estates, Kaminari.paginate_array(estates).page(1))
 
     render
 

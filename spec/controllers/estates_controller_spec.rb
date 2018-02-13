@@ -99,7 +99,7 @@ RSpec.describe EstatesController, type: :controller do
 
       it 'redirects to the created estate' do
         post :create, params: { estate: valid_attributes }
-        expect(response).to redirect_to(Estate.last)
+        expect(response).to redirect_to(Estate.first)
       end
 
       it 'renders flash notice' do
@@ -150,7 +150,7 @@ RSpec.describe EstatesController, type: :controller do
         expect(estate.client).to eq(new_attributes[:client])
         expect(estate.created_by_employee).to eq(new_attributes[:created_by_employee])
         expect(estate.responsible_employee).to eq(new_attributes[:responsible_employee])
-        expect(estate.address).to eq(Address.last)
+        expect(estate.address).to eq(Address.first)
         expect(estate.apartment_number).to eq(new_attributes[:apartment_number].to_s)
         expect(estate.estate_type).to eq(new_attributes[:estate_type])
         expect(estate.estate_project).to eq(new_attributes[:estate_project])

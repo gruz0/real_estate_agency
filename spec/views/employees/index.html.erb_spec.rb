@@ -13,7 +13,7 @@ RSpec.describe 'employees/index', type: :view do
   let(:employees) { [employee1, employee2] }
 
   it 'renders a list of employees' do
-    assign(:employees, employees)
+    assign(:employees, Kaminari.paginate_array(employees).page(1))
 
     render
 

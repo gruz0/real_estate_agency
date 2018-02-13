@@ -29,3 +29,9 @@ table.table.table-sm.table-hover
               .dropdown-divider
               = link_to t('views.destroy'), estate_material, class: 'dropdown-item text-danger', method: :delete, \
                 data: { confirm: t('views.are_you_sure') }
+
+  tfoot
+    tr
+      td colspan=5
+        .container.pagination.justify-content-center
+          = paginate(@estate_materials, theme: 'twitter-bootstrap-4')

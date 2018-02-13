@@ -4,7 +4,7 @@ class ClientsController < ApplicationController
   include PeopleHelper
 
   def index
-    @clients = Client.all
+    @clients = Client.page(params[:page])
   end
 
   def show; end

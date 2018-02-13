@@ -5,7 +5,7 @@ class EmployeesController < ApplicationController
   include PeopleHelper
 
   def index
-    @employees = Employee.all
+    @employees = Employee.page(params[:page])
   end
 
   def show; end

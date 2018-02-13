@@ -6,7 +6,7 @@ RSpec.describe 'cities/index', type: :view do
   let(:cities) { [city1, city2] }
 
   it 'renders a list of cities' do
-    assign(:cities, cities)
+    assign(:cities, Kaminari.paginate_array(cities).page(1))
 
     3.times { |_| create(:street, city: city1) }
     4.times { |_| create(:street, city: city2) }

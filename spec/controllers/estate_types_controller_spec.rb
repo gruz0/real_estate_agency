@@ -62,7 +62,7 @@ RSpec.describe EstateTypesController, type: :controller do
 
       it 'redirects to the created estate_type' do
         post :create, params: { estate_type: valid_attributes }
-        expect(response).to redirect_to(EstateType.last)
+        expect(response).to redirect_to(EstateType.first)
       end
 
       it 'renders flash notice' do

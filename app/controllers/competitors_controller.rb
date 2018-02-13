@@ -4,7 +4,7 @@ class CompetitorsController < ApplicationController
   include PeopleHelper
 
   def index
-    @competitors = Competitor.all
+    @competitors = Competitor.page(params[:page])
   end
 
   def show; end

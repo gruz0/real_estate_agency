@@ -2,7 +2,9 @@ class StreetsController < ApplicationController
   before_action :set_city
   before_action :set_street, only: %i[show edit update destroy]
 
-  def index; end
+  def index
+    @streets = @city.street.page(params[:page])
+  end
 
   def show; end
 

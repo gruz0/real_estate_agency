@@ -10,7 +10,7 @@ RSpec.describe 'clients/index', type: :view do
   let(:clients) { [client1, client2] }
 
   it 'renders a list of clients' do
-    assign(:clients, clients)
+    assign(:clients, Kaminari.paginate_array(clients).page(1))
 
     render
 

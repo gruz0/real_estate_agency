@@ -10,7 +10,7 @@ RSpec.describe 'competitors/index', type: :view do
   let(:competitors) { [competitor1, competitor2] }
 
   it 'renders a list of competitors' do
-    assign(:competitors, competitors)
+    assign(:competitors, Kaminari.paginate_array(competitors).page(1))
 
     render
 

@@ -5,7 +5,7 @@ class EstatesController < ApplicationController
   include PeopleHelper
 
   def index
-    @estates = Estate.all
+    @estates = Estate.page(params[:page])
   end
 
   def show; end

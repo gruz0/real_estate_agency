@@ -2,7 +2,7 @@ class EstateProjectsController < ApplicationController
   before_action :set_estate_project, only: %i[show edit update destroy]
 
   def index
-    @estate_projects = EstateProject.all
+    @estate_projects = EstateProject.page(params[:page])
   end
 
   def show; end

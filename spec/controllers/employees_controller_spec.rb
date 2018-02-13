@@ -66,7 +66,7 @@ RSpec.describe EmployeesController, type: :controller do
 
       it 'redirects to the created employee' do
         post :create, params: { employee: valid_attributes }
-        expect(response).to redirect_to(Employee.last)
+        expect(response).to redirect_to(Employee.first)
       end
 
       it 'renders flash notice' do

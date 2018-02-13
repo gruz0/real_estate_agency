@@ -13,7 +13,7 @@ table.table.table-sm.table-hover
       th scope="col" = Street.human_attribute_name(:updated_at)
       th scope="col"
   tbody
-    - @city.street.each do |street|
+    - @streets.each do |street|
       tr
         th scope="row" = street.id
         td = street.name
@@ -29,3 +29,9 @@ table.table.table-sm.table-hover
               .dropdown-divider
               = link_to t('views.destroy'), city_street_path(@city, street), class: 'dropdown-item text-danger', method: :delete, \
                 data: { confirm: t('views.are_you_sure') }
+
+  tfoot
+    tr
+      td colspan=5
+        .container.pagination.justify-content-center
+          = paginate(@streets, theme: 'twitter-bootstrap-4')
