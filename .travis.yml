@@ -19,6 +19,7 @@ bundler_args: --without production development --path $HOME/bundle
 
 before_script:
   - sudo service mysql stop
+  - docker-compose down
   - docker-compose up -d --build
   - sleep 10
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
