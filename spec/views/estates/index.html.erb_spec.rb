@@ -68,7 +68,6 @@ RSpec.describe 'estates/index', type: :view do
         assert_select 'tr>td', text: '99999'.to_s, count: 1
         assert_select 'tr>td', text: '+79991112233'.to_s, count: 1
         assert_select 'tr>td', text: 'Ли М.П.'.to_s, count: 1
-        assert_select 'tr td', text: estate1.created_at.to_s, count: 2
       end
     end
 

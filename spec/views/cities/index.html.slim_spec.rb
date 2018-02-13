@@ -32,7 +32,6 @@ RSpec.describe 'cities/index', type: :view do
         assert_select 'tr td', text: 'Сургут', count: 1
         assert_select 'tr td a[href=?]', city_streets_path(city1), count: 1, text: '3'
         assert_select 'tr td a[href=?]', city_streets_path(city2), count: 1, text: '4'
-        assert_select 'tr td', text: city1.created_at.to_s, count: 4
       end
     end
 

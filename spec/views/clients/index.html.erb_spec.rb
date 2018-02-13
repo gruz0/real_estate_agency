@@ -34,8 +34,6 @@ RSpec.describe 'clients/index', type: :view do
 
         assert_select 'tr>td', text: 'Петров Сергей'.to_s, count: 1
         assert_select 'tr>td', text: '+79993334455'.to_s, count: 1
-
-        assert_select 'tr td', text: client1.created_at.to_s, count: 4
       end
     end
 

@@ -40,8 +40,6 @@ RSpec.describe 'employees/index', type: :view do
         assert_select 'tr>td', text: 'Петров Сергей'.to_s, count: 1
         assert_select 'tr>td', text: '+79993334455'.to_s, count: 1
         assert_select 'tr>td', text: 'me2@domain.tld'.to_s, count: 1
-
-        assert_select 'tr td', text: employee1.created_at.to_s, count: 4
       end
     end
 

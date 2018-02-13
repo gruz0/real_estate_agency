@@ -26,7 +26,6 @@ RSpec.describe 'estate_projects/index', type: :view do
         assert_select 'tr', count: 2
         assert_select 'tr>td', text: 'Уральский'.to_s, count: 1
         assert_select 'tr>td', text: 'Ленинградский'.to_s, count: 1
-        assert_select 'tr td', text: estate_project1.created_at.to_s, count: 4
       end
     end
 

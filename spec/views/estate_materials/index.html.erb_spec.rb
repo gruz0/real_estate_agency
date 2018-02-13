@@ -26,7 +26,6 @@ RSpec.describe 'estate_materials/index', type: :view do
         assert_select 'tr', count: 2
         assert_select 'tr>td', text: 'Деревянный'.to_s, count: 1
         assert_select 'tr>td', text: 'Кирпичный'.to_s, count: 1
-        assert_select 'tr td', text: estate_material1.created_at.to_s, count: 4
       end
     end
 

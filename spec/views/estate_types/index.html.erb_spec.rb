@@ -26,7 +26,6 @@ RSpec.describe 'estate_types/index', type: :view do
         assert_select 'tr', count: 2
         assert_select 'tr>td', text: 'Квартира'.to_s, count: 1
         assert_select 'tr>td', text: 'Дом'.to_s, count: 1
-        assert_select 'tr td', text: estate_type1.created_at.to_s, count: 4
       end
     end
 
