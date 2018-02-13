@@ -28,8 +28,8 @@ RSpec.configure do |config|
   config.extend ControllersMacros, type: :view
 
   config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
     FactoryBot.lint
+    DatabaseCleaner.clean_with(:truncation)
   end
 
   config.before do

@@ -27,4 +27,22 @@ RSpec.describe City, type: :model do
     it { expect(city).to have_db_column(:name).of_type(:string).with_options(null: false) }
     it { expect(city).to have_db_index(:name).unique }
   end
+
+  describe 'scopes' do
+    it '.with_streets returns only cities with streets' do
+      create(:city, name: 'Without Streets')
+
+      city1 = create(:city)
+      city2 = create(:city)
+
+      create(:street, city: city1)
+      create(:street, city: city1)
+      create(:street, city: city2)
+
+      cities_with_streets = City.with_streets
+      expect(cities_with_streets.size).to eq(2)
+      expect(cities_with_streets).to include(city1)
+      expect(cities_with_streets).to include(city2)
+    end
+  end
 end

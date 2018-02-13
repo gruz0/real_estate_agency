@@ -35,7 +35,7 @@
         td
           .form-group
             = form.label :city
-            = form.select :city, City.all.map { |c| [c.name, c.id] }, {}, class: 'form-control'
+            = form.select :city, City.with_streets.map { |c| [c.name, c.id] }, {}, class: 'form-control'
 
         td
           .form-group
