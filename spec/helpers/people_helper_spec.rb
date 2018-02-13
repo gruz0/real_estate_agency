@@ -20,6 +20,14 @@ RSpec.describe PeopleHelper, type: :helper do
         expect(helper.person_fullname(person)).to eq('Иванов Пётр')
       end
     end
+
+    describe 'person is not set' do
+      let(:person) { nil }
+
+      it 'returns empty string' do
+        expect(helper.person_fullname(person)).to eq('')
+      end
+    end
   end
 
   describe '#person_shortname' do
@@ -34,6 +42,14 @@ RSpec.describe PeopleHelper, type: :helper do
 
       it 'concats values' do
         expect(helper.person_shortname(person)).to eq('Иванов П.')
+      end
+    end
+
+    describe 'person is not set' do
+      let(:person) { nil }
+
+      it 'returns empty string' do
+        expect(helper.person_shortname(person)).to eq('')
       end
     end
   end
