@@ -145,6 +145,7 @@ RSpec.describe EstatesController, type: :controller do
         estate.reload
 
         expect(estate.client).to eq(new_attributes[:client])
+        expect(estate.updated_by_employee).to eq(authenticated_employee)
         expect(estate.responsible_employee).to eq(new_attributes[:responsible_employee])
         expect(estate.address).to eq(Address.first)
         expect(estate.apartment_number).to eq(new_attributes[:apartment_number].to_s)

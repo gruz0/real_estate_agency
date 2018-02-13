@@ -35,7 +35,7 @@ class EstatesController < ApplicationController
 
   def update
     respond_to do |format|
-      if @estate.update(@attributes)
+      if @estate.update(@attributes.merge!(updated_by_employee: current_employee))
         format.html do
           redirect_to @estate,
                       notice: t('views.estate.flash_messages.estate_was_successfully_updated')

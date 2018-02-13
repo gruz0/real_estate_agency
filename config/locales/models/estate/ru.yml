@@ -6,7 +6,8 @@ ru:
       estate:
         price: 'Цена'
         client: 'Клиент'
-        created_by_employee: 'Создатель'
+        created_by_employee: 'Создатель объекта'
+        updated_by_employee: 'Изменивший объект сотрудник'
         responsible_employee: 'Ответственный'
         address: 'Адрес'
         city: 'Город'

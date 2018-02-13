@@ -18,7 +18,8 @@ RSpec.describe 'estates/show', type: :view do
   let(:valid_attributes) do
     {
       client: client,
-      created_by_employee: employee,
+      created_by_employee: create(:employee, last_name: 'Сергеев', first_name: 'Алексей'),
+      updated_by_employee: create(:employee, last_name: 'Петров', first_name: 'Олег'),
       responsible_employee: employee,
       address: address,
       apartment_number: 55,
@@ -54,7 +55,9 @@ RSpec.describe 'estates/show', type: :view do
     expect(response.body).to match(/122\.1/)
     expect(response.body).to match(/17\.8/)
     expect(response.body).to match(/Описание объекта/)
+    expect(response.body).to match(/Сергеев Алексей/)
     expect(response.body).to match(/#{estate.created_at}/)
+    expect(response.body).to match(/Петров Олег/)
     expect(response.body).to match(/#{estate.updated_at}/)
 
     client.phone_numbers.split(',').each do |phone_number|
