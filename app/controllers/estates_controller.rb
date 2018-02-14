@@ -1,4 +1,8 @@
 class EstatesController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound do |_|
+    redirect_to estates_path, alert: t('views.estate.flash_messages.estate_was_not_found')
+  end
+
   before_action :set_estate, only: %i[show edit update destroy]
   before_action :set_attributes!, only: %i[create update]
 

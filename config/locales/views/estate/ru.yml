@@ -11,6 +11,7 @@ ru:
       show:
         title: 'Карточка объекта #%{id}'
       flash_messages:
+        estate_was_not_found: 'Объект не существует'
         estate_was_successfully_created: 'Объект был успешно создан'
         estate_was_successfully_updated: 'Объект был успешно обновлён'
         estate_was_successfully_destroyed: 'Объект был успешно удалён'

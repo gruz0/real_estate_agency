@@ -65,6 +65,12 @@ RSpec.describe EstatesController, type: :controller do
       get :show, params: { id: estate.to_param }
       expect(response).to be_success
     end
+
+    it 'redirects to index page if record was not found' do
+      get :show, params: { id: 42 }
+      expect(response).to be_redirect
+      expect(flash[:alert]).to eq(I18n.t('views.estate.flash_messages.estate_was_not_found'))
+    end
   end
 
   describe 'GET #new' do
@@ -82,6 +88,12 @@ RSpec.describe EstatesController, type: :controller do
     it 'returns a success response' do
       get :edit, params: { id: estate.to_param }
       expect(response).to be_success
+    end
+
+    it 'redirects to index page if record was not found' do
+      get :edit, params: { id: 42 }
+      expect(response).to be_redirect
+      expect(flash[:alert]).to eq(I18n.t('views.estate.flash_messages.estate_was_not_found'))
     end
   end
 
@@ -178,27 +190,43 @@ RSpec.describe EstatesController, type: :controller do
         put :update, params: { id: estate.to_param, estate: invalid_attributes }
         expect(response).to be_success
       end
+
+      it 'redirects to index page if record was not found' do
+        put :update, params: { id: 42, employee: invalid_attributes }
+        expect(response).to be_redirect
+        expect(flash[:alert]).to eq(I18n.t('views.estate.flash_messages.estate_was_not_found'))
+      end
     end
   end
 
   describe 'DELETE #destroy' do
     login_employee
 
-    it 'destroys the requested estate' do
-      estate
-      expect do
+    context 'with valid params' do
+      it 'destroys the requested estate' do
+        estate
+        expect do
+          delete :destroy, params: { id: estate.to_param }
+        end.to change(Estate, :count).by(-1)
+      end
+
+      it 'redirects to the estates list' do
         delete :destroy, params: { id: estate.to_param }
-      end.to change(Estate, :count).by(-1)
+        expect(response).to redirect_to(estates_url)
+      end
+
+      it 'renders flash notice' do
+        delete :destroy, params: { id: estate.to_param }
+        expect(flash[:notice]).to eq(I18n.t('views.estate.flash_messages.estate_was_successfully_destroyed'))
+      end
     end
 
-    it 'redirects to the estates list' do
-      delete :destroy, params: { id: estate.to_param }
-      expect(response).to redirect_to(estates_url)
-    end
-
-    it 'renders flash notice' do
-      delete :destroy, params: { id: estate.to_param }
-      expect(flash[:notice]).to eq(I18n.t('views.estate.flash_messages.estate_was_successfully_destroyed'))
+    context 'with invalid params' do
+      it 'redirects to index page if record was not found' do
+        delete :destroy, params: { id: 42 }
+        expect(response).to be_redirect
+        expect(flash[:alert]).to eq(I18n.t('views.estate.flash_messages.estate_was_not_found'))
+      end
     end
   end
 end
