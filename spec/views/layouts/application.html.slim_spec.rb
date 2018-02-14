@@ -5,6 +5,7 @@ RSpec.describe 'layouts/application', type: :view do
 
   it 'renders a layout' do
     flash[:notice] = 'Notice'
+    flash[:alert] = 'Alert'
 
     render
 
@@ -32,6 +33,7 @@ RSpec.describe 'layouts/application', type: :view do
       end
     end
 
-    assert_select '.alert span', text: 'Notice', count: 1
+    assert_select '.alert.alert-primary span', text: 'Notice', count: 1
+    assert_select '.alert.alert-danger span', text: 'Alert', count: 1
   end
 end
