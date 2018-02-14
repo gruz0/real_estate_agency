@@ -1,4 +1,8 @@
 class EstateTypesController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound do |_|
+    redirect_to estate_types_path, alert: t('views.estate_type.flash_messages.estate_type_was_not_found')
+  end
+
   before_action :set_estate_type, only: %i[show edit update destroy]
 
   def index

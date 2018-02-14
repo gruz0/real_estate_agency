@@ -11,6 +11,7 @@ ru:
       show:
         title: 'Карточка типа объекта #%{id}'
       flash_messages:
+        estate_type_was_not_found: 'Тип объекта не существует'
         estate_type_was_successfully_created: 'Тип объекта был успешно создан'
         estate_type_was_successfully_updated: 'Тип объекта был успешно обновлён'
         estate_type_was_successfully_destroyed: 'Тип объекта был успешно удалён'
