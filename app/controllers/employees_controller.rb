@@ -1,4 +1,8 @@
 class EmployeesController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound do |_|
+    redirect_to employees_path, alert: t('views.employee.flash_messages.employee_was_not_found')
+  end
+
   before_action :set_employee, only: %i[show edit update destroy]
   before_action :allow_without_password, only: [:update]
 
@@ -59,7 +63,7 @@ class EmployeesController < ApplicationController
   private
 
   def set_employee
-    @employee = Employee.find_by(id: params[:id])
+    @employee = Employee.find(params[:id])
   end
 
   def employee_params
