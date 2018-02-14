@@ -30,6 +30,12 @@ RSpec.describe CompetitorsController, type: :controller do
       get :show, params: { id: competitor.to_param }
       expect(response).to be_success
     end
+
+    it 'redirects to index page if record was not found' do
+      get :show, params: { id: 42 }
+      expect(response).to be_redirect
+      expect(flash[:alert]).to eq(I18n.t('views.competitor.flash_messages.competitor_was_not_found'))
+    end
   end
 
   describe 'GET #new' do
@@ -47,6 +53,12 @@ RSpec.describe CompetitorsController, type: :controller do
     it 'returns a success response' do
       get :edit, params: { id: competitor.to_param }
       expect(response).to be_success
+    end
+
+    it 'redirects to index page if record was not found' do
+      get :edit, params: { id: 42 }
+      expect(response).to be_redirect
+      expect(flash[:alert]).to eq(I18n.t('views.competitor.flash_messages.competitor_was_not_found'))
     end
   end
 
@@ -116,28 +128,44 @@ RSpec.describe CompetitorsController, type: :controller do
         put :update, params: { id: competitor.to_param, competitor: invalid_attributes }
         expect(response).to be_success
       end
+
+      it 'redirects to index page if record was not found' do
+        put :update, params: { id: 42, competitor: invalid_attributes }
+        expect(response).to be_redirect
+        expect(flash[:alert]).to eq(I18n.t('views.competitor.flash_messages.competitor_was_not_found'))
+      end
     end
   end
 
   describe 'DELETE #destroy' do
     login_employee
 
-    it 'destroys the requested competitor' do
-      competitor
-      expect do
+    context 'with valid params' do
+      it 'destroys the requested competitor' do
+        competitor
+        expect do
+          delete :destroy, params: { id: competitor.to_param }
+        end.to change(Competitor, :count).by(-1)
+      end
+
+      it 'redirects to the competitors list' do
         delete :destroy, params: { id: competitor.to_param }
-      end.to change(Competitor, :count).by(-1)
+        expect(response).to redirect_to(competitors_url)
+      end
+
+      it 'renders flash notice' do
+        delete :destroy, params: { id: competitor.to_param }
+        expect(flash[:notice])
+          .to eq(I18n.t('views.competitor.flash_messages.competitor_was_successfully_destroyed'))
+      end
     end
 
-    it 'redirects to the competitors list' do
-      delete :destroy, params: { id: competitor.to_param }
-      expect(response).to redirect_to(competitors_url)
-    end
-
-    it 'renders flash notice' do
-      delete :destroy, params: { id: competitor.to_param }
-      expect(flash[:notice])
-        .to eq(I18n.t('views.competitor.flash_messages.competitor_was_successfully_destroyed'))
+    context 'with invalid params' do
+      it 'redirects to index page if record was not found' do
+        delete :destroy, params: { id: 42 }
+        expect(response).to be_redirect
+        expect(flash[:alert]).to eq(I18n.t('views.competitor.flash_messages.competitor_was_not_found'))
+      end
     end
   end
 end

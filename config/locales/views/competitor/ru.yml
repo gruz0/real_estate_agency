@@ -11,6 +11,7 @@ ru:
       show:
         title: 'Карточка конкурента #%{id}'
       flash_messages:
+        competitor_was_not_found: 'Конкурент не существует'
         competitor_was_successfully_created: 'Конкурент был успешно создан'
         competitor_was_successfully_updated: 'Конкурент был успешно обновлён'
         competitor_was_successfully_destroyed: 'Конкурент был успешно удалён'

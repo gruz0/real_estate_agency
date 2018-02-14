@@ -1,4 +1,8 @@
 class CompetitorsController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound do |_|
+    redirect_to competitors_path, alert: t('views.competitor.flash_messages.competitor_was_not_found')
+  end
+
   before_action :set_competitor, only: %i[show edit update destroy]
 
   include PeopleHelper
@@ -58,7 +62,7 @@ class CompetitorsController < ApplicationController
   private
 
   def set_competitor
-    @competitor = Competitor.find_by(id: params[:id])
+    @competitor = Competitor.find(params[:id])
   end
 
   def competitor_params
