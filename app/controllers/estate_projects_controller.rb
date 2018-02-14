@@ -1,4 +1,8 @@
 class EstateProjectsController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound do |_|
+    redirect_to estate_projects_path, alert: t('views.estate_project.flash_messages.estate_project_was_not_found')
+  end
+
   before_action :set_estate_project, only: %i[show edit update destroy]
 
   def index
