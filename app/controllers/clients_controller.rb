@@ -1,4 +1,8 @@
 class ClientsController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound do |_|
+    redirect_to clients_path, alert: t('views.client.flash_messages.client_was_not_found')
+  end
+
   before_action :set_client, only: %i[show edit update destroy]
 
   include PeopleHelper
@@ -58,7 +62,7 @@ class ClientsController < ApplicationController
   private
 
   def set_client
-    @client = Client.find_by(id: params[:id])
+    @client = Client.find(params[:id])
   end
 
   def client_params
