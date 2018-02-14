@@ -11,6 +11,7 @@ ru:
       show:
         title: 'Карточка типа материала #%{id}'
       flash_messages:
+        estate_material_was_not_found: 'Тип материала не существует'
         estate_material_was_successfully_created: 'Тип материала был успешно создан'
         estate_material_was_successfully_updated: 'Тип материала был успешно обновлён'
         estate_material_was_successfully_destroyed: 'Тип материала был успешно удалён'

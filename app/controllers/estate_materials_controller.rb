@@ -1,4 +1,8 @@
 class EstateMaterialsController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound do |_|
+    redirect_to estate_materials_path, alert: t('views.estate_material.flash_messages.estate_material_was_not_found')
+  end
+
   before_action :set_estate_material, only: %i[show edit update destroy]
 
   def index
