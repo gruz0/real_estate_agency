@@ -11,6 +11,7 @@ ru:
       show:
         title: 'Карточка улицы #%{id} в %{city}'
       flash_messages:
+        street_was_not_found: 'Улица не существует'
         street_was_successfully_created: 'Улица была успешно создана'
         street_was_successfully_updated: 'Улица была успешно обновлена'
         street_was_successfully_destroyed: 'Улица была успешно удалена'

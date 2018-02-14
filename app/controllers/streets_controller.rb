@@ -1,4 +1,12 @@
 class StreetsController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound do |_|
+    if @city
+      redirect_to city_streets_path(@city), alert: t('views.street.flash_messages.street_was_not_found')
+    else
+      redirect_to cities_path, alert: t('views.city.flash_messages.city_was_not_found')
+    end
+  end
+
   before_action :set_city
   before_action :set_street, only: %i[show edit update destroy]
 
@@ -67,7 +75,7 @@ class StreetsController < ApplicationController
   end
 
   def set_street
-    @street = Street.find_by(city: @city, id: params[:id])
+    @street = @city.street.find(params[:id])
   end
 
   def street_params

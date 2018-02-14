@@ -31,6 +31,18 @@ RSpec.describe StreetsController, type: :controller do
       get :show, params: { city_id: city.to_param, id: street.to_param }
       expect(response).to be_success
     end
+
+    it 'redirects to index page if city was not found' do
+      get :show, params: { city_id: 42, id: 42 }
+      expect(response).to be_redirect
+      expect(flash[:alert]).to eq(I18n.t('views.city.flash_messages.city_was_not_found'))
+    end
+
+    it 'redirects to index page if street was not found' do
+      get :show, params: { city_id: city.to_param, id: 42 }
+      expect(response).to be_redirect
+      expect(flash[:alert]).to eq(I18n.t('views.street.flash_messages.street_was_not_found'))
+    end
   end
 
   describe 'GET #new' do
@@ -48,6 +60,18 @@ RSpec.describe StreetsController, type: :controller do
     it 'returns a success response' do
       get :edit, params: { city_id: city.to_param, id: street.to_param }
       expect(response).to be_success
+    end
+
+    it 'redirects to index page if city was not found' do
+      get :edit, params: { city_id: 42, id: 42 }
+      expect(response).to be_redirect
+      expect(flash[:alert]).to eq(I18n.t('views.city.flash_messages.city_was_not_found'))
+    end
+
+    it 'redirects to index page if street was not found' do
+      get :edit, params: { city_id: city.to_param, id: 42 }
+      expect(response).to be_redirect
+      expect(flash[:alert]).to eq(I18n.t('views.street.flash_messages.street_was_not_found'))
     end
   end
 
@@ -115,28 +139,56 @@ RSpec.describe StreetsController, type: :controller do
         put :update, params: { city_id: city.to_param, id: street.to_param, street: invalid_attributes }
         expect(response).to be_success
       end
+
+      it 'redirects to index page if city was not found' do
+        put :update, params: { city_id: 42, id: 42, street: invalid_attributes }
+        expect(response).to be_redirect
+        expect(flash[:alert]).to eq(I18n.t('views.city.flash_messages.city_was_not_found'))
+      end
+
+      it 'redirects to index page if street was not found' do
+        put :update, params: { city_id: city.to_param, id: 42, street: invalid_attributes }
+        expect(response).to be_redirect
+        expect(flash[:alert]).to eq(I18n.t('views.street.flash_messages.street_was_not_found'))
+      end
     end
   end
 
   describe 'DELETE #destroy' do
     login_employee
 
-    it 'destroys the requested street' do
-      street
-      expect do
+    context 'with valid params' do
+      it 'destroys the requested street' do
+        street
+        expect do
+          delete :destroy, params: { city_id: city.to_param, id: street.to_param }
+        end.to change(Street, :count).by(-1)
+      end
+
+      it 'redirects to the streets list' do
         delete :destroy, params: { city_id: city.to_param, id: street.to_param }
-      end.to change(Street, :count).by(-1)
+        expect(response).to redirect_to(city_streets_url(city))
+      end
+
+      it 'renders flash notice' do
+        delete :destroy, params: { city_id: city.to_param, id: street.to_param }
+        expect(flash[:notice])
+          .to eq(I18n.t('views.street.flash_messages.street_was_successfully_destroyed'))
+      end
     end
 
-    it 'redirects to the streets list' do
-      delete :destroy, params: { city_id: city.to_param, id: street.to_param }
-      expect(response).to redirect_to(city_streets_url(city))
-    end
+    context 'with invalid params' do
+      it 'redirects to index page if city was not found' do
+        delete :destroy, params: { city_id: 42, id: 42 }
+        expect(response).to be_redirect
+        expect(flash[:alert]).to eq(I18n.t('views.city.flash_messages.city_was_not_found'))
+      end
 
-    it 'renders flash notice' do
-      delete :destroy, params: { city_id: city.to_param, id: street.to_param }
-      expect(flash[:notice])
-        .to eq(I18n.t('views.street.flash_messages.street_was_successfully_destroyed'))
+      it 'redirects to index page if street was not found' do
+        delete :destroy, params: { city_id: city.to_param, id: 42 }
+        expect(response).to be_redirect
+        expect(flash[:alert]).to eq(I18n.t('views.street.flash_messages.street_was_not_found'))
+      end
     end
   end
 end
