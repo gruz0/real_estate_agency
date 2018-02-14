@@ -12,6 +12,7 @@ ru:
       show:
         title: 'Карточка города #%{id}'
       flash_messages:
+        city_was_not_found: 'Город не существует'
         city_was_successfully_created: 'Город был успешно создан'
         city_was_successfully_updated: 'Город был успешно обновлён'
         city_was_successfully_destroyed: 'Город был успешно удалён'

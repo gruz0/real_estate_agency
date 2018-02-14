@@ -1,4 +1,8 @@
 class CitiesController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound do |_|
+    redirect_to cities_path, alert: t('views.city.flash_messages.city_was_not_found')
+  end
+
   before_action :set_city, only: %i[show edit update destroy]
 
   def index
