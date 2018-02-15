@@ -27,4 +27,16 @@ RSpec.describe EstateMaterial, type: :model do
     it { expect(estate_material).to have_db_column(:name).of_type(:string).with_options(null: false) }
     it { expect(estate_material).to have_db_index(:name).unique }
   end
+
+  describe 'scopes' do
+    it '.ordered_by_name returns estate_materials ordered by name ascending' do
+      estate_material1 = create(:estate_material, name: 'Кирпичный')
+      estate_material2 = create(:estate_material, name: 'Деревянный')
+      estate_material3 = create(:estate_material, name: 'Панельный')
+
+      estate_materials = EstateMaterial.ordered_by_name
+      expect(estate_materials.size).to eq(3)
+      expect(estate_materials).to eq([estate_material2, estate_material1, estate_material3])
+    end
+  end
 end

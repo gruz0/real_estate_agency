@@ -3,6 +3,8 @@ class Employee < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :lockable, :trackable, :timeoutable, :validatable
 
+  scope :ordered_by_full_name, -> { reorder('last_name ASC, first_name ASC') }
+
   has_many :estate, inverse_of: :responsible_employee, foreign_key: 'responsible_employee_id', dependent: :destroy
 
   validates :last_name, presence: true, length: { minimum: 1 }

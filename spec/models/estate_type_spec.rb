@@ -27,4 +27,16 @@ RSpec.describe EstateType, type: :model do
     it { expect(estate_type).to have_db_column(:name).of_type(:string).with_options(null: false) }
     it { expect(estate_type).to have_db_index(:name).unique }
   end
+
+  describe 'scopes' do
+    it '.ordered_by_name returns estate_types ordered by name ascending' do
+      estate_type1 = create(:estate_type, name: 'Дом')
+      estate_type2 = create(:estate_type, name: 'Комната')
+      estate_type3 = create(:estate_type, name: 'Квартира')
+
+      estate_types = EstateType.ordered_by_name
+      expect(estate_types.size).to eq(3)
+      expect(estate_types).to eq([estate_type1, estate_type3, estate_type2])
+    end
+  end
 end

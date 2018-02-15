@@ -27,4 +27,16 @@ RSpec.describe EstateProject, type: :model do
     it { expect(estate_project).to have_db_column(:name).of_type(:string).with_options(null: false) }
     it { expect(estate_project).to have_db_index(:name).unique }
   end
+
+  describe 'scopes' do
+    it '.ordered_by_name returns estate_projects ordered by name ascending' do
+      estate_project1 = create(:estate_project, name: 'Уральский')
+      estate_project2 = create(:estate_project, name: 'Московский')
+      estate_project3 = create(:estate_project, name: 'Новый')
+
+      estate_projects = EstateProject.ordered_by_name
+      expect(estate_projects.size).to eq(3)
+      expect(estate_projects).to eq([estate_project2, estate_project3, estate_project1])
+    end
+  end
 end

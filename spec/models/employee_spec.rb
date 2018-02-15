@@ -33,4 +33,16 @@ RSpec.describe Employee, type: :model do
 
     it { expect(person).to have_db_column(:phone_numbers).of_type(:string).with_options(null: true) }
   end
+
+  describe 'scopes' do
+    it '.ordered_by_full_name returns employees ordered by full_name ascending' do
+      employee1 = create(:employee, last_name: 'Сергеев', first_name: 'Алексей')
+      employee2 = create(:employee, last_name: 'Афонин', first_name: 'Пётр')
+      employee3 = create(:employee, last_name: 'Дмитриев', first_name: 'Денис')
+
+      employees = Employee.ordered_by_full_name
+      expect(employees.size).to eq(3)
+      expect(employees).to eq([employee2, employee3, employee1])
+    end
+  end
 end

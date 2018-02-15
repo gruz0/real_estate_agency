@@ -1,6 +1,8 @@
 class Client < ApplicationRecord
   PHONE_NUMBERS_REGEX = /\A[+\d]+\z/
 
+  scope :ordered_by_full_name, -> { reorder('full_name ASC') }
+
   has_many :estate, dependent: :destroy
 
   before_save :clear_phone_numbers

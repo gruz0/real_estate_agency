@@ -32,6 +32,19 @@ RSpec.describe Street, type: :model do
     it { expect(street).to have_db_index(:city_id) }
   end
 
+  describe 'scopes' do
+    it '.ordered_by_name returns streets ordered by name ascending' do
+      city    = create(:city)
+      street1 = create(:street, city: city, name: 'ул. 7-й мкрн')
+      street2 = create(:street, city: city, name: 'ул. Ленина')
+      street3 = create(:street, city: city, name: 'ул. Арбатская')
+
+      streets = Street.ordered_by_name
+      expect(streets.size).to eq(3)
+      expect(streets).to eq([street1, street3, street2])
+    end
+  end
+
   describe 'public instance methods' do
     describe 'responds to its methods' do
       it { expect(street).to respond_to(:city_name) }

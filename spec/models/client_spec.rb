@@ -47,6 +47,18 @@ RSpec.describe Client, type: :model do
     it { expect(person).to have_db_index(:phone_numbers) }
   end
 
+  describe 'scopes' do
+    it '.ordered_by_full_name returns clients ordered by full_name ascending' do
+      client1 = create(:client, full_name: 'Иванов Сергей')
+      client2 = create(:client, full_name: 'Алексеева Снежана')
+      client3 = create(:client, full_name: 'Зубарева Наталья')
+
+      clients = Client.ordered_by_full_name
+      expect(clients.size).to eq(3)
+      expect(clients).to eq([client2, client3, client1])
+    end
+  end
+
   describe 'before filters' do
     describe '#phone_numbers' do
       it 'returns valid full phone number' do
