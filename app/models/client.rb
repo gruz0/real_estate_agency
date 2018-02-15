@@ -5,6 +5,7 @@ class Client < ApplicationRecord
 
   has_many :estate, dependent: :destroy
 
+  before_save :strip_full_name
   before_save :clear_phone_numbers
 
   validates :full_name, presence: true, length: { minimum: 1 }
@@ -12,6 +13,10 @@ class Client < ApplicationRecord
   validate :phone_numbers_valid?
 
   private
+
+  def strip_full_name
+    full_name.strip!
+  end
 
   def clear_phone_numbers
     self.phone_numbers = phone_numbers.split(',').map do |phone_number|
