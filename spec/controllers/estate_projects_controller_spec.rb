@@ -128,7 +128,7 @@ RSpec.describe EstateProjectsController, type: :controller do
       end
 
       it 'redirects to index page if record was not found' do
-        put :update, params: { id: 42, employee: invalid_attributes }
+        put :update, params: { id: 42, estate_project: invalid_attributes }
         expect(response).to be_redirect
         expect(flash[:alert]).to eq(I18n.t('views.estate_project.flash_messages.estate_project_was_not_found'))
       end

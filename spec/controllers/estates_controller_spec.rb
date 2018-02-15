@@ -192,7 +192,7 @@ RSpec.describe EstatesController, type: :controller do
       end
 
       it 'redirects to index page if record was not found' do
-        put :update, params: { id: 42, employee: invalid_attributes }
+        put :update, params: { id: 42, estate: invalid_attributes }
         expect(response).to be_redirect
         expect(flash[:alert]).to eq(I18n.t('views.estate.flash_messages.estate_was_not_found'))
       end
