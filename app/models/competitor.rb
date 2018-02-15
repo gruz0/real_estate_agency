@@ -1,12 +1,19 @@
 class Competitor < ApplicationRecord
   PHONE_NUMBERS_REGEX = /\A[+\d]+\z/
 
+  before_save :strip_name
   before_save :clear_phone_numbers
 
   validates :phone_numbers, presence: true, length: { minimum: 6 }
   validate :phone_numbers_valid?
 
   private
+
+  def strip_name
+    return unless name
+
+    name.strip!
+  end
 
   def clear_phone_numbers
     self.phone_numbers = phone_numbers.split(',').map do |phone_number|
