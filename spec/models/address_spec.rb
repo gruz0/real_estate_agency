@@ -32,6 +32,15 @@ RSpec.describe Address, type: :model do
     it { expect(address).to have_db_index(:street_id) }
   end
 
+  describe 'strip attributes' do
+    describe '#building_number' do
+      it 'returns building_number without spaces' do
+        address.building_number = '    7/1а     '
+        expect(address.building_number).to eq('7/1а')
+      end
+    end
+  end
+
   describe 'public instance methods' do
     describe 'responds to its methods' do
       it { expect(address).to respond_to(:full_name) }
