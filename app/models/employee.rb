@@ -9,4 +9,16 @@ class Employee < ApplicationRecord
 
   validates :last_name, presence: true, length: { minimum: 1 }
   validates :first_name, presence: true, length: { minimum: 1 }
+
+  def last_name=(value)
+    super(value.try(:strip))
+  end
+
+  def first_name=(value)
+    super(value.try(:strip))
+  end
+
+  def middle_name=(value)
+    super(value.try(:strip))
+  end
 end

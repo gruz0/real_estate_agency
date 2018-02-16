@@ -34,6 +34,29 @@ RSpec.describe Employee, type: :model do
     it { expect(person).to have_db_column(:phone_numbers).of_type(:string).with_options(null: true) }
   end
 
+  describe 'strip attributes' do
+    describe '#last_name' do
+      it 'returns last_name without spaces' do
+        person.last_name = '    Иванов     '
+        expect(person.last_name).to eq('Иванов')
+      end
+    end
+
+    describe '#first_name' do
+      it 'returns first_name without spaces' do
+        person.first_name = '    Пётр     '
+        expect(person.first_name).to eq('Пётр')
+      end
+    end
+
+    describe '#middle_name' do
+      it 'returns middle_name without spaces' do
+        person.middle_name = '    Сергеевич     '
+        expect(person.middle_name).to eq('Сергеевич')
+      end
+    end
+  end
+
   describe 'scopes' do
     it '.ordered_by_full_name returns employees ordered by full_name ascending' do
       employee1 = create(:employee, last_name: 'Сергеев', first_name: 'Алексей')
