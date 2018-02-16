@@ -28,6 +28,15 @@ RSpec.describe City, type: :model do
     it { expect(city).to have_db_index(:name).unique }
   end
 
+  describe 'strip attributes' do
+    describe '#name' do
+      it 'returns name without spaces' do
+        city.name = '    Нефтеюганск     '
+        expect(city.name).to eq('Нефтеюганск')
+      end
+    end
+  end
+
   describe 'scopes' do
     it '.with_streets returns only cities with streets' do
       create(:city, name: 'Without Streets')
