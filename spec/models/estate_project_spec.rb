@@ -28,6 +28,15 @@ RSpec.describe EstateProject, type: :model do
     it { expect(estate_project).to have_db_index(:name).unique }
   end
 
+  describe 'strip attributes' do
+    describe '#name' do
+      it 'returns name without spaces' do
+        estate_project.name = '    Уральский     '
+        expect(estate_project.name).to eq('Уральский')
+      end
+    end
+  end
+
   describe 'scopes' do
     it '.ordered_by_name returns estate_projects ordered by name ascending' do
       estate_project1 = create(:estate_project, name: 'Уральский')
