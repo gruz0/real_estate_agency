@@ -5,4 +5,8 @@ class Street < ApplicationRecord
   validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 3 }
 
   delegate :name, to: :city, prefix: true
+
+  def name=(value)
+    super(value.try(:strip))
+  end
 end

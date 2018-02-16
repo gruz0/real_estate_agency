@@ -32,6 +32,15 @@ RSpec.describe Street, type: :model do
     it { expect(street).to have_db_index(:city_id) }
   end
 
+  describe 'strip attributes' do
+    describe '#name' do
+      it 'returns name without spaces' do
+        street.name = '    ул. Ленина     '
+        expect(street.name).to eq('ул. Ленина')
+      end
+    end
+  end
+
   describe 'scopes' do
     it '.ordered_by_name returns streets ordered by name ascending' do
       city    = create(:city)
