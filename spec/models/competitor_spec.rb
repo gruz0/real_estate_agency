@@ -41,27 +41,26 @@ RSpec.describe Competitor, type: :model do
     it { expect(person).to have_db_index(:phone_numbers) }
   end
 
-  describe 'before filters' do
+  describe 'strip attributes' do
     describe '#name' do
       it 'returns name without spaces' do
         person.name = '    Николаев Максим Алексеевич     '
-        person.save && person.reload
         expect(person.name).to eq('Николаев Максим Алексеевич')
       end
 
       it 'returns empty string if name contains only spaces' do
         person.name = '               '
-        person.save && person.reload
         expect(person.name).to be_empty
       end
 
       it 'returns nil if name is not present' do
         person.name = nil
-        person.save && person.reload
         expect(person.name).to be_nil
       end
     end
+  end
 
+  describe 'before filters' do
     describe '#phone_numbers' do
       it 'returns valid full phone number' do
         person.phone_numbers = '+79991112233'
