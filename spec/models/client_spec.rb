@@ -59,15 +59,16 @@ RSpec.describe Client, type: :model do
     end
   end
 
-  describe 'before filters' do
+  describe 'strip attributes' do
     describe '#full_name' do
       it 'returns full_name without spaces' do
         person.full_name = '    Сергеев Алексей Петрович   '
-        person.save && person.reload
         expect(person.full_name).to eq('Сергеев Алексей Петрович')
       end
     end
+  end
 
+  describe 'before filters' do
     describe '#phone_numbers' do
       it 'returns valid full phone number' do
         person.phone_numbers = '+79991112233'
