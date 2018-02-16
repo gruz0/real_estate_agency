@@ -20,6 +20,10 @@ class Estate < ApplicationRecord
   validates :total_square_meters, allow_blank: true, numericality: { greater_than: 0, less_than: 1000 }
   validates :kitchen_square_meters, allow_blank: true, numericality: { greater_than: 0, less_than: 1000 }
 
+  def description=(value)
+    super(value.try(:strip))
+  end
+
   def building_number
     address&.building_number
   end

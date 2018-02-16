@@ -121,4 +121,13 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).to have_db_column(:kitchen_square_meters).of_type(:float).with_options(null: true) }
     it { expect(estate).to have_db_column(:description).of_type(:text).with_options(null: true) }
   end
+
+  describe 'strip attributes' do
+    describe '#description' do
+      it 'returns description without spaces' do
+        estate.description = "    \nКакая-то\nмногострочная\nописаловка\n     "
+        expect(estate.description).to eq("Какая-то\nмногострочная\nописаловка")
+      end
+    end
+  end
 end
