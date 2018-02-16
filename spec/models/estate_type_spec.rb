@@ -28,6 +28,15 @@ RSpec.describe EstateType, type: :model do
     it { expect(estate_type).to have_db_index(:name).unique }
   end
 
+  describe 'strip attributes' do
+    describe '#name' do
+      it 'returns name without spaces' do
+        estate_type.name = '    Квартира     '
+        expect(estate_type.name).to eq('Квартира')
+      end
+    end
+  end
+
   describe 'scopes' do
     it '.ordered_by_name returns estate_types ordered by name ascending' do
       estate_type1 = create(:estate_type, name: 'Дом')
