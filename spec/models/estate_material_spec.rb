@@ -28,6 +28,15 @@ RSpec.describe EstateMaterial, type: :model do
     it { expect(estate_material).to have_db_index(:name).unique }
   end
 
+  describe 'strip attributes' do
+    describe '#name' do
+      it 'returns name without spaces' do
+        estate_material.name = '    Деревянный     '
+        expect(estate_material.name).to eq('Деревянный')
+      end
+    end
+  end
+
   describe 'scopes' do
     it '.ordered_by_name returns estate_materials ordered by name ascending' do
       estate_material1 = create(:estate_material, name: 'Кирпичный')
