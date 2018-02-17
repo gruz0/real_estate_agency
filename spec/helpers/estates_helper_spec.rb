@@ -115,4 +115,40 @@ RSpec.describe EstatesHelper, type: :helper do
       end
     end
   end
+
+  describe '#streets_depends_on_city_for(estate)' do
+    let(:city) { create(:city, name: 'Нефтеюганск') }
+    let(:street) { Street.create!(city: city, name: '9-й мкрн') }
+
+    it 'returns streets ordered by name for the estate city' do
+      # Create streets in the first city
+      streets = [
+        Street.create!(city: city, name: 'ул. Ленина'),
+        Street.create!(city: city, name: 'ул. Усть-Балыкская'),
+        Street.create!(city: city, name: 'ул. Объездная')
+      ]
+
+      # Create another city with streets
+      other_city = create(:city, name: 'Сургут')
+      Street.create!(city: other_city, name: 'ул. Нефтеюганская')
+      Street.create!(city: other_city, name: 'ул. Промышленная')
+
+      result = helper.streets_depends_on_city_for(estate)
+      expect(result).to eq([street, streets[0], streets[2], streets[1]])
+    end
+
+    it 'returns streets ordered by name for the first city (ordered by name) if estate is an empty object' do
+      Street.create!(city: city, name: 'ул. Ленина')
+
+      # Create another city with streets
+      other_city = create(:city, name: 'Альметьевск')
+      streets = [
+        Street.create!(city: other_city, name: 'ул. Первая'),
+        Street.create!(city: other_city, name: 'ул. Вторая')
+      ]
+
+      result = helper.streets_depends_on_city_for(Estate.new)
+      expect(result).to eq([streets[1], streets[0]])
+    end
+  end
 end

@@ -46,7 +46,7 @@
         td
           .form-group
             = form.label :street
-            = form.select :street, Street.ordered_by_name.map { |s| [s.name, s.id] }, \
+            = form.select :street, streets_depends_on_city_for(estate).map { |s| [s.name, s.id] }, \
               { selected: (estate.address.street_id rescue nil) }, class: 'form-control'
 
       tr

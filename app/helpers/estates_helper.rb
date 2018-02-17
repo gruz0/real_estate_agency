@@ -29,4 +29,12 @@ module EstatesHelper
 
     safe_join content, ', '
   end
+
+  def streets_depends_on_city_for(estate)
+    if estate.address&.street
+      Street.reorder('name ASC').where(city: estate.address.street.city)
+    else
+      City.ordered_by_name.first.street.ordered_by_name
+    end
+  end
 end
