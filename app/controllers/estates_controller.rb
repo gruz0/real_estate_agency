@@ -9,7 +9,7 @@ class EstatesController < ApplicationController
   include PeopleHelper
 
   def index
-    @estates = Estate.page(params[:page])
+    @estates = FindEstates.new(Estate.all).call(permitted_params)
   end
 
   def show; end
@@ -92,5 +92,9 @@ class EstatesController < ApplicationController
                                    :estate_type, :estate_project, :estate_material, :number_of_rooms,
                                    :floor, :number_of_floors, :total_square_meters, :kitchen_square_meters,
                                    :description, :status, :price)
+  end
+
+  def permitted_params
+    params.permit(:page, :id, :estate_project, :number_of_rooms, :floor, :price_to, :responsible_employee)
   end
 end

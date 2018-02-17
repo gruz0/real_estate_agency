@@ -36,6 +36,7 @@ ru:
     submit:
       create: 'Создать'
       update: 'Обновить'
+      filter: 'Фильтр'
 
   number:
     currency:

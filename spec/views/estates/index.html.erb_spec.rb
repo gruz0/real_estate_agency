@@ -37,6 +37,7 @@ RSpec.describe 'estates/index', type: :view do
   end
 
   it 'renders a list of estates' do
+    allow(view).to receive(:current_employee).and_return(employee)
     assign(:estates, Kaminari.paginate_array(estates).page(1))
 
     render
@@ -56,7 +57,23 @@ RSpec.describe 'estates/index', type: :view do
         assert_select 'th', text: Client.human_attribute_name(:phone_numbers), count: 1
         assert_select 'th', text: Estate.human_attribute_name(:responsible_employee), count: 1
         assert_select 'th', text: Estate.human_attribute_name(:created_at), count: 1
-        assert_select 'th', text: Estate.human_attribute_name(:updated_at), count: 1
+
+        # Filter bar
+        assert_select 'tr' do
+          assert_select 'input#filter_id[type=text]', count: 1
+          assert_select 'select#filter_estate_project', count: 1 do
+            assert_select 'option', text: I18n.t('views.filter.select.all'), count: 1
+          end
+          assert_select 'input#filter_number_of_rooms[type=text]', count: 1
+          assert_select 'input#filter_floor[type=text]', count: 1
+          assert_select 'input#filter_price_to[type=text]', count: 1
+          assert_select 'select#filter_responsible_employee', count: 1 do
+            assert_select 'option', text: I18n.t('views.filter.select.all'), count: 1
+            assert_select 'option', text: I18n.t('views.filter.select.i_am'), count: 1
+          end
+          assert_select 'button#filter', tetx: I18n.t('helpers.submit.filter'), count: 1
+          assert_select 'button#reset_filter', count: 1
+        end
       end
 
       assert_select 'tbody' do
