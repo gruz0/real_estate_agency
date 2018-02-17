@@ -16,3 +16,13 @@
 //= require_tree .
 //= require popper
 //= require bootstrap
+
+function encodeQueryData(data) {
+  let ret = [];
+  for (let d in data) {
+    if (data[d].length) {
+      ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+    }
+  }
+  return ret.join('&');
+}

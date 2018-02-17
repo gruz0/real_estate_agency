@@ -20,16 +20,17 @@ table.table.table-sm.table-hover
 
     tr
       td scope="col" width="4%"
-        = text_field(:filter, :id, value: params.fetch(:id, ''), class: 'form-control form-control-sm')
+        = text_field(:filter, :id, value: params.fetch(:id, ''), class: 'form-control form-control-sm', maxlength: 6)
       td scope="col"
       td scope="col"
         = select(:filter, :estate_project, EstateProject.ordered_by_name.map { |ep| [ep.name, ep.id] }, \
           { selected: params.fetch(:estate_project, '') }, class: 'form-control form-control-sm')
       td scope="col" width="7%"
         = text_field(:filter, :number_of_rooms, value: params.fetch(:number_of_rooms, ''), \
-          class: 'form-control form-control-sm')
+          class: 'form-control form-control-sm', maxlength: 1)
       td scope="col" width="7%"
-        = text_field(:filter, :floor, value: params.fetch(:floor, ''), class: 'form-control form-control-sm')
+        = text_field(:filter, :floor, value: params.fetch(:floor, ''), \
+          class: 'form-control form-control-sm', maxlength: 2)
       td scope="col" width="9%"
         .input-group.input-group-sm
           = text_field(:filter, :price_to, value: params.fetch(:price_to, ''), maxlength: 5, \
@@ -43,7 +44,10 @@ table.table.table-sm.table-hover
           Employee.ordered_by_full_name.map { |e| [person_shortname(e), e.id] }, \
           { selected: params.fetch(:responsible_employee, '') }, class: 'form-control form-control-sm')
       td scope="col"
-      td scope="col" = button_tag(t('helpers.submit.filter'), id: :filter, class: 'btn btn-outline-primary btn-sm')
+      td scope="col"
+        .btn-group.btn-group-sm role="group"
+          = button_tag(t('helpers.submit.filter'), id: :filter, class: 'btn btn-outline-primary')
+          = button_tag('&times;'.html_safe, id: :reset_filter, class: 'btn btn-danger')
 
   tbody
     - @estates.each do |estate|

@@ -66,6 +66,7 @@ RSpec.describe 'estates/index', type: :view do
           assert_select 'input#filter_price_to[type=text]', count: 1
           assert_select 'select#filter_responsible_employee', count: 1
           assert_select 'button#filter', tetx: I18n.t('helpers.submit.filter'), count: 1
+          assert_select 'button#reset_filter', count: 1
         end
       end
 
