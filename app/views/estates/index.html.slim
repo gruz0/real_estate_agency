@@ -16,8 +16,35 @@ table.table.table-sm.table-hover
       th scope="col" = Client.human_attribute_name(:phone_numbers)
       th scope="col" = Estate.human_attribute_name(:responsible_employee)
       th scope="col" = Estate.human_attribute_name(:created_at)
-      th scope="col" = Estate.human_attribute_name(:updated_at)
       th scope="col"
+
+    tr
+      td scope="col" width="4%"
+        = text_field(:filter, :id, value: params.fetch(:id, ''), class: 'form-control form-control-sm')
+      td scope="col"
+      td scope="col"
+        = select(:filter, :estate_project, EstateProject.ordered_by_name.map { |ep| [ep.name, ep.id] }, \
+          { selected: params.fetch(:estate_project, '') }, class: 'form-control form-control-sm')
+      td scope="col" width="7%"
+        = text_field(:filter, :number_of_rooms, value: params.fetch(:number_of_rooms, ''), \
+          class: 'form-control form-control-sm')
+      td scope="col" width="7%"
+        = text_field(:filter, :floor, value: params.fetch(:floor, ''), class: 'form-control form-control-sm')
+      td scope="col" width="9%"
+        .input-group.input-group-sm
+          = text_field(:filter, :price_to, value: params.fetch(:price_to, ''), maxlength: 5, \
+            class: 'form-control form-control-sm')
+          .input-group-append
+            .input-group-text
+              | 000
+      td scope="col"
+      td scope="col" width="10%"
+        = select(:filter, :responsible_employee, \
+          Employee.ordered_by_full_name.map { |e| [person_shortname(e), e.id] }, \
+          { selected: params.fetch(:responsible_employee, '') }, class: 'form-control form-control-sm')
+      td scope="col"
+      td scope="col" = button_tag(t('helpers.submit.filter'), id: :filter, class: 'btn btn-outline-primary btn-sm')
+
   tbody
     - @estates.each do |estate|
       tr
@@ -30,7 +57,6 @@ table.table.table-sm.table-hover
         td = estate.client.phone_numbers
         td = person_shortname(estate.responsible_employee)
         td = estate.created_at
-        td = estate.updated_at
         td
           .dropdown.show
             = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \

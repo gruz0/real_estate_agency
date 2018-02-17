@@ -56,7 +56,17 @@ RSpec.describe 'estates/index', type: :view do
         assert_select 'th', text: Client.human_attribute_name(:phone_numbers), count: 1
         assert_select 'th', text: Estate.human_attribute_name(:responsible_employee), count: 1
         assert_select 'th', text: Estate.human_attribute_name(:created_at), count: 1
-        assert_select 'th', text: Estate.human_attribute_name(:updated_at), count: 1
+
+        # Filter bar
+        assert_select 'tr' do
+          assert_select 'input#filter_id[type=text]', count: 1
+          assert_select 'select#filter_estate_project', count: 1
+          assert_select 'input#filter_number_of_rooms[type=text]', count: 1
+          assert_select 'input#filter_floor[type=text]', count: 1
+          assert_select 'input#filter_price_to[type=text]', count: 1
+          assert_select 'select#filter_responsible_employee', count: 1
+          assert_select 'button#filter', tetx: I18n.t('helpers.submit.filter'), count: 1
+        end
       end
 
       assert_select 'tbody' do
