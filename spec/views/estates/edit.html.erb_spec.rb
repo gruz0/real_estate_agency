@@ -50,6 +50,16 @@ RSpec.describe 'estates/edit', type: :view do
       assert_select 'input[name=?]', 'estate[kitchen_square_meters]'
       assert_select 'input[name=?]', 'estate[price]'
       assert_select 'textarea[name=?]', 'estate[description]'
+
+      # Ensure dictionaries have valid values
+      selected_option = 'select[name=?] option[selected=selected][value=?]'
+      assert_select selected_option, 'estate[estate_type]', estate_type.id.to_s
+      assert_select selected_option, 'estate[client]', client.id.to_s
+      assert_select selected_option, 'estate[responsible_employee]', employee.id.to_s
+      assert_select selected_option, 'estate[city]', city.id.to_s
+      assert_select selected_option, 'estate[street]', street.id.to_s
+      assert_select selected_option, 'estate[estate_project]', estate_project.id.to_s
+      assert_select selected_option, 'estate[estate_material]', estate_material.id.to_s
     end
 
     expect(response.body).to have_button(I18n.t('helpers.submit.update'))
