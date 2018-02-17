@@ -1,0 +1,6 @@
+ru:
+  views:
+    filter:
+      select:
+        all: 'Все'
+        i_am: 'Я'
