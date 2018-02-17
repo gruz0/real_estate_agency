@@ -47,7 +47,9 @@ streets = Array.new(30).map { FactoryBot.create(:street, city: cities.sample) }
 #
 # Addresses
 #
-addresses = Array.new(30).map { FactoryBot.create(:address, street: streets.sample, building_number: rand(100)) }
+addresses = Array.new(30).map do
+  FactoryBot.create(:address, street: streets.sample, building_number: rand(1..100).to_s)
+end
 
 #
 # Estates
