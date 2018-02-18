@@ -59,11 +59,16 @@ RSpec.describe Client, type: :model do
     end
   end
 
-  describe 'strip attributes' do
+  describe 'modify attributes' do
     describe '#full_name' do
       it 'returns full_name without spaces' do
         person.full_name = '    Сергеев Алексей Петрович   '
         expect(person.full_name).to eq('Сергеев Алексей Петрович')
+      end
+
+      it 'returns full_name titleized' do
+        person.full_name = 'иванов-петров сергей алексеевич'
+        expect(person.full_name).to eq('Иванов-Петров Сергей Алексеевич')
       end
     end
   end

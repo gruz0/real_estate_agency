@@ -12,7 +12,8 @@ class Client < ApplicationRecord
   validate :phone_numbers_valid?
 
   def full_name=(value)
-    super(value.try(:strip))
+    new_value = value.try(:strip).to_s.mb_chars.titleize
+    super(new_value)
   end
 
   private
