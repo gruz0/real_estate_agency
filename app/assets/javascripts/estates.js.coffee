@@ -21,7 +21,7 @@ $(document).on 'turbolinks:load', () ->
       success: (data, textStatus, jqXHR) ->
         streets = []
         $.each data, (_, street) ->
-          streets.push "<option id='#{street.id}'>#{street.name}</li>"
+          streets.push "<option value='#{street.id}'>#{street.name}</li>"
           return
 
         $('#city_streets').html(streets.join(''))
