@@ -11,14 +11,17 @@ class Employee < ApplicationRecord
   validates :first_name, presence: true, length: { minimum: 1 }
 
   def last_name=(value)
-    super(value.try(:strip))
+    new_value = value.try(:strip).to_s.mb_chars.titleize
+    super(new_value)
   end
 
   def first_name=(value)
-    super(value.try(:strip))
+    new_value = value.try(:strip).to_s.mb_chars.titleize
+    super(new_value)
   end
 
   def middle_name=(value)
-    super(value.try(:strip))
+    new_value = value.try(:strip).to_s.mb_chars.titleize
+    super(new_value)
   end
 end

@@ -34,11 +34,21 @@ RSpec.describe Employee, type: :model do
     it { expect(person).to have_db_column(:phone_numbers).of_type(:string).with_options(null: true) }
   end
 
-  describe 'strip attributes' do
+  describe 'modify attributes' do
     describe '#last_name' do
       it 'returns last_name without spaces' do
         person.last_name = '    Иванов     '
         expect(person.last_name).to eq('Иванов')
+      end
+
+      it 'returns last_name titleized' do
+        person.last_name = 'иванов'
+        expect(person.last_name).to eq('Иванов')
+      end
+
+      it 'returns last_name titleized if last_name contains two names' do
+        person.last_name = 'иванова-петрова'
+        expect(person.last_name).to eq('Иванова-Петрова')
       end
     end
 
@@ -47,12 +57,22 @@ RSpec.describe Employee, type: :model do
         person.first_name = '    Пётр     '
         expect(person.first_name).to eq('Пётр')
       end
+
+      it 'returns first_name titleized' do
+        person.first_name = 'алексей'
+        expect(person.first_name).to eq('Алексей')
+      end
     end
 
     describe '#middle_name' do
       it 'returns middle_name without spaces' do
         person.middle_name = '    Сергеевич     '
         expect(person.middle_name).to eq('Сергеевич')
+      end
+
+      it 'returns middle_name titleized' do
+        person.middle_name = 'николаевич'
+        expect(person.middle_name).to eq('Николаевич')
       end
     end
   end
