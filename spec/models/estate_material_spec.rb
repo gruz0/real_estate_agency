@@ -28,11 +28,16 @@ RSpec.describe EstateMaterial, type: :model do
     it { expect(estate_material).to have_db_index(:name).unique }
   end
 
-  describe 'strip attributes' do
+  describe 'modify attributes' do
     describe '#name' do
       it 'returns name without spaces' do
         estate_material.name = '    Деревянный     '
         expect(estate_material.name).to eq('Деревянный')
+      end
+
+      it 'returns name capitalized' do
+        estate_material.name = 'кирпичный'
+        expect(estate_material.name).to eq('Кирпичный')
       end
     end
   end
