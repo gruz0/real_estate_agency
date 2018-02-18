@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/gruz0/real_estate_agency.svg?branch=master)](https://travis-ci.org/gruz0/real_estate_agency)
 [![Maintainability](https://api.codeclimate.com/v1/badges/db0acd56daab29bab9ab/maintainability)](https://codeclimate.com/github/gruz0/real_estate_agency/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/db0acd56daab29bab9ab/test_coverage)](https://codeclimate.com/github/gruz0/real_estate_agency/test_coverage)
+[![Security](https://hakiri.io/github/gruz0/real_estate_agency/master.svg)](https://hakiri.io/github/gruz0/real_estate_agency/master)
 
 This project is a database for a real estate agency.
 
