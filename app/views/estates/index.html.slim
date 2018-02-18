@@ -59,7 +59,7 @@ table.table.table-sm.table-hover
         td = estate.estate_project.name
         td = number_of_rooms_for(estate)
         td = number_of_floors_for(estate)
-        td = estate.price
+        td = format_price(estate.price)
         td = estate.client.phone_numbers
         td = person_shortname(estate.responsible_employee)
         td = estate.created_at

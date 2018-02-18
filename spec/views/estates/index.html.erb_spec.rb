@@ -32,7 +32,7 @@ RSpec.describe 'estates/index', type: :view do
       total_square_meters: 122.1,
       kitchen_square_meters: 17.9,
       description: 'Описание объекта',
-      price: 99_999.99
+      price: 99_999
     }
   end
 
@@ -82,7 +82,7 @@ RSpec.describe 'estates/index', type: :view do
         assert_select 'tr>td', text: 'Уральский'.to_s, count: 1
         assert_select 'tr>td', text: '8'.to_s, count: 1
         assert_select 'tr>td', text: '4/10'.to_s, count: 1
-        assert_select 'tr>td', text: '99999'.to_s, count: 1
+        assert_select 'tr>td', text: '99 999 000'.to_s, count: 1
         assert_select 'tr>td', text: '+79991112233'.to_s, count: 1
         assert_select 'tr>td', text: 'Ли М.П.'.to_s, count: 1
       end

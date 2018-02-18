@@ -13,7 +13,7 @@ table.table.table-sm.table-hover
       th scope="row"
         = Estate.human_attribute_name(:price)
       td
-        = @estate.price
+        = format_price(@estate.price)
 
     tr
       th scope="row"

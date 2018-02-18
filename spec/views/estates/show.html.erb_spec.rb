@@ -44,7 +44,7 @@ RSpec.describe 'estates/show', type: :view do
     expect(response.body).to match(I18n.t('views.estate.show.title', id: estate.id))
 
     expect(response.body).to match(/Нефтеюганск, Ленина, 9а/)
-    expect(response.body).to match(/99999/)
+    expect(response.body).to match(/99 999 000/)
     expect(response.body).to match(/Иванов Сергей Николаевич/)
     expect(response.body).to match(/Ли Мария Петровна/)
     expect(response.body).to match(/Квартира/)

@@ -23,7 +23,7 @@ RSpec.describe EstatesHelper, type: :helper do
       estate_type: estate_type,
       estate_project: estate_project,
       estate_material: estate_material,
-      price: 99_999.99,
+      price: 99_999,
       floor: floor,
       number_of_floors: number_of_floors,
       number_of_rooms: number_of_rooms
@@ -149,6 +149,12 @@ RSpec.describe EstatesHelper, type: :helper do
 
       result = helper.streets_depends_on_city_for(Estate.new)
       expect(result).to eq([streets[1], streets[0]])
+    end
+  end
+
+  describe '#format_price' do
+    it 'returns formatted price' do
+      expect(helper.format_price(1234)).to eq('1 234 000')
     end
   end
 end

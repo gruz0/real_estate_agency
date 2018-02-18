@@ -37,4 +37,8 @@ module EstatesHelper
       City.ordered_by_name.first.street.ordered_by_name
     end
   end
+
+  def format_price(price)
+    number_to_currency("#{price}000", precision: 0, delimiter: ' ', format: '%n')
+  end
 end
