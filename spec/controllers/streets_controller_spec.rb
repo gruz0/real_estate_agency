@@ -75,6 +75,44 @@ RSpec.describe StreetsController, type: :controller do
     end
   end
 
+  describe 'GET #search' do
+    login_employee
+
+    let(:result) do
+      street1 = create(:street, city: city, name: 'ул. Главная')
+      street2 = create(:street, city: city, name: 'ул. Преображенская')
+      street3 = create(:street, city: city, name: '7-й мкрн')
+
+      [
+        { id: street3.id, name: street3.name },
+        { id: street1.id, name: street1.name },
+        { id: street2.id, name: street2.name }
+      ]
+    end
+
+    it 'returns a success response' do
+      get :search, params: { city_id: city.to_param }
+      expect(response).to be_success
+    end
+
+    it 'returns streets ordered by name as JSON' do
+      expected_result = result
+      get :search, params: { city_id: city.to_param }
+
+      expect(JSON.parse(response.body, symbolize_names: true)).to eq(expected_result)
+    end
+
+    it 'returns streets ordered by name as JSON only for the their city' do
+      other_city = create(:city)
+      create(:street, city: other_city)
+
+      expected_result = result
+      get :search, params: { city_id: city.to_param }
+
+      expect(JSON.parse(response.body, symbolize_names: true)).to eq(expected_result)
+    end
+  end
+
   describe 'POST #create' do
     login_employee
 

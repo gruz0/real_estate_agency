@@ -41,13 +41,13 @@
           .form-group
             = form.label :city
             = form.select :city, City.with_streets.map { |c| [c.name, c.id] }, \
-              { selected: (estate.address.street.city_id rescue nil) }, class: 'form-control'
+              { selected: (estate.address.street.city_id rescue nil) }, class: 'form-control', id: :estate_city
 
         td
           .form-group
             = form.label :street
             = form.select :street, streets_depends_on_city_for(estate).map { |s| [s.name, s.id] }, \
-              { selected: (estate.address.street_id rescue nil) }, class: 'form-control'
+              { selected: (estate.address.street_id rescue nil) }, class: 'form-control', id: :city_streets
 
       tr
         td

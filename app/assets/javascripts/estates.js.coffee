@@ -9,6 +9,22 @@ $(document).on 'turbolinks:load', () ->
       responsible_employee: $('#filter_responsible_employee').val()
     }
     window.location = '/estates?' + encodeQueryData(filter)
+    return
 
   $('#reset_filter').on 'click', ->
     window.location = '/estates'
+    return
+
+  $('#estate_city').on 'change', ->
+    $.ajax "/cities/#{$(this).val()}/streets/search",
+      dataType: 'json'
+      success: (data, textStatus, jqXHR) ->
+        streets = []
+        $.each data, (_, street) ->
+          streets.push "<option id='#{street.id}'>#{street.name}</li>"
+          return
+
+        $('#city_streets').html(streets.join(''))
+        return
+    return
+  return

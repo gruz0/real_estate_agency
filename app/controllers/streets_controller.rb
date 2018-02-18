@@ -22,6 +22,10 @@ class StreetsController < ApplicationController
 
   def edit; end
 
+  def search
+    render json: @city.street.ordered_by_name.select(:id, :name)
+  end
+
   def create
     @street = Street.new(street_params.merge(city: @city))
 

@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   resources :estate_projects
   resources :estate_types
   resources :cities do
-    resources :streets
+    resources :streets do
+      get 'search', on: :collection
+    end
   end
   resources :estates
 

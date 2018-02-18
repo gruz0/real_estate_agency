@@ -18,6 +18,10 @@ RSpec.describe StreetsController, type: :routing do
       expect(get: '/cities/3/streets/1/edit').to route_to('streets#edit', city_id: '3', id: '1')
     end
 
+    it 'routes to #search' do
+      expect(get: '/cities/3/streets/search').to route_to('streets#search', city_id: '3')
+    end
+
     it 'routes to #create' do
       expect(post: '/cities/3/streets').to route_to('streets#create', city_id: '3')
     end
