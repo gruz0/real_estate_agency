@@ -151,6 +151,18 @@ RSpec.describe StreetsController, type: :controller do
         expect(response).to be_redirect
         expect(flash[:alert]).to eq(I18n.t('views.street.flash_messages.street_was_not_found'))
       end
+
+      it 'redirects to #edit page if new name already exists in the current city' do
+        street1 = Street.create!(city: city, name: 'ул. Первая')
+        street2 = Street.create!(city: city, name: 'ул. Вторая')
+
+        invalid_attributes[:name] = street1.name
+
+        put :update, params: { city_id: city.to_param, id: street2.to_param, street: invalid_attributes }
+
+        expect(response).not_to be_redirect
+        expect(flash[:notice]).not_to eq(I18n.t('views.street.flash_messages.street_was_successfully_updated'))
+      end
     end
   end
 

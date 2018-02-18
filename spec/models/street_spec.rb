@@ -1,16 +1,49 @@
 require 'rails_helper'
 
 RSpec.describe Street, type: :model do
+  let(:city) { create(:city) }
   let(:street) { build(:street) }
 
-  it 'has a valid factory' do
-    expect(street).to be_valid
+  describe 'valid factory' do
+    it 'has a valid factory' do
+      expect(street).to be_valid
+    end
+
+    it 'has a valid factory if name already taken in the other city' do
+      other_city = create(:city)
+      create(:street, city: other_city, name: 'ул. Первая')
+
+      street = Street.new(city: city, name: 'ул. Первая')
+
+      expect(street).to be_valid
+    end
+
+    it 'has a valid factory if name changed' do
+      Street.create!(city: city, name: 'ул. Первая')
+
+      street = Street.create!(city: city, name: 'ул. Вторая')
+      street.update!(name: 'ул. Вторая')
+      street.reload
+
+      expect(street).to be_valid
+    end
+  end
+
+  describe 'invalid factory' do
+    it "has an invalid factory if name already taken in the street's city" do
+      city = create(:city)
+      create(:street, city: city, name: 'ул. Первая')
+
+      street = Street.new(city: city, name: 'ул. Первая')
+      expect(street).to be_invalid
+      expect(street.errors.messages[:name]).to include(I18n.t('errors.messages.taken'))
+    end
   end
 
   describe 'ActiveModel validations' do
     # Basic validations
     it { expect(street).to validate_presence_of(:name).with_message(I18n.t('errors.messages.blank')) }
-    it { expect(street).to validate_uniqueness_of(:name).case_insensitive }
+    it { expect(street).not_to validate_uniqueness_of(:name) }
 
     # Format validations
     it { expect(street).to allow_value('7-й микрорайон').for(:name) }
@@ -26,7 +59,7 @@ RSpec.describe Street, type: :model do
 
     # Database columns/indexes
     it { expect(street).to have_db_column(:name).of_type(:string).with_options(null: false) }
-    it { expect(street).to have_db_index(:name).unique }
+    it { expect(street).to have_db_index(:name) }
 
     it { expect(street).to have_db_column(:city_id).of_type(:integer).with_options(null: false) }
     it { expect(street).to have_db_index(:city_id) }
