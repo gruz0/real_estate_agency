@@ -21,43 +21,15 @@ class EmployeesController < ApplicationController
   def edit; end
 
   def create
-    @employee = Employee.new(employee_params)
-
-    respond_to do |format|
-      if @employee.save
-        format.html do
-          redirect_to @employee, notice: t('views.employee.flash_messages.employee_was_successfully_created')
-        end
-        format.json { render :show, status: :created, location: @employee }
-      else
-        format.html { render :new }
-        format.json { render json: @employee.errors, status: :unprocessable_entity }
-      end
-    end
+    super(Employee.new(employee_params), t('views.employee.flash_messages.employee_was_successfully_created'))
   end
 
   def update
-    respond_to do |format|
-      if @employee.update(employee_params)
-        format.html do
-          redirect_to @employee, notice: t('views.employee.flash_messages.employee_was_successfully_updated')
-        end
-        format.json { render :show, status: :ok, location: @employee }
-      else
-        format.html { render :edit }
-        format.json { render json: @employee.errors, status: :unprocessable_entity }
-      end
-    end
+    super(@employee, employee_params, t('views.employee.flash_messages.employee_was_successfully_updated'))
   end
 
   def destroy
-    @employee.destroy
-    respond_to do |format|
-      format.html do
-        redirect_to employees_url, notice: t('views.employee.flash_messages.employee_was_successfully_destroyed')
-      end
-      format.json { head :no_content }
-    end
+    super(@employee, employees_url, t('views.employee.flash_messages.employee_was_successfully_destroyed'))
   end
 
   private

@@ -18,46 +18,16 @@ class EstateTypesController < ApplicationController
   def edit; end
 
   def create
-    @estate_type = EstateType.new(estate_type_params)
-
-    respond_to do |format|
-      if @estate_type.save
-        format.html do
-          redirect_to @estate_type,
-                      notice: t('views.estate_type.flash_messages.estate_type_was_successfully_created')
-        end
-        format.json { render :show, status: :created, location: @estate_type }
-      else
-        format.html { render :new }
-        format.json { render json: @estate_type.errors, status: :unprocessable_entity }
-      end
-    end
+    super(EstateType.new(estate_type_params),
+          t('views.estate_type.flash_messages.estate_type_was_successfully_created'))
   end
 
   def update
-    respond_to do |format|
-      if @estate_type.update(estate_type_params)
-        format.html do
-          redirect_to @estate_type,
-                      notice: t('views.estate_type.flash_messages.estate_type_was_successfully_updated')
-        end
-        format.json { render :show, status: :ok, location: @estate_type }
-      else
-        format.html { render :edit }
-        format.json { render json: @estate_type.errors, status: :unprocessable_entity }
-      end
-    end
+    super(@estate_type, estate_type_params, t('views.estate_type.flash_messages.estate_type_was_successfully_updated'))
   end
 
   def destroy
-    @estate_type.destroy
-    respond_to do |format|
-      format.html do
-        redirect_to estate_types_url,
-                    notice: t('views.estate_type.flash_messages.estate_type_was_successfully_destroyed')
-      end
-      format.json { head :no_content }
-    end
+    super(@estate_type, estate_types_url, t('views.estate_type.flash_messages.estate_type_was_successfully_destroyed'))
   end
 
   private

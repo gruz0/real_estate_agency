@@ -18,46 +18,18 @@ class EstateProjectsController < ApplicationController
   def edit; end
 
   def create
-    @estate_project = EstateProject.new(estate_project_params)
-
-    respond_to do |format|
-      if @estate_project.save
-        format.html do
-          redirect_to @estate_project,
-                      notice: t('views.estate_project.flash_messages.estate_project_was_successfully_created')
-        end
-        format.json { render :show, status: :created, location: @estate_project }
-      else
-        format.html { render :new }
-        format.json { render json: @estate_project.errors, status: :unprocessable_entity }
-      end
-    end
+    super(EstateProject.new(estate_project_params),
+          t('views.estate_project.flash_messages.estate_project_was_successfully_created'))
   end
 
   def update
-    respond_to do |format|
-      if @estate_project.update(estate_project_params)
-        format.html do
-          redirect_to @estate_project,
-                      notice: t('views.estate_project.flash_messages.estate_project_was_successfully_updated')
-        end
-        format.json { render :show, status: :ok, location: @estate_project }
-      else
-        format.html { render :edit }
-        format.json { render json: @estate_project.errors, status: :unprocessable_entity }
-      end
-    end
+    super(@estate_project, estate_project_params,
+          t('views.estate_project.flash_messages.estate_project_was_successfully_updated'))
   end
 
   def destroy
-    @estate_project.destroy
-    respond_to do |format|
-      format.html do
-        redirect_to estate_projects_url,
-                    notice: t('views.estate_project.flash_messages.estate_project_was_successfully_destroyed')
-      end
-      format.json { head :no_content }
-    end
+    super(@estate_project, estate_projects_url,
+          t('views.estate_project.flash_messages.estate_project_was_successfully_destroyed'))
   end
 
   private

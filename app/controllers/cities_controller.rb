@@ -18,37 +18,15 @@ class CitiesController < ApplicationController
   def edit; end
 
   def create
-    @city = City.new(city_params)
-
-    respond_to do |format|
-      if @city.save
-        format.html { redirect_to @city, notice: t('views.city.flash_messages.city_was_successfully_created') }
-        format.json { render :show, status: :created, location: @city }
-      else
-        format.html { render :new }
-        format.json { render json: @city.errors, status: :unprocessable_entity }
-      end
-    end
+    super(City.new(city_params), t('views.city.flash_messages.city_was_successfully_created'))
   end
 
   def update
-    respond_to do |format|
-      if @city.update(city_params)
-        format.html { redirect_to @city, notice: t('views.city.flash_messages.city_was_successfully_updated') }
-        format.json { render :show, status: :ok, location: @city }
-      else
-        format.html { render :edit }
-        format.json { render json: @city.errors, status: :unprocessable_entity }
-      end
-    end
+    super(@city, city_params, t('views.city.flash_messages.city_was_successfully_updated'))
   end
 
   def destroy
-    @city.destroy
-    respond_to do |format|
-      format.html { redirect_to cities_url, notice: t('views.city.flash_messages.city_was_successfully_destroyed') }
-      format.json { head :no_content }
-    end
+    super(@city, cities_url, t('views.city.flash_messages.city_was_successfully_destroyed'))
   end
 
   private

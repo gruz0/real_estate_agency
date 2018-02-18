@@ -21,46 +21,17 @@ class EstatesController < ApplicationController
   def edit; end
 
   def create
-    @estate = Estate.new(@attributes.merge!(created_by_employee: current_employee))
-
-    respond_to do |format|
-      if @estate.save
-        format.html do
-          redirect_to @estate,
-                      notice: t('views.estate.flash_messages.estate_was_successfully_created')
-        end
-        format.json { render :show, status: :created, location: @estate }
-      else
-        format.html { render :new }
-        format.json { render json: @estate.errors, status: :unprocessable_entity }
-      end
-    end
+    super(Estate.new(@attributes.merge!(created_by_employee: current_employee)),
+          t('views.estate.flash_messages.estate_was_successfully_created'))
   end
 
   def update
-    respond_to do |format|
-      if @estate.update(@attributes.merge!(updated_by_employee: current_employee))
-        format.html do
-          redirect_to @estate,
-                      notice: t('views.estate.flash_messages.estate_was_successfully_updated')
-        end
-        format.json { render :show, status: :ok, location: @estate }
-      else
-        format.html { render :edit }
-        format.json { render json: @estate.errors, status: :unprocessable_entity }
-      end
-    end
+    super(@estate, @attributes.merge!(updated_by_employee: current_employee),
+          t('views.estate.flash_messages.estate_was_successfully_updated'))
   end
 
   def destroy
-    @estate.destroy
-    respond_to do |format|
-      format.html do
-        redirect_to estates_url,
-                    notice: t('views.estate.flash_messages.estate_was_successfully_destroyed')
-      end
-      format.json { head :no_content }
-    end
+    super(@estate, estates_url, t('views.estate.flash_messages.estate_was_successfully_destroyed'))
   end
 
   private

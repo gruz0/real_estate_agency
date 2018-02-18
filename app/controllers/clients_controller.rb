@@ -20,43 +20,15 @@ class ClientsController < ApplicationController
   def edit; end
 
   def create
-    @client = Client.new(client_params)
-
-    respond_to do |format|
-      if @client.save
-        format.html do
-          redirect_to @client, notice: t('views.client.flash_messages.client_was_successfully_created')
-        end
-        format.json { render :show, status: :created, location: @client }
-      else
-        format.html { render :new }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
-      end
-    end
+    super(Client.new(client_params), t('views.client.flash_messages.client_was_successfully_created'))
   end
 
   def update
-    respond_to do |format|
-      if @client.update(client_params)
-        format.html do
-          redirect_to @client, notice: t('views.client.flash_messages.client_was_successfully_updated')
-        end
-        format.json { render :show, status: :ok, location: @client }
-      else
-        format.html { render :edit }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
-      end
-    end
+    super(@client, client_params, t('views.client.flash_messages.client_was_successfully_updated'))
   end
 
   def destroy
-    @client.destroy
-    respond_to do |format|
-      format.html do
-        redirect_to clients_url, notice: t('views.client.flash_messages.client_was_successfully_destroyed')
-      end
-      format.json { head :no_content }
-    end
+    super(@client, clients_url, t('views.client.flash_messages.client_was_successfully_destroyed'))
   end
 
   private

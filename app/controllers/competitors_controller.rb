@@ -20,43 +20,15 @@ class CompetitorsController < ApplicationController
   def edit; end
 
   def create
-    @competitor = Competitor.new(competitor_params)
-
-    respond_to do |format|
-      if @competitor.save
-        format.html do
-          redirect_to @competitor, notice: t('views.competitor.flash_messages.competitor_was_successfully_created')
-        end
-        format.json { render :show, status: :created, location: @competitor }
-      else
-        format.html { render :new }
-        format.json { render json: @competitor.errors, status: :unprocessable_entity }
-      end
-    end
+    super(Competitor.new(competitor_params), t('views.competitor.flash_messages.competitor_was_successfully_created'))
   end
 
   def update
-    respond_to do |format|
-      if @competitor.update(competitor_params)
-        format.html do
-          redirect_to @competitor, notice: t('views.competitor.flash_messages.competitor_was_successfully_updated')
-        end
-        format.json { render :show, status: :ok, location: @competitor }
-      else
-        format.html { render :edit }
-        format.json { render json: @competitor.errors, status: :unprocessable_entity }
-      end
-    end
+    super(@competitor, competitor_params, t('views.competitor.flash_messages.competitor_was_successfully_updated'))
   end
 
   def destroy
-    @competitor.destroy
-    respond_to do |format|
-      format.html do
-        redirect_to competitors_url, notice: t('views.competitor.flash_messages.competitor_was_successfully_destroyed')
-      end
-      format.json { head :no_content }
-    end
+    super(@competitor, competitors_url, t('views.competitor.flash_messages.competitor_was_successfully_destroyed'))
   end
 
   private
