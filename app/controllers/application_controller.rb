@@ -5,11 +5,11 @@ class ApplicationController < ActionController::Base
   protected
 
   def create(entity, notice)
+    instance_variable_set("@#{entity.class.name.downcase}", entity)
+
     respond_to do |format|
       if entity.save
-        format.html do
-          redirect_to entity, notice: notice
-        end
+        format.html { redirect_to entity, notice: notice }
         format.json { render :show, status: :created, location: entity }
       else
         format.html { render :new }
