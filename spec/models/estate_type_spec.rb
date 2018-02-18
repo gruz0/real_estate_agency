@@ -28,11 +28,16 @@ RSpec.describe EstateType, type: :model do
     it { expect(estate_type).to have_db_index(:name).unique }
   end
 
-  describe 'strip attributes' do
+  describe 'modify attributes' do
     describe '#name' do
       it 'returns name without spaces' do
         estate_type.name = '    Квартира     '
         expect(estate_type.name).to eq('Квартира')
+      end
+
+      it 'returns name capitalized' do
+        estate_type.name = 'дом'
+        expect(estate_type.name).to eq('Дом')
       end
     end
   end
