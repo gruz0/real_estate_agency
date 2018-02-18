@@ -74,7 +74,7 @@ RSpec.describe Client, type: :model do
   end
 
   describe 'before filters' do
-    describe '#phone_numbers' do
+    describe '.clear_phone_numbers' do
       it 'returns valid full phone number' do
         person.phone_numbers = '+79991112233'
         person.save && person.reload
