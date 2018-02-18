@@ -14,7 +14,7 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'mysql2', '>= 0.3.18', '< 0.5'
 gem 'puma', '~> 3.7'
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 5.1.5'
 gem 'sass-rails', '~> 5.0'
 gem 'slim-rails'
 gem 'therubyracer', platforms: :ruby
