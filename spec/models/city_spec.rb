@@ -28,11 +28,16 @@ RSpec.describe City, type: :model do
     it { expect(city).to have_db_index(:name).unique }
   end
 
-  describe 'strip attributes' do
+  describe 'modify attributes' do
     describe '#name' do
       it 'returns name without spaces' do
         city.name = '    Нефтеюганск     '
         expect(city.name).to eq('Нефтеюганск')
+      end
+
+      it 'returns name titleized' do
+        city.name = 'ханты-мансийск'
+        expect(city.name).to eq('Ханты-Мансийск')
       end
     end
   end
