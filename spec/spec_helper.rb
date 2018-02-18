@@ -1,3 +1,16 @@
+require 'simplecov'
+SimpleCov.start 'rails' do
+  add_filter 'app/mailers'
+  add_filter 'app/jobs'
+  add_filter 'app/views'
+
+  add_group 'Controllers', 'app/controllers'
+  add_group 'Helpers', 'app/helpers'
+  add_group 'Models', 'app/models'
+  add_group 'Queries', 'app/queries'
+  add_group 'Libraries', 'lib'
+end
+
 require 'factory_bot'
 
 Dir[File.dirname(__FILE__) + '/support/**/*.rb'].each { |f| require f }
