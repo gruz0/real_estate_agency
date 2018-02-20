@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :estate_types
   resources :cities do
     resources :streets do
+      resources :addresses, only: %i[index show destroy]
       get 'search', on: :collection
     end
   end

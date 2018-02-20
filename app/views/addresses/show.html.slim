@@ -1,0 +1,25 @@
+h1
+  = t('views.address.show.title', id: @address.id, city: @city.name, street: @street.name)
+
+table.table.table-sm.table-hover
+  tbody
+    tr
+      th.w-25 scope="row"
+        = Address.human_attribute_name(:building_number)
+      td
+        = @address.building_number
+
+    tr
+      th scope="row"
+        = Address.human_attribute_name(:created_at)
+      td
+        = @address.created_at
+
+    tr
+      th scope="row"
+        = Address.human_attribute_name(:updated_at)
+      td
+        = @address.updated_at
+
+.btn-group role="group" aria-label="#{t('views.action')}"
+  = link_to t('views.back'), city_street_addresses_path(@city, @street), class: 'btn btn-secondary'

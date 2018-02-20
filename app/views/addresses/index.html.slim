@@ -1,0 +1,34 @@
+.row.col-lg-12
+  .col-lg-9
+    h1 = t('views.address.index.title', city: @city.name, street: @street.name)
+
+table.table.table-sm.table-hover
+  thead.thead-light
+    tr
+      th scope="col" = Address.human_attribute_name(:id)
+      th scope="col" = Address.human_attribute_name(:building_number)
+      th scope="col" = Address.human_attribute_name(:created_at)
+      th scope="col" = Address.human_attribute_name(:updated_at)
+      th scope="col"
+  tbody
+    - @addresses.each do |address|
+      tr
+        th scope="row" = address.id
+        td = address.building_number
+        td = address.created_at
+        td = address.updated_at
+        td
+          .dropdown.show
+            = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \
+              data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }
+            .dropdown-menu.dropdown-menu-right
+              = link_to t('views.show'), city_street_address_path(@city, @street, address), class: 'dropdown-item'
+              .dropdown-divider
+              = link_to t('views.destroy'), city_street_address_path(@city, @street, address), \
+              class: 'dropdown-item text-danger', method: :delete,  data: { confirm: t('views.are_you_sure') }
+
+  tfoot
+    tr
+      td colspan=5
+        .container.pagination.justify-content-center
+          = paginate(@addresses, theme: 'twitter-bootstrap-4')
