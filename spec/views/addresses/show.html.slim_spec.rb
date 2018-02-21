@@ -6,8 +6,6 @@ RSpec.describe 'addresses/show', type: :view do
   let(:address) { create(:address, street: street, building_number: '72а') }
 
   it 'renders attributes in <p>' do
-    assign(:city, city)
-    assign(:street, street)
     assign(:address, address)
 
     render
@@ -20,6 +18,6 @@ RSpec.describe 'addresses/show', type: :view do
     expect(rendered).to match(/#{address.created_at}/)
     expect(rendered).to match(/#{address.updated_at}/)
 
-    expect(response.body).to have_link(I18n.t('views.back'), href: city_street_addresses_path(city, street))
+    expect(response.body).to have_link(I18n.t('views.back'), href: addresses_path)
   end
 end

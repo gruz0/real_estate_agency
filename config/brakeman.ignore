@@ -3,11 +3,31 @@
     {
       "warning_type": "Unscoped Find",
       "warning_code": 82,
+      "fingerprint": "d7ab09e4d0a643a9eeeb488ff752763102b34be092bf082c248a88c28397968a",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to Address#find",
+      "file": "app/controllers/addresses_controller.rb",
+      "line": 21,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "Address.find(params[:id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "AddressesController",
+        "method": "set_address"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
       "fingerprint": "fee85f894865d1f802229337fd89146d8e1a0fb8b672516845f8b45e4a3649ea",
       "check_name": "UnscopedFind",
       "message": "Unscoped call to Estate#find",
       "file": "app/controllers/estates_controller.rb",
-      "line": 65,
+      "line": 40,
       "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
       "code": "Estate.find(params[:id])",
       "render_path": null,
@@ -21,6 +41,6 @@
       "note": ""
     }
   ],
-  "updated": "2018-02-03 20:21:04 +0300",
+  "updated": "2018-02-21 13:16:27 +0300",
   "brakeman_version": "4.1.1"
 }

@@ -2,7 +2,7 @@ ru:
   views:
     address:
       index:
-        title: 'Список улиц в %{city} по %{street}'
+        title: 'Список адресов'
       show:
         title: 'Карточка адреса #%{id} в %{city} по %{street}'
       flash_messages:
