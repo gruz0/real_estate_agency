@@ -16,6 +16,9 @@ RSpec.describe Employee, type: :model do
     it { expect(person).to allow_value('Петрова').for(:last_name) }
     it { expect(person).to allow_value('Ольга').for(:first_name) }
 
+    it { expect(person).to allow_value(:user).for(:role) }
+    it { expect(person).to allow_value(:admin).for(:role) }
+
     # Inclusion/acceptance of values
     it { expect(person).to validate_length_of(:last_name).is_at_least(1) }
     it { expect(person).to validate_length_of(:first_name).is_at_least(1) }
@@ -30,8 +33,8 @@ RSpec.describe Employee, type: :model do
     it { expect(person).to have_db_index(:last_name) }
 
     it { expect(person).to have_db_column(:first_name).of_type(:string).with_options(null: false) }
-
     it { expect(person).to have_db_column(:phone_numbers).of_type(:string).with_options(null: true) }
+    it { expect(person).to have_db_column(:role).of_type(:integer).with_options(null: false, default: :user) }
   end
 
   describe 'modify attributes' do
