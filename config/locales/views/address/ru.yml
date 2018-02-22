@@ -1,0 +1,10 @@
+ru:
+  views:
+    address:
+      index:
+        title: 'Список адресов'
+      show:
+        title: 'Карточка адреса #%{id} в %{city} по %{street}'
+      flash_messages:
+        address_was_not_found: 'Адрес не существует'
+        address_was_successfully_destroyed: 'Адрес был успешно удалён'

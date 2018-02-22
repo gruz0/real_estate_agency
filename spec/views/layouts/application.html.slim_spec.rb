@@ -29,6 +29,7 @@ RSpec.describe 'layouts/application', type: :view do
           expect(menu).to have_link(I18n.t('views.layout.menu.estate_materials'), href: estate_materials_path)
           expect(menu).to have_link(I18n.t('views.layout.menu.estate_projects'), href: estate_projects_path)
           expect(menu).to have_link(I18n.t('views.layout.menu.cities'), href: cities_path)
+          expect(menu).to have_link(I18n.t('views.layout.menu.addresses'), href: addresses_path)
         end
       end
     end

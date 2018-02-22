@@ -1,0 +1,37 @@
+h1
+  = t('views.address.show.title', id: @address.id, city: @address.street.city_name, street: @address.street.name)
+
+table.table.table-sm.table-hover
+  tbody
+    tr
+      th.w-25 scope="row"
+        = City.model_name.human
+      td
+        = @address.street.city_name
+
+    tr
+      th.w-25 scope="row"
+        = Street.model_name.human
+      td
+        = @address.street.name
+
+    tr
+      th.w-25 scope="row"
+        = Address.human_attribute_name(:building_number)
+      td
+        = @address.building_number
+
+    tr
+      th scope="row"
+        = Address.human_attribute_name(:created_at)
+      td
+        = @address.created_at
+
+    tr
+      th scope="row"
+        = Address.human_attribute_name(:updated_at)
+      td
+        = @address.updated_at
+
+.btn-group role="group" aria-label="#{t('views.action')}"
+  = link_to t('views.back'), addresses_path, class: 'btn btn-secondary'

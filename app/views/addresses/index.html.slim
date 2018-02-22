@@ -1,0 +1,40 @@
+.row.col-lg-12
+  .col-lg-9
+    h1 = t('views.address.index.title')
+
+table.table.table-sm.table-hover
+  thead.thead-light
+    tr
+      th scope="col" = Address.human_attribute_name(:id)
+      th scope="col" = City.model_name.human
+      th scope="col" = Street.model_name.human
+      th scope="col" = Address.human_attribute_name(:building_number)
+      th scope="col" = Address.human_attribute_name(:number_of_estates)
+      th scope="col" = Address.human_attribute_name(:created_at)
+      th scope="col" = Address.human_attribute_name(:updated_at)
+      th scope="col"
+  tbody
+    - @addresses.each do |address|
+      tr class=(address.estate.size.zero? ? 'table-warning' : '')
+        th scope="row" = address.id
+        td = address.street.city_name
+        td = address.street.name
+        td = address.building_number
+        td = address.estate.size
+        td = address.created_at
+        td = address.updated_at
+        td
+          .dropdown.show
+            = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \
+              data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }
+            .dropdown-menu.dropdown-menu-right
+              = link_to t('views.show'), address_path(address), class: 'dropdown-item'
+              .dropdown-divider
+              = link_to t('views.destroy'), address_path(address), class: 'dropdown-item text-danger', \
+                method: :delete,  data: { confirm: t('views.are_you_sure') }
+
+  tfoot
+    tr
+      td colspan=8
+        .container.pagination.justify-content-center
+          = paginate(@addresses, theme: 'twitter-bootstrap-4')

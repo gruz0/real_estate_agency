@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       get 'search', on: :collection
     end
   end
+  resources :addresses, only: %i[index show destroy]
   resources :estates
 
   root 'estates#index'

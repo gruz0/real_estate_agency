@@ -40,6 +40,8 @@ html lang="en"
                   = t('views.layout.menu.estate_projects')
                 = link_to(cities_path, class: 'dropdown-item') do
                   = t('views.layout.menu.cities')
+                = link_to(addresses_path, class: 'dropdown-item') do
+                  = t('views.layout.menu.addresses')
 
             li.nav-item
               = link_to(destroy_employee_session_path, method: :delete, class: 'nav-link') do

@@ -1,0 +1,10 @@
+ru:
+  activerecord:
+    models:
+      address: 'Адрес'
+    attributes:
+      address:
+        building_number: 'Номер строения'
+        number_of_estates: 'Кол-во объектов'
+        created_at: 'Дата создания'
+        updated_at: 'Дата обновления'
