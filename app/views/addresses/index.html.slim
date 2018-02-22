@@ -15,7 +15,7 @@ table.table.table-sm.table-hover
       th scope="col"
   tbody
     - @addresses.each do |address|
-      tr
+      tr class=(address.estate.size.zero? ? 'table-warning' : '')
         th scope="row" = address.id
         td = address.street.city_name
         td = address.street.name

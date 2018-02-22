@@ -11,6 +11,7 @@ RSpec.describe 'addresses/index', type: :view do
   end
 
   it 'renders a list of addresses' do
+    create(:estate, address: addresses.first)
     assign(:addresses, Kaminari.paginate_array(addresses).page(1))
 
     render
@@ -30,6 +31,8 @@ RSpec.describe 'addresses/index', type: :view do
 
       assert_select 'tbody' do
         assert_select 'tr', count: 2
+        assert_select 'tr.table-warning', count: 1
+
         assert_select 'tr>td', text: 'Нефтеюганск'.to_s, count: 2
         assert_select 'tr>td', text: 'ул. Ленина'.to_s, count: 2
         assert_select 'tr>td', text: '4/13'.to_s, count: 1
