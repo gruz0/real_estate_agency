@@ -9,6 +9,7 @@ table.table.table-sm.table-hover
       th scope="col" = City.model_name.human
       th scope="col" = Street.model_name.human
       th scope="col" = Address.human_attribute_name(:building_number)
+      th scope="col" = Address.human_attribute_name(:number_of_estates)
       th scope="col" = Address.human_attribute_name(:created_at)
       th scope="col" = Address.human_attribute_name(:updated_at)
       th scope="col"
@@ -19,6 +20,7 @@ table.table.table-sm.table-hover
         td = address.street.city_name
         td = address.street.name
         td = address.building_number
+        td = address.estate.size
         td = address.created_at
         td = address.updated_at
         td
@@ -33,6 +35,6 @@ table.table.table-sm.table-hover
 
   tfoot
     tr
-      td colspan=7
+      td colspan=8
         .container.pagination.justify-content-center
           = paginate(@addresses, theme: 'twitter-bootstrap-4')

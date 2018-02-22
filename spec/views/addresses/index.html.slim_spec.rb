@@ -23,6 +23,7 @@ RSpec.describe 'addresses/index', type: :view do
         assert_select 'th', text: City.model_name.human, count: 1
         assert_select 'th', text: Street.model_name.human, count: 1
         assert_select 'th', text: Address.human_attribute_name(:building_number), count: 1
+        assert_select 'th', text: Address.human_attribute_name(:number_of_estates), count: 1
         assert_select 'th', text: Address.human_attribute_name(:created_at), count: 1
         assert_select 'th', text: Address.human_attribute_name(:updated_at), count: 1
       end
@@ -33,6 +34,7 @@ RSpec.describe 'addresses/index', type: :view do
         assert_select 'tr>td', text: 'ул. Ленина'.to_s, count: 2
         assert_select 'tr>td', text: '4/13'.to_s, count: 1
         assert_select 'tr>td', text: '5а'.to_s, count: 1
+        # TODO: Add link to show estates by address
       end
     end
 

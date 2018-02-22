@@ -6,7 +6,7 @@ class AddressesController < ApplicationController
   before_action :set_address, only: %i[show destroy]
 
   def index
-    @addresses = Address.page(params[:page])
+    @addresses = Address.with_estates.page(params[:page])
   end
 
   def show; end

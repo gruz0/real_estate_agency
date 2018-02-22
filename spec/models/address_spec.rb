@@ -41,6 +41,21 @@ RSpec.describe Address, type: :model do
     end
   end
 
+  describe 'scopes' do
+    it '.with_estates returns addresses with estates' do
+      city    = create(:city)
+      street  = create(:street, city: city)
+      address = create(:address, street: street)
+      estate1 = create(:estate, address: address)
+      estate2 = create(:estate, address: address)
+
+      address_with_estates = Address.with_estates.first
+      expect(address_with_estates.estate.size).to eq(2)
+      expect(address_with_estates.estate).to include(estate1)
+      expect(address_with_estates.estate).to include(estate2)
+    end
+  end
+
   describe 'public instance methods' do
     describe 'responds to its methods' do
       it { expect(address).to respond_to(:full_name) }

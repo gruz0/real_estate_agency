@@ -1,4 +1,6 @@
 class Address < ApplicationRecord
+  scope :with_estates, -> { includes(:estate) }
+
   belongs_to :street
   has_many :estate, dependent: :destroy
 
