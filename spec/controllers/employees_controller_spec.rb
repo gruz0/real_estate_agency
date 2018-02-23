@@ -105,7 +105,8 @@ RSpec.describe EmployeesController, type: :controller do
           last_name: FFaker::NameRU.last_name,
           first_name: FFaker::NameRU.first_name,
           middle_name: FFaker::NameRU.patronymic,
-          phone_numbers: FFaker::PhoneNumber.phone_number
+          phone_numbers: FFaker::PhoneNumber.phone_number,
+          role: 'admin'
         }
       end
 
@@ -117,6 +118,7 @@ RSpec.describe EmployeesController, type: :controller do
         expect(employee.first_name).to eq(new_attributes[:first_name])
         expect(employee.middle_name).to eq(new_attributes[:middle_name])
         expect(employee.phone_numbers).to eq(new_attributes[:phone_numbers])
+        expect(employee.role).to eq(new_attributes[:role])
       end
 
       it 'redirects to the employee' do

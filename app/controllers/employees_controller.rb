@@ -40,7 +40,7 @@ class EmployeesController < ApplicationController
 
   def employee_params
     params.require(:employee).permit(:email, :password, :password_confirmation,
-                                     :first_name, :last_name, :middle_name, :phone_numbers)
+                                     :first_name, :last_name, :middle_name, :phone_numbers, :role)
   end
 
   def allow_without_password
