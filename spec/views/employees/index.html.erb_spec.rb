@@ -4,7 +4,7 @@ RSpec.describe 'employees/index', type: :view do
   let(:employee1) do
     create(:employee,
            email: 'me@domain.tld', last_name: 'Иванов', first_name: 'Иван', middle_name: 'Иванович',
-           phone_numbers: '+79001112233')
+           phone_numbers: '+79001112233', role: :admin)
   end
   let(:employee2) do
     create(:employee,
@@ -27,6 +27,7 @@ RSpec.describe 'employees/index', type: :view do
         assert_select 'th', text: Employee.human_attribute_name(:fullname), count: 1
         assert_select 'th', text: Employee.human_attribute_name(:phone_numbers), count: 1
         assert_select 'th', text: Employee.human_attribute_name(:email), count: 1
+        assert_select 'th', text: Employee.human_attribute_name(:role), count: 1
         assert_select 'th', text: Employee.human_attribute_name(:created_at), count: 1
         assert_select 'th', text: Employee.human_attribute_name(:updated_at), count: 1
       end
@@ -36,10 +37,12 @@ RSpec.describe 'employees/index', type: :view do
         assert_select 'tr>td', text: 'Иванов Иван Иванович'.to_s, count: 1
         assert_select 'tr>td', text: '+79001112233'.to_s, count: 1
         assert_select 'tr>td', text: 'me@domain.tld'.to_s, count: 1
+        assert_select 'tr>td', text: 'admin'.to_s, count: 1
 
         assert_select 'tr>td', text: 'Петров Сергей'.to_s, count: 1
         assert_select 'tr>td', text: '+79993334455'.to_s, count: 1
         assert_select 'tr>td', text: 'me2@domain.tld'.to_s, count: 1
+        assert_select 'tr>td', text: 'user'.to_s, count: 1
       end
     end
 

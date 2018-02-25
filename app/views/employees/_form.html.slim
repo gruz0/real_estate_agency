@@ -50,6 +50,13 @@
             = form.label :phone_numbers
             = form.text_field :phone_numbers, id: :employee_phone_numbers, class: 'form-control'
 
+      tr
+        td
+          .form-group
+            = form.label :role
+            = form.select :role, [['Admin', 'admin'], ['User', 'user']], { selected: employee.role }, \
+              class: 'form-control'
+
   .btn-group role="group" aria-label="#{t('views.action')}"
     = link_to t('views.back'), employees_path, class: 'btn btn-secondary', role: 'button'
     = form.submit class: 'btn btn-success'

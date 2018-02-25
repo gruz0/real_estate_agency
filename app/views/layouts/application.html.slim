@@ -28,8 +28,9 @@ html lang="en"
               .dropdown-menu aria-labelledby="navbar-dictionaries"
                 = link_to(clients_path, class: 'dropdown-item') do
                   = t('views.layout.menu.clients')
-                = link_to(employees_path, class: 'dropdown-item') do
-                  = t('views.layout.menu.employees')
+                - if current_employee.admin?
+                  = link_to(employees_path, class: 'dropdown-item') do
+                    = t('views.layout.menu.employees')
                 = link_to(competitors_path, class: 'dropdown-item') do
                   = t('views.layout.menu.competitors')
                 = link_to(estate_types_path, class: 'dropdown-item') do

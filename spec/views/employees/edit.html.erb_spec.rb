@@ -18,6 +18,7 @@ RSpec.describe 'employees/edit', type: :view do
       assert_select 'input[name=?]', 'employee[first_name]'
       assert_select 'input[name=?]', 'employee[middle_name]'
       assert_select 'input[name=?]', 'employee[phone_numbers]'
+      assert_select 'select[name=?]', 'employee[role]'
     end
 
     expect(response.body).to have_button(I18n.t('helpers.submit.update'))

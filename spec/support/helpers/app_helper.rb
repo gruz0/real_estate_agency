@@ -18,6 +18,17 @@ module AppHelper
     )
   end
 
+  let(:authenticated_admin) do
+    Employee.create!(
+      email: 'admin@domain.tld',
+      password: '123456',
+      last_name: 'Директор',
+      first_name: 'Компании',
+      phone_numbers: '+79998887766',
+      role: :admin
+    )
+  end
+
   def prettify_json(json)
     JSON.pretty_generate(json)
   end

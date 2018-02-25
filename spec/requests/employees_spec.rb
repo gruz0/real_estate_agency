@@ -2,11 +2,22 @@ require 'rails_helper'
 
 RSpec.describe 'Employees', type: :request do
   describe 'GET /employees' do
-    it 'works! (now write some real specs)' do
-      sign_in authenticated_employee
+    context 'when user is an employee' do
+      it 'redirects to root_path' do
+        sign_in authenticated_employee
 
-      get employees_path
-      expect(response).to have_http_status(200)
+        get employees_path
+        expect(response).to have_http_status(:redirect)
+      end
+    end
+
+    context 'when user is an admin' do
+      it 'returns 200 HTTP Status' do
+        sign_in authenticated_admin
+
+        get employees_path
+        expect(response).to have_http_status(:ok)
+      end
     end
   end
 end

@@ -19,6 +19,7 @@ ru:
     messages:
       blank: не может быть пустым
       confirmation: не совпадает со значением поля %{attribute}
+      forbidden: У вас нет доступа к этому разделу
       greater_than: может иметь значение большее %{count}
       inclusion: имеет недопустимое значение
       invalid: имеет неверное значение

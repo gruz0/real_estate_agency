@@ -17,7 +17,7 @@ client = Client.first
 # Employees
 #
 Array.new(30).each { FactoryBot.create(:employee, phone_numbers: "+7999999887#{rand(100)}") }
-employee = FactoryBot.create(:employee, email: 'me@example.com', password: '123456')
+employee = FactoryBot.create(:employee, email: 'me@example.com', password: '123456', role: :admin)
 
 #
 # EstateTypes

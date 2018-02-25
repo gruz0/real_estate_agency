@@ -11,6 +11,7 @@ table.table.table-sm.table-hover
       th scope="col" = Employee.human_attribute_name(:fullname)
       th scope="col" = Employee.human_attribute_name(:phone_numbers)
       th scope="col" = Employee.human_attribute_name(:email)
+      th scope="col" = Employee.human_attribute_name(:role)
       th scope="col" = Employee.human_attribute_name(:created_at)
       th scope="col" = Employee.human_attribute_name(:updated_at)
       th scope="col"
@@ -21,6 +22,7 @@ table.table.table-sm.table-hover
         td = person_fullname(employee)
         td = employee.phone_numbers
         td = employee.email
+        td = employee.role
         td = employee.created_at
         td = employee.updated_at
         td
@@ -36,6 +38,6 @@ table.table.table-sm.table-hover
 
   tfoot
     tr
-      td colspan=7
+      td colspan=8
         .container.pagination.justify-content-center
           = paginate(@employees, theme: 'twitter-bootstrap-4')
