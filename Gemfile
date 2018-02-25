@@ -30,6 +30,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'letter_opener'
   gem 'rails-erd'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
