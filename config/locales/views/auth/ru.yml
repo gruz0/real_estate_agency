@@ -10,6 +10,9 @@ ru:
         new:
           title: 'Восстановление пароля'
           send_me_reset_password_instructions: 'Отправить инструкцию по восстановлению пароля'
+        edit:
+          title: 'Изменение пароля'
+          change_password: 'Изменить пароль'
       unlocks:
         new:
           title: 'Повторная отправка инструкций по восстановлению'
