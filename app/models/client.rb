@@ -3,7 +3,7 @@ class Client < ApplicationRecord
 
   scope :ordered_by_full_name, -> { reorder('full_name ASC') }
 
-  has_many :estate, dependent: :destroy
+  has_many :estate, dependent: :restrict_with_error
 
   before_save :clear_phone_numbers
 

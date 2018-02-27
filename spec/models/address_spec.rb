@@ -22,7 +22,7 @@ RSpec.describe Address, type: :model do
   describe 'ActiveRecord associations' do
     # Associations
     it { expect(address).to belong_to(:street) }
-    it { expect(address).to have_many(:estate).dependent(:destroy) }
+    it { expect(address).to have_many(:estate).dependent(:restrict_with_error) }
 
     # Database columns/indexes
     it { expect(address).to have_db_column(:building_number).of_type(:string).with_options(null: false) }

@@ -21,7 +21,7 @@ RSpec.describe EstateMaterial, type: :model do
 
   describe 'ActiveRecord associations' do
     # Associations
-    it { expect(estate_material).to have_many(:estate).dependent(:destroy) }
+    it { expect(estate_material).to have_many(:estate).dependent(:restrict_with_error) }
 
     # Database columns/indexes
     it { expect(estate_material).to have_db_column(:name).of_type(:string).with_options(null: false) }

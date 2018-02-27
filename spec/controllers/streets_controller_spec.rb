@@ -239,6 +239,15 @@ RSpec.describe StreetsController, type: :controller do
         expect(response).to be_redirect
         expect(flash[:alert]).to eq(I18n.t('views.street.flash_messages.street_was_not_found'))
       end
+
+      it 'redirects to index page if dependent association exists' do
+        create(:address, street: street)
+
+        delete :destroy, params: { city_id: city.to_param, id: street.to_param }
+        expect(response).to be_redirect
+        expect(flash[:alert])
+          .to eq(I18n.t('activerecord.errors.messages.restrict_dependent_destroy.has_many', record: :address))
+      end
     end
   end
 end

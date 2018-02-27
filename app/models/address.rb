@@ -2,7 +2,7 @@ class Address < ApplicationRecord
   scope :with_estates, -> { includes(:estate) }
 
   belongs_to :street
-  has_many :estate, dependent: :destroy
+  has_many :estate, dependent: :restrict_with_error
 
   validates :building_number, presence: true, length: { minimum: 1 }
 

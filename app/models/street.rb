@@ -1,6 +1,6 @@
 class Street < ApplicationRecord
   belongs_to :city
-  has_many :address, dependent: :destroy
+  has_many :address, dependent: :restrict_with_error
 
   validates :name, presence: true, length: { minimum: 3 }
   validate :unique_in_city?

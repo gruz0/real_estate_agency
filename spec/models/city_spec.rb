@@ -21,7 +21,7 @@ RSpec.describe City, type: :model do
 
   describe 'ActiveRecord associations' do
     # Associations
-    it { expect(city).to have_many(:street).dependent(:destroy) }
+    it { expect(city).to have_many(:street).dependent(:restrict_with_error) }
 
     # Database columns/indexes
     it { expect(city).to have_db_column(:name).of_type(:string).with_options(null: false) }

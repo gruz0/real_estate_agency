@@ -62,13 +62,17 @@ class StreetsController < ApplicationController
   end
 
   def destroy
-    @street.destroy
     respond_to do |format|
-      format.html do
-        redirect_to city_streets_url(@city),
-                    notice: t('views.street.flash_messages.street_was_successfully_destroyed')
+      if @street.destroy
+        format.html do
+          redirect_to city_streets_url(@city),
+                      notice: t('views.street.flash_messages.street_was_successfully_destroyed')
+        end
+        format.json { head :no_content }
+      else
+        format.html { redirect_to city_streets_url(@city), alert: @street.errors.full_messages.join }
+        format.json { render json: @street.errors, status: :unprocessable_entity }
       end
-      format.json { head :no_content }
     end
   end
 

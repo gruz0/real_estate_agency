@@ -37,7 +37,7 @@ RSpec.describe Client, type: :model do
 
   describe 'ActiveRecord associations' do
     # Associations
-    it { expect(person).to have_many(:estate).dependent(:destroy) }
+    it { expect(person).to have_many(:estate).dependent(:restrict_with_error) }
 
     # Database columns/indexes
     it { expect(person).to have_db_column(:full_name).of_type(:string).with_options(null: false) }

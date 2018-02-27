@@ -1,5 +1,5 @@
 class EstateMaterial < ApplicationRecord
-  has_many :estate, dependent: :destroy
+  has_many :estate, dependent: :restrict_with_error
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 3 }
 

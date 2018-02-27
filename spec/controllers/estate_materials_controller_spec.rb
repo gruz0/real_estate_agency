@@ -164,6 +164,15 @@ RSpec.describe EstateMaterialsController, type: :controller do
         expect(response).to be_redirect
         expect(flash[:alert]).to eq(I18n.t('views.estate_material.flash_messages.estate_material_was_not_found'))
       end
+
+      it 'redirects to index page if dependent association exists' do
+        create(:estate, estate_material: estate_material)
+
+        delete :destroy, params: { id: estate_material.to_param }
+        expect(response).to be_redirect
+        expect(flash[:alert])
+          .to eq(I18n.t('activerecord.errors.messages.restrict_dependent_destroy.has_many', record: :estate))
+      end
     end
   end
 end

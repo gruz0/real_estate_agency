@@ -35,10 +35,14 @@ class ApplicationController < ActionController::Base
   end
 
   def destroy(entity, redirect_url, notice)
-    entity.destroy
     respond_to do |format|
-      format.html { redirect_to redirect_url, notice: notice }
-      format.json { head :no_content }
+      if entity.destroy
+        format.html { redirect_to redirect_url, notice: notice }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to redirect_url, alert: entity.errors.full_messages.join }
+        format.json { render json: entity.errors, status: :unprocessable_entity }
+      end
     end
   end
 end
