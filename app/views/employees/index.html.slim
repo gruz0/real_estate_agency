@@ -23,8 +23,8 @@ table.table.table-sm.table-hover
         td = employee.phone_numbers
         td = employee.email
         td = employee.role
-        td = employee.created_at
-        td = employee.updated_at
+        td = l(employee.created_at, format: :custom)
+        td = l(employee.updated_at, format: :custom)
         td
           .dropdown.show
             = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \

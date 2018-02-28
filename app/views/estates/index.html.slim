@@ -62,7 +62,7 @@ table.table.table-sm.table-hover
         td = format_price(estate.price)
         td = estate.client.phone_numbers
         td = person_shortname(estate.responsible_employee)
-        td = estate.created_at
+        td = l(estate.created_at, format: :custom)
         td
           .dropdown.show
             = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \

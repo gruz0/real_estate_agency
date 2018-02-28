@@ -17,8 +17,8 @@ table.table.table-sm.table-hover
       tr
         th scope="row" = estate_type.id
         td = estate_type.name
-        td = estate_type.created_at
-        td = estate_type.updated_at
+        td = l(estate_type.created_at, format: :custom)
+        td = l(estate_type.updated_at, format: :custom)
         td
           .dropdown.show
             = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \

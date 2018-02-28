@@ -13,13 +13,13 @@ table.table.table-sm.table-hover
       th scope="row"
         = Street.human_attribute_name(:created_at)
       td
-        = @street.created_at
+        = l(@street.created_at, format: :short)
 
     tr
       th scope="row"
         = Street.human_attribute_name(:updated_at)
       td
-        = @street.updated_at
+        = l(@street.updated_at, format: :short)
 
 .btn-group role="group" aria-label="#{t('views.action')}"
   = link_to t('views.back'), city_streets_path(@city), class: 'btn btn-secondary'

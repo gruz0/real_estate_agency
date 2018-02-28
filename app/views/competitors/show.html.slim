@@ -19,13 +19,13 @@ table.table.table-sm.table-hover
       th scope="row"
         = Competitor.human_attribute_name(:created_at)
       td
-        = @competitor.created_at
+        = l(@competitor.created_at, format: :short)
 
     tr
       th scope="row"
         = Competitor.human_attribute_name(:updated_at)
       td
-        = @competitor.updated_at
+        = l(@competitor.updated_at, format: :short)
 
 .btn-group role="group" aria-label="#{t('views.action')}"
   = link_to t('views.back'), competitors_path, class: 'btn btn-secondary'

@@ -91,7 +91,7 @@ table.table.table-sm.table-hover
       th scope="row"
         = Estate.human_attribute_name(:created_at)
       td
-        = @estate.created_at
+        = l(@estate.created_at, format: :short)
 
     tr
       th scope="row"
@@ -103,7 +103,7 @@ table.table.table-sm.table-hover
       th scope="row"
         = Estate.human_attribute_name(:updated_at)
       td
-        = @estate.updated_at
+        = l(@estate.updated_at, format: :short)
 
 
 .btn-group role="group" aria-label="#{t('views.action')}"

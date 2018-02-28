@@ -25,13 +25,13 @@ table.table.table-sm.table-hover
       th scope="row"
         = Address.human_attribute_name(:created_at)
       td
-        = @address.created_at
+        = l(@address.created_at, format: :short)
 
     tr
       th scope="row"
         = Address.human_attribute_name(:updated_at)
       td
-        = @address.updated_at
+        = l(@address.updated_at, format: :short)
 
 .btn-group role="group" aria-label="#{t('views.action')}"
   = link_to t('views.back'), addresses_path, class: 'btn btn-secondary'

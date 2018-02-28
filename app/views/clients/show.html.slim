@@ -19,13 +19,13 @@ table.table.table-sm.table-hover
       th scope="row"
         = Client.human_attribute_name(:created_at)
       td
-        = @client.created_at
+        = l(@client.created_at, format: :short)
 
     tr
       th scope="row"
         = Client.human_attribute_name(:updated_at)
       td
-        = @client.updated_at
+        = l(@client.updated_at, format: :short)
 
 .btn-group role="group" aria-label="#{t('views.action')}"
   = link_to t('views.back'), clients_path, class: 'btn btn-secondary'

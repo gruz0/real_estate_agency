@@ -14,6 +14,22 @@ ru:
           one: "%{model}: сохранение не удалось из-за %{count} ошибки"
           other: "%{model}: сохранение не удалось из-за %{count} ошибок"
 
+  date:
+    abbr_month_names:
+    -
+    - янв.
+    - февр.
+    - марта
+    - апр.
+    - мая
+    - июня
+    - июля
+    - авг.
+    - сент.
+    - окт.
+    - нояб.
+    - дек.
+
   errors:
     format: "%{attribute} %{message}"
     messages:
@@ -64,3 +80,8 @@ ru:
     is_not_set:
       one: 'Не задан'
       other: 'Не задано'
+
+  time:
+    formats:
+      short: "%d %b %Y, %H:%M"
+      custom: "%d %b %Y"

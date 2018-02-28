@@ -13,13 +13,13 @@ table.table.table-sm.table-hover
       th scope="row"
         = EstateType.human_attribute_name(:created_at)
       td
-        = @estate_type.created_at
+        = l(@estate_type.created_at, format: :short)
 
     tr
       th scope="row"
         = EstateType.human_attribute_name(:updated_at)
       td
-        = @estate_type.updated_at
+        = l(@estate_type.updated_at, format: :short)
 
 .btn-group role="group" aria-label="#{t('views.action')}"
   = link_to t('views.back'), estate_types_path, class: 'btn btn-secondary'

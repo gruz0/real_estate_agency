@@ -56,9 +56,9 @@ RSpec.describe 'estates/show', type: :view do
     expect(response.body).to match(/17\.8/)
     expect(response.body).to match(/Описание объекта/)
     expect(response.body).to match(/Сергеев Алексей/)
-    expect(response.body).to match(/#{estate.created_at}/)
+    expect(response.body).to match(/#{I18n.l(estate.created_at, format: :short)}/)
     expect(response.body).to match(/Петров Олег/)
-    expect(response.body).to match(/#{estate.updated_at}/)
+    expect(response.body).to match(/#{I18n.l(estate.updated_at, format: :short)}/)
 
     client.phone_numbers.split(',').each do |phone_number|
       expect(response.body).to have_link(phone_number.strip, href: "tel://#{phone_number.strip}")

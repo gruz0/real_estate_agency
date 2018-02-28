@@ -21,8 +21,8 @@ table.table.table-sm.table-hover
         td = address.street.name
         td = address.building_number
         td = address.estate.size
-        td = address.created_at
-        td = address.updated_at
+        td = l(address.created_at, format: :custom)
+        td = l(address.updated_at, format: :custom)
         td
           .dropdown.show
             = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \

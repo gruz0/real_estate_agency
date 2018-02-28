@@ -31,13 +31,13 @@ table.table.table-sm.table-hover
       th scope="row"
         = Employee.human_attribute_name(:created_at)
       td
-        = @employee.created_at
+        = l(@employee.created_at, format: :short)
 
     tr
       th scope="row"
         = Employee.human_attribute_name(:updated_at)
       td
-        = @employee.updated_at
+        = l(@employee.updated_at, format: :short)
 
 .btn-group role="group" aria-label="#{t('views.action')}"
   = link_to t('views.back'), employees_path, class: 'btn btn-secondary'

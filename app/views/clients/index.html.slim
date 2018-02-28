@@ -19,8 +19,8 @@ table.table.table-sm.table-hover
         th scope="row" = client.id
         td = client.full_name
         td = client.phone_numbers
-        td = client.created_at
-        td = client.updated_at
+        td = l(client.created_at, format: :custom)
+        td = l(client.updated_at, format: :custom)
         td
           .dropdown.show
             = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \

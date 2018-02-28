@@ -14,8 +14,8 @@ RSpec.describe 'streets/show', type: :view do
 
     expect(rendered).to match(/Нефтеюганск/)
     expect(rendered).to match(/ул. Ленина/)
-    expect(rendered).to match(/#{street.created_at}/)
-    expect(rendered).to match(/#{street.updated_at}/)
+    expect(rendered).to match(/#{I18n.l(street.created_at, format: :short)}/)
+    expect(rendered).to match(/#{I18n.l(street.updated_at, format: :short)}/)
 
     expect(response.body).to have_link(I18n.t('views.edit'), href: edit_city_street_path(city, street))
     expect(response.body).to have_link(I18n.t('views.back'), href: city_streets_path(city))

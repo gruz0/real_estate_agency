@@ -15,8 +15,8 @@ RSpec.describe 'addresses/show', type: :view do
     expect(rendered).to match(/Нефтеюганск/)
     expect(rendered).to match(/ул. Ленина/)
     expect(rendered).to match(/72а/)
-    expect(rendered).to match(/#{address.created_at}/)
-    expect(rendered).to match(/#{address.updated_at}/)
+    expect(rendered).to match(/#{I18n.l(address.created_at, format: :short)}/)
+    expect(rendered).to match(/#{I18n.l(address.updated_at, format: :short)}/)
 
     expect(response.body).to have_link(I18n.t('views.back'), href: addresses_path)
   end

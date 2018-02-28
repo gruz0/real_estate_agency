@@ -14,8 +14,8 @@ RSpec.describe 'clients/show', type: :view do
 
     expect(rendered).to match(/Иванов Олег Сергеевич/)
     expect(rendered).to match(/\+79991112233/)
-    expect(rendered).to match(/#{client.created_at}/)
-    expect(rendered).to match(/#{client.updated_at}/)
+    expect(rendered).to match(/#{I18n.l(client.created_at, format: :short)}/)
+    expect(rendered).to match(/#{I18n.l(client.updated_at, format: :short)}/)
 
     expect(response.body).to have_link(I18n.t('views.edit'), href: edit_client_path(client))
     expect(response.body).to have_link(I18n.t('views.back'), href: clients_path)

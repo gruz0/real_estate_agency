@@ -20,8 +20,8 @@ RSpec.describe 'employees/show', type: :view do
     expect(rendered).to match(/\+79991112233/)
     expect(rendered).to match(/me@domain.tld/)
     expect(rendered).to match(/admin/)
-    expect(rendered).to match(/#{employee.created_at}/)
-    expect(rendered).to match(/#{employee.updated_at}/)
+    expect(rendered).to match(/#{I18n.l(employee.created_at, format: :short)}/)
+    expect(rendered).to match(/#{I18n.l(employee.updated_at, format: :short)}/)
 
     expect(response.body).to have_link(I18n.t('views.edit'), href: edit_employee_path(employee))
     expect(response.body).to have_link(I18n.t('views.back'), href: employees_path)

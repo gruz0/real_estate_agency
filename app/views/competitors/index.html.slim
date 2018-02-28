@@ -19,8 +19,8 @@ table.table.table-sm.table-hover
         th scope="row" = competitor.id
         td = competitor.name
         td = competitor.phone_numbers
-        td = competitor.created_at
-        td = competitor.updated_at
+        td = l(competitor.created_at, format: :custom)
+        td = l(competitor.updated_at, format: :custom)
         td
           .dropdown.show
             = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \

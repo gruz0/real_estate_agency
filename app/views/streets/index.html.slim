@@ -17,8 +17,8 @@ table.table.table-sm.table-hover
       tr
         th scope="row" = street.id
         td = street.name
-        td = street.created_at
-        td = street.updated_at
+        td = l(street.created_at, format: :custom)
+        td = l(street.updated_at, format: :custom)
         td
           .dropdown.show
             = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \
