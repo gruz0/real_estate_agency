@@ -70,6 +70,10 @@ Rails:
 #
 # RSpec
 #
+RSpec/DescribeClass:
+  Exclude:
+    - spec/features/*
+
 RSpec/MultipleExpectations:
   Max: 20
 
@@ -78,3 +82,10 @@ RSpec/ExampleLength:
 
 RSpec/NestedGroups:
   Max: 4
+
+#
+# Capybara
+#
+Capybara/FeatureMethods:
+  Exclude:
+    - spec/features/*
