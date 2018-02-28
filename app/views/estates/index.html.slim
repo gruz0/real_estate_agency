@@ -7,7 +7,7 @@
 table.table.table-sm.table-hover
   thead.thead-light
     tr
-      th scope="col" = Estate.human_attribute_name(:id)
+      th.id scope="col" = Estate.human_attribute_name(:id)
       th scope="col" = Estate.human_attribute_name(:address)
       th scope="col" = Estate.human_attribute_name(:estate_project)
       th scope="col" = Estate.human_attribute_name(:number_of_rooms)
@@ -15,11 +15,11 @@ table.table.table-sm.table-hover
       th scope="col" = Estate.human_attribute_name(:price)
       th scope="col" = Client.human_attribute_name(:phone_numbers)
       th scope="col" = Estate.human_attribute_name(:responsible_employee)
-      th scope="col" = Estate.human_attribute_name(:created_at)
-      th scope="col"
+      th.created-at scope="col" = Estate.human_attribute_name(:created_at)
+      th.action scope="col"
 
     tr
-      td scope="col" width="4%"
+      td scope="col"
         = text_field(:filter, :id, value: params.fetch(:id, ''), class: 'form-control form-control-sm', maxlength: 6)
       td scope="col"
       td scope="col"

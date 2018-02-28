@@ -7,11 +7,11 @@
 table.table.table-sm.table-hover
   thead.thead-light
     tr
-      th scope="col" = EstateType.human_attribute_name(:id)
+      th.id scope="col" = EstateType.human_attribute_name(:id)
       th scope="col" = EstateType.human_attribute_name(:name)
-      th scope="col" = EstateType.human_attribute_name(:created_at)
-      th scope="col" = EstateType.human_attribute_name(:updated_at)
-      th scope="col"
+      th.created-at scope="col" = EstateType.human_attribute_name(:created_at)
+      th.updated-at scope="col" = EstateType.human_attribute_name(:updated_at)
+      th.action scope="col"
   tbody
     - @estate_types.each do |estate_type|
       tr

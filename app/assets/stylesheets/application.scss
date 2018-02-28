@@ -21,3 +21,11 @@
 section {
   margin-bottom: 60px;
 }
+
+table {
+  thead {
+    th.id { width: 5%; }
+    th.created-at, th.updated-at { width: 12%; }
+    th.action { width: 10%; }
+  }
+}

@@ -7,14 +7,14 @@
 table.table.table-sm.table-hover
   thead.thead-light
     tr
-      th scope="col" = Employee.human_attribute_name(:id)
+      th.id scope="col" = Employee.human_attribute_name(:id)
       th scope="col" = Employee.human_attribute_name(:fullname)
       th scope="col" = Employee.human_attribute_name(:phone_numbers)
       th scope="col" = Employee.human_attribute_name(:email)
       th scope="col" = Employee.human_attribute_name(:role)
-      th scope="col" = Employee.human_attribute_name(:created_at)
-      th scope="col" = Employee.human_attribute_name(:updated_at)
-      th scope="col"
+      th.created-at scope="col" = Employee.human_attribute_name(:created_at)
+      th.updated-at scope="col" = Employee.human_attribute_name(:updated_at)
+      th.action scope="col"
   tbody
     - @employees.each do |employee|
       tr

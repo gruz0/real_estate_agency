@@ -5,14 +5,14 @@
 table.table.table-sm.table-hover
   thead.thead-light
     tr
-      th scope="col" = Address.human_attribute_name(:id)
+      th.id scope="col" = Address.human_attribute_name(:id)
       th scope="col" = City.model_name.human
       th scope="col" = Street.model_name.human
       th scope="col" = Address.human_attribute_name(:building_number)
       th scope="col" = Address.human_attribute_name(:number_of_estates)
-      th scope="col" = Address.human_attribute_name(:created_at)
-      th scope="col" = Address.human_attribute_name(:updated_at)
-      th scope="col"
+      th.created-at scope="col" = Address.human_attribute_name(:created_at)
+      th.updated-at scope="col" = Address.human_attribute_name(:updated_at)
+      th.action scope="col"
   tbody
     - @addresses.each do |address|
       tr class=(address.estate.size.zero? ? 'table-warning' : '')

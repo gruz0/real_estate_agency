@@ -7,12 +7,12 @@
 table.table.table-sm.table-hover
   thead.thead-light
     tr
-      th scope="col" = Client.human_attribute_name(:id)
+      th.id scope="col" = Client.human_attribute_name(:id)
       th scope="col" = Client.human_attribute_name(:full_name)
       th scope="col" = Client.human_attribute_name(:phone_numbers)
-      th scope="col" = Client.human_attribute_name(:created_at)
-      th scope="col" = Client.human_attribute_name(:updated_at)
-      th scope="col"
+      th.created-at scope="col" = Client.human_attribute_name(:created_at)
+      th.updated-at scope="col" = Client.human_attribute_name(:updated_at)
+      th.action scope="col"
   tbody
     - @clients.each do |client|
       tr
