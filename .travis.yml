@@ -27,9 +27,9 @@ before_script:
 script:
   - bundle exec rspec
   - bundle exec brakeman -A -z
-  - bundle exec bundle-audit update
-  - bundle exec bundle-audit -v
+  - bundle exec bundle-audit update && bundle exec bundle-audit -v
   - bundle exec rubocop -c .rubocop.yml --force-exclusion
+  - bundle exec rails_best_practices .
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
