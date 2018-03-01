@@ -125,7 +125,7 @@ RSpec.describe StreetsController, type: :controller do
 
       it 'redirects to the created street' do
         post :create, params: { city_id: city.to_param, street: valid_attributes }
-        expect(response).to redirect_to(city_street_path(city, Street.first))
+        expect(response).to redirect_to(city_street_path(city, Street.last))
       end
 
       it 'renders flash notice' do

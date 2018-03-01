@@ -74,7 +74,7 @@ RSpec.describe CitiesController, type: :controller do
 
       it 'redirects to the created city' do
         post :create, params: { city: valid_attributes }
-        expect(response).to redirect_to(City.first)
+        expect(response).to redirect_to(City.last)
       end
 
       it 'renders flash notice' do

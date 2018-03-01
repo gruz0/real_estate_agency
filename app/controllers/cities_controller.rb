@@ -6,7 +6,7 @@ class CitiesController < ApplicationController
   before_action :set_city, only: %i[show edit update destroy]
 
   def index
-    @cities = City.page(params[:page])
+    @cities = City.order('id DESC').page(params[:page])
   end
 
   def show; end

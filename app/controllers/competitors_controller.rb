@@ -8,7 +8,7 @@ class CompetitorsController < ApplicationController
   include PeopleHelper
 
   def index
-    @competitors = Competitor.page(params[:page])
+    @competitors = Competitor.order('id DESC').page(params[:page])
   end
 
   def show; end

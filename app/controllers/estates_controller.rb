@@ -9,7 +9,7 @@ class EstatesController < ApplicationController
   include PeopleHelper
 
   def index
-    @estates = FindEstates.new(Estate.all).call(permitted_params)
+    @estates = FindEstates.new(Estate.order('id DESC')).call(permitted_params)
   end
 
   def show; end

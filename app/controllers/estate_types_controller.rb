@@ -6,7 +6,7 @@ class EstateTypesController < ApplicationController
   before_action :set_estate_type, only: %i[show edit update destroy]
 
   def index
-    @estate_types = EstateType.page(params[:page])
+    @estate_types = EstateType.order('id DESC').page(params[:page])
   end
 
   def show; end

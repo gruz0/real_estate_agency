@@ -6,7 +6,7 @@ class EstateProjectsController < ApplicationController
   before_action :set_estate_project, only: %i[show edit update destroy]
 
   def index
-    @estate_projects = EstateProject.page(params[:page])
+    @estate_projects = EstateProject.order('id DESC').page(params[:page])
   end
 
   def show; end

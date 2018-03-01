@@ -8,7 +8,7 @@ class ClientsController < ApplicationController
   include PeopleHelper
 
   def index
-    @clients = Client.page(params[:page])
+    @clients = Client.order('id DESC').page(params[:page])
   end
 
   def show; end

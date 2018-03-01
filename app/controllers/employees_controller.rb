@@ -10,7 +10,7 @@ class EmployeesController < ApplicationController
   include PeopleHelper
 
   def index
-    @employees = Employee.page(params[:page])
+    @employees = Employee.order('id DESC').page(params[:page])
   end
 
   def show; end

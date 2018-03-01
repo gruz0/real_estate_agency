@@ -74,7 +74,7 @@ RSpec.describe EstateMaterialsController, type: :controller do
 
       it 'redirects to the created estate_material' do
         post :create, params: { estate_material: valid_attributes }
-        expect(response).to redirect_to(EstateMaterial.first)
+        expect(response).to redirect_to(EstateMaterial.last)
       end
 
       it 'renders flash notice' do

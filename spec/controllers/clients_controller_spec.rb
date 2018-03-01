@@ -75,7 +75,7 @@ RSpec.describe ClientsController, type: :controller do
 
       it 'redirects to the created client' do
         post :create, params: { client: valid_attributes }
-        expect(response).to redirect_to(Client.first)
+        expect(response).to redirect_to(Client.last)
       end
 
       it 'renders flash notice' do

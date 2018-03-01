@@ -74,7 +74,7 @@ RSpec.describe CompetitorsController, type: :controller do
 
       it 'redirects to the created competitor' do
         post :create, params: { competitor: valid_attributes }
-        expect(response).to redirect_to(Competitor.first)
+        expect(response).to redirect_to(Competitor.last)
       end
 
       it 'renders flash notice' do

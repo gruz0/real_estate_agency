@@ -74,7 +74,7 @@ RSpec.describe EstateProjectsController, type: :controller do
 
       it 'redirects to the created estate_project' do
         post :create, params: { estate_project: valid_attributes }
-        expect(response).to redirect_to(EstateProject.first)
+        expect(response).to redirect_to(EstateProject.last)
       end
 
       it 'renders flash notice' do

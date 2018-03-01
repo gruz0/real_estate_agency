@@ -6,7 +6,7 @@ class EstateMaterialsController < ApplicationController
   before_action :set_estate_material, only: %i[show edit update destroy]
 
   def index
-    @estate_materials = EstateMaterial.page(params[:page])
+    @estate_materials = EstateMaterial.order('id DESC').page(params[:page])
   end
 
   def show; end
