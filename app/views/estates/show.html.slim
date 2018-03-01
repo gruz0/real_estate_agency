@@ -19,7 +19,7 @@ table.table.table-sm.table-hover
       th scope="row"
         = Estate.human_attribute_name(:client)
       td
-        = @estate.client.full_name
+        = @estate.client_full_name
 
     tr
       th scope="row"
@@ -37,19 +37,19 @@ table.table.table-sm.table-hover
       th scope="row"
         = EstateType.model_name.human
       td
-        = @estate.estate_type.name
+        = @estate.estate_type_name
 
     tr
       th scope="row"
         = EstateProject.model_name.human
       td
-        = @estate.estate_project.name
+        = @estate.estate_project_name
 
     tr
       th scope="row"
         = EstateMaterial.model_name.human
       td
-        = @estate.estate_material.name
+        = @estate.estate_material_name
 
     tr
       th scope="row"

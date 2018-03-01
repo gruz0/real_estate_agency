@@ -1,5 +1,5 @@
 h1
-  = t('views.address.show.title', id: @address.id, city: @address.street.city_name, street: @address.street.name)
+  = t('views.address.show.title', id: @address.id, city: @address.street.city_name, street: @address.street_name)
 
 table.table.table-sm.table-hover
   tbody
@@ -13,7 +13,7 @@ table.table.table-sm.table-hover
       th.w-25 scope="row"
         = Street.model_name.human
       td
-        = @address.street.name
+        = @address.street_name
 
     tr
       th.w-25 scope="row"

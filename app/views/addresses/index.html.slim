@@ -18,7 +18,7 @@ table.table.table-sm.table-hover
       tr class=(address.estate.size.zero? ? 'table-warning' : '')
         th scope="row" = address.id
         td = address.street.city_name
-        td = address.street.name
+        td = address.street_name
         td = address.building_number
         td = address.estate.size
         td = l(address.created_at, format: :custom)

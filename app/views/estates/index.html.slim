@@ -56,11 +56,11 @@ table.table.table-sm.table-hover
       tr
         th scope="row" = estate.id
         td = estate.address.full_name
-        td = estate.estate_project.name
+        td = estate.estate_project_name
         td = number_of_rooms_for(estate)
         td = number_of_floors_for(estate)
         td = format_price(estate.price)
-        td = estate.client.phone_numbers
+        td = estate.client_phone_numbers
         td = person_shortname(estate.responsible_employee)
         td = l(estate.created_at, format: :custom)
         td

@@ -130,4 +130,46 @@ RSpec.describe Estate, type: :model do
       end
     end
   end
+
+  describe 'public instance methods' do
+    describe 'responds to its methods' do
+      it { expect(estate).to respond_to(:estate_type_name) }
+      it { expect(estate).to respond_to(:estate_project_name) }
+      it { expect(estate).to respond_to(:estate_material_name) }
+      it { expect(estate).to respond_to(:client_full_name) }
+      it { expect(estate).to respond_to(:client_phone_numbers) }
+    end
+
+    describe 'executes methods correctly' do
+      describe '#estate_type_name' do
+        it 'returns EstateType name' do
+          expect(estate.estate_type_name).to eq(estate.estate_type.name)
+        end
+      end
+
+      describe '#estate_project_name' do
+        it 'returns EstateProject name' do
+          expect(estate.estate_project_name).to eq(estate.estate_project.name)
+        end
+      end
+
+      describe '#estate_material_name' do
+        it 'returns EstateMaterial name' do
+          expect(estate.estate_material_name).to eq(estate.estate_material.name)
+        end
+      end
+
+      describe '#client_full_name' do
+        it 'returns Client full name' do
+          expect(estate.client_full_name).to eq(estate.client.full_name)
+        end
+      end
+
+      describe '#client_phone_numbers' do
+        it 'returns Client phone numbers' do
+          expect(estate.client_phone_numbers).to eq(estate.client.phone_numbers)
+        end
+      end
+    end
+  end
 end

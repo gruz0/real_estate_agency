@@ -59,6 +59,7 @@ RSpec.describe Address, type: :model do
   describe 'public instance methods' do
     describe 'responds to its methods' do
       it { expect(address).to respond_to(:full_name) }
+      it { expect(address).to respond_to(:street_name) }
     end
 
     describe 'executes methods correctly' do
@@ -66,6 +67,12 @@ RSpec.describe Address, type: :model do
         it 'returns City, Street and building_number' do
           expect(address.full_name)
             .to eq("#{address.street.city_name}, #{address.street.name}, #{address.building_number}")
+        end
+      end
+
+      describe '#street_name' do
+        it 'returns Street name' do
+          expect(address.street_name).to eq(address.street.name)
         end
       end
     end

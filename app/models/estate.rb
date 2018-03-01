@@ -20,6 +20,11 @@ class Estate < ApplicationRecord
   validates :total_square_meters, allow_blank: true, numericality: { greater_than: 0, less_than: 1000 }
   validates :kitchen_square_meters, allow_blank: true, numericality: { greater_than: 0, less_than: 1000 }
 
+  delegate :name, to: :estate_type, prefix: true
+  delegate :name, to: :estate_project, prefix: true
+  delegate :name, to: :estate_material, prefix: true
+  delegate :phone_numbers, :full_name, to: :client, prefix: true
+
   def description=(value)
     super(value.try(:strip))
   end

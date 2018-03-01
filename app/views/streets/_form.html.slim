@@ -15,5 +15,5 @@
             = form.text_field :name, id: :street_name, class: 'form-control'
 
   .btn-group role="group" aria-label="#{t('views.action')}"
-    = link_to t('views.back'), city_streets_path(@city), class: 'btn btn-secondary', role: 'button'
+    = link_to t('views.back'), city_streets_path(city), class: 'btn btn-secondary', role: 'button'
     = form.submit class: 'btn btn-success'
