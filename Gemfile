@@ -41,6 +41,7 @@ group :test do
   gem 'brakeman', require: false
   gem 'bundle-audit', require: false
   gem 'capybara'
+  gem 'rails_best_practices', require: false
   gem 'rubocop', require: false
   gem 'rubocop-rspec'
   gem 'selenium-webdriver'
