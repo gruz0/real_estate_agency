@@ -12,6 +12,7 @@ AllCops:
     - db/schema.rb
     - tmp/**/*.rb
     - vendor/
+    - lib/tasks/import/*.rake
 
 #
 # Linters
