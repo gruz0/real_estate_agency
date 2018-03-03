@@ -168,8 +168,6 @@ namespace :import do
       message << 'Неизвестный тип материала' if estate[:estate_material].eql?('not_found')
 
       estate.merge(message: message)
-      # end.delete_if { |estate| estate[:message].blank? }
-      # end.delete_if { |estate| !estate[:message].blank? }.map { |e| e[:street] }.uniq.sort
     end.delete_if { |estate| estate[:message].present? }
 
     # invalid_estates = invalid_estates.first(10)
@@ -183,27 +181,14 @@ namespace :import do
       object_id = item[:object_id]
 
       puts "--- Processing #{object_id} (#{cnt}/#{total_estates}) ---"
-      # puts item[:description].inspect
-
-      puts "--- mapping ---"
-      puts item[:street].to_s.inspect
-      puts streets_mapping[item[:street].to_s].inspect
 
       street = Street.find_by_id(streets_mapping[item[:street].to_s])
-      puts "--- street ---"
-      puts street.inspect
-
-      address = Address.find_or_create_by!(street: street, building_number: item[:building_number])
-      puts "--- address ---"
-      puts address.inspect
+      address = Address.find_or_create_by(street: street, building_number: item[:building_number])
 
       item[:client]               = Client.find_by_id(clients_mapping[item[:client]])
       item[:address]              = address
       item[:created_by_employee]  = Employee.find_by_id(employees_mapping[item[:employee]])
       item[:responsible_employee] = Employee.find_by_id(employees_mapping[item[:employee]])
-      # item[:estate_type]          = EstateType.find_by_id(employees_mapping[item[:estate_type]])
-      # item[:estate_material]      = EstateMaterial.find_by_id(employees_mapping[item[:estate_material]])
-      # item[:estate_project]       = EstateProject.find_by_id(employees_mapping[item[:estate_project]])
       item[:estate_type]          = EstateType.all.sample
       item[:estate_material]      = EstateMaterial.all.sample
       item[:estate_project]       = EstateProject.all.sample
