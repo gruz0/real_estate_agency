@@ -29,50 +29,31 @@ class StreetsController < ApplicationController
   def create
     @street = Street.new(street_params.merge(city: @city))
 
-    respond_to do |format|
-      if @street.save
-        format.html do
-          redirect_to city_street_path(@city, @street),
-                      notice: t('views.street.flash_messages.street_was_successfully_created')
-        end
-        format.json { render :show, status: :created, location: city_street_url(@city, @street) }
-      else
-        format.html { render :new }
-        format.json { render json: @street.errors, status: :unprocessable_entity }
-      end
+    if @street.save
+      redirect_to city_street_path(@city, @street),
+                  notice: t('views.street.flash_messages.street_was_successfully_created')
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      new_params = street_params
-      new_params.delete(:city)
+    new_params = street_params
+    new_params.delete(:city)
 
-      if @street.update(new_params)
-        format.html do
-          redirect_to city_street_path(@city, @street),
-                      notice: t('views.street.flash_messages.street_was_successfully_updated')
-        end
-        format.json { render :show, status: :ok, location: city_street_url(@city, @street) }
-      else
-        format.html { render :edit }
-        format.json { render json: @street.errors, status: :unprocessable_entity }
-      end
+    if @street.update(new_params)
+      redirect_to city_street_path(@city, @street),
+                  notice: t('views.street.flash_messages.street_was_successfully_updated')
+    else
+      render :edit
     end
   end
 
   def destroy
-    respond_to do |format|
-      if @street.destroy
-        format.html do
-          redirect_to city_streets_url(@city),
-                      notice: t('views.street.flash_messages.street_was_successfully_destroyed')
-        end
-        format.json { head :no_content }
-      else
-        format.html { redirect_to city_streets_url(@city), alert: @street.errors.full_messages.join }
-        format.json { render json: @street.errors, status: :unprocessable_entity }
-      end
+    if @street.destroy
+      redirect_to city_streets_url(@city), notice: t('views.street.flash_messages.street_was_successfully_destroyed')
+    else
+      redirect_to city_streets_url(@city), alert: @street.errors.full_messages.join
     end
   end
 

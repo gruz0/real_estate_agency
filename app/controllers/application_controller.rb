@@ -11,38 +11,26 @@ class ApplicationController < ActionController::Base
   def create(entity, notice)
     instance_variable_set("@#{entity.class.name.downcase}", entity)
 
-    respond_to do |format|
-      if entity.save
-        format.html { redirect_to entity, notice: notice }
-        format.json { render :show, status: :created, location: entity }
-      else
-        format.html { render :new }
-        format.json { render json: entity.errors, status: :unprocessable_entity }
-      end
+    if entity.save
+      redirect_to entity, notice: notice
+    else
+      render :new
     end
   end
 
   def update(entity, entity_params, notice)
-    respond_to do |format|
-      if entity.update(entity_params)
-        format.html { redirect_to entity, notice: notice }
-        format.json { render :show, status: :ok, location: entity }
-      else
-        format.html { render :edit }
-        format.json { render json: entity.errors, status: :unprocessable_entity }
-      end
+    if entity.update(entity_params)
+      redirect_to entity, notice: notice
+    else
+      render :edit
     end
   end
 
   def destroy(entity, redirect_url, notice)
-    respond_to do |format|
-      if entity.destroy
-        format.html { redirect_to redirect_url, notice: notice }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to redirect_url, alert: entity.errors.full_messages.join }
-        format.json { render json: entity.errors, status: :unprocessable_entity }
-      end
+    if entity.destroy
+      redirect_to redirect_url, notice: notice
+    else
+      redirect_to redirect_url, alert: entity.errors.full_messages.join
     end
   end
 end
