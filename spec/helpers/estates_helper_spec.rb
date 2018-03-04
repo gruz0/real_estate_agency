@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe EstatesHelper, type: :helper do
   let(:client) { create(:client) }
   let(:employee) { create(:employee) }
-  let(:city) { create(:city) }
-  let(:street) { create(:street, city: city) }
-  let(:address) { create(:address, street: street) }
+  let(:city) { create(:city, name: 'Нефтеюганск') }
+  let(:street) { create(:street, city: city, name: 'ул. Ленина') }
+  let(:address) { create(:address, street: street, building_number: '13') }
   let(:estate_type) { create(:estate_type) }
   let(:estate_project) { create(:estate_project) }
   let(:estate_material) { create(:estate_material) }
@@ -14,12 +14,14 @@ RSpec.describe EstatesHelper, type: :helper do
   let(:floor) { 3 }
   let(:number_of_floors) { 8 }
   let(:number_of_rooms) { 4 }
+  let(:apartment_number) { 55 }
   let(:valid_attributes) do
     {
       client: client,
       created_by_employee: employee,
       responsible_employee: employee,
       address: address,
+      apartment_number: apartment_number,
       estate_type: estate_type,
       estate_project: estate_project,
       estate_material: estate_material,
@@ -155,6 +157,22 @@ RSpec.describe EstatesHelper, type: :helper do
   describe '#format_price' do
     it 'returns formatted price' do
       expect(helper.format_price(1234)).to eq('1 234 000')
+    end
+  end
+
+  describe '#address_full_name_for' do
+    context 'with apartment_number' do
+      it 'returns address full name with building number and apartment number' do
+        expect(helper.address_full_name_for(estate)).to eq('Нефтеюганск, ул. Ленина, 13, 55')
+      end
+    end
+
+    context 'without apartment_number' do
+      let(:apartment_number) { nil }
+
+      it 'returns address full name only with building number' do
+        expect(helper.address_full_name_for(estate)).to eq('Нефтеюганск, ул. Ленина, 13')
+      end
     end
   end
 end

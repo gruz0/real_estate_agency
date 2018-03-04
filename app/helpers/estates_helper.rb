@@ -41,4 +41,8 @@ module EstatesHelper
   def format_price(price)
     number_to_currency("#{price}000", precision: 0, delimiter: ' ', format: '%n')
   end
+
+  def address_full_name_for(estate)
+    estate.address.full_name + (estate.apartment_number.present? ? ", #{estate.apartment_number}" : '')
+  end
 end

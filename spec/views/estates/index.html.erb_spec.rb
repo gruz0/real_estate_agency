@@ -78,7 +78,7 @@ RSpec.describe 'estates/index', type: :view do
 
       assert_select 'tbody' do
         assert_select 'tr', count: 1
-        assert_select 'tr>td', text: 'Нефтеюганск, Ленина, 9а'.to_s, count: 1
+        assert_select 'tr>td', text: 'Нефтеюганск, Ленина, 9а, 55'.to_s, count: 1
         assert_select 'tr>td', text: 'Уральский'.to_s, count: 1
         assert_select 'tr>td', text: '8'.to_s, count: 1
         assert_select 'tr>td', text: '4/10'.to_s, count: 1

@@ -7,7 +7,7 @@ table.table.table-sm.table-hover
       th scope="row"
         = Estate.human_attribute_name(:address)
       td
-        = @estate.address.full_name
+        = address_full_name_for(@estate)
 
     tr
       th scope="row"
