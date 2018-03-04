@@ -1,15 +1,15 @@
 class Client < ApplicationRecord
-  PHONE_NUMBERS_REGEX = /\A[+\d]+\z/
-
   scope :ordered_by_full_name, -> { reorder('full_name ASC') }
 
-  has_many :estate, dependent: :restrict_with_error
+  PHONE_NUMBERS_REGEX = /\A[+\d]+\z/
 
-  before_save :clear_phone_numbers
+  has_many :estate, dependent: :restrict_with_error
 
   validates :full_name, presence: true, length: { minimum: 1 }
   validates :phone_numbers, presence: true, length: { minimum: 6 }
   validate :phone_numbers_valid?
+
+  before_save :clear_phone_numbers
 
   def full_name=(value)
     new_value = value.try(:strip).to_s.mb_chars.titleize

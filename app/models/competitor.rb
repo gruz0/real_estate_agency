@@ -1,10 +1,10 @@
 class Competitor < ApplicationRecord
   PHONE_NUMBERS_REGEX = /\A[+\d]+\z/
 
-  before_save :clear_phone_numbers
-
   validates :phone_numbers, presence: true, length: { minimum: 6 }
   validate :phone_numbers_valid?
+
+  before_save :clear_phone_numbers
 
   def name=(value)
     new_value = value.try(:strip).to_s.mb_chars.titleize
