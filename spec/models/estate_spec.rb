@@ -133,6 +133,7 @@ RSpec.describe Estate, type: :model do
 
   describe 'public instance methods' do
     describe 'responds to its methods' do
+      it { expect(estate).to respond_to(:building_number) }
       it { expect(estate).to respond_to(:estate_type_name) }
       it { expect(estate).to respond_to(:estate_project_name) }
       it { expect(estate).to respond_to(:estate_material_name) }
@@ -141,6 +142,12 @@ RSpec.describe Estate, type: :model do
     end
 
     describe 'executes methods correctly' do
+      describe '#building_number' do
+        it 'returns Address building number' do
+          expect(estate.building_number).to eq(estate.address.building_number)
+        end
+      end
+
       describe '#estate_type_name' do
         it 'returns EstateType name' do
           expect(estate.estate_type_name).to eq(estate.estate_type.name)
