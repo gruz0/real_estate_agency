@@ -13,14 +13,14 @@
           .form-group
             = form.label :estate_type
             = form.select :estate_type, EstateType.ordered_by_name.map { |et| [et.name, et.id] }, \
-              { selected: estate.estate_type_id }, class: 'form-control'
+              { selected: estate.estate_type_id }, class: 'form-control', id: :estate_estate_type
 
         td
           .form-group
             = form.label :client
             = form.select :client, \
               Client.ordered_by_full_name.map { |c| ["#{c.full_name} (#{c.phone_numbers})", c.id] }, \
-              { selected: estate.client_id }, class: 'form-control'
+              { selected: estate.client_id }, class: 'form-control', id: :estate_client
 
       tr
         td
@@ -34,7 +34,7 @@
             = form.label :responsible_employee
             = form.select :responsible_employee, \
               Employee.ordered_by_full_name.map { |e| [person_fullname(e), e.id] }, \
-              { selected: estate.responsible_employee_id }, class: 'form-control'
+              { selected: estate.responsible_employee_id }, class: 'form-control', id: :estate_responsible_employee
 
       tr
         td
@@ -45,7 +45,7 @@
 
         td
           .form-group
-            = form.label :street
+            = form.label :street, for: :city_streets
             = form.select :street, streets_depends_on_city_for(estate).map { |s| [s.name, s.id] }, \
               { selected: (estate.address.street_id rescue nil) }, class: 'form-control', id: :city_streets
 
@@ -65,13 +65,13 @@
           .form-group
             = form.label :estate_project
             = form.select :estate_project, EstateProject.ordered_by_name.map { |ep| [ep.name, ep.id] }, \
-              { selected: estate.estate_project_id }, class: 'form-control'
+              { selected: estate.estate_project_id }, class: 'form-control', id: :estate_estate_project
 
         td
           .form-group
             = form.label :estate_material
             = form.select :estate_material, EstateMaterial.ordered_by_name.map { |em| [em.name, em.id] }, \
-              { selected: estate.estate_material_id }, class: 'form-control'
+              { selected: estate.estate_material_id }, class: 'form-control', id: :estate_estate_material
 
       tr
         td
