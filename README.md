@@ -51,6 +51,21 @@ docker-compose exec app rake db:seed
 The diagram (`erd.pdf`) will be created after each of use
 the `rake db:migrate` command.
 
+## Production
+
+All commands are available from the application directory (eg. `/var/www/real_estate_agency/current`)
+
+### Create default system administrator
+
+After deploy application to production server you need to create default administrator. The command below will create
+the administrator with email `me@example.com` and default password `123456`.
+
+**NOTE:** Do not forget to create a new administrator after successfully logged in to the web.
+
+```bash
+bundle exec rake app:create_admin
+```
+
 ## Tests
 
 ### How to run the test suite in the Docker container
