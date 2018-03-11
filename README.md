@@ -66,6 +66,14 @@ the administrator with email `me@example.com` and default password `123456`.
 bundle exec rake app:create_admin
 ```
 
+### Initialize dictionaries with default values
+
+The command below will populate dictionaries (`EstateType`, `EstateProject`, `EstateMaterial`) with default values
+
+```bash
+bundle exec rake app:initialize
+```
+
 ## Tests
 
 ### How to run the test suite in the Docker container
