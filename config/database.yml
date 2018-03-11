@@ -51,4 +51,4 @@ test:
 #
 production:
   <<: *default
-  database: real_estate_agency_production
+  database: <%= ENV.fetch("MYSQL_DATABASE") %>
