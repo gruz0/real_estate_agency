@@ -89,4 +89,4 @@ RSpec/NestedGroups:
 #
 Capybara/FeatureMethods:
   Exclude:
-    - spec/features/*
+    - spec/features/**/*
