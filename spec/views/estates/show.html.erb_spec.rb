@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'estates/show', type: :view do
-  let(:client) do
-    create(:client, full_name: 'Иванов Сергей Николаевич', phone_numbers: '+79991112233, 83331112244')
-  end
   let(:employee) do
     create(:employee, last_name: 'Ли', first_name: 'Мария', middle_name: 'Петровна', phone_numbers: '+79004445577')
   end
@@ -17,7 +14,6 @@ RSpec.describe 'estates/show', type: :view do
 
   let(:valid_attributes) do
     {
-      client: client,
       created_by_employee: create(:employee, last_name: 'Сергеев', first_name: 'Алексей'),
       updated_by_employee: create(:employee, last_name: 'Петров', first_name: 'Олег'),
       responsible_employee: employee,
@@ -26,6 +22,8 @@ RSpec.describe 'estates/show', type: :view do
       estate_type: estate_type,
       estate_project: estate_project,
       estate_material: estate_material,
+      client_full_name: 'Иванов Сергей Николаевич',
+      client_phone_numbers: '+79991112233, 83331112244',
       number_of_rooms: 6,
       floor: 4,
       number_of_floors: 10,
@@ -60,7 +58,7 @@ RSpec.describe 'estates/show', type: :view do
     expect(response.body).to match(/Петров Олег/)
     expect(response.body).to match(/#{I18n.l(estate.updated_at, format: :short)}/)
 
-    client.phone_numbers.split(',').each do |phone_number|
+    estate.client_phone_numbers.split(',').each do |phone_number|
       expect(response.body).to have_link(phone_number.strip, href: "tel://#{phone_number.strip}")
     end
 

@@ -10,7 +10,8 @@ RSpec.describe Estate, type: :model do
   describe 'ActiveModel validations' do
     # Basic validations
     it { expect(estate).to validate_presence_of(:price).with_message(I18n.t('errors.messages.blank')) }
-    it { expect(estate).to validate_presence_of(:client).with_message(I18n.t('errors.messages.required')) }
+    it { expect(estate).to validate_presence_of(:client_full_name).with_message(I18n.t('errors.messages.blank')) }
+    it { expect(estate).to validate_presence_of(:client_phone_numbers).with_message(I18n.t('errors.messages.blank')) }
     it { expect(estate).to validate_presence_of(:responsible_employee).with_message(I18n.t('errors.messages.required')) }
     it { expect(estate).to validate_presence_of(:created_by_employee).with_message(I18n.t('errors.messages.required')) }
     it { expect(estate).to validate_presence_of(:address).with_message(I18n.t('errors.messages.required')) }
@@ -22,7 +23,6 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).to allow_value(:archived).for(:status) }
     it { expect(estate).to allow_value(:active).for(:status) }
 
-    it { expect(estate).not_to allow_value(nil).for(:client) }
     it { expect(estate).not_to allow_value(nil).for(:responsible_employee) }
     it { expect(estate).not_to allow_value(nil).for(:created_by_employee) }
     it { expect(estate).to allow_value(nil).for(:updated_by_employee) }
@@ -30,6 +30,18 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).not_to allow_value(nil).for(:estate_type) }
     it { expect(estate).not_to allow_value(nil).for(:estate_project) }
     it { expect(estate).not_to allow_value(nil).for(:estate_material) }
+
+    it { expect(estate).to allow_value('Петрова Ольга Ивановна').for(:client_full_name) }
+    it { expect(estate).not_to allow_value('').for(:client_full_name) }
+
+    it { expect(estate).to allow_value('+79991112233').for(:client_phone_numbers) }
+    it { expect(estate).to allow_value('89991112233   ').for(:client_phone_numbers) }
+    it { expect(estate).to allow_value('89991112233   ,  +79991113388').for(:client_phone_numbers) }
+    it { expect(estate).to allow_value('111222').for(:client_phone_numbers) }
+    it { expect(estate).not_to allow_value('11122').for(:client_phone_numbers) }
+    it { expect(estate).not_to allow_value('8(999)1112233').for(:client_phone_numbers) }
+    it { expect(estate).not_to allow_value('8-999-111-2233').for(:client_phone_numbers) }
+    it { expect(estate).not_to allow_value('89991112233или7').for(:client_phone_numbers) }
 
     it { expect(estate).to allow_value('55').for(:apartment_number) }
 
@@ -63,6 +75,8 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).not_to allow_value('qwe').for(:kitchen_square_meters) }
 
     # Inclusion/acceptance of values
+    it { expect(estate).to validate_length_of(:client_full_name).is_at_least(1) }
+    it { expect(estate).to validate_length_of(:client_phone_numbers).is_at_least(6) }
     it { expect(estate).to validate_numericality_of(:price).is_greater_than(0).is_less_than(100_000) }
     it { expect(estate).to validate_numericality_of(:number_of_rooms).is_greater_than(0).is_less_than(10) }
     it { expect(estate).to validate_numericality_of(:floor).is_greater_than(0).is_less_than(100) }
@@ -73,7 +87,7 @@ RSpec.describe Estate, type: :model do
 
   describe 'ActiveRecord associations' do
     # Associations
-    it { expect(estate).to belong_to(:client) }
+    it { expect(estate).not_to belong_to(:client) }
     it { expect(estate).to belong_to(:responsible_employee).class_name('Employee').with_foreign_key(:responsible_employee_id) }
     it { expect(estate).to belong_to(:created_by_employee).class_name('Employee').with_foreign_key(:created_by_employee_id) }
     it { expect(estate).to belong_to(:updated_by_employee).class_name('Employee').with_foreign_key(:updated_by_employee_id) }
@@ -95,9 +109,6 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).to have_db_column(:address_id).of_type(:integer).with_options(null: false) }
     it { expect(estate).to have_db_index(:address_id) }
 
-    it { expect(estate).to have_db_column(:client_id).of_type(:integer).with_options(null: false) }
-    it { expect(estate).to have_db_index(:client_id) }
-
     it { expect(estate).to have_db_column(:responsible_employee_id).of_type(:integer).with_options(null: false) }
     it { expect(estate).to have_db_index(:responsible_employee_id) }
 
@@ -113,6 +124,8 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).to have_db_column(:status).of_type(:integer).with_options(null: false, default: :active) }
     it { expect(estate).to have_db_index(:status) }
 
+    it { expect(estate).to have_db_column(:client_full_name).of_type(:string).with_options(null: false) }
+    it { expect(estate).to have_db_column(:client_phone_numbers).of_type(:string).with_options(null: false) }
     it { expect(estate).to have_db_column(:apartment_number).of_type(:string).with_options(null: true) }
     it { expect(estate).to have_db_column(:number_of_rooms).of_type(:integer).with_options(null: true) }
     it { expect(estate).to have_db_column(:floor).of_type(:integer).with_options(null: true) }
@@ -137,8 +150,6 @@ RSpec.describe Estate, type: :model do
       it { expect(estate).to respond_to(:estate_type_name) }
       it { expect(estate).to respond_to(:estate_project_name) }
       it { expect(estate).to respond_to(:estate_material_name) }
-      it { expect(estate).to respond_to(:client_full_name) }
-      it { expect(estate).to respond_to(:client_phone_numbers) }
     end
 
     describe 'executes methods correctly' do
@@ -163,18 +174,6 @@ RSpec.describe Estate, type: :model do
       describe '#estate_material_name' do
         it 'returns EstateMaterial name' do
           expect(estate.estate_material_name).to eq(estate.estate_material.name)
-        end
-      end
-
-      describe '#client_full_name' do
-        it 'returns Client full name' do
-          expect(estate.client_full_name).to eq(estate.client.full_name)
-        end
-      end
-
-      describe '#client_phone_numbers' do
-        it 'returns Client phone numbers' do
-          expect(estate.client_phone_numbers).to eq(estate.client.phone_numbers)
         end
       end
     end

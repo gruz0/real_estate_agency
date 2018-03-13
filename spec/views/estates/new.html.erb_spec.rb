@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'estates/new', type: :view do
-  let(:client) { create(:client) }
   let(:employee) { create(:employee) }
   let(:city) { create(:city) }
   let(:street) { create(:street, city: city) }
@@ -13,12 +12,13 @@ RSpec.describe 'estates/new', type: :view do
 
   let(:valid_attributes) do
     {
-      client: client,
       responsible_employee: employee,
       address: address,
       estate_type: estate_type,
       estate_project: estate_project,
       estate_material: estate_material,
+      client_full_name: 'Иванова Наталья Сергеевна',
+      client_phone_numbers: '+79990009988',
       price: 99_999
     }
   end
@@ -33,7 +33,8 @@ RSpec.describe 'estates/new', type: :view do
     assert_select 'h1', text: I18n.t('views.estate.new.title'), count: 1
 
     assert_select 'form[action=?][method=?]', estates_path, 'post' do
-      assert_select 'select[name=?]', 'estate[client]'
+      assert_select 'input[name=?]', 'estate[client_full_name]'
+      assert_select 'input[name=?]', 'estate[client_phone_numbers]'
       assert_select 'input[name=?][disabled=disabled]', 'estate[created_by_employee]'
       assert_select 'select[name=?]', 'estate[responsible_employee]'
       assert_select 'select[name=?]', 'estate[city]'

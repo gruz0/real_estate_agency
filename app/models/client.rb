@@ -3,8 +3,6 @@ class Client < ApplicationRecord
 
   PHONE_NUMBERS_REGEX = /\A[+\d]+\z/
 
-  has_many :estate, dependent: :restrict_with_error
-
   validates :full_name, presence: true, length: { minimum: 1 }
   validates :phone_numbers, presence: true, length: { minimum: 6 }
   validate :phone_numbers_valid?

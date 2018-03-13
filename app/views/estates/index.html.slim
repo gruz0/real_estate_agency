@@ -13,7 +13,7 @@ table.table.table-sm.table-hover
       th scope="col" = Estate.human_attribute_name(:number_of_rooms)
       th scope="col" = Estate.human_attribute_name(:floor)
       th scope="col" = Estate.human_attribute_name(:price)
-      th scope="col" = Client.human_attribute_name(:phone_numbers)
+      th scope="col" = Client.model_name.human
       th scope="col" = Estate.human_attribute_name(:responsible_employee)
       th.created-at scope="col" = Estate.human_attribute_name(:created_at)
       th.action scope="col"

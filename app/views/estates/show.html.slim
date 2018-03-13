@@ -17,15 +17,15 @@ table.table.table-sm.table-hover
 
     tr
       th scope="row"
-        = Estate.human_attribute_name(:client)
+        = Estate.human_attribute_name(:client_full_name)
       td
         = @estate.client_full_name
 
     tr
       th scope="row"
-        = Client.human_attribute_name(:phone_numbers)
+        = Estate.human_attribute_name(:client_phone_numbers)
       td
-        = clickable_phones_for(@estate.client)
+        = clickable_phones_for(@estate.client_phone_numbers)
 
     tr
       th scope="row"

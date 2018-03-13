@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe EstatesHelper, type: :helper do
-  let(:client) { create(:client) }
   let(:employee) { create(:employee) }
   let(:city) { create(:city, name: 'Нефтеюганск') }
   let(:street) { create(:street, city: city, name: 'ул. Ленина') }
@@ -17,7 +16,6 @@ RSpec.describe EstatesHelper, type: :helper do
   let(:apartment_number) { 55 }
   let(:valid_attributes) do
     {
-      client: client,
       created_by_employee: employee,
       responsible_employee: employee,
       address: address,
@@ -25,6 +23,8 @@ RSpec.describe EstatesHelper, type: :helper do
       estate_type: estate_type,
       estate_project: estate_project,
       estate_material: estate_material,
+      client_full_name: 'Иванова Наталья Петровна',
+      client_phone_numbers: '+79991112233',
       price: 99_999,
       floor: floor,
       number_of_floors: number_of_floors,
@@ -84,36 +84,37 @@ RSpec.describe EstatesHelper, type: :helper do
 
   describe '#clickable_phones_for' do
     let(:link_format) { '<a href="tel://%<href>s">%<phone_number>s</a>' }
-    let(:phone_numbers) { estate.client.phone_numbers }
 
     describe 'client has one phone number' do
+      let(:phone_numbers) { '223344' }
+
       it 'returns value' do
-        expect(helper.clickable_phones_for(estate.client))
+        expect(helper.clickable_phones_for(phone_numbers))
           .to eq(format(link_format, href: phone_numbers, phone_number: phone_numbers))
       end
     end
 
     describe 'client has multiple phone numbers without spaces' do
-      let(:client) { create(:client, phone_numbers: '+71112223344,89992224455') }
+      let(:phone_numbers) { '+71112223344,89992224455' }
 
       it 'returns value' do
         expected = phone_numbers.split(',').map do |phone_number|
           format(link_format, href: phone_number, phone_number: phone_number)
         end.join(', ')
 
-        expect(helper.clickable_phones_for(estate.client)).to eq(expected)
+        expect(helper.clickable_phones_for(phone_numbers)).to eq(expected)
       end
     end
 
     describe 'client has multiple phone numbers with short phone number and spaces' do
-      let(:client) { create(:client, phone_numbers: ' +71112223344  , 89992224455   ,111222') }
+      let(:phone_numbers) { ' +71112223344  , 89992224455   ,111222' }
 
       it 'returns value' do
-        expected = phone_numbers.split(',').map do |phone_number|
+        expected = phone_numbers.split(',').map(&:strip).map do |phone_number|
           format(link_format, href: phone_number, phone_number: phone_number)
         end.join(', ')
 
-        expect(helper.clickable_phones_for(estate.client)).to eq(expected)
+        expect(helper.clickable_phones_for(phone_numbers)).to eq(expected)
       end
     end
   end

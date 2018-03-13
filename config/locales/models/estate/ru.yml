@@ -5,7 +5,8 @@ ru:
     attributes:
       estate:
         price: 'Цена'
-        client: 'Клиент'
+        client_full_name: 'Имя клиента'
+        client_phone_numbers: 'Телефоны клиента'
         created_by_employee: 'Создатель объекта'
         updated_by_employee: 'Изменивший объект сотрудник'
         responsible_employee: 'Ответственный'

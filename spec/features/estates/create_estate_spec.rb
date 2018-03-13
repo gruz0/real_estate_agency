@@ -1,17 +1,15 @@
 require 'rails_helper'
 
 RSpec.feature 'Create Estate' do
-  let!(:employee) { create(:employee) }
-  let!(:client) { create(:client) }
-  let!(:responsible_employee) { create(:employee) }
-  let!(:city) { create(:city, name: 'Нефтеюганск') }
-  let!(:street) { create(:street, city: city, name: 'ул. Ленина') }
-  let!(:address) { create(:address, street: street, building_number: '3а') }
-  let!(:estate_type) { create(:estate_type, name: 'Квартира') }
-  let!(:estate_project) { create(:estate_project, name: 'Уральский') }
-  let!(:estate_material) { create(:estate_material, name: 'Кирпичный') }
-
   scenario 'Create estates' do
+    employee = create(:employee)
+    city     = create(:city, name: 'Нефтеюганск')
+    street   = create(:street, city: city, name: 'ул. Ленина')
+    create(:address, street: street, building_number: '3а')
+    create(:estate_type, name: 'Квартира')
+    create(:estate_project, name: 'Уральский')
+    create(:estate_material, name: 'Кирпичный')
+
     visit root_path
 
     fill_in 'employee[email]', with: employee.email
@@ -30,6 +28,8 @@ RSpec.feature 'Create Estate' do
 
     fill_in 'estate[building_number]', with: '3а'
     fill_in 'estate[apartment_number]', with: '55'
+    fill_in 'estate[client_full_name]', with: 'Сергеев Николай Петрович'
+    fill_in 'estate[client_phone_numbers]', with: '+79992223344, 223344'
     fill_in 'estate[price]', with: '12345'
     fill_in 'estate[number_of_rooms]', with: '4'
     fill_in 'estate[floor]', with: '6'

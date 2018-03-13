@@ -17,10 +17,13 @@
 
         td
           .form-group
-            = form.label :client
-            = form.select :client, \
-              Client.ordered_by_full_name.map { |c| ["#{c.full_name} (#{c.phone_numbers})", c.id] }, \
-              { selected: estate.client_id }, class: 'form-control', id: :estate_client
+            = form.label :client_full_name
+            = form.text_field :client_full_name, id: :estate_client_full_name, class: 'form-control'
+
+        td
+          .form-group
+            = form.label :client_phone_numbers
+            = form.text_field :client_phone_numbers, id: :estate_client_phone_numbers, class: 'form-control'
 
       tr
         td

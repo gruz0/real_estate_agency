@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180223000800) do
+ActiveRecord::Schema.define(version: 20180313193400) do
 
   create_table "addresses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "street_id", null: false
@@ -99,7 +99,6 @@ ActiveRecord::Schema.define(version: 20180223000800) do
     t.bigint "estate_project_id", null: false
     t.bigint "estate_material_id", null: false
     t.bigint "address_id", null: false
-    t.bigint "client_id", null: false
     t.bigint "responsible_employee_id", null: false
     t.bigint "created_by_employee_id", null: false
     t.bigint "updated_by_employee_id"
@@ -114,8 +113,9 @@ ActiveRecord::Schema.define(version: 20180223000800) do
     t.integer "status", limit: 1, default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "client_full_name", default: "", null: false
+    t.string "client_phone_numbers", default: "", null: false
     t.index ["address_id"], name: "index_estates_on_address_id"
-    t.index ["client_id"], name: "index_estates_on_client_id"
     t.index ["created_by_employee_id"], name: "index_estates_on_created_by_employee_id"
     t.index ["estate_material_id"], name: "index_estates_on_estate_material_id"
     t.index ["estate_project_id"], name: "index_estates_on_estate_project_id"
@@ -137,7 +137,6 @@ ActiveRecord::Schema.define(version: 20180223000800) do
 
   add_foreign_key "addresses", "streets"
   add_foreign_key "estates", "addresses"
-  add_foreign_key "estates", "clients"
   add_foreign_key "estates", "employees", column: "created_by_employee_id"
   add_foreign_key "estates", "employees", column: "responsible_employee_id"
   add_foreign_key "estates", "employees", column: "updated_by_employee_id"

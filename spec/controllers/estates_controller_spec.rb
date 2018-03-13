@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe EstatesController, type: :controller do
-  let(:client) { create(:client) }
   let(:employee) { create(:employee) }
   let(:city) { create(:city) }
   let(:street) { create(:street, city: city) }
@@ -12,7 +11,6 @@ RSpec.describe EstatesController, type: :controller do
 
   let(:valid_attributes) do
     {
-      client: client,
       responsible_employee: employee,
       city: city,
       street: street,
@@ -21,6 +19,8 @@ RSpec.describe EstatesController, type: :controller do
       estate_type: estate_type,
       estate_project: estate_project,
       estate_material: estate_material,
+      client_full_name: 'Иванова Наталья Петровна',
+      client_phone_numbers: '+79991112233',
       number_of_rooms: 3,
       floor: 4,
       number_of_floors: 9,
@@ -33,7 +33,6 @@ RSpec.describe EstatesController, type: :controller do
 
   let(:invalid_attributes) do
     {
-      client: '',
       responsible_employee: '',
       city: '',
       street: '',
@@ -41,6 +40,8 @@ RSpec.describe EstatesController, type: :controller do
       estate_type: '',
       estate_project: '',
       estate_material: '',
+      client_full_name: '',
+      client_phone_numbers: '',
       number_of_rooms: 333,
       floor: 100,
       number_of_floors: 1_000,
@@ -132,7 +133,6 @@ RSpec.describe EstatesController, type: :controller do
     context 'with valid params' do
       let(:new_attributes) do
         {
-          client: create(:client),
           responsible_employee: create(:employee),
           city: city,
           street: street,
@@ -141,6 +141,8 @@ RSpec.describe EstatesController, type: :controller do
           estate_type: estate_type,
           estate_project: create(:estate_project),
           estate_material: create(:estate_material),
+          client_full_name: 'Сергеев Алексей Николаевич',
+          client_phone_numbers: '+70001112233',
           number_of_rooms: 2,
           floor: 5,
           number_of_floors: 10,
@@ -156,7 +158,6 @@ RSpec.describe EstatesController, type: :controller do
         put :update, params: { id: estate.to_param, estate: new_attributes }
         estate.reload
 
-        expect(estate.client).to eq(new_attributes[:client])
         expect(estate.updated_by_employee).to eq(authenticated_employee)
         expect(estate.responsible_employee).to eq(new_attributes[:responsible_employee])
         expect(estate.address).to eq(Address.last)
@@ -164,6 +165,8 @@ RSpec.describe EstatesController, type: :controller do
         expect(estate.estate_type).to eq(new_attributes[:estate_type])
         expect(estate.estate_project).to eq(new_attributes[:estate_project])
         expect(estate.estate_material).to eq(new_attributes[:estate_material])
+        expect(estate.client_full_name).to eq(new_attributes[:client_full_name])
+        expect(estate.client_phone_numbers).to eq(new_attributes[:client_phone_numbers])
         expect(estate.number_of_rooms).to eq(new_attributes[:number_of_rooms])
         expect(estate.floor).to eq(new_attributes[:floor])
         expect(estate.number_of_floors).to eq(new_attributes[:number_of_floors])

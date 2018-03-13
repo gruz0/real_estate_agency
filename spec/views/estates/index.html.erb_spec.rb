@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'estates/index', type: :view do
-  let(:client) do
-    create(:client, full_name: 'Иванов Сергей Николаевич', phone_numbers: '+79991112233')
-  end
   let(:employee) do
     create(:employee, last_name: 'Ли', first_name: 'Мария', middle_name: 'Петровна', phone_numbers: '+79004445566')
   end
@@ -18,7 +15,6 @@ RSpec.describe 'estates/index', type: :view do
 
   let(:valid_attributes) do
     {
-      client: client,
       created_by_employee: employee,
       responsible_employee: employee,
       address: address,
@@ -26,6 +22,8 @@ RSpec.describe 'estates/index', type: :view do
       estate_type: estate_type,
       estate_project: estate_project,
       estate_material: estate_material,
+      client_full_name: 'Иванов Сергей Николаевич',
+      client_phone_numbers: '+79991112233',
       number_of_rooms: 8,
       floor: 4,
       number_of_floors: 10,
@@ -54,7 +52,7 @@ RSpec.describe 'estates/index', type: :view do
         assert_select 'th', text: Estate.human_attribute_name(:number_of_rooms), count: 1
         assert_select 'th', text: Estate.human_attribute_name(:floor), count: 1
         assert_select 'th', text: Estate.human_attribute_name(:price), count: 1
-        assert_select 'th', text: Client.human_attribute_name(:phone_numbers), count: 1
+        assert_select 'th', text: Client.model_name.human, count: 1
         assert_select 'th', text: Estate.human_attribute_name(:responsible_employee), count: 1
         assert_select 'th', text: Estate.human_attribute_name(:created_at), count: 1
 
