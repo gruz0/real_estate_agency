@@ -8,8 +8,4 @@ class AddServiceAdmin < ActiveRecord::Migration[5.1]
       first_name: 'Администратор'
     )
   end
-
-  def self.down
-    Employee.find_by(email: 'root@example.com').map(&:destroy)
-  end
 end
