@@ -28,7 +28,7 @@ html lang="en"
               .dropdown-menu aria-labelledby="navbar-dictionaries"
                 = link_to(clients_path, class: 'dropdown-item') do
                   = t('views.layout.menu.clients')
-                - if current_employee.admin?
+                - if current_employee.admin? || current_employee.service_admin?
                   = link_to(employees_path, class: 'dropdown-item') do
                     = t('views.layout.menu.employees')
                 = link_to(competitors_path, class: 'dropdown-item') do
@@ -41,8 +41,9 @@ html lang="en"
                   = t('views.layout.menu.estate_projects')
                 = link_to(cities_path, class: 'dropdown-item') do
                   = t('views.layout.menu.cities')
-                = link_to(addresses_path, class: 'dropdown-item') do
-                  = t('views.layout.menu.addresses')
+                - if current_employee.service_admin?
+                  = link_to(addresses_path, class: 'dropdown-item') do
+                    = t('views.layout.menu.addresses')
 
             li.nav-item
               = link_to(destroy_employee_session_path, method: :delete, class: 'nav-link') do

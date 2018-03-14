@@ -24,13 +24,13 @@ RSpec.describe 'layouts/application', type: :view do
 
           assert_select('.dropdown-menu') do |menu|
             expect(menu).to have_link(I18n.t('views.layout.menu.clients'), href: clients_path)
-            expect(menu).to have_link(I18n.t('views.layout.menu.employees'), href: employees_path, count: 0)
+            expect(menu).not_to have_link(I18n.t('views.layout.menu.employees'), href: employees_path)
             expect(menu).to have_link(I18n.t('views.layout.menu.competitors'), href: competitors_path)
             expect(menu).to have_link(I18n.t('views.layout.menu.estate_types'), href: estate_types_path)
             expect(menu).to have_link(I18n.t('views.layout.menu.estate_materials'), href: estate_materials_path)
             expect(menu).to have_link(I18n.t('views.layout.menu.estate_projects'), href: estate_projects_path)
             expect(menu).to have_link(I18n.t('views.layout.menu.cities'), href: cities_path)
-            expect(menu).to have_link(I18n.t('views.layout.menu.addresses'), href: addresses_path)
+            expect(menu).not_to have_link(I18n.t('views.layout.menu.addresses'), href: addresses_path)
           end
         end
       end
@@ -50,6 +50,23 @@ RSpec.describe 'layouts/application', type: :view do
         assert_select 'ul.navbar-nav > li.dropdown' do |_dropdown|
           assert_select('.dropdown-menu') do |menu|
             expect(menu).to have_link(I18n.t('views.layout.menu.employees'), href: employees_path)
+            expect(menu).not_to have_link(I18n.t('views.layout.menu.addresses'), href: addresses_path)
+          end
+        end
+      end
+    end
+  end
+
+  context 'when user is an service_admin' do
+    login_service_admin
+
+    it 'renders hidden menu items' do
+      render
+
+      assert_select 'body > .navbar' do |_navbar|
+        assert_select 'ul.navbar-nav > li.dropdown' do |_dropdown|
+          assert_select('.dropdown-menu') do |menu|
+            expect(menu).to have_link(I18n.t('views.layout.menu.addresses'), href: addresses_path)
           end
         end
       end
