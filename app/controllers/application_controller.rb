@@ -4,8 +4,9 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def redirect_if_employee_is_not_admin
-    redirect_to(root_path, alert: t('errors.messages.forbidden')) unless current_employee.admin?
+  def redirect_if_employee_is_not_admin_or_service_admin
+    return if current_employee.admin? || current_employee.service_admin?
+    redirect_to(root_path, alert: t('errors.messages.forbidden'))
   end
 
   def create(entity, notice)

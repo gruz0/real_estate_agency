@@ -3,7 +3,7 @@ class EmployeesController < ApplicationController
     redirect_to employees_path, alert: t('views.employee.flash_messages.employee_was_not_found')
   end
 
-  before_action :redirect_if_employee_is_not_admin
+  before_action :redirect_if_employee_is_not_admin_or_service_admin
   before_action :set_employee, only: %i[show edit update destroy]
   before_action :allow_without_password, only: [:update]
 
