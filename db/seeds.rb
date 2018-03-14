@@ -16,6 +16,7 @@ Array.new(30).each { FactoryBot.create(:client, phone_numbers: "+7999111223#{ran
 # Employees
 #
 Array.new(30).each { FactoryBot.create(:employee, phone_numbers: "+7999999887#{rand(100)}") }
+FactoryBot.create(:employee, email: 'root@example.com', password: '123456', role: :service_admin)
 employee = FactoryBot.create(:employee, email: 'me@example.com', password: '123456', role: :admin)
 
 #

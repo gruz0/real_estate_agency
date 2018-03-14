@@ -1,7 +1,7 @@
 class Employee < ApplicationRecord
   scope :ordered_by_full_name, -> { reorder('last_name ASC, first_name ASC') }
 
-  enum role: { user: 0, admin: 1 }
+  enum role: { user: 0, admin: 1, service_admin: 9 }
 
   has_many :estate, inverse_of: :responsible_employee, foreign_key: 'responsible_employee_id',
                     dependent: :restrict_with_error

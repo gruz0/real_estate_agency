@@ -18,6 +18,7 @@ RSpec.describe Employee, type: :model do
 
     it { expect(person).to allow_value(:user).for(:role) }
     it { expect(person).to allow_value(:admin).for(:role) }
+    it { expect(person).to allow_value(:service_admin).for(:role) }
 
     # Inclusion/acceptance of values
     it { expect(person).to validate_length_of(:last_name).is_at_least(1) }
