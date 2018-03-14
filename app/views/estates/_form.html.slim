@@ -17,6 +17,14 @@
 
         td
           .form-group
+            = form.label :responsible_employee
+            = form.select :responsible_employee, \
+              Employee.ordered_by_full_name.map { |e| [person_fullname(e), e.id] }, \
+              { selected: estate.responsible_employee_id }, class: 'form-control', id: :estate_responsible_employee
+
+      tr
+        td
+          .form-group
             = form.label :client_full_name
             = form.text_field :client_full_name, id: :estate_client_full_name, class: 'form-control'
 
@@ -24,20 +32,6 @@
           .form-group
             = form.label :client_phone_numbers
             = form.text_field :client_phone_numbers, id: :estate_client_phone_numbers, class: 'form-control'
-
-      tr
-        td
-          .form-group
-            = form.label :created_by_employee
-            = form.text_field :created_by_employee, id: :created_by_employee, class: 'form-control', \
-              value: person_fullname(current_employee), disabled: 'disabled'
-
-        td
-          .form-group
-            = form.label :responsible_employee
-            = form.select :responsible_employee, \
-              Employee.ordered_by_full_name.map { |e| [person_fullname(e), e.id] }, \
-              { selected: estate.responsible_employee_id }, class: 'form-control', id: :estate_responsible_employee
 
       tr
         td

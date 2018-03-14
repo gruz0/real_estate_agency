@@ -35,7 +35,6 @@ RSpec.describe 'estates/new', type: :view do
     assert_select 'form[action=?][method=?]', estates_path, 'post' do
       assert_select 'input[name=?]', 'estate[client_full_name]'
       assert_select 'input[name=?]', 'estate[client_phone_numbers]'
-      assert_select 'input[name=?][disabled=disabled]', 'estate[created_by_employee]'
       assert_select 'select[name=?]', 'estate[responsible_employee]'
       assert_select 'select[name=?]', 'estate[city]'
       assert_select 'select[name=?]', 'estate[street]'

@@ -42,7 +42,6 @@ RSpec.describe 'estates/edit', type: :view do
     assert_select 'form[action=?][method=?]', estate_path(estate), 'post' do
       assert_select 'input[name=?][value=?]', 'estate[client_full_name]', valid_attributes[:client_full_name]
       assert_select 'input[name=?][value=?]', 'estate[client_phone_numbers]', valid_attributes[:client_phone_numbers]
-      assert_select 'input[name=?][disabled=disabled]', 'estate[created_by_employee]'
       assert_select 'select[name=?]', 'estate[responsible_employee]'
       assert_select 'select[name=?]', 'estate[city]'
       assert_select 'select[name=?]', 'estate[street]'
