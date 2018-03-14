@@ -12,4 +12,11 @@ module ControllersMacros
       sign_in authenticated_admin
     end
   end
+
+  def login_service_admin
+    before do
+      @request.env['devise.mapping'] = Devise.mappings[:employee]
+      sign_in authenticated_service_admin
+    end
+  end
 end
