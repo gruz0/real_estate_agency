@@ -65,6 +65,7 @@ RSpec.describe 'estates/index', type: :view do
           assert_select 'input#filter_number_of_rooms[type=text]', count: 1
           assert_select 'input#filter_floor[type=text]', count: 1
           assert_select 'input#filter_price_to[type=text]', count: 1
+          assert_select 'input#filter_client_phone_numbers[type=text]', count: 1
           assert_select 'select#filter_responsible_employee', count: 1 do
             assert_select 'option', text: I18n.t('views.filter.select.all'), count: 1
             assert_select 'option', text: I18n.t('views.filter.select.i_am'), count: 1

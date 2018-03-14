@@ -38,6 +38,11 @@ RSpec.describe FindEstates do
       expect(find_estates.to_sql).to include('estates.price <= 42')
     end
 
+    it 'returns query with #filter_by_client_phone_numbers' do
+      params[:client_phone_numbers] = '999'
+      expect(find_estates.to_sql).to include("estates.client_phone_numbers LIKE '%999%'")
+    end
+
     it 'returns query with #filter_by_responsible_employee' do
       params[:responsible_employee] = 42
       expect(find_estates.to_sql).to include('`estates`.`responsible_employee_id` = 42')

@@ -39,7 +39,9 @@ table.table.table-sm.table-hover
           .input-group-append
             .input-group-text
               | 000
-      td scope="col"
+      td scope="col" width="7%"
+        = text_field(:filter, :client_phone_numbers, value: params.fetch(:client_phone_numbers, ''), \
+          class: 'form-control form-control-sm', maxlength: 15)
       td scope="col" width="10%"
         = select(:filter, :responsible_employee, \
           [[t('views.filter.select.all'), ''], [t('views.filter.select.i_am'), current_employee.id]] + \

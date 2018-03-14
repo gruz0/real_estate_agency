@@ -6,6 +6,7 @@ $(document).on 'turbolinks:load', () ->
       number_of_rooms: $('#filter_number_of_rooms').val(),
       floor: $('#filter_floor').val(),
       price_to: $('#filter_price_to').val(),
+      client_phone_numbers: $('#filter_client_phone_numbers').val(),
       responsible_employee: $('#filter_responsible_employee').val()
     }
     window.location = '/estates?' + encodeQueryData(filter)

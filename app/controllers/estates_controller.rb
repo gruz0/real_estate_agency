@@ -65,6 +65,7 @@ class EstatesController < ApplicationController
   end
 
   def permitted_params
-    params.permit(:page, :id, :estate_project, :number_of_rooms, :floor, :price_to, :responsible_employee)
+    params.permit(:page, :id, :estate_project, :number_of_rooms, :floor, :price_to,
+                  :client_phone_numbers, :responsible_employee)
   end
 end

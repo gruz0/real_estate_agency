@@ -12,6 +12,7 @@ class FindEstates
     scoped = filter_by_number_of_rooms(scoped, params[:number_of_rooms])
     scoped = filter_by_floor(scoped, params[:floor])
     scoped = filter_by_price_to(scoped, params[:price_to])
+    scoped = filter_by_client_phone_numbers(scoped, params[:client_phone_numbers])
     scoped = filter_by_responsible_employee(scoped, params[:responsible_employee])
     scoped = paginate(scoped, params[:page])
     scoped
@@ -37,6 +38,11 @@ class FindEstates
 
   def filter_by_price_to(scoped, price_to = nil)
     price_to.present? ? scoped.where('estates.price <= ?', price_to) : scoped
+  end
+
+  def filter_by_client_phone_numbers(scoped, client_phone_numbers = nil)
+    return scoped if client_phone_numbers.blank?
+    scoped.where('estates.client_phone_numbers LIKE ?', "%#{client_phone_numbers}%")
   end
 
   def filter_by_responsible_employee(scoped, responsible_employee_id = nil)
