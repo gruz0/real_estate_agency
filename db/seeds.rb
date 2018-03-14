@@ -11,7 +11,6 @@ end
 # Clients
 #
 Array.new(30).each { FactoryBot.create(:client, phone_numbers: "+7999111223#{rand(100)}") }
-client = Client.first
 
 #
 # Employees
@@ -54,15 +53,16 @@ end
 #
 # Estates
 #
-500.times do |_|
+500.times do |idx|
   Estate.create!(
-    client: client,
     created_by_employee: employee,
     responsible_employee: employee,
     address: addresses.sample,
     estate_type: estate_types.sample,
     estate_project: estate_projects.sample,
     estate_material: estate_materials.sample,
+    client_full_name: FFaker::NameRU.last_name,
+    client_phone_numbers: "+7999111223#{idx}",
     floor: rand(1..5),
     number_of_floors: rand(5..9),
     number_of_rooms: [nil, rand(1..4)].sample,
