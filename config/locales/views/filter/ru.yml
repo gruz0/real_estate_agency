@@ -1,6 +1,7 @@
 ru:
   views:
     filter:
+      title: 'Поиск'
       select:
         all: 'Все'
         i_am: 'Я'

@@ -28,14 +28,36 @@ RSpec.describe FindEstates do
       expect(find_estates.to_sql).to include('estates.number_of_rooms = 42')
     end
 
-    it 'returns query with #filter_by_floor' do
-      params[:floor] = 42
-      expect(find_estates.to_sql).to include('estates.floor = 42')
+    it 'returns query with #filter_by_floor_from' do
+      params[:floor_from] = 42
+      expect(find_estates.to_sql).to include('estates.floor >= 42')
+    end
+
+    it 'returns query with #filter_by_floor_to' do
+      params[:floor_to] = 42
+      expect(find_estates.to_sql).to include('estates.floor <= 42')
+    end
+
+    it 'returns query with #filter_by_floor_from and #filter_by_floor_to' do
+      params[:floor_from] = 35
+      params[:floor_to] = 42
+      expect(find_estates.to_sql).to include('(estates.floor >= 35 AND estates.floor <= 42)')
+    end
+
+    it 'returns query with #filter_by_price_from' do
+      params[:price_from] = 42
+      expect(find_estates.to_sql).to include('estates.price >= 42')
     end
 
     it 'returns query with #filter_by_price_to' do
       params[:price_to] = 42
       expect(find_estates.to_sql).to include('estates.price <= 42')
+    end
+
+    it 'returns query with #filter_by_price_from and #filter_by_price_to' do
+      params[:price_from] = 35
+      params[:price_to] = 42
+      expect(find_estates.to_sql).to include('(estates.price >= 35 AND estates.price <= 42)')
     end
 
     it 'returns query with #filter_by_client_phone_numbers' do

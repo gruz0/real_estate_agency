@@ -10,8 +10,8 @@ class FindEstates
     scoped = filter_by_id(scoped, params[:id])
     scoped = filter_by_estate_project(scoped, params[:estate_project])
     scoped = filter_by_number_of_rooms(scoped, params[:number_of_rooms])
-    scoped = filter_by_floor(scoped, params[:floor])
-    scoped = filter_by_price_to(scoped, params[:price_to])
+    scoped = filter_by_floor(scoped, params[:floor_from], params[:floor_to])
+    scoped = filter_by_price(scoped, params[:price_from], params[:price_to])
     scoped = filter_by_client_phone_numbers(scoped, params[:client_phone_numbers])
     scoped = filter_by_responsible_employee(scoped, params[:responsible_employee])
     scoped = paginate(scoped, params[:page])
@@ -32,12 +32,32 @@ class FindEstates
     number_of_rooms.present? ? scoped.where('estates.number_of_rooms = ?', number_of_rooms) : scoped
   end
 
-  def filter_by_floor(scoped, floor = nil)
-    floor.present? ? scoped.where('estates.floor = ?', floor) : scoped
+  def filter_by_floor(scoped, floor_from = nil, floor_to = nil)
+    return scoped if floor_from.blank? && floor_to.blank?
+
+    if floor_from.present?
+      if floor_to.present?
+        scoped.where('(estates.floor >= ? AND estates.floor <= ?)', floor_from, floor_to)
+      else
+        scoped.where('estates.floor >= ?', floor_from)
+      end
+    else
+      scoped.where('estates.floor <= ?', floor_to)
+    end
   end
 
-  def filter_by_price_to(scoped, price_to = nil)
-    price_to.present? ? scoped.where('estates.price <= ?', price_to) : scoped
+  def filter_by_price(scoped, price_from = nil, price_to = nil)
+    return scoped if price_from.blank? && price_to.blank?
+
+    if price_from.present?
+      if price_to.present?
+        scoped.where('(estates.price >= ? AND estates.price <= ?)', price_from, price_to)
+      else
+        scoped.where('estates.price >= ?', price_from)
+      end
+    else
+      scoped.where('estates.price <= ?', price_to)
+    end
   end
 
   def filter_by_client_phone_numbers(scoped, client_phone_numbers = nil)

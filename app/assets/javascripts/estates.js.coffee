@@ -4,7 +4,9 @@ $(document).on 'turbolinks:load', () ->
       id: $('#filter_id').val(),
       estate_project: $('#filter_estate_project').val(),
       number_of_rooms: $('#filter_number_of_rooms').val(),
-      floor: $('#filter_floor').val(),
+      floor_from: $('#filter_floor_from').val(),
+      floor_to: $('#filter_floor_to').val(),
+      price_from: $('#filter_price_from').val(),
       price_to: $('#filter_price_to').val(),
       client_phone_numbers: $('#filter_client_phone_numbers').val(),
       responsible_employee: $('#filter_responsible_employee').val()
