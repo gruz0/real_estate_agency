@@ -1,0 +1,30 @@
+.row.col-lg-12
+  .col-lg-9
+    h1 = t('views.log.index.title')
+
+table.table.table-sm.table-hover
+  thead.thead-light
+    tr
+      th.id scope="col" = Log.human_attribute_name(:id)
+      th scope="col" = Log.human_attribute_name(:employee_id)
+      th scope="col" = Log.human_attribute_name(:action)
+      th scope="col" = Log.human_attribute_name(:error_messages)
+      th scope="col" = Log.human_attribute_name(:flash_notice)
+      th.created-at scope="col" = Log.human_attribute_name(:created_at)
+      th.action scope="col"
+  tbody
+    - @logs.each do |log|
+      tr
+        th scope="row" = log.id
+        td = log.employee_id
+        td = "#{log.controller}##{log.action}"
+        td = log.error_messages
+        td = log.flash_notice
+        td = l(log.created_at, format: :short)
+        td = link_to t('views.show'), log_path(log), class: 'btn btn-sm btn-secondary'
+
+  tfoot
+    tr
+      td colspan=7
+        .container.pagination.justify-content-center
+          = paginate(@logs, theme: 'twitter-bootstrap-4')

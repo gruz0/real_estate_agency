@@ -1,0 +1,49 @@
+h1
+  = t('views.log.show.title', id: @log.id)
+
+table.table.table-sm.table-hover
+  tbody
+    tr
+      th.w-25 scope="row"
+        = Log.human_attribute_name(:employee_id)
+      td
+        = @log.employee_id
+
+    tr
+      th.w-25 scope="row"
+        = Log.human_attribute_name(:controller)
+      td
+        = @log.controller
+
+    tr
+      th.w-25 scope="row"
+        = Log.human_attribute_name(:action)
+      td
+        = @log.action
+
+    tr
+      th.w-25 scope="row"
+        = Log.human_attribute_name(:entity_id)
+      td
+        = @log.entity_id
+
+    tr
+      th.w-25 scope="row"
+        = Log.human_attribute_name(:error_messages)
+      td
+        = @log.error_messages
+
+    tr
+      th.w-25 scope="row"
+        = Log.human_attribute_name(:flash_notice)
+      td
+        = @log.flash_notice
+
+    tr
+      th scope="row"
+        = Log.human_attribute_name(:created_at)
+      td
+        = l(@log.created_at, format: :custom)
+
+.btn-group role="group" aria-label="#{t('views.action')}"
+  = link_to t('views.back'), logs_path, class: 'btn btn-secondary'

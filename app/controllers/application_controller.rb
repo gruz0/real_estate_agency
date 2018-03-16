@@ -10,6 +10,11 @@ class ApplicationController < ActionController::Base
     redirect_to(root_path, alert: t('errors.messages.forbidden'))
   end
 
+  def redirect_if_employee_is_not_service_admin
+    return if current_employee.service_admin?
+    redirect_to(root_path, alert: t('errors.messages.forbidden'))
+  end
+
   def create(entity, notice)
     instance_variable_set("@#{entity.class.name.downcase}", entity)
     instance_variable_set('@entity', entity)

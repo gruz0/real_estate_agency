@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   end
   resources :addresses, only: %i[index show destroy]
   resources :estates
+  resources :logs, only: %i[index show]
 
   root 'estates#index'
 end
