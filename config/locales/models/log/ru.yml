@@ -11,4 +11,5 @@ ru:
         params: 'Параметры'
         error_messages: 'Ошибки'
         flash_notice: 'Уведомление'
+        description: 'Описание'
         created_at: 'Дата создания'

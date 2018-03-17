@@ -22,4 +22,24 @@ RSpec.describe LogsHelper, type: :helper do
       end
     end
   end
+
+  describe '#render_log_message_for' do
+    context 'when error_messages is not set and flash_notice is set' do
+      let(:error_messages) { nil }
+      let(:flash_notice) { 'City was successfully created' }
+
+      it 'returns flash_notice' do
+        expect(helper.render_log_message_for(log)).to eq(flash_notice)
+      end
+    end
+
+    context 'when error_messages is set and flash_notice is not set' do
+      let(:error_messages) { 'Error message' }
+      let(:flash_notice) { nil }
+
+      it 'returns error_messages' do
+        expect(helper.render_log_message_for(log)).to eq(error_messages)
+      end
+    end
+  end
 end

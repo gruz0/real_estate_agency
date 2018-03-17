@@ -8,23 +8,22 @@ table.table.table-sm.table-hover
       th.id scope="col" = Log.human_attribute_name(:id)
       th scope="col" = Log.human_attribute_name(:employee_id)
       th scope="col" = Log.human_attribute_name(:action)
-      th scope="col" = Log.human_attribute_name(:error_messages)
-      th scope="col" = Log.human_attribute_name(:flash_notice)
+      th scope="col" = Log.human_attribute_name(:description)
       th.created-at scope="col" = Log.human_attribute_name(:created_at)
       th.action scope="col"
+
   tbody
     - @logs.each do |log|
       tr class=(row_class_depends_on_log_message(log))
         th scope="row" = log.id
         td = log.employee_id
         td = "#{log.controller}##{log.action}"
-        td = log.error_messages
-        td = log.flash_notice
+        td = render_log_message_for(log)
         td = l(log.created_at, format: :short)
         td = link_to t('views.show'), log_path(log), class: 'btn btn-sm btn-secondary'
 
   tfoot
     tr
-      td colspan=7
+      td colspan=6
         .container.pagination.justify-content-center
           = paginate(@logs, theme: 'twitter-bootstrap-4')
