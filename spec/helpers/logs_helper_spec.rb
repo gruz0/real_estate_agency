@@ -8,7 +8,7 @@ RSpec.describe LogsHelper, type: :helper do
       let(:error_messages) { nil }
       let(:flash_notice) { 'City was successfully created' }
 
-      it 'concats values' do
+      it 'returns empty string' do
         expect(helper.row_class_depends_on_log_message(log)).to be_empty
       end
     end
@@ -17,7 +17,7 @@ RSpec.describe LogsHelper, type: :helper do
       let(:error_messages) { 'Error message' }
       let(:flash_notice) { nil }
 
-      it 'returns empty string' do
+      it 'returns table-danger class' do
         expect(helper.row_class_depends_on_log_message(log)).to eq('table-danger')
       end
     end
