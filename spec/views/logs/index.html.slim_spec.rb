@@ -32,6 +32,7 @@ RSpec.describe 'logs/index', type: :view do
 
       assert_select 'tbody' do
         assert_select 'tr', count: 1
+        assert_select 'tr.table-danger', count: 1
 
         assert_select 'tr>td', text: '99'.to_s, count: 1
         assert_select 'tr>td', text: 'TestController#destroy'.to_s, count: 1

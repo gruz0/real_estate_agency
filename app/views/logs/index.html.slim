@@ -14,7 +14,7 @@ table.table.table-sm.table-hover
       th.action scope="col"
   tbody
     - @logs.each do |log|
-      tr
+      tr class=(row_class_depends_on_log_message(log))
         th scope="row" = log.id
         td = log.employee_id
         td = "#{log.controller}##{log.action}"
