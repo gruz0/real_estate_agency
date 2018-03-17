@@ -29,6 +29,12 @@ table.table.table-sm.table-hover
 
     tr
       th.w-25 scope="row"
+        = Log.human_attribute_name(:params)
+      td
+        = @log.params
+
+    tr
+      th.w-25 scope="row"
         = Log.human_attribute_name(:error_messages)
       td
         = @log.error_messages
