@@ -72,3 +72,9 @@ end
     status: :active
   )
 end
+
+#
+# Logs
+#
+FactoryBot.create(:log, error_messages: nil)
+FactoryBot.create(:log, flash_notice: nil)
