@@ -7,7 +7,7 @@ table.table.table-sm.table-hover
       th.w-25 scope="row"
         = t('views.audit.index.user_id')
       td
-        = @audit.user_id
+        = render_audited_employee_for(@audit)
 
     tr
       th.w-25 scope="row"

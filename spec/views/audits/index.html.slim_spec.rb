@@ -4,7 +4,12 @@ RSpec.describe 'audits/index', type: :view do
   let(:audits) { Audited::Audit.last(2) }
 
   it 'renders a list of audits' do
-    create(:city)
+    employee = create(:employee, last_name: 'Иванов', first_name: 'Иван', middle_name: 'Иванович')
+
+    Audited.audit_class.as_user(employee) do
+      create(:city)
+    end
+
     create(:employee)
 
     assign(:audits, Kaminari.paginate_array(audits).page(1))
@@ -26,6 +31,7 @@ RSpec.describe 'audits/index', type: :view do
       assert_select 'tbody' do
         assert_select 'tr', count: 2
 
+        assert_select 'tr>td', text: 'Иванов Иван Иванович'.to_s, count: 1
         assert_select 'tr>td', text: 'City'.to_s, count: 1
         assert_select 'tr>td', text: 'Employee'.to_s, count: 1
         assert_select 'tr>td', text: 'create'.to_s, count: 2
