@@ -54,6 +54,8 @@ ru:
       create: 'Создать'
       update: 'Обновить'
       filter: 'Фильтр'
+    label:
+      destroyed: 'Удалён'
 
   number:
     currency:
