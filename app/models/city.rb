@@ -1,4 +1,6 @@
 class City < ApplicationRecord
+  audited
+
   scope :with_streets, -> { reorder('name ASC').joins(:street).distinct }
 
   has_many :street, dependent: :restrict_with_error

@@ -1,0 +1,36 @@
+.row.col-lg-12
+  .col-lg-9
+    h1 = t('views.audit.index.title')
+
+table.table.table-sm.table-hover
+  thead.thead-light
+    tr
+      th.id scope="col" = t('views.audit.index.id')
+      th scope="col" = t('views.audit.index.user_id')
+      th scope="col" = t('views.audit.index.auditable_type')
+      th scope="col" = t('views.audit.index.auditable_id')
+      th scope="col" = t('views.audit.index.action')
+      th scope="col" width="30%" = t('views.audit.index.audited_changes')
+      th.created-at scope="col" = t('views.audit.index.created_at')
+      th.action scope="col"
+
+  tbody
+    - @audits.each do |audit|
+      tr class=(audit_row_class_depends_on(audit.action))
+        th scope="row" = audit.id
+        td = render_audited_employee_for(audit)
+        td = audit.auditable_type
+        td = audit.auditable_id
+        td = audit.action
+        td
+          small
+            code
+              = audit.audited_changes
+        td = l(audit.created_at, format: :short)
+        td = link_to t('views.show'), audit_path(audit), class: 'btn btn-sm btn-secondary'
+
+  tfoot
+    tr
+      td colspan=8
+        .container.pagination.justify-content-center
+          = paginate(@audits, theme: 'twitter-bootstrap-4')

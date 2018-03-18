@@ -28,6 +28,7 @@ class StreetsController < ApplicationController
 
   def create
     @street = Street.new(street_params.merge(city: @city))
+    @entity = @street
 
     if @street.save
       redirect_to city_street_path(@city, @street),
@@ -65,6 +66,7 @@ class StreetsController < ApplicationController
 
   def set_street
     @street = @city.street.find(params[:id])
+    @entity = @street
   end
 
   def street_params

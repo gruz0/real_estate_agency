@@ -68,6 +68,10 @@ Style/MixinUsage:
 Rails:
   Enabled: true
 
+Rails/CreateTableWithTimestamps:
+  Exclude:
+    - db/migrate/20180317180735_install_audited.rb
+
 #
 # RSpec
 #

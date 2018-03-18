@@ -1,4 +1,6 @@
 class Address < ApplicationRecord
+  audited
+
   scope :with_estates, -> { includes(:estate) }
 
   belongs_to :street

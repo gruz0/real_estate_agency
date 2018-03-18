@@ -1,4 +1,6 @@
 class Employee < ApplicationRecord
+  audited only: %i[email role last_name first_name middle_name last_sign_in_at last_sign_in_ip]
+
   scope :ordered_by_full_name, -> { reorder('last_name ASC, first_name ASC') }
 
   enum role: { user: 0, admin: 1, service_admin: 9 }
