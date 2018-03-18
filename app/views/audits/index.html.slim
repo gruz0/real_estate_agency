@@ -10,6 +10,7 @@ table.table.table-sm.table-hover
       th scope="col" = t('views.audit.index.auditable_type')
       th scope="col" = t('views.audit.index.auditable_id')
       th scope="col" = t('views.audit.index.action')
+      th scope="col" width="30%" = t('views.audit.index.audited_changes')
       th.created-at scope="col" = t('views.audit.index.created_at')
       th.action scope="col"
 
@@ -21,11 +22,15 @@ table.table.table-sm.table-hover
         td = audit.auditable_type
         td = audit.auditable_id
         td = audit.action
+        td
+          small
+            code
+              = audit.audited_changes
         td = l(audit.created_at, format: :short)
         td = link_to t('views.show'), audit_path(audit), class: 'btn btn-sm btn-secondary'
 
   tfoot
     tr
-      td colspan=7
+      td colspan=8
         .container.pagination.justify-content-center
           = paginate(@audits, theme: 'twitter-bootstrap-4')
