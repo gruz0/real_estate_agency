@@ -1,0 +1,43 @@
+h1
+  = t('views.audit.show.title', id: @audit.id)
+
+table.table.table-sm.table-hover
+  tbody
+    tr
+      th.w-25 scope="row"
+        = t('views.audit.index.user_id')
+      td
+        = @audit.user_id
+
+    tr
+      th.w-25 scope="row"
+        = t('views.audit.index.auditable_type')
+      td
+        = @audit.auditable_type
+
+    tr
+      th.w-25 scope="row"
+        = t('views.audit.index.auditable_id')
+      td
+        = @audit.auditable_id
+
+    tr
+      th.w-25 scope="row"
+        = t('views.audit.index.action')
+      td
+        = @audit.action
+
+    tr
+      th.w-25 scope="row"
+        = t('views.audit.index.audited_changes')
+      td
+        = @audit.audited_changes
+
+    tr
+      th scope="row"
+        = t('views.audit.index.created_at')
+      td
+        = l(@audit.created_at, format: :short)
+
+.btn-group role="group" aria-label="#{t('views.action')}"
+  = link_to t('views.back'), audits_path, class: 'btn btn-secondary'

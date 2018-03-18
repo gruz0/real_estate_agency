@@ -1,7 +1,5 @@
 module Admin
   class SessionsController < Devise::SessionsController
-    skip_after_action :log_action
-
     # before_action :configure_sign_in_params, only: [:create]
 
     # GET /resource/sign_in

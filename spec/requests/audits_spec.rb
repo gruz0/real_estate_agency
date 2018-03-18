@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe 'Logs', type: :request do
-  describe 'GET /logs' do
+RSpec.describe 'Audits', type: :request do
+  describe 'GET /audits' do
     context 'when user is an employee' do
       it 'redirects to root_path' do
         sign_in authenticated_employee
 
-        get logs_path
+        get audits_path
         expect(response).to have_http_status(:redirect)
       end
     end
@@ -15,7 +15,7 @@ RSpec.describe 'Logs', type: :request do
       it 'redirects to root_Path' do
         sign_in authenticated_admin
 
-        get logs_path
+        get audits_path
         expect(response).to have_http_status(:redirect)
       end
     end
@@ -24,7 +24,7 @@ RSpec.describe 'Logs', type: :request do
       it 'returns 200 HTTP Status' do
         sign_in authenticated_service_admin
 
-        get logs_path
+        get audits_path
         expect(response).to have_http_status(:ok)
       end
     end

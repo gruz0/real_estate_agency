@@ -1,9 +1,0 @@
-ru:
-  views:
-    log:
-      index:
-        title: 'Список логов'
-      show:
-        title: 'Карточка лога #%{id}'
-      flash_messages:
-        log_was_not_found: 'Запись не существует'

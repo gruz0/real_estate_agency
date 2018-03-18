@@ -1,4 +1,6 @@
 class Competitor < ApplicationRecord
+  audited
+
   PHONE_NUMBERS_REGEX = /\A[+\d]+\z/
 
   validates :phone_numbers, presence: true, length: { minimum: 6 }

@@ -47,8 +47,8 @@ html lang="en"
 
             - if current_employee.service_admin?
               li.nav-item
-                = link_to(logs_path, class: 'nav-link') do
-                  = t('views.layout.menu.logs')
+                = link_to(audits_path, class: 'nav-link') do
+                  = t('views.layout.menu.audits')
 
             li.nav-item
               = link_to(destroy_employee_session_path, method: :delete, class: 'nav-link') do

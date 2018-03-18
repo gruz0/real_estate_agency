@@ -1,4 +1,6 @@
 class Street < ApplicationRecord
+  audited
+
   belongs_to :city
   has_many :address, dependent: :restrict_with_error
 

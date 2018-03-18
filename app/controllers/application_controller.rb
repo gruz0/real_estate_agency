@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_employee!
-  after_action :log_action, only: %i[create update destroy], unless: -> { Rails.env.test? }
 
   protected
 
@@ -44,23 +43,5 @@ class ApplicationController < ActionController::Base
     else
       redirect_to redirect_url, alert: entity.errors.full_messages.join
     end
-  end
-
-  private
-
-  def log_action
-    form_params = params.to_unsafe_h.slice(@entity.class.name.downcase)
-
-    log = Log.create!(
-      employee_id: current_employee.id,
-      controller: self.class.to_s,
-      action: action_name,
-      entity_id: @entity.id.to_i,
-      params: form_params,
-      error_messages: @entity.errors.messages.blank? ? nil : @entity.errors.full_messages.join(', '),
-      flash_notice: flash[:notice]
-    )
-
-    Rails.logger.debug log.inspect if Rails.env.development?
   end
 end

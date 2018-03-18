@@ -1,4 +1,6 @@
 class Estate < ApplicationRecord
+  audited
+
   PHONE_NUMBERS_REGEX = /\A[+\d]+\z/
 
   enum status: { archived: 0, active: 1 }

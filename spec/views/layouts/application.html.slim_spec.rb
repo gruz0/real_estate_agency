@@ -17,7 +17,7 @@ RSpec.describe 'layouts/application', type: :view do
 
         assert_select 'ul.navbar-nav > li.nav-item' do |li|
           expect(li).to have_link(I18n.t('views.layout.menu.estates'), href: estates_path)
-          expect(li).not_to have_link(I18n.t('views.layout.menu.logs'), href: logs_path)
+          expect(li).not_to have_link(I18n.t('views.layout.menu.audits'), href: audits_path)
         end
 
         assert_select 'ul.navbar-nav > li.dropdown' do |dropdown|
@@ -49,7 +49,7 @@ RSpec.describe 'layouts/application', type: :view do
 
       assert_select 'body > .navbar' do |_navbar|
         assert_select 'ul.navbar-nav > li.nav-item' do |li|
-          expect(li).not_to have_link(I18n.t('views.layout.menu.logs'), href: logs_path)
+          expect(li).not_to have_link(I18n.t('views.layout.menu.audits'), href: audits_path)
         end
 
         assert_select 'ul.navbar-nav > li.dropdown' do |_dropdown|
@@ -76,7 +76,7 @@ RSpec.describe 'layouts/application', type: :view do
         end
 
         assert_select 'ul.navbar-nav > li.nav-item' do |li|
-          expect(li).to have_link(I18n.t('views.layout.menu.logs'), href: logs_path)
+          expect(li).to have_link(I18n.t('views.layout.menu.audits'), href: audits_path)
         end
       end
     end

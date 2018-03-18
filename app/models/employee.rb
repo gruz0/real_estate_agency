@@ -1,4 +1,6 @@
 class Employee < ApplicationRecord
+  audited except: :password
+
   scope :ordered_by_full_name, -> { reorder('last_name ASC, first_name ASC') }
 
   enum role: { user: 0, admin: 1, service_admin: 9 }

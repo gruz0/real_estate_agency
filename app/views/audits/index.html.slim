@@ -1,0 +1,31 @@
+.row.col-lg-12
+  .col-lg-9
+    h1 = t('views.audit.index.title')
+
+table.table.table-sm.table-hover
+  thead.thead-light
+    tr
+      th.id scope="col" = t('views.audit.index.id')
+      th scope="col" = t('views.audit.index.user_id')
+      th scope="col" = t('views.audit.index.auditable_type')
+      th scope="col" = t('views.audit.index.auditable_id')
+      th scope="col" = t('views.audit.index.action')
+      th.created-at scope="col" = t('views.audit.index.created_at')
+      th.action scope="col"
+
+  tbody
+    - @audits.each do |audit|
+      tr
+        th scope="row" = audit.id
+        td = audit.user_id
+        td = audit.auditable_type
+        td = audit.auditable_id
+        td = audit.action
+        td = l(audit.created_at, format: :short)
+        td = link_to t('views.show'), audit_path(audit), class: 'btn btn-sm btn-secondary'
+
+  tfoot
+    tr
+      td colspan=7
+        .container.pagination.justify-content-center
+          = paginate(@audits, theme: 'twitter-bootstrap-4')

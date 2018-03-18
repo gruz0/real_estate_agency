@@ -1,4 +1,6 @@
 class Client < ApplicationRecord
+  audited
+
   scope :ordered_by_full_name, -> { reorder('full_name ASC') }
 
   PHONE_NUMBERS_REGEX = /\A[+\d]+\z/

@@ -1,0 +1,16 @@
+ru:
+  views:
+    audit:
+      index:
+        title: 'Список логов'
+        id: 'ID'
+        auditable_type: 'Запись'
+        auditable_id: 'ID записи'
+        user_id: 'Сотрудник'
+        action: 'Действие'
+        audited_changes: 'Изменения'
+        created_at: 'Дата создания'
+      show:
+        title: 'Карточка лога #%{id}'
+      flash_messages:
+        audit_was_not_found: 'Запись не существует'
