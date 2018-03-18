@@ -38,4 +38,26 @@ RSpec.describe AuditsHelper, type: :helper do
       end
     end
   end
+
+  describe '#audit_row_class_depends_on' do
+    it 'returns empty string on create action' do
+      create(:city)
+
+      expect(helper.audit_row_class_depends_on(audit.action)).to eq('')
+    end
+
+    it 'returns empty string on update action' do
+      city = create(:city)
+      city.update_attributes!(name: 'Test')
+
+      expect(helper.audit_row_class_depends_on(audit.action)).to eq('')
+    end
+
+    it 'returns table-danger on destroy action' do
+      city = create(:city)
+      city.destroy
+
+      expect(helper.audit_row_class_depends_on(audit.action)).to eq('table-danger')
+    end
+  end
 end

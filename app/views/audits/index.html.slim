@@ -16,7 +16,7 @@ table.table.table-sm.table-hover
 
   tbody
     - @audits.each do |audit|
-      tr
+      tr class=(audit_row_class_depends_on(audit.action))
         th scope="row" = audit.id
         td = render_audited_employee_for(audit)
         td = audit.auditable_type
