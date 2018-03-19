@@ -19,5 +19,14 @@ RSpec.describe 'Employees', type: :request do
         expect(response).to have_http_status(:ok)
       end
     end
+
+    context 'when user is a service_admin' do
+      it 'returns 200 HTTP Status' do
+        sign_in authenticated_service_admin
+
+        get employees_path
+        expect(response).to have_http_status(:ok)
+      end
+    end
   end
 end
