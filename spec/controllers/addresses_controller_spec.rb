@@ -10,66 +10,102 @@ RSpec.describe AddressesController, type: :controller do
   end
 
   describe 'GET #index' do
-    login_employee
+    context 'when user is an employee' do
+      login_employee
+      include_examples :addresses_controller_forbidden_index_action_for_non_service_admin
+    end
 
-    it 'returns a success response' do
-      address
-      get :index, params: {}
-      expect(response).to be_success
+    context 'when user is an admin' do
+      login_admin
+      include_examples :addresses_controller_forbidden_index_action_for_non_service_admin
+    end
+
+    context 'when user is a service_admin' do
+      login_service_admin
+
+      it 'returns a success response' do
+        address
+        get :index, params: {}
+        expect(response).to be_success
+      end
     end
   end
 
   describe 'GET #show' do
-    login_employee
-
-    it 'returns a success response' do
-      get :show, params: { id: address.to_param }
-      expect(response).to be_success
+    context 'when user is an employee' do
+      login_employee
+      include_examples :addresses_controller_forbidden_show_action_for_non_service_admin
     end
 
-    it 'redirects to index page if record was not found' do
-      get :show, params: { id: 42 }
-      expect(response).to be_redirect
-      expect(flash[:alert]).to eq(I18n.t('views.address.flash_messages.address_was_not_found'))
+    context 'when user is an admin' do
+      login_admin
+      include_examples :addresses_controller_forbidden_show_action_for_non_service_admin
+    end
+
+    context 'when user is a service_admin' do
+      login_service_admin
+
+      it 'returns a success response' do
+        get :show, params: { id: address.to_param }
+        expect(response).to be_success
+      end
+
+      it 'redirects to index page if record was not found' do
+        get :show, params: { id: 42 }
+        expect(response).to be_redirect
+        expect(flash[:alert]).to eq(I18n.t('views.address.flash_messages.address_was_not_found'))
+      end
     end
   end
 
   describe 'DELETE #destroy' do
-    login_employee
-
-    context 'with valid params' do
-      it 'destroys the requested address' do
-        address
-        expect do
-          delete :destroy, params: { id: address.to_param }
-        end.to change(Address, :count).by(-1)
-      end
-
-      it 'redirects to the cities list' do
-        delete :destroy, params: { id: address.to_param }
-        expect(response).to redirect_to(addresses_url)
-      end
-
-      it 'renders flash notice' do
-        delete :destroy, params: { id: address.to_param }
-        expect(flash[:notice]).to eq(I18n.t('views.address.flash_messages.address_was_successfully_destroyed'))
-      end
+    context 'when user is an employee' do
+      login_employee
+      include_examples :addresses_controller_forbidden_destroy_action_for_non_service_admin
     end
 
-    context 'with invalid params' do
-      it 'redirects to index page if address was not found' do
-        delete :destroy, params: { id: 42 }
-        expect(response).to be_redirect
-        expect(flash[:alert]).to eq(I18n.t('views.address.flash_messages.address_was_not_found'))
+    context 'when user is an admin' do
+      login_admin
+      include_examples :addresses_controller_forbidden_destroy_action_for_non_service_admin
+    end
+
+    context 'when user is a service_admin' do
+      login_service_admin
+
+      context 'with valid params' do
+        it 'destroys the requested address' do
+          address
+          expect do
+            delete :destroy, params: { id: address.to_param }
+          end.to change(Address, :count).by(-1)
+        end
+
+        it 'redirects to the addresses list' do
+          delete :destroy, params: { id: address.to_param }
+          expect(response).to redirect_to(addresses_url)
+        end
+
+        it 'renders flash notice' do
+          delete :destroy, params: { id: address.to_param }
+          expect(flash[:notice]).to eq(I18n.t('views.address.flash_messages.address_was_successfully_destroyed'))
+        end
       end
 
-      it 'redirects to index page if dependent association exists' do
-        create(:estate, address: address)
+      context 'with invalid params' do
+        it 'redirects to index page if address was not found' do
+          delete :destroy, params: { id: 42 }
+          expect(response).to be_redirect
+          expect(flash[:alert]).to eq(I18n.t('views.address.flash_messages.address_was_not_found'))
+        end
 
-        delete :destroy, params: { id: address.to_param }
-        expect(response).to be_redirect
-        expect(flash[:alert])
-          .to eq(I18n.t('activerecord.errors.messages.restrict_dependent_destroy.has_many', record: :estate))
+        it 'redirects to index page if dependent association exists' do
+          create(:estate, address: address)
+
+          delete :destroy, params: { id: address.to_param }
+          expect(response).to be_redirect
+          expect(flash[:alert])
+            .to eq(I18n.t('activerecord.errors.messages.restrict_dependent_destroy.has_many', record: :estate))
+        end
       end
     end
   end

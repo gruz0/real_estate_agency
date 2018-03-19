@@ -3,6 +3,7 @@ class AddressesController < ApplicationController
     redirect_to addresses_path, alert: t('views.address.flash_messages.address_was_not_found')
   end
 
+  before_action :redirect_if_employee_is_not_service_admin
   before_action :set_address, only: %i[show destroy]
 
   def index
