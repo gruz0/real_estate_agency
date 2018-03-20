@@ -16,43 +16,7 @@ html lang="en"
         button.navbar-toggler type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"
           span.navbar-toggler-icon
 
-        #navbar.collapse.navbar-collapse
-          ul.navbar-nav
-            li.nav-item
-              = link_to(estates_path, class: 'nav-link') do
-                = t('views.layout.menu.estates')
-
-            li.nav-item.dropdown
-              a#navbar-dictionaries.nav-link.dropdown-toggle href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                = t('views.layout.menu.dictionaries')
-              .dropdown-menu aria-labelledby="navbar-dictionaries"
-                = link_to(clients_path, class: 'dropdown-item') do
-                  = t('views.layout.menu.clients')
-                - if current_employee.admin? || current_employee.service_admin?
-                  = link_to(employees_path, class: 'dropdown-item') do
-                    = t('views.layout.menu.employees')
-                = link_to(competitors_path, class: 'dropdown-item') do
-                  = t('views.layout.menu.competitors')
-                = link_to(estate_types_path, class: 'dropdown-item') do
-                  = t('views.layout.menu.estate_types')
-                = link_to(estate_materials_path, class: 'dropdown-item') do
-                  = t('views.layout.menu.estate_materials')
-                = link_to(estate_projects_path, class: 'dropdown-item') do
-                  = t('views.layout.menu.estate_projects')
-                = link_to(cities_path, class: 'dropdown-item') do
-                  = t('views.layout.menu.cities')
-                - if current_employee.service_admin?
-                  = link_to(addresses_path, class: 'dropdown-item') do
-                    = t('views.layout.menu.addresses')
-
-            - if current_employee.service_admin?
-              li.nav-item
-                = link_to(audits_path, class: 'nav-link') do
-                  = t('views.layout.menu.audits')
-
-            li.nav-item
-              = link_to(destroy_employee_session_path, method: :delete, class: 'nav-link') do
-                = t('views.layout.menu.logout')
+        = render 'application/menu'
 
     .container-fluid
       .row.col-lg-12
