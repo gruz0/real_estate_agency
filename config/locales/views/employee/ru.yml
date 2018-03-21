@@ -10,6 +10,7 @@ ru:
         title: 'Редактирование сотрудника'
       show:
         title: 'Карточка сотрудника #%{id}'
+        latest_actions: 'Последние действия'
       flash_messages:
         employee_was_not_found: 'Сотрудник не существует'
         employee_was_successfully_created: 'Сотрудник был успешно создан'
