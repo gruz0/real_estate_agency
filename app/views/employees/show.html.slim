@@ -1,44 +1,72 @@
-h1
-  = t('views.employee.show.title', id: @employee.id)
+.card-deck
+  .card.col-sm-5
+    .card-body
+      h3.card-title
+        = t('views.employee.show.title', id: @employee.id)
 
-table.table.table-sm.table-hover
-  tbody
-    tr
-      th.w-25 scope="row"
-        = Employee.human_attribute_name(:fullname)
-      td
-        = person_fullname(@employee)
+      table.table.table-sm.table-hover
+        tbody
+          tr
+            th.w-30 scope="row"
+              = Employee.human_attribute_name(:fullname)
+            td
+              = person_fullname(@employee)
 
-    tr
-      th scope="row"
-        = Employee.human_attribute_name(:phone_numbers)
-      td
-        = @employee.phone_numbers
+          tr
+            th scope="row"
+              = Employee.human_attribute_name(:phone_numbers)
+            td
+              = @employee.phone_numbers
 
-    tr
-      th scope="row"
-        = Employee.human_attribute_name(:email)
-      td
-        = @employee.email
+          tr
+            th scope="row"
+              = Employee.human_attribute_name(:email)
+            td
+              = @employee.email
 
-    tr
-      th scope="row"
-        = Employee.human_attribute_name(:role)
-      td
-        = @employee.role
+          tr
+            th scope="row"
+              = Employee.human_attribute_name(:role)
+            td
+              = @employee.role
 
-    tr
-      th scope="row"
-        = Employee.human_attribute_name(:created_at)
-      td
-        = l(@employee.created_at, format: :short)
+          tr
+            th scope="row"
+              = Employee.human_attribute_name(:created_at)
+            td
+              = l(@employee.created_at, format: :short)
 
-    tr
-      th scope="row"
-        = Employee.human_attribute_name(:updated_at)
-      td
-        = l(@employee.updated_at, format: :short)
+          tr
+            th scope="row"
+              = Employee.human_attribute_name(:updated_at)
+            td
+              = l(@employee.updated_at, format: :short)
 
-.btn-group role="group" aria-label="#{t('views.action')}"
-  = link_to t('views.back'), employees_path, class: 'btn btn-secondary'
-  = link_to t('views.edit'), edit_employee_path(@employee), class: 'btn btn-warning'
+      .btn-group role="group" aria-label="#{t('views.action')}"
+        = link_to t('views.back'), employees_path, class: 'btn btn-secondary'
+        = link_to t('views.edit'), edit_employee_path(@employee), class: 'btn btn-warning'
+
+  .card.col-sm-7
+    .card-body
+      h3.card-title
+        = t('views.employee.show.recent_actions')
+
+      table.table.table-sm.table-hover.audits
+        thead.thead-light
+          tr
+            th scope="col" = t('views.audit.index.auditable_type')
+            th scope="col" = t('views.audit.index.auditable_id')
+            th scope="col" = t('views.audit.index.action')
+            th scope="col" width="30%" = t('views.audit.index.audited_changes')
+            th scope="col" = t('views.audit.index.created_at')
+        tbody
+          - Audited::Audit.order(id: :desc).select { |a| a.user_id == @employee.id }.each do |audit|
+            tr
+              th scope="row" = audit.auditable_type
+              td = audit.auditable_id
+              td = audit.action
+              td
+                small
+                  code
+                    = audit.audited_changes
+              td = l(audit.created_at, format: :short)
