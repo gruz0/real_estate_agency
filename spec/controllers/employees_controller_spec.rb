@@ -96,7 +96,20 @@ RSpec.describe EmployeesController, type: :controller do
 
     context 'when user is an admin' do
       login_admin
-      include_examples :employees_controller_allow_edit_action_to_admins
+
+      context 'when editable user is an employee' do
+        include_examples :employees_controller_allow_edit_action_to_admins
+      end
+
+      context 'when editable user is a service_admin' do
+        it 'redirects to root_path with alert' do
+          employee.update_attributes!(role: :service_admin)
+
+          get :edit, params: { id: employee.to_param }
+          expect(response).to be_redirect
+          expect(flash[:alert]).to eq(I18n.t('errors.messages.forbidden'))
+        end
+      end
     end
 
     context 'when user is a service_admin' do
@@ -118,7 +131,18 @@ RSpec.describe EmployeesController, type: :controller do
 
     context 'when user is an admin' do
       login_admin
-      include_examples :employees_controller_allow_create_action_to_admins
+
+      context 'when new user is an employee' do
+        include_examples :employees_controller_allow_create_action_to_admins
+      end
+
+      context 'when new user is a service_admin' do
+        it 'redirects to root_path with alert' do
+          post :create, params: { employee: valid_attributes.merge(role: :service_admin) }
+          expect(response).to be_redirect
+          expect(flash[:alert]).to eq(I18n.t('errors.messages.forbidden'))
+        end
+      end
     end
 
     context 'when user is a service_admin' do
@@ -140,7 +164,44 @@ RSpec.describe EmployeesController, type: :controller do
 
     context 'when user is an admin' do
       login_admin
-      include_examples :employees_controller_allow_update_action_to_admins
+
+      context 'when updateable user is an employee' do
+        include_examples :employees_controller_allow_update_action_to_admins
+      end
+
+      context 'when updateable user is a service_admin' do
+        it 'redirects to root_path with alert' do
+          new_attributes = {
+            last_name: FFaker::NameRU.last_name,
+            first_name: FFaker::NameRU.first_name,
+            middle_name: FFaker::NameRU.patronymic,
+            phone_numbers: FFaker::PhoneNumber.phone_number,
+            role: 'service_admin'
+          }
+
+          put :update, params: { id: employee.to_param, employee: new_attributes }
+          expect(response).to be_redirect
+          expect(flash[:alert]).to eq(I18n.t('errors.messages.forbidden'))
+        end
+      end
+
+      context 'when change role to service_admin for updating user' do
+        it 'redirects to root_path with alert' do
+          employee.update_attributes!(role: :service_admin)
+
+          new_attributes = {
+            last_name: FFaker::NameRU.last_name,
+            first_name: FFaker::NameRU.first_name,
+            middle_name: FFaker::NameRU.patronymic,
+            phone_numbers: FFaker::PhoneNumber.phone_number,
+            role: 'service_admin'
+          }
+
+          put :update, params: { id: employee.to_param, employee: new_attributes }
+          expect(response).to be_redirect
+          expect(flash[:alert]).to eq(I18n.t('errors.messages.forbidden'))
+        end
+      end
     end
 
     context 'when user is a service_admin' do
@@ -162,7 +223,20 @@ RSpec.describe EmployeesController, type: :controller do
 
     context 'when user is an admin' do
       login_admin
-      include_examples :employees_controller_allow_destroy_action_to_admins
+
+      context 'when destroyable user is an employee' do
+        include_examples :employees_controller_allow_destroy_action_to_admins
+      end
+
+      context 'when destroyable user is a service_admin' do
+        it 'redirects to root_path with alert' do
+          employee.update_attributes!(role: :service_admin)
+
+          delete :destroy, params: { id: employee.to_param }
+          expect(response).to be_redirect
+          expect(flash[:alert]).to eq(I18n.t('errors.messages.forbidden'))
+        end
+      end
     end
 
     context 'when user is a service_admin' do

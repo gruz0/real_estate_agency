@@ -4,7 +4,9 @@ class EmployeesController < ApplicationController
   end
 
   before_action :redirect_if_employee_is_not_admin_or_service_admin
+  before_action :redirect_if_admin_try_to_set_user_role_to_service_admin, only: %i[create update]
   before_action :set_employee, only: %i[show edit update destroy]
+  before_action :redirect_if_admin_try_to_edit_service_admin, only: %i[edit update destroy]
   before_action :allow_without_password, only: [:update]
 
   include PeopleHelper
@@ -34,6 +36,18 @@ class EmployeesController < ApplicationController
   end
 
   private
+
+  def redirect_if_admin_try_to_set_user_role_to_service_admin
+    return if current_employee.service_admin?
+    return unless employee_params[:role] == 'service_admin'
+    redirect_to(root_path, alert: t('errors.messages.forbidden'))
+  end
+
+  def redirect_if_admin_try_to_edit_service_admin
+    return if current_employee.service_admin?
+    return unless @employee.service_admin?
+    redirect_to(root_path, alert: t('errors.messages.forbidden'))
+  end
 
   def set_employee
     @employee = Employee.find(params[:id])
