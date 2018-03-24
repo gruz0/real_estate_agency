@@ -228,6 +228,10 @@ RSpec.describe EmployeesController, type: :controller do
         include_examples :employees_controller_allow_destroy_action_to_admins
       end
 
+      context 'when it is a last employee' do
+        include_examples :employees_controller_prevent_to_destroy_last_employee
+      end
+
       context 'when destroyable user is a service_admin' do
         it 'redirects to root_path with alert' do
           employee.update_attributes!(role: :service_admin)
@@ -241,7 +245,14 @@ RSpec.describe EmployeesController, type: :controller do
 
     context 'when user is a service_admin' do
       login_service_admin
-      include_examples :employees_controller_allow_destroy_action_to_admins
+
+      context 'when destroyable user is an employee' do
+        include_examples :employees_controller_allow_destroy_action_to_admins
+      end
+
+      context 'when it is a last employee' do
+        include_examples :employees_controller_prevent_to_destroy_last_employee
+      end
     end
   end
 end

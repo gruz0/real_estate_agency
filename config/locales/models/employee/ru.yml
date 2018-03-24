@@ -4,6 +4,7 @@ ru:
       employee: 'Сотрудник'
     attributes:
       employee:
+        last_employee: 'Последний сотрудник'
         email: 'Электронная почта'
         password: 'Пароль'
         password_confirmation: 'Подтверждение пароля'
@@ -16,3 +17,6 @@ ru:
         role: 'Роль'
         created_at: 'Дата создания'
         updated_at: 'Дата обновления'
+    errors:
+      messages:
+        unable_to_be_destroyed: не может быть удалён

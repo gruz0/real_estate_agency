@@ -26,6 +26,7 @@ RSpec.describe AuditsHelper, type: :helper do
 
     context 'when employee destroyed' do
       it 'returns label Destroyed' do
+        create(:employee)
         employee = create(:employee, last_name: 'Иванов', first_name: 'Иван', middle_name: 'Иванович')
 
         Audited.audit_class.as_user(employee) { create(:city) }
