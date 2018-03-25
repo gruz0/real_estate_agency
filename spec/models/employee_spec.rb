@@ -81,6 +81,20 @@ RSpec.describe Employee, type: :model do
     end
   end
 
+  describe 'callbacks' do
+    it { expect(person).to callback(:prevent_to_destroy_last_employee).before(:destroy) }
+
+    describe '#prevent_to_destroy_last_employee' do
+      it 'has error for :last_employee attribute' do
+        last_employee = create(:employee)
+        last_employee.destroy
+
+        expect(last_employee.errors[:last_employee])
+          .to include(I18n.t('activerecord.errors.messages.unable_to_be_destroyed'))
+      end
+    end
+  end
+
   describe 'scopes' do
     it '.ordered_by_full_name returns employees ordered by full_name ascending' do
       employee1 = create(:employee, last_name: 'Сергеев', first_name: 'Алексей')
