@@ -228,8 +228,10 @@ RSpec.describe EmployeesController, type: :controller do
         include_examples :employees_controller_allow_destroy_action_to_admins
       end
 
-      context 'when it is a last employee' do
-        include_examples :employees_controller_prevent_to_destroy_last_employee
+      context 'when try to destroy himself' do
+        let(:current_employee) { authenticated_admin }
+
+        include_examples :employees_controller_prevent_to_destroy_yourself
       end
 
       context 'when destroyable user is a service_admin' do
@@ -250,8 +252,10 @@ RSpec.describe EmployeesController, type: :controller do
         include_examples :employees_controller_allow_destroy_action_to_admins
       end
 
-      context 'when it is a last employee' do
-        include_examples :employees_controller_prevent_to_destroy_last_employee
+      context 'when try to destroy himself' do
+        let(:current_employee) { authenticated_service_admin }
+
+        include_examples :employees_controller_prevent_to_destroy_yourself
       end
     end
   end

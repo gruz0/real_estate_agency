@@ -154,12 +154,10 @@ RSpec.shared_examples :employees_controller_allow_destroy_action_to_admins do
   end
 end
 
-RSpec.shared_examples :employees_controller_prevent_to_destroy_last_employee do
+RSpec.shared_examples :employees_controller_prevent_to_destroy_yourself do
   it 'redirects to root_path with alert' do
-    delete :destroy, params: { id: Employee.first.to_param }
+    delete :destroy, params: { id: current_employee.to_param }
     expect(response).to be_redirect
-    expect(flash[:alert])
-      .to eq(I18n.t('activerecord.attributes.employee.last_employee') + ' ' + \
-             I18n.t('activerecord.errors.messages.unable_to_be_destroyed'))
+    expect(flash[:alert]).to eq(I18n.t('employees.destroy.you_can_not_destroy_yourself'))
   end
 end

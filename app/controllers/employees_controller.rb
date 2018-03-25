@@ -7,6 +7,7 @@ class EmployeesController < ApplicationController
   before_action :redirect_if_admin_try_to_set_user_role_to_service_admin, only: %i[create update]
   before_action :set_employee, only: %i[show edit update destroy]
   before_action :redirect_if_admin_try_to_edit_service_admin, only: %i[edit update destroy]
+  before_action :redirect_if_admin_or_service_admin_try_to_destroy_himself, only: %i[destroy]
   before_action :allow_without_password, only: [:update]
 
   include PeopleHelper
@@ -47,6 +48,11 @@ class EmployeesController < ApplicationController
     return if current_employee.service_admin?
     return unless @employee.service_admin?
     redirect_to(root_path, alert: t('errors.messages.forbidden'))
+  end
+
+  def redirect_if_admin_or_service_admin_try_to_destroy_himself
+    return unless @employee.eql?(current_employee)
+    redirect_to(root_path, alert: t('.you_can_not_destroy_yourself'))
   end
 
   def set_employee
