@@ -42,6 +42,12 @@ module EstatesHelper
   end
 
   def address_full_name_for(estate)
-    estate.address.full_name + (estate.apartment_number.present? ? ", #{estate.apartment_number}" : '')
+    estate.address.full_name + apartment_number_for(estate)
+  end
+
+  private
+
+  def apartment_number_for(estate)
+    estate.apartment_number? ? ", #{estate.apartment_number}" : ''
   end
 end
