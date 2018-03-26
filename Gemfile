@@ -27,7 +27,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'ffaker'
-  gem 'rspec-rails', '~> 3.7'
 end
 
 group :development do
@@ -43,6 +42,7 @@ group :test do
   gem 'bundle-audit', require: false
   gem 'capybara'
   gem 'rails_best_practices', require: false
+  gem 'rspec-rails', '~> 3.7'
   gem 'rubocop', require: false
   gem 'rubocop-rspec'
   gem 'selenium-webdriver'
