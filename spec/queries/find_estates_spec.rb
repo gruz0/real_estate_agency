@@ -41,7 +41,7 @@ RSpec.describe FindEstates do
     it 'returns query with #filter_by_floor_from and #filter_by_floor_to' do
       params[:floor_from] = 35
       params[:floor_to] = 42
-      expect(find_estates.to_sql).to include('(estates.floor >= 35 AND estates.floor <= 42)')
+      expect(find_estates.to_sql).to include('(`estates`.`floor` BETWEEN 35 AND 42)')
     end
 
     it 'returns query with #filter_by_price_from' do
@@ -57,7 +57,7 @@ RSpec.describe FindEstates do
     it 'returns query with #filter_by_price_from and #filter_by_price_to' do
       params[:price_from] = 35
       params[:price_to] = 42
-      expect(find_estates.to_sql).to include('(estates.price >= 35 AND estates.price <= 42)')
+      expect(find_estates.to_sql).to include('(`estates`.`price` BETWEEN 35 AND 42)')
     end
 
     it 'returns query with #filter_by_client_phone_numbers' do

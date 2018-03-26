@@ -33,31 +33,11 @@ class FindEstates
   end
 
   def filter_by_floor(scoped, floor_from = nil, floor_to = nil)
-    return scoped if floor_from.blank? && floor_to.blank?
-
-    if floor_from.present?
-      if floor_to.present?
-        scoped.where('(estates.floor >= ? AND estates.floor <= ?)', floor_from, floor_to)
-      else
-        scoped.where('estates.floor >= ?', floor_from)
-      end
-    else
-      scoped.where('estates.floor <= ?', floor_to)
-    end
+    filter_from_to(scoped, :floor, floor_from, floor_to)
   end
 
   def filter_by_price(scoped, price_from = nil, price_to = nil)
-    return scoped if price_from.blank? && price_to.blank?
-
-    if price_from.present?
-      if price_to.present?
-        scoped.where('(estates.price >= ? AND estates.price <= ?)', price_from, price_to)
-      else
-        scoped.where('estates.price >= ?', price_from)
-      end
-    else
-      scoped.where('estates.price <= ?', price_to)
-    end
+    filter_from_to(scoped, :price, price_from, price_to)
   end
 
   def filter_by_client_phone_numbers(scoped, client_phone_numbers = nil)
@@ -71,5 +51,19 @@ class FindEstates
 
   def paginate(scoped, page_number = 0)
     scoped.page(page_number)
+  end
+
+  def filter_from_to(scoped, column, from, to)
+    return scoped if from.blank? && to.blank?
+
+    if from.present?
+      if to.present?
+        scoped.where(estates: { column.to_sym => (from..to) })
+      else
+        scoped.where("estates.#{column} >= ?", from)
+      end
+    else
+      scoped.where("estates.#{column} <= ?", to)
+    end
   end
 end
