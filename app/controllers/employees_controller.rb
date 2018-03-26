@@ -60,8 +60,15 @@ class EmployeesController < ApplicationController
   end
 
   def employee_params
-    params.require(:employee).permit(:email, :password, :password_confirmation,
-                                     :first_name, :last_name, :middle_name, :phone_numbers, :role)
+    permitted_params = params.require(:employee)
+                             .permit(:email, :password, :password_confirmation,
+                                     :first_name, :last_name, :middle_name, :phone_numbers)
+
+    if current_employee.admin? || current_employee.service_admin?
+      permitted_params[:role] = params[:employee][:role] if params[:employee][:role]
+    end
+
+    permitted_params
   end
 
   def allow_without_password
