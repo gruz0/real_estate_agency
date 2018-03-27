@@ -1,0 +1,10 @@
+---
+
+InstanceVariableAssumption:
+  enabled: false
+
+IrresponsibleModule:
+  enabled: false
+
+TooManyStatements:
+  max_statements: 10
