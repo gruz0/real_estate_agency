@@ -31,6 +31,7 @@ Metrics/LineLength:
 Metrics/BlockLength:
   Exclude:
     - config/environments/*.rb
+    - lib/tasks/auto_annotate_models.rake
     - spec/**/*.rb
 
 Metrics/MethodLength:
