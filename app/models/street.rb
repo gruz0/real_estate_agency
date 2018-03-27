@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: streets
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)      not null
+#  city_id    :integer          not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_streets_on_city_id  (city_id)
+#  index_streets_on_name     (name)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (city_id => cities.id)
+#
+
 class Street < ApplicationRecord
   audited
 

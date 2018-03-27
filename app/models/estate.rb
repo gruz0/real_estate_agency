@@ -1,3 +1,52 @@
+# == Schema Information
+#
+# Table name: estates
+#
+#  id                      :integer          not null, primary key
+#  estate_type_id          :integer          not null
+#  estate_project_id       :integer          not null
+#  estate_material_id      :integer          not null
+#  address_id              :integer          not null
+#  responsible_employee_id :integer          not null
+#  created_by_employee_id  :integer          not null
+#  updated_by_employee_id  :integer
+#  number_of_rooms         :integer
+#  floor                   :integer
+#  number_of_floors        :integer
+#  total_square_meters     :float(24)
+#  kitchen_square_meters   :float(24)
+#  description             :text(65535)
+#  apartment_number        :string(255)
+#  price                   :integer          not null
+#  status                  :integer          default("active"), not null
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  client_full_name        :string(255)      default(""), not null
+#  client_phone_numbers    :string(255)      default(""), not null
+#
+# Indexes
+#
+#  index_estates_on_address_id               (address_id)
+#  index_estates_on_created_by_employee_id   (created_by_employee_id)
+#  index_estates_on_estate_material_id       (estate_material_id)
+#  index_estates_on_estate_project_id        (estate_project_id)
+#  index_estates_on_estate_type_id           (estate_type_id)
+#  index_estates_on_price                    (price)
+#  index_estates_on_responsible_employee_id  (responsible_employee_id)
+#  index_estates_on_status                   (status)
+#  index_estates_on_updated_by_employee_id   (updated_by_employee_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (address_id => addresses.id)
+#  fk_rails_...  (created_by_employee_id => employees.id)
+#  fk_rails_...  (estate_material_id => estate_materials.id)
+#  fk_rails_...  (estate_project_id => estate_projects.id)
+#  fk_rails_...  (estate_type_id => estate_types.id)
+#  fk_rails_...  (responsible_employee_id => employees.id)
+#  fk_rails_...  (updated_by_employee_id => employees.id)
+#
+
 class Estate < ApplicationRecord
   audited
 

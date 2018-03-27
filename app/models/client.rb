@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: clients
+#
+#  id            :integer          not null, primary key
+#  full_name     :string(255)      not null
+#  phone_numbers :string(255)      not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+# Indexes
+#
+#  index_clients_on_full_name      (full_name)
+#  index_clients_on_phone_numbers  (phone_numbers)
+#
+
 class Client < ApplicationRecord
   audited
 
