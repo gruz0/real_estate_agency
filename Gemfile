@@ -30,6 +30,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'annotate', git: 'https://github.com/ctran/annotate_models.git'
   gem 'better_errors'
   gem 'letter_opener'
   gem 'rails-erd'
