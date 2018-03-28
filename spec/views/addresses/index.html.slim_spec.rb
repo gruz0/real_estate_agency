@@ -10,12 +10,13 @@ RSpec.describe 'addresses/index', type: :view do
     ]
   end
 
-  it 'renders a list of addresses' do
+  it 'renders page with a title and a list of addresses' do
     create(:estate, address: addresses.first)
     assign(:addresses, Kaminari.paginate_array(addresses).page(1))
 
-    render
+    render template: 'addresses/index', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.address.index.title'), count: 1
     assert_select 'h1', text: I18n.t('views.address.index.title'), count: 1
 
     assert_select 'table' do

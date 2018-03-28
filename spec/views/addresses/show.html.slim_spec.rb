@@ -8,7 +8,11 @@ RSpec.describe 'addresses/show', type: :view do
   it 'renders attributes in <p>' do
     assign(:address, address)
 
-    render
+    render template: 'addresses/show', layout: 'layouts/application'
+
+    assert_select 'title', text: I18n.t('views.address.show.title',
+                                        id: address.id, city: city.name, street: street.name),
+                           count: 1
 
     expect(rendered).to match(I18n.t('views.address.show.title', id: address.id, city: city.name, street: street.name))
 
