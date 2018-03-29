@@ -6,8 +6,9 @@ RSpec.describe 'estate_materials/edit', type: :view do
   it 'renders the edit estate_material form' do
     assign(:estate_material, estate_material)
 
-    render
+    render template: 'estate_materials/edit', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.estate_material.edit.title'), count: 1
     assert_select 'h1', text: I18n.t('views.estate_material.edit.title'), count: 1
 
     assert_select 'form[action=?][method=?]', estate_material_path(estate_material), 'post' do
