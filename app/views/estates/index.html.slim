@@ -1,6 +1,9 @@
+- title = t('views.estate.index.title')
+- content_for :title, title
+
 .row.col-lg-12
   .col-lg-9
-    h1 = t('views.estate.index.title')
+    h1 = title
   .col-lg-3
     = link_to t('views.estate.index.new'), new_estate_path, class: 'btn btn-primary btn-lg float-right', role: 'button'
 

@@ -38,8 +38,9 @@ RSpec.describe 'estates/index', type: :view do
     allow(view).to receive(:current_employee).and_return(employee)
     assign(:estates, Kaminari.paginate_array(estates).page(1))
 
-    render
+    render template: 'estates/index', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.estate.index.title'), count: 1
     assert_select 'h1', text: I18n.t('views.estate.index.title'), count: 1
 
     expect(response.body).to have_link(I18n.t('views.estate.index.new'), href: new_estate_path)

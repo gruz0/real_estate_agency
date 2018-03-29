@@ -1,5 +1,7 @@
-h1
-  = t('views.estate.show.title', id: @estate.id)
+- title = t('views.estate.show.title', id: @estate.id)
+- content_for :title, title
+
+h1 = title
 
 table.table.table-sm.table-hover
   tbody

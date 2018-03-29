@@ -37,8 +37,9 @@ RSpec.describe 'estates/show', type: :view do
   it 'renders attributes in <p>' do
     assign(:estate, estate)
 
-    render
+    render template: 'estates/show', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.estate.show.title', id: estate.id), count: 1
     expect(response.body).to match(I18n.t('views.estate.show.title', id: estate.id))
 
     expect(response.body).to match(/Нефтеюганск, Ленина, 9а, 55/)
