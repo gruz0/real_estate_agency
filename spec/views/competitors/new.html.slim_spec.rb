@@ -6,8 +6,9 @@ RSpec.describe 'competitors/new', type: :view do
   it 'renders new competitor form' do
     assign(:competitor, competitor)
 
-    render
+    render template: 'competitors/new', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.competitor.new.title'), count: 1
     assert_select 'h1', text: I18n.t('views.competitor.new.title'), count: 1
 
     assert_select 'form[action=?][method=?]', competitors_path, 'post' do

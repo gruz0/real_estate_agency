@@ -6,8 +6,9 @@ RSpec.describe 'competitors/edit', type: :view do
   it 'renders the edit competitor form' do
     assign(:competitor, competitor)
 
-    render
+    render template: 'competitors/edit', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.competitor.edit.title'), count: 1
     assert_select 'h1', text: I18n.t('views.competitor.edit.title'), count: 1
 
     assert_select 'form[action=?][method=?]', competitor_path(competitor), 'post' do

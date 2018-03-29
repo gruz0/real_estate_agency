@@ -8,8 +8,9 @@ RSpec.describe 'competitors/show', type: :view do
   it 'renders attributes in <p>' do
     assign(:competitor, competitor)
 
-    render
+    render template: 'competitors/show', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.competitor.show.title', id: competitor.id), count: 1
     expect(rendered).to match(I18n.t('views.competitor.show.title', id: competitor.id))
 
     expect(rendered).to match(/Сергей/)

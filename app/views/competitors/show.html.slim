@@ -1,5 +1,7 @@
-h1
-  = t('views.competitor.show.title', id: @competitor.id)
+- title = t('views.competitor.show.title', id: @competitor.id)
+- content_for :title, title
+
+h1 = title
 
 table.table.table-sm.table-hover
   tbody

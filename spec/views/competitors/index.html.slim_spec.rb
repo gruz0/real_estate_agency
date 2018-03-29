@@ -12,8 +12,9 @@ RSpec.describe 'competitors/index', type: :view do
   it 'renders a list of competitors' do
     assign(:competitors, Kaminari.paginate_array(competitors).page(1))
 
-    render
+    render template: 'competitors/index', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.competitor.index.title'), count: 1
     assert_select 'h1', text: I18n.t('views.competitor.index.title'), count: 1
 
     expect(response.body).to have_link(I18n.t('views.competitor.index.new'), href: new_competitor_path)
