@@ -11,8 +11,9 @@ RSpec.describe 'cities/index', type: :view do
     3.times { |_| create(:street, city: city1) }
     4.times { |_| create(:street, city: city2) }
 
-    render
+    render template: 'cities/index', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.city.index.title'), count: 1
     assert_select 'h1', text: I18n.t('views.city.index.title'), count: 1
 
     expect(response.body).to have_link(I18n.t('views.city.index.new'), href: new_city_path)

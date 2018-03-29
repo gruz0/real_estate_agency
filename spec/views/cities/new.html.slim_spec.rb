@@ -4,8 +4,9 @@ RSpec.describe 'cities/new', type: :view do
   it 'renders new city form' do
     assign(:city, build(:city))
 
-    render
+    render template: 'cities/new', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.city.new.title'), count: 1
     assert_select 'h1', text: I18n.t('views.city.new.title'), count: 1
 
     assert_select 'form[action=?][method=?]', cities_path, 'post' do

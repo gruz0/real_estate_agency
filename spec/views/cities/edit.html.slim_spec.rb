@@ -6,8 +6,9 @@ RSpec.describe 'cities/edit', type: :view do
   it 'renders the edit city form' do
     assign(:city, city)
 
-    render
+    render template: 'cities/edit', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.city.edit.title'), count: 1
     assert_select 'h1', text: I18n.t('views.city.edit.title'), count: 1
 
     assert_select 'form[action=?][method=?]', city_path(city), 'post' do
