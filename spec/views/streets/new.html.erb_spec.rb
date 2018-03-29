@@ -9,8 +9,9 @@ RSpec.describe 'streets/new', type: :view do
     assign(:city, city)
     assign(:street, street)
 
-    render
+    render template: 'streets/new', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.street.new.title', city: city.name), count: 1
     assert_select 'h1', text: I18n.t('views.street.new.title', city: city.name), count: 1
 
     assert_select 'form[action=?][method=?]', city_streets_path(city), 'post' do

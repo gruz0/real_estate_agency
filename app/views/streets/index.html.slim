@@ -1,6 +1,9 @@
+- title = t('views.street.index.title', city: @city.name)
+- content_for :title, title
+
 .row.col-lg-12
   .col-lg-9
-    h1 = t('views.street.index.title', city: @city.name)
+    h1 = title
   .col-lg-3
     = link_to t('views.street.index.new'), new_city_street_path(@city), class: 'btn btn-primary btn-lg float-right', role: 'button'
 

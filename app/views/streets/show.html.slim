@@ -1,5 +1,7 @@
-h1
-  = t('views.street.show.title', id: @street.id, city: @city.name)
+- title = t('views.street.show.title', id: @street.id, city: @city.name)
+- content_for :title, title
+
+h1 = title
 
 table.table.table-sm.table-hover
   tbody

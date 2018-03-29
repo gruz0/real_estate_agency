@@ -8,8 +8,9 @@ RSpec.describe 'streets/show', type: :view do
     assign(:city, city)
     assign(:street, street)
 
-    render
+    render template: 'streets/show', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.street.show.title', id: street.id, city: city.name), count: 1
     expect(rendered).to match(I18n.t('views.street.show.title', id: street.id, city: city.name))
 
     expect(rendered).to match(/Нефтеюганск/)

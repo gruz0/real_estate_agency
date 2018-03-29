@@ -15,8 +15,9 @@ RSpec.describe 'streets/index', type: :view do
     assign(:streets, Kaminari.paginate_array(streets).page(1))
     assign(:city, city)
 
-    render
+    render template: 'streets/index', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.street.index.title', city: city.name), count: 1
     assert_select 'h1', text: I18n.t('views.street.index.title', city: city.name), count: 1
 
     expect(response.body).to have_link(I18n.t('views.street.index.new'), href: new_city_street_path(city))

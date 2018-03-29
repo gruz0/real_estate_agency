@@ -1,6 +1,9 @@
+- title = t('views.street.edit.title', city: @city.name)
+- content_for :title, title
+
 .row.col-lg-10
   .col-lg-9
-    h1 = t('views.street.edit.title', city: @city.name)
+    h1 = title
 
 .row.col-lg-10
   .col
