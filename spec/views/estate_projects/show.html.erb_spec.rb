@@ -6,8 +6,9 @@ RSpec.describe 'estate_projects/show', type: :view do
   it 'renders attributes in <p>' do
     assign(:estate_project, estate_project)
 
-    render
+    render template: 'estate_projects/show', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.estate_project.show.title', id: estate_project.id), count: 1
     expect(rendered).to match(I18n.t('views.estate_project.show.title', id: estate_project.id))
 
     expect(rendered).to match(/Уральский/)
