@@ -12,8 +12,9 @@ RSpec.describe 'clients/index', type: :view do
   it 'renders a list of clients' do
     assign(:clients, Kaminari.paginate_array(clients).page(1))
 
-    render
+    render template: 'clients/index', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.client.index.title'), count: 1
     assert_select 'h1', text: I18n.t('views.client.index.title'), count: 1
 
     expect(response.body).to have_link(I18n.t('views.client.index.new'), href: new_client_path)

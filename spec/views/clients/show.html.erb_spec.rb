@@ -8,8 +8,9 @@ RSpec.describe 'clients/show', type: :view do
   it 'renders attributes in <p>' do
     assign(:client, client)
 
-    render
+    render template: 'clients/show', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.client.show.title', id: client.id), count: 1
     expect(rendered).to match(I18n.t('views.client.show.title', id: client.id))
 
     expect(rendered).to match(/Иванов Олег Сергеевич/)

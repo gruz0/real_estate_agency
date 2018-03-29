@@ -6,8 +6,9 @@ RSpec.describe 'clients/new', type: :view do
   it 'renders new client form' do
     assign(:client, client)
 
-    render
+    render template: 'clients/new', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.client.new.title'), count: 1
     assert_select 'h1', text: I18n.t('views.client.new.title'), count: 1
 
     assert_select 'form[action=?][method=?]', clients_path, 'post' do
