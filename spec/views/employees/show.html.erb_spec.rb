@@ -16,8 +16,9 @@ RSpec.describe 'employees/show', type: :view do
       create(:address, street: street, building_number: '7а')
     end
 
-    render
+    render template: 'employees/show', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.employee.show.title', id: employee.id), count: 1
     expect(rendered).to match(I18n.t('views.employee.show.title', id: employee.id))
 
     expect(rendered).to match(/Иванов/)

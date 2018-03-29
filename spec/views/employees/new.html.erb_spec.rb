@@ -6,8 +6,9 @@ RSpec.describe 'employees/new', type: :view do
   it 'renders new employee form' do
     assign(:employee, employee)
 
-    render
+    render template: 'employees/new', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.employee.new.title'), count: 1
     assert_select 'h1', text: I18n.t('views.employee.new.title'), count: 1
 
     assert_select 'form[action=?][method=?]', employees_path, 'post' do

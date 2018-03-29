@@ -1,6 +1,9 @@
+- title = t('views.employee.index.title')
+- content_for :title, title
+
 .row.col-lg-12
   .col-lg-9
-    h1 = t('views.employee.index.title')
+    h1 = title
   .col-lg-3
     = link_to t('views.employee.index.new'), new_employee_path, class: 'btn btn-primary btn-lg float-right', role: 'button'
 

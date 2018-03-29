@@ -15,8 +15,9 @@ RSpec.describe 'employees/index', type: :view do
   it 'renders a list of employees' do
     assign(:employees, Kaminari.paginate_array(employees).page(1))
 
-    render
+    render template: 'employees/index', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.employee.index.title'), count: 1
     assert_select 'h1', text: I18n.t('views.employee.index.title'), count: 1
 
     expect(response.body).to have_link(I18n.t('views.employee.index.new'), href: new_employee_path)

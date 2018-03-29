@@ -1,8 +1,10 @@
+- title = t('views.employee.show.title', id: @employee.id)
+- content_for :title, title
+
 .card-deck
   .card.col-sm-5
     .card-body
-      h3.card-title
-        = t('views.employee.show.title', id: @employee.id)
+      h3.card-title = title
 
       table.table.table-sm.table-hover
         tbody
