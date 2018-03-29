@@ -8,8 +8,9 @@ RSpec.describe 'estate_types/index', type: :view do
   it 'renders a list of estate_types' do
     assign(:estate_types, Kaminari.paginate_array(estate_types).page(1))
 
-    render
+    render template: 'estate_types/index', layout: 'layouts/application'
 
+    assert_select 'title', text: I18n.t('views.estate_type.index.title'), count: 1
     assert_select 'h1', text: I18n.t('views.estate_type.index.title'), count: 1
 
     expect(response.body).to have_link(I18n.t('views.estate_type.index.new'), href: new_estate_type_path)
