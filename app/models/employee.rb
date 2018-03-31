@@ -47,6 +47,7 @@ class Employee < ApplicationRecord
 
   validates :last_name, presence: true, length: { minimum: 1 }
   validates :first_name, presence: true, length: { minimum: 1 }
+  validates_with PhoneNumbersValidator
 
   before_destroy :prevent_to_destroy_last_employee
 

@@ -73,7 +73,7 @@ RSpec.shared_examples :employees_controller_allow_update_action_to_admins do
         last_name: FFaker::NameRU.last_name,
         first_name: FFaker::NameRU.first_name,
         middle_name: FFaker::NameRU.patronymic,
-        phone_numbers: FFaker::PhoneNumber.phone_number,
+        phone_numbers: '+79991112233',
         role: 'admin'
       }
     end
