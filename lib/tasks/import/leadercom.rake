@@ -1,6 +1,8 @@
 namespace :import do
   desc 'Import estates from LeaderCom'
   task leadercom: :environment do
+    include PeopleHelper
+
     DatabaseCleaner.clean_with(:truncation)
 
     city_id = City.create!(name: 'Нефтеюганск')
@@ -9,9 +11,10 @@ namespace :import do
     # Streets
     #
     STREETS = [# {{{
-      '1-й мкр', '2-й мкр', '3-й мкр', '4-й мкр', '5-й мкр', '6-й мкрн', '7-й мкр', '8-й мкр', '8а мкр',
-      '9-й мкр', '9а мкр', '10-й мкр', '10а мкр', '11 мкр', '11а мкр', '11б мкр', '12-й мкр', '13-й мкр',
-      '14-й мкр', '15-й мкр', '16-й мкр', '16а мкр', '17-й мкр', 'Жилая', 'Мартовская', 'СУ-62', 'УМ 4'
+      '1-й мкр', '2-й мкр', '3-й мкр', '4-й мкр', '5-й мкр', '6-й мкр', '7-й мкр', '8-й мкр', '8а мкр',
+      '9-й мкр', '9а мкр', '10-й мкр', '10а мкр', '11-й мкр', '11а мкр', '11б мкр', '12-й мкр', '13-й мкр',
+      '14-й мкр', '15-й мкр', '16-й мкр', '16а мкр', '17-й мкр', 'Жилая', 'Мартовская', 'Спортивная', 'Гагарина',
+      'Петухова', 'СУ-62', 'УМ 4', 'Сингапай'
     ].freeze
 
     STREETS_DOWNCASED = STREETS.map { |s| s.mb_chars.strip.downcase }.freeze
@@ -116,7 +119,10 @@ namespace :import do
         phone_numbers: employee[:phones]
       )
 
-      employees_mapping[employee[:sid]] = e.id
+      employees_mapping[employee[:sid]] = {
+        employee_id: e.id,
+        short_name: person_shortname(e)
+      }
     end# }}}
 
     #
@@ -126,17 +132,10 @@ namespace :import do
 
     clients_mapping = {}
     clients.each do |client|
-      next unless client[:phones]
-      next unless client[:phones] =~ /\A[\+\d]+\z/
-
-      puts "--- client ---"
-      puts client.inspect
-
-      c = Client.create!(
+      clients_mapping[client[:sid]] = {
         full_name: client[:full_name] ? client[:full_name] : 'Не заполнено',
-        phone_numbers: client[:phones]
-      )
-      clients_mapping[client[:sid]] = c.id
+        phone_numbers: client[:phones].to_s.split(',')
+      }
     end# }}}
 
     #
@@ -147,10 +146,37 @@ namespace :import do
     invalid_estates = estates.map do |estate|
       message = []
 
-      if estate[:street].blank?
+      street = estate[:street]
+      if street.blank?
         message << 'Не указана улица'
-      elsif !STREETS_DOWNCASED.include?(estate[:street])
-        message << "Неизвестное название улицы '#{estate[:street]}'. Назовите, например, так: '1-й мкр', '9А мкр'"
+      else
+        street = street.gsub(/^ул.\s+/, '').downcase
+        street = case street
+                 when '1'
+                   '1-й мкр'
+                 when '7'
+                   '7-й мкр'
+                 when '9'
+                   '9-й мкр'
+                 when '11 а'
+                   '11а мкр'
+                 when '11б'
+                   '11б мкр'
+                 when '16 мкр'
+                   '16-й мкр'
+                 when '16 а'
+                   '16а мкр'
+                 when 'су 62'
+                   'су-62'
+                 when 'ум-4'
+                   'ум 4'
+                 else
+                   street
+                 end
+
+        if !STREETS_DOWNCASED.include?(street)
+          message << "Неизвестное название улицы '#{street}'. Как должно быть: '1-й мкр', '9А мкр', 'Спортивная'"
+        end
       end
 
       message << 'Не указан номер дома' if estate[:building_number].blank?
@@ -161,16 +187,86 @@ namespace :import do
         message << 'Слишком большая стоимость. Пример корректной стоимости: 2100 = 2 млн. 100 тыс.'
       end
 
-      message << 'Неизвестный тип строения' if estate[:estate_type].blank?
+      estate_project = estate[:estate_project]
+      unless estate_project.blank?
+        if estate_project[:found]
+          estate[:estate_project] = estate_project[:value]
+        else
+          message << "Неизвестный идентификатор проекта: #{estate_project[:value]}"
+          estate[:estate_project] = 'Не найден'
+        end
+      end
 
-      message << 'Неизвестный тип фонда' if estate[:estate_project].eql?('not_found')
+      estate_material = estate[:estate_material]
+      unless estate_material.blank?
+        if estate_material[:found]
+          estate[:estate_material] = estate_material[:value]
+        else
+          message << "Неизвестный идентификатор материала строения: #{estate_material[:value]}"
+          estate[:estate_material] = 'Не найден'
+        end
+      end
 
-      message << 'Неизвестный тип материала' if estate[:estate_material].eql?('not_found')
+      client = clients_mapping[estate[:client]]
+      if client[:phone_numbers].blank?
+        message << 'Не указан телефон клиента'
+      else
+        client[:phone_numbers].each do |phone_number|
+          if phone_number =~ /\A[\+\d]+\z/
+            if phone_number.size > 11
+              message << "Слишком длинный номер телефона: #{phone_number}"
+            end
+          else
+            message << "Некорректный формат телефона: #{phone_number}"
+          end
+        end
+      end
 
       estate.merge(message: message)
-    end.delete_if { |estate| estate[:message].present? }
+    end.delete_if { |estate| estate[:message].blank? }
 
-    # invalid_estates = invalid_estates.first(10)
+    unless invalid_estates.size.zero?
+      #
+      # Generate CSV
+      #
+      headers = invalid_estates.first.keys
+      headers.delete(:sid)
+      headers.delete(:estate_type)
+      headers.delete(:created_at)
+      headers.delete(:updated_at)
+      headers.delete(:description)
+      headers.push(:description)
+      csv = headers.join(';') + "\n"
+
+      invalid_estates.each do |estate|
+        client = clients_mapping[estate[:client]]
+        employee = employees_mapping[estate[:employee]]
+
+        csv << [
+          estate[:object_id],
+          "#{client[:full_name]}, #{client[:phone_numbers]}",
+          employee[:short_name],
+          estate[:street],
+          estate[:building_number],
+          estate[:apartment_number],
+          estate[:number_of_rooms],
+          estate[:floor],
+          estate[:number_of_floors],
+          estate[:total_square_meters],
+          estate[:kitchen_square_meters],
+          estate[:estate_material],
+          estate[:estate_project],
+          estate[:price],
+          estate[:message].join(', '),
+          estate[:description]
+        ].join(';') + "\n"
+      end
+
+      File.write('tmp/output.csv', csv)
+
+      puts "Invalid estates successfully exported to `tmp/output.csv`"
+      abort
+    end
 
     total_estates = invalid_estates.size
     cnt = 0
@@ -286,19 +382,31 @@ namespace :import do
       estate_material = if estate_material.to_i.zero?
                           nil
                         elsif ESTATE_MATERIALS[estate_material]
-                          ESTATE_MATERIALS[estate_material]
+                          {
+                            found: true,
+                            value: ESTATE_MATERIALS[estate_material]
+                          }
                         else
-                          :not_found
+                          {
+                            found: false,
+                            value: estate_material
+                          }
                         end
 
       estate_project = strip_node_text(node, 'ID_FOND')
       estate_project = if estate_project.to_i.zero?
                          nil
                        elsif ESTATE_PROJECTS[estate_project]
-                         ESTATE_PROJECTS[estate_project]
+                         {
+                           found: true,
+                           value: ESTATE_PROJECTS[estate_project]
+                         }
                        else
-                         :not_found
-                            end
+                         {
+                           found: false,
+                           value: estate_project
+                         }
+                       end
 
       {
         sid: strip_node_text(node, 'SID'),
@@ -313,7 +421,7 @@ namespace :import do
         number_of_floors: number_of_floors.zero? ? nil : number_of_floors,
         total_square_meters: total_square_meters.zero? ? nil : total_square_meters,
         kitchen_square_meters: kitchen_square_meters.zero? ? nil : kitchen_square_meters,
-        description: strip_node_text(node, 'NOTE'),
+        description: strip_node_text(node, 'NOTE').squish,
         estate_type: 'Квартира',
         estate_material: estate_material,
         estate_project: estate_project,
@@ -336,6 +444,6 @@ namespace :import do
       p = '83463' + p if p.size == 6
       p.sub!(/^7/, '8')
       p
-    end.join(', ').strip
+    end.join(',').strip
   end# }}}
 end
