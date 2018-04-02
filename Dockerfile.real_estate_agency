@@ -12,8 +12,15 @@ APT {\n\
 }\n\
 DSELECT::Clean "always";' >> /etc/apt/apt.conf.d/docker-no-cache
 
+# Install Yarn and required dependencies
+RUN apt-get update -qq && apt-get install -y curl apt-utils apt-transport-https ca-certificates && \
+    update-ca-certificates && \
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo 'deb https://dl.yarnpkg.com/debian/ stable main' | tee /etc/apt/sources.list.d/yarn.list && \
+    curl -sS https://deb.nodesource.com/setup_8.x | bash -
+
 RUN apt-get update -qq && \
-    apt-get install -y build-essential libpq-dev graphviz graphviz-dev && \
+    apt-get install -y build-essential libpq-dev graphviz graphviz-dev yarn && \
     gem install bundler && \
     mkdir /app
 
