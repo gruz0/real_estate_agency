@@ -20,7 +20,7 @@ RUN apt-get update -qq && apt-get install -y curl apt-utils apt-transport-https 
     curl -sS https://deb.nodesource.com/setup_8.x | bash -
 
 RUN apt-get update -qq && \
-    apt-get install -y build-essential libpq-dev graphviz graphviz-dev yarn && \
+    apt-get install -y build-essential libpq-dev graphviz graphviz-dev yarn nodejs && \
     gem install bundler && \
     mkdir /app
 
