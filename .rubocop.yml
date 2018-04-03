@@ -13,6 +13,7 @@ AllCops:
     - tmp/**/*.rb
     - vendor/
     - lib/tasks/import/*.rake
+    - node_modules/**/*
 
 #
 # Linters
