@@ -54,6 +54,8 @@ ru:
       create: 'Создать'
       update: 'Обновить'
       filter: 'Фильтр'
+      lock: 'Заблокировать'
+      unlock: 'Разблокировать'
     label:
       destroyed: 'Удалён'
       "true": 'Да'
@@ -81,6 +83,8 @@ ru:
     are_you_sure: 'Вы уверены?'
     back: 'Назад'
     action: 'Действия'
+    lock: 'Заблокировать'
+    unlock: 'Разблокировать'
     is_not_set:
       one: 'Не задан'
       other: 'Не задано'

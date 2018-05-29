@@ -38,6 +38,13 @@ table.table.table-sm.table-hover
               = link_to t('views.show'), employee, class: 'dropdown-item'
               = link_to t('views.edit'), edit_employee_path(employee), class: 'dropdown-item'
               .dropdown-divider
+              - if employee.access_locked?
+                = link_to t('views.unlock'), unlock_employee_path(employee), class: 'dropdown-item text-warning',
+                  method: :post, data: { confirm: t('views.are_you_sure') }
+              - else
+                = link_to t('views.lock'), lock_employee_path(employee), class: 'dropdown-item text-warning',
+                  method: :post, data: { confirm: t('views.are_you_sure') }
+              .dropdown-divider
               = link_to t('views.destroy'), employee, class: 'dropdown-item text-danger', method: :delete, \
                 data: { confirm: t('views.are_you_sure') }
 

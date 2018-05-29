@@ -5,9 +5,11 @@ class EmployeesController < ApplicationController
 
   before_action :redirect_if_employee_is_not_admin_or_service_admin
   before_action :redirect_if_admin_try_to_set_user_role_to_service_admin, only: %i[create update]
-  before_action :set_employee, only: %i[show edit update destroy]
-  before_action :redirect_if_admin_try_to_edit_service_admin, only: %i[edit update destroy]
+  before_action :set_employee, only: %i[show edit update destroy lock unlock]
+  before_action :redirect_if_admin_try_to_edit_service_admin, only: %i[edit update destroy lock unlock]
   before_action :redirect_if_admin_or_service_admin_try_to_destroy_himself, only: %i[destroy]
+  before_action :redirect_if_admin_or_service_admin_try_to_lock_himself, only: %i[lock]
+  before_action :redirect_if_admin_or_service_admin_try_to_unlock_himself, only: %i[unlock]
   before_action :allow_without_password, only: [:update]
 
   include PeopleHelper
@@ -36,6 +38,16 @@ class EmployeesController < ApplicationController
     super(@employee, employees_url, t('views.employee.flash_messages.employee_was_successfully_destroyed'))
   end
 
+  def lock
+    @employee.lock_access!
+    redirect_to employees_url, notice: t('views.employee.flash_messages.employee_was_successfully_locked')
+  end
+
+  def unlock
+    @employee.unlock_access!
+    redirect_to employees_url, notice: t('views.employee.flash_messages.employee_was_successfully_unlocked')
+  end
+
   private
 
   def redirect_if_admin_try_to_set_user_role_to_service_admin
@@ -53,6 +65,16 @@ class EmployeesController < ApplicationController
   def redirect_if_admin_or_service_admin_try_to_destroy_himself
     return unless @employee.eql?(current_employee)
     redirect_to(root_path, alert: t('.you_can_not_destroy_yourself'))
+  end
+
+  def redirect_if_admin_or_service_admin_try_to_lock_himself
+    return unless @employee.eql?(current_employee)
+    redirect_to(root_path, alert: t('.you_can_not_lock_yourself'))
+  end
+
+  def redirect_if_admin_or_service_admin_try_to_unlock_himself
+    return unless @employee.eql?(current_employee)
+    redirect_to(root_path, alert: t('.you_can_not_unlock_yourself'))
   end
 
   def set_employee

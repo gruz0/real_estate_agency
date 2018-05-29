@@ -161,3 +161,65 @@ RSpec.shared_examples :employees_controller_prevent_to_destroy_yourself do
     expect(flash[:alert]).to eq(I18n.t('employees.destroy.you_can_not_destroy_yourself'))
   end
 end
+
+RSpec.shared_examples :employees_controller_allow_lock_action_to_admins do
+  context 'with valid params' do
+    it 'redirects to the employees list' do
+      post :lock, params: { id: employee.to_param }
+      expect(response).to redirect_to(employees_url)
+    end
+
+    it 'renders flash notice' do
+      post :lock, params: { id: employee.to_param }
+      expect(flash[:notice])
+        .to eq(I18n.t('views.employee.flash_messages.employee_was_successfully_locked'))
+    end
+  end
+
+  context 'with invalid params' do
+    it 'redirects to index page if record was not found' do
+      post :lock, params: { id: 42 }
+      expect(response).to be_redirect
+      expect(flash[:alert]).to eq(I18n.t('views.employee.flash_messages.employee_was_not_found'))
+    end
+  end
+end
+
+RSpec.shared_examples :employees_controller_prevent_to_lock_yourself do
+  it 'redirects to root_path with alert' do
+    post :lock, params: { id: current_employee.to_param }
+    expect(response).to be_redirect
+    expect(flash[:alert]).to eq(I18n.t('employees.lock.you_can_not_lock_yourself'))
+  end
+end
+
+RSpec.shared_examples :employees_controller_allow_unlock_action_to_admins do
+  context 'with valid params' do
+    it 'redirects to the employees list' do
+      post :unlock, params: { id: employee.to_param }
+      expect(response).to redirect_to(employees_url)
+    end
+
+    it 'renders flash notice' do
+      post :unlock, params: { id: employee.to_param }
+      expect(flash[:notice])
+        .to eq(I18n.t('views.employee.flash_messages.employee_was_successfully_unlocked'))
+    end
+  end
+
+  context 'with invalid params' do
+    it 'redirects to index page if record was not found' do
+      post :unlock, params: { id: 42 }
+      expect(response).to be_redirect
+      expect(flash[:alert]).to eq(I18n.t('views.employee.flash_messages.employee_was_not_found'))
+    end
+  end
+end
+
+RSpec.shared_examples :employees_controller_prevent_to_unlock_yourself do
+  it 'redirects to root_path with alert' do
+    post :unlock, params: { id: current_employee.to_param }
+    expect(response).to be_redirect
+    expect(flash[:alert]).to eq(I18n.t('employees.unlock.you_can_not_unlock_yourself'))
+  end
+end

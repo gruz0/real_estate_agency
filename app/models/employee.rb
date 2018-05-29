@@ -33,7 +33,7 @@
 #
 
 class Employee < ApplicationRecord
-  audited only: %i[email role last_name first_name middle_name last_sign_in_at last_sign_in_ip]
+  audited only: %i[email role last_name first_name middle_name last_sign_in_at last_sign_in_ip locked_at]
 
   scope :ordered_by_full_name, -> { reorder('last_name ASC, first_name ASC') }
 

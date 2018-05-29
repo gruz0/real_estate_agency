@@ -259,4 +259,104 @@ RSpec.describe EmployeesController, type: :controller do
       end
     end
   end
+
+  describe 'POST #lock' do
+    context 'when user is an employee' do
+      login_employee
+
+      it 'redirects to root_path with alert' do
+        post :lock, params: { id: employee.to_param }
+        expect(response).to be_redirect
+        expect(flash[:alert]).to eq(I18n.t('errors.messages.forbidden'))
+      end
+    end
+
+    context 'when user is an admin' do
+      login_admin
+
+      context 'when lockable user is an employee' do
+        include_examples :employees_controller_allow_lock_action_to_admins
+      end
+
+      context 'when try to lock himself' do
+        let(:current_employee) { authenticated_admin }
+
+        include_examples :employees_controller_prevent_to_lock_yourself
+      end
+
+      context 'when lockable user is a service_admin' do
+        it 'redirects to root_path with alert' do
+          employee.update_attributes!(role: :service_admin)
+
+          post :lock, params: { id: employee.to_param }
+          expect(response).to be_redirect
+          expect(flash[:alert]).to eq(I18n.t('errors.messages.forbidden'))
+        end
+      end
+    end
+
+    context 'when user is a service_admin' do
+      login_service_admin
+
+      context 'when lockable user is an employee' do
+        include_examples :employees_controller_allow_lock_action_to_admins
+      end
+
+      context 'when try to lock himself' do
+        let(:current_employee) { authenticated_service_admin }
+
+        include_examples :employees_controller_prevent_to_lock_yourself
+      end
+    end
+  end
+
+  describe 'POST #unlock' do
+    context 'when user is an employee' do
+      login_employee
+
+      it 'redirects to root_path with alert' do
+        post :unlock, params: { id: employee.to_param }
+        expect(response).to be_redirect
+        expect(flash[:alert]).to eq(I18n.t('errors.messages.forbidden'))
+      end
+    end
+
+    context 'when user is an admin' do
+      login_admin
+
+      context 'when unlockable user is an employee' do
+        include_examples :employees_controller_allow_unlock_action_to_admins
+      end
+
+      context 'when try to unlock himself' do
+        let(:current_employee) { authenticated_admin }
+
+        include_examples :employees_controller_prevent_to_unlock_yourself
+      end
+
+      context 'when unlockable user is a service_admin' do
+        it 'redirects to root_path with alert' do
+          employee.update_attributes!(role: :service_admin)
+
+          post :unlock, params: { id: employee.to_param }
+          expect(response).to be_redirect
+          expect(flash[:alert]).to eq(I18n.t('errors.messages.forbidden'))
+        end
+      end
+    end
+
+    context 'when user is a service_admin' do
+      login_service_admin
+
+      context 'when unlockable user is an employee' do
+        include_examples :employees_controller_allow_unlock_action_to_admins
+      end
+
+      context 'when try to unlock himself' do
+        let(:current_employee) { authenticated_service_admin }
+
+        include_examples :employees_controller_prevent_to_unlock_yourself
+      end
+    end
+  end
 end

@@ -2,4 +2,7 @@ ru:
   employees:
     destroy:
       you_can_not_destroy_yourself: 'Невозможно удалить самого себя'
-
+    lock:
+      you_can_not_lock_yourself: 'Невозможно заблокировать самого себя'
+    unlock:
+      you_can_not_unlock_yourself: 'Невозможно разблокировать самого себя'

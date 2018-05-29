@@ -5,7 +5,10 @@ Rails.application.routes.draw do
 
   resources :competitors
   resources :clients
-  resources :employees
+  resources :employees do
+    post 'lock', on: :member
+    post 'unlock', on: :member
+  end
   resources :estate_materials
   resources :estate_projects
   resources :estate_types
