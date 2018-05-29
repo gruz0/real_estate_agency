@@ -34,6 +34,12 @@
 
           tr
             th scope="row"
+              = Employee.human_attribute_name(:access_locked)
+            td
+              = t("helpers.label.#{@employee.access_locked?}")
+
+          tr
+            th scope="row"
               = Employee.human_attribute_name(:created_at)
             td
               = l(@employee.created_at, format: :short)

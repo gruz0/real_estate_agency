@@ -27,6 +27,7 @@ RSpec.describe 'employees/show', type: :view do
     expect(rendered).to match(/\+79991112233/)
     expect(rendered).to match(/me@domain.tld/)
     expect(rendered).to match(/admin/)
+    expect(rendered).to match(/#{I18n.t('helpers.label.true')}/)
     expect(rendered).to match(/#{I18n.l(employee.created_at, format: :short)}/)
     expect(rendered).to match(/#{I18n.l(employee.updated_at, format: :short)}/)
 

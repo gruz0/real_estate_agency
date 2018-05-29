@@ -15,6 +15,7 @@ ru:
         middle_name: 'Отчество'
         phone_numbers: 'Телефоны'
         role: 'Роль'
+        access_locked: 'Заблокирован'
         created_at: 'Дата создания'
         updated_at: 'Дата обновления'
     errors:

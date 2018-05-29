@@ -15,6 +15,7 @@ table.table.table-sm.table-hover
       th scope="col" = Employee.human_attribute_name(:phone_numbers)
       th scope="col" = Employee.human_attribute_name(:email)
       th scope="col" = Employee.human_attribute_name(:role)
+      th scope="col" = Employee.human_attribute_name(:access_locked)
       th.created-at scope="col" = Employee.human_attribute_name(:created_at)
       th.updated-at scope="col" = Employee.human_attribute_name(:updated_at)
       th.action scope="col"
@@ -26,6 +27,7 @@ table.table.table-sm.table-hover
         td = employee.phone_numbers
         td = employee.email
         td = employee.role
+        td = t("helpers.label.#{employee.access_locked?}")
         td = l(employee.created_at, format: :custom)
         td = l(employee.updated_at, format: :custom)
         td

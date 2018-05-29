@@ -7,8 +7,10 @@ RSpec.describe 'employees/index', type: :view do
            phone_numbers: '+79001112233', role: :admin)
   end
   let(:employee2) do
-    create(:employee,
-           email: 'me2@domain.tld', last_name: 'Петров', first_name: 'Сергей', phone_numbers: '+79993334455')
+    e = create(:employee,
+               email: 'me2@domain.tld', last_name: 'Петров', first_name: 'Сергей', phone_numbers: '+79993334455')
+    e.lock_access!
+    e
   end
   let(:employees) { [employee1, employee2] }
 
@@ -29,6 +31,7 @@ RSpec.describe 'employees/index', type: :view do
         assert_select 'th', text: Employee.human_attribute_name(:phone_numbers), count: 1
         assert_select 'th', text: Employee.human_attribute_name(:email), count: 1
         assert_select 'th', text: Employee.human_attribute_name(:role), count: 1
+        assert_select 'th', text: Employee.human_attribute_name(:access_locked), count: 1
         assert_select 'th', text: Employee.human_attribute_name(:created_at), count: 1
         assert_select 'th', text: Employee.human_attribute_name(:updated_at), count: 1
       end
@@ -39,11 +42,13 @@ RSpec.describe 'employees/index', type: :view do
         assert_select 'tr>td', text: '+79001112233'.to_s, count: 1
         assert_select 'tr>td', text: 'me@domain.tld'.to_s, count: 1
         assert_select 'tr>td', text: 'admin'.to_s, count: 1
+        assert_select 'tr>td', text: I18n.t('helpers.label.true').to_s, count: 1
 
         assert_select 'tr>td', text: 'Петров Сергей'.to_s, count: 1
         assert_select 'tr>td', text: '+79993334455'.to_s, count: 1
         assert_select 'tr>td', text: 'me2@domain.tld'.to_s, count: 1
         assert_select 'tr>td', text: 'user'.to_s, count: 1
+        assert_select 'tr>td', text: I18n.t('helpers.label.false').to_s, count: 1
       end
     end
 
