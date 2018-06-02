@@ -32,6 +32,7 @@ script:
   - bundle exec rubocop -c .rubocop.yml --force-exclusion
   - bundle exec rails_best_practices .
   - rubycritic --format json --mode-ci --no-browser
+  - bundle outdated --major
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
