@@ -20,7 +20,7 @@ RSpec.describe StreetsController, type: :controller do
     it 'returns a success response' do
       street
       get :index, params: { city_id: city.to_param }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -29,7 +29,7 @@ RSpec.describe StreetsController, type: :controller do
 
     it 'returns a success response' do
       get :show, params: { city_id: city.to_param, id: street.to_param }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'redirects to index page if city was not found' do
@@ -50,7 +50,7 @@ RSpec.describe StreetsController, type: :controller do
 
     it 'returns a success response' do
       get :new, params: { city_id: city.to_param }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -59,7 +59,7 @@ RSpec.describe StreetsController, type: :controller do
 
     it 'returns a success response' do
       get :edit, params: { city_id: city.to_param, id: street.to_param }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'redirects to index page if city was not found' do
@@ -92,7 +92,7 @@ RSpec.describe StreetsController, type: :controller do
 
     it 'returns a success response' do
       get :search, params: { city_id: city.to_param }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'returns streets ordered by name as JSON' do
@@ -138,7 +138,7 @@ RSpec.describe StreetsController, type: :controller do
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'new' template)" do
         post :create, params: { city_id: city.to_param, street: invalid_attributes }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
@@ -175,7 +175,7 @@ RSpec.describe StreetsController, type: :controller do
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
         put :update, params: { city_id: city.to_param, id: street.to_param, street: invalid_attributes }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       it 'redirects to index page if city was not found' do

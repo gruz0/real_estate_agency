@@ -2,7 +2,7 @@
 #
 # Table name: employees
 #
-#  id                     :integer          not null, primary key
+#  id                     :bigint(8)        not null, primary key
 #  last_name              :string(255)      not null
 #  first_name             :string(255)      not null
 #  middle_name            :string(255)

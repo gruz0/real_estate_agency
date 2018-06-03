@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20180317180735) do
 
-  create_table "addresses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "street_id", null: false
     t.string "building_number", null: false
     t.datetime "created_at", null: false
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20180317180735) do
     t.index ["street_id"], name: "index_addresses_on_street_id"
   end
 
-  create_table "audits", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "audits", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "auditable_id"
     t.string "auditable_type"
     t.integer "associated_id"
@@ -43,14 +43,14 @@ ActiveRecord::Schema.define(version: 20180317180735) do
     t.index ["user_id", "user_type"], name: "user_index"
   end
 
-  create_table "cities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_cities_on_name", unique: true
   end
 
-  create_table "clients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "full_name", null: false
     t.string "phone_numbers", null: false
     t.datetime "created_at", null: false
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20180317180735) do
     t.index ["phone_numbers"], name: "index_clients_on_phone_numbers"
   end
 
-  create_table "competitors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "competitors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "phone_numbers", null: false
     t.datetime "created_at", null: false
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20180317180735) do
     t.index ["phone_numbers"], name: "index_competitors_on_phone_numbers"
   end
 
-  create_table "employees", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "employees", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "last_name", null: false
     t.string "first_name", null: false
     t.string "middle_name"
@@ -95,28 +95,28 @@ ActiveRecord::Schema.define(version: 20180317180735) do
     t.index ["unlock_token"], name: "index_employees_on_unlock_token", unique: true
   end
 
-  create_table "estate_materials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "estate_materials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_estate_materials_on_name", unique: true
   end
 
-  create_table "estate_projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "estate_projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_estate_projects_on_name", unique: true
   end
 
-  create_table "estate_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "estate_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_estate_types_on_name", unique: true
   end
 
-  create_table "estates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "estates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "estate_type_id", null: false
     t.bigint "estate_project_id", null: false
     t.bigint "estate_material_id", null: false
@@ -127,8 +127,8 @@ ActiveRecord::Schema.define(version: 20180317180735) do
     t.integer "number_of_rooms", limit: 1
     t.integer "floor", limit: 1
     t.integer "number_of_floors", limit: 1
-    t.float "total_square_meters", limit: 24
-    t.float "kitchen_square_meters", limit: 24
+    t.float "total_square_meters"
+    t.float "kitchen_square_meters"
     t.text "description"
     t.string "apartment_number"
     t.integer "price", null: false
@@ -148,7 +148,7 @@ ActiveRecord::Schema.define(version: 20180317180735) do
     t.index ["updated_by_employee_id"], name: "index_estates_on_updated_by_employee_id"
   end
 
-  create_table "streets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "streets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "city_id", null: false
     t.datetime "created_at", null: false

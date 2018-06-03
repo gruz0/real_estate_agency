@@ -2,9 +2,9 @@
 #
 # Table name: streets
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  name       :string(255)      not null
-#  city_id    :integer          not null
+#  city_id    :bigint(8)        not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -15,7 +15,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (city_id => cities.id)
+#  fk_rails_180d2140cf  (city_id => cities.id)
 #
 
 class Street < ApplicationRecord

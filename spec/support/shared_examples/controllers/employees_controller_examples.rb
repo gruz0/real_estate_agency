@@ -1,14 +1,14 @@
 RSpec.shared_examples :employees_controller_allow_index_action_to_admins do
   it 'returns a success response' do
     get :index, params: {}
-    expect(response).to be_success
+    expect(response).to be_successful
   end
 end
 
 RSpec.shared_examples :employees_controller_allow_show_action_to_admins do
   it 'returns a success response' do
     get :show, params: { id: employee.to_param }
-    expect(response).to be_success
+    expect(response).to be_successful
   end
 
   it 'redirects to index page if record was not found' do
@@ -21,14 +21,14 @@ end
 RSpec.shared_examples :employees_controller_allow_new_action_to_admins do
   it 'returns a success response' do
     get :new, params: {}
-    expect(response).to be_success
+    expect(response).to be_successful
   end
 end
 
 RSpec.shared_examples :employees_controller_allow_edit_action_to_admins do
   it 'returns a success response' do
     get :edit, params: { id: employee.to_param }
-    expect(response).to be_success
+    expect(response).to be_successful
   end
 
   it 'redirects to index page if record was not found' do
@@ -61,7 +61,7 @@ RSpec.shared_examples :employees_controller_allow_create_action_to_admins do
   context 'with invalid params' do
     it "returns a success response (i.e. to display the 'new' template)" do
       post :create, params: { employee: invalid_attributes }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 end
@@ -104,7 +104,7 @@ RSpec.shared_examples :employees_controller_allow_update_action_to_admins do
   context 'with invalid params' do
     it "returns a success response (i.e. to display the 'edit' template)" do
       put :update, params: { id: employee.to_param, employee: invalid_attributes }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'redirects to index page if record was not found' do

@@ -6,7 +6,7 @@ RSpec.describe AuditsController, type: :controller do
 
     it 'returns a success response' do
       get :index, params: {}
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -17,7 +17,7 @@ RSpec.describe AuditsController, type: :controller do
       create(:city)
 
       get :show, params: { id: Audited::Audit.last.to_param }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'redirects to index page if record was not found' do

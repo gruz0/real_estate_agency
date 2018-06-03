@@ -2,8 +2,8 @@
 #
 # Table name: addresses
 #
-#  id              :integer          not null, primary key
-#  street_id       :integer          not null
+#  id              :bigint(8)        not null, primary key
+#  street_id       :bigint(8)        not null
 #  building_number :string(255)      not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -15,7 +15,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (street_id => streets.id)
+#  fk_rails_35f15f08ca  (street_id => streets.id)
 #
 
 class Address < ApplicationRecord

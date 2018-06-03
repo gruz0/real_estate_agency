@@ -55,7 +55,7 @@ RSpec.describe EstatesController, type: :controller do
     it 'returns a success response' do
       estate
       get :index, params: {}
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -64,7 +64,7 @@ RSpec.describe EstatesController, type: :controller do
 
     it 'returns a success response' do
       get :show, params: { id: estate.to_param }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'redirects to index page if record was not found' do
@@ -79,7 +79,7 @@ RSpec.describe EstatesController, type: :controller do
 
     it 'returns a success response' do
       get :new, params: {}
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -88,7 +88,7 @@ RSpec.describe EstatesController, type: :controller do
 
     it 'returns a success response' do
       get :edit, params: { id: estate.to_param }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'redirects to index page if record was not found' do
@@ -122,7 +122,7 @@ RSpec.describe EstatesController, type: :controller do
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'new' template)" do
         post :create, params: { estate: invalid_attributes }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
@@ -191,7 +191,7 @@ RSpec.describe EstatesController, type: :controller do
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
         put :update, params: { id: estate.to_param, estate: invalid_attributes }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       it 'redirects to index page if record was not found' do

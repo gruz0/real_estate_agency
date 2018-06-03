@@ -2,14 +2,14 @@
 #
 # Table name: estates
 #
-#  id                      :integer          not null, primary key
-#  estate_type_id          :integer          not null
-#  estate_project_id       :integer          not null
-#  estate_material_id      :integer          not null
-#  address_id              :integer          not null
-#  responsible_employee_id :integer          not null
-#  created_by_employee_id  :integer          not null
-#  updated_by_employee_id  :integer
+#  id                      :bigint(8)        not null, primary key
+#  estate_type_id          :bigint(8)        not null
+#  estate_project_id       :bigint(8)        not null
+#  estate_material_id      :bigint(8)        not null
+#  address_id              :bigint(8)        not null
+#  responsible_employee_id :bigint(8)        not null
+#  created_by_employee_id  :bigint(8)        not null
+#  updated_by_employee_id  :bigint(8)
 #  number_of_rooms         :integer
 #  floor                   :integer
 #  number_of_floors        :integer
@@ -38,13 +38,13 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (address_id => addresses.id)
-#  fk_rails_...  (created_by_employee_id => employees.id)
-#  fk_rails_...  (estate_material_id => estate_materials.id)
-#  fk_rails_...  (estate_project_id => estate_projects.id)
-#  fk_rails_...  (estate_type_id => estate_types.id)
-#  fk_rails_...  (responsible_employee_id => employees.id)
-#  fk_rails_...  (updated_by_employee_id => employees.id)
+#  fk_rails_7bdb140bf1  (responsible_employee_id => employees.id)
+#  fk_rails_80b4809276  (estate_material_id => estate_materials.id)
+#  fk_rails_82a45a7167  (created_by_employee_id => employees.id)
+#  fk_rails_bd9d953217  (updated_by_employee_id => employees.id)
+#  fk_rails_bf98245067  (address_id => addresses.id)
+#  fk_rails_c183bb2c54  (estate_project_id => estate_projects.id)
+#  fk_rails_fd9fead491  (estate_type_id => estate_types.id)
 #
 
 class Estate < ApplicationRecord

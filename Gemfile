@@ -6,6 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'audited', '~> 4.7'
+gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap', '~> 4.0.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
@@ -15,7 +16,7 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'mysql2', '>= 0.3.18', '< 0.5'
 gem 'puma', '~> 3.7'
-gem 'rails', '~> 5.1.5'
+gem 'rails', '~> 5.2'
 gem 'sass-rails', '~> 5.0'
 gem 'slim-rails'
 gem 'therubyracer', platforms: :ruby

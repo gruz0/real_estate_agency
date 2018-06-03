@@ -19,7 +19,7 @@ RSpec.describe EstateMaterialsController, type: :controller do
     it 'returns a success response' do
       estate_material
       get :index, params: {}
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -28,7 +28,7 @@ RSpec.describe EstateMaterialsController, type: :controller do
 
     it 'returns a success response' do
       get :show, params: { id: estate_material.to_param }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'redirects to index page if record was not found' do
@@ -43,7 +43,7 @@ RSpec.describe EstateMaterialsController, type: :controller do
 
     it 'returns a success response' do
       get :new, params: {}
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -52,7 +52,7 @@ RSpec.describe EstateMaterialsController, type: :controller do
 
     it 'returns a success response' do
       get :edit, params: { id: estate_material.to_param }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'redirects to index page if record was not found' do
@@ -87,7 +87,7 @@ RSpec.describe EstateMaterialsController, type: :controller do
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'new' template)" do
         post :create, params: { estate_material: invalid_attributes }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
@@ -124,7 +124,7 @@ RSpec.describe EstateMaterialsController, type: :controller do
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
         put :update, params: { id: estate_material.to_param, estate_material: invalid_attributes }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       it 'redirects to index page if record was not found' do

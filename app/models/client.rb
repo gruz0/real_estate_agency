@@ -2,7 +2,7 @@
 #
 # Table name: clients
 #
-#  id            :integer          not null, primary key
+#  id            :bigint(8)        not null, primary key
 #  full_name     :string(255)      not null
 #  phone_numbers :string(255)      not null
 #  created_at    :datetime         not null

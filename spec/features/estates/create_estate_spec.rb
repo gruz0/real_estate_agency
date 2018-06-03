@@ -20,11 +20,11 @@ RSpec.feature 'Create Estate' do
 
     visit new_estate_path
 
-    select 'Нефтеюганск', from: 'Город'
-    select 'ул. Ленина', from: 'Улица'
-    select 'Квартира', from: 'Тип'
-    select 'Уральский', from: 'Проект'
-    select 'Кирпичный', from: 'Материал'
+    select 'Нефтеюганск', from: 'estate[city]'
+    select 'ул. Ленина', from: 'estate[street]'
+    select 'Квартира', from: 'estate[estate_type]'
+    select 'Уральский', from: 'estate[estate_project]'
+    select 'Кирпичный', from: 'estate[estate_material]'
 
     fill_in 'estate[building_number]', with: '3а'
     fill_in 'estate[apartment_number]', with: '55'
