@@ -20,6 +20,10 @@ Rails.application.routes.draw do
   resources :addresses, only: %i[index show destroy]
   resources :estates
   resources :audits, only: %i[index show]
+  namespace :services do
+    resources :reassign_estates, only: %i[index]
+    put :reassign_estates, to: 'reassign_estates#update'
+  end
 
   root 'estates#index'
 end

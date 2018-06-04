@@ -1,0 +1,6 @@
+ru:
+  services:
+    reassign_estates:
+      update:
+        nothing_to_reassign: 'Нет объектов для переназначения'
+        you_can_not_reassign_service_admin_estates: 'Вы не можете переназначить объекты сервисного администратора'

@@ -1,0 +1,30 @@
+- title = t('views.services.reassign_estates.index.title')
+- content_for :title, title
+
+.row.col-lg-10
+  .col-lg-9
+    h1 = title
+
+.row.col-lg-8
+  .col
+    = form_with(url: services_reassign_estates_path, method: :put, local: true) do |form|
+      table.table.table-sm.table-bordered
+        tbody
+          tr
+            td
+              .form-group
+                = form.label :from_employee, t('views.services.reassign_estates.index.from_employee')
+                = form.select :from_employee, \
+                  Employee.ordered_by_full_name.map { |e| [person_fullname(e), e.id] }, {}, class: 'form-control', \
+                  name: 'reassign_estates[from_employee]', id: :reassign_estates_from_employee
+
+          tr
+            td
+              .form-group
+                = form.label :to_employee, t('views.services.reassign_estates.index.to_employee')
+                = form.select :to_employee, \
+                  Employee.ordered_by_full_name.map { |e| [person_fullname(e), e.id] }, {}, class: 'form-control', \
+                  name: 'reassign_estates[to_employee]', id: :reassign_estates_to_employee
+
+      .btn-group role="group" aria-label="#{t('views.action')}"
+        = form.submit t('helpers.submit.update'), class: 'btn btn-success'

@@ -1,0 +1,10 @@
+ru:
+  views:
+    services:
+      reassign_estates:
+        index:
+          title: 'Перенос объектов'
+          from_employee: 'От сотрудника'
+          to_employee: 'Сотруднику'
+        flash_messages:
+          estates_was_successfully_reassigned: 'Объекты успешно перенесены'
