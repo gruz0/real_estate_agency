@@ -27,6 +27,14 @@
           = link_to(addresses_path, class: 'dropdown-item') do
             = t('views.layout.menu.addresses')
 
+    - if current_employee.admin? || current_employee.service_admin?
+      li.nav-item.dropdown
+        a#navbar-service.nav-link.dropdown-toggle href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          = t('views.layout.menu.service')
+        .dropdown-menu aria-labelledby="navbar-service"
+          = link_to(services_reassign_estates_path, class: 'dropdown-item') do
+            = t('views.layout.menu.reassign_estates')
+
     - if current_employee.service_admin?
       li.nav-item
         = link_to(audits_path, class: 'nav-link') do

@@ -22,6 +22,7 @@ RSpec.describe 'layouts/application', type: :view do
 
         assert_select 'ul.navbar-nav > li.dropdown' do |dropdown|
           expect(dropdown).to have_link(I18n.t('views.layout.menu.dictionaries'), href: '#')
+          expect(dropdown).not_to have_link(I18n.t('views.layout.menu.service'), href: '#')
 
           assert_select('.dropdown-menu') do |menu|
             expect(menu).to have_link(I18n.t('views.layout.menu.clients'), href: clients_path)
@@ -32,6 +33,8 @@ RSpec.describe 'layouts/application', type: :view do
             expect(menu).to have_link(I18n.t('views.layout.menu.estate_projects'), href: estate_projects_path)
             expect(menu).to have_link(I18n.t('views.layout.menu.cities'), href: cities_path)
             expect(menu).not_to have_link(I18n.t('views.layout.menu.addresses'), href: addresses_path)
+            expect(menu).not_to have_link(I18n.t('views.layout.menu.reassign_estates'),
+                                          href: services_reassign_estates_path)
           end
         end
       end
@@ -52,10 +55,14 @@ RSpec.describe 'layouts/application', type: :view do
           expect(li).not_to have_link(I18n.t('views.layout.menu.audits'), href: audits_path)
         end
 
-        assert_select 'ul.navbar-nav > li.dropdown' do |_dropdown|
+        assert_select 'ul.navbar-nav > li.dropdown' do |dropdown|
+          expect(dropdown).to have_link(I18n.t('views.layout.menu.service'), href: '#')
+
           assert_select('.dropdown-menu') do |menu|
             expect(menu).to have_link(I18n.t('views.layout.menu.employees'), href: employees_path)
             expect(menu).not_to have_link(I18n.t('views.layout.menu.addresses'), href: addresses_path)
+            expect(menu).to have_link(I18n.t('views.layout.menu.reassign_estates'),
+                                      href: services_reassign_estates_path)
           end
         end
       end
@@ -69,14 +76,18 @@ RSpec.describe 'layouts/application', type: :view do
       render
 
       assert_select 'body > .navbar' do |_navbar|
-        assert_select 'ul.navbar-nav > li.dropdown' do |_dropdown|
-          assert_select('.dropdown-menu') do |menu|
-            expect(menu).to have_link(I18n.t('views.layout.menu.addresses'), href: addresses_path)
-          end
-        end
-
         assert_select 'ul.navbar-nav > li.nav-item' do |li|
           expect(li).to have_link(I18n.t('views.layout.menu.audits'), href: audits_path)
+        end
+
+        assert_select 'ul.navbar-nav > li.dropdown' do |dropdown|
+          expect(dropdown).to have_link(I18n.t('views.layout.menu.service'), href: '#')
+
+          assert_select('.dropdown-menu') do |menu|
+            expect(menu).to have_link(I18n.t('views.layout.menu.addresses'), href: addresses_path)
+            expect(menu).to have_link(I18n.t('views.layout.menu.reassign_estates'),
+                                      href: services_reassign_estates_path)
+          end
         end
       end
     end

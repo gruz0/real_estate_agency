@@ -15,4 +15,6 @@ ru:
         estate_projects: 'Проекты объектов'
         cities: 'Города'
         addresses: 'Адреса'
+        service: 'Сервис'
+        reassign_estates: 'Переназначение объектов'
         audits: 'Аудит'
