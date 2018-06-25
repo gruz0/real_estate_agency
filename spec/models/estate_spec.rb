@@ -85,6 +85,53 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).to validate_numericality_of(:kitchen_square_meters).is_greater_than(0).is_less_than(1000) }
   end
 
+  describe 'custom validations' do
+    describe '#estate_saveable?' do
+      context 'when apartment_number is not present' do
+        context 'when client phone numbers are unique' do
+          it 'returns valid object' do
+            expect(estate).to be_valid
+          end
+        end
+
+        context 'when client phone numbers are not unique' do
+          let(:another_estate) { create(:estate) }
+          let(:estate) do
+            build(:estate, address: another_estate.address, client_phone_numbers: another_estate.client_phone_numbers)
+          end
+
+          it 'returns validation error' do
+            expect(estate).to be_invalid
+            expect(estate.errors.full_messages).to include(
+              I18n.t('activerecord.errors.messages.client_phone_numbers_at_this_building_number_already_exist'))
+          end
+        end
+      end
+
+      context 'when apartment_number is present' do
+        let(:apartment_number) { '123а' }
+        let(:estate) { build(:estate, apartment_number: apartment_number) }
+
+        context 'when apartment_number is unique' do
+          it 'returns valid object' do
+            expect(estate).to be_valid
+          end
+        end
+
+        context 'when apartment_number is not unique' do
+          let(:another_estate) { create(:estate, apartment_number: apartment_number) }
+          let(:estate) { build(:estate, address: another_estate.address, apartment_number: apartment_number) }
+
+          it 'returns validation error' do
+            expect(estate).to be_invalid
+            expect(estate.errors.full_messages)
+              .to include(I18n.t('activerecord.errors.messages.estate_at_this_address_already_exists'))
+          end
+        end
+      end
+    end
+  end
+
   describe 'ActiveRecord associations' do
     # Associations
     it { expect(estate).not_to belong_to(:client) }

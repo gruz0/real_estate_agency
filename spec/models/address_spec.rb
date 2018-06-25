@@ -47,7 +47,7 @@ RSpec.describe Address, type: :model do
       street  = create(:street, city: city)
       address = create(:address, street: street)
       estate1 = create(:estate, address: address)
-      estate2 = create(:estate, address: address)
+      estate2 = create(:estate, address: address, apartment_number: '1', client_phone_numbers: '+79991112233')
 
       address_with_estates = Address.with_estates.first
       expect(address_with_estates.estate.size).to eq(2)

@@ -74,6 +74,7 @@ class Estate < ApplicationRecord
   validates :total_square_meters, allow_blank: true, numericality: { greater_than: 0, less_than: 1000 }
   validates :kitchen_square_meters, allow_blank: true, numericality: { greater_than: 0, less_than: 1000 }
   validate :client_phone_numbers_valid?
+  validate :estate_saveable?
 
   delegate :building_number, to: :address, allow_nil: true
   delegate :name, to: :estate_type, prefix: true
@@ -106,6 +107,24 @@ class Estate < ApplicationRecord
       next if phone_number.strip =~ PHONE_NUMBERS_REGEX
 
       errors.add(:client_phone_numbers, :invalid)
+    end
+  end
+
+  def estate_saveable?
+    if apartment_number.blank?
+      return if client_phone_numbers.blank?
+
+      clear_client_phone_numbers
+
+      similar_estates = Estate.where(address: address, client_phone_numbers: client_phone_numbers)
+      return if similar_estates.size.zero?
+
+      errors.add(:base, :client_phone_numbers_at_this_building_number_already_exist)
+    else
+      similar_estates = Estate.where(address: address, apartment_number: apartment_number)
+      return if similar_estates.size.zero?
+
+      errors.add(:base, :estate_at_this_address_already_exists)
     end
   end
 end
