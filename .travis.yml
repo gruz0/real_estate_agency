@@ -30,7 +30,7 @@ script:
   - bundle exec brakeman -A -z
   - bundle exec bundle-audit update && bundle exec bundle-audit -v
   - bundle exec rubocop -c .rubocop.yml --force-exclusion
-  - bundle exec rails_best_practices .
+  - bundle exec rails_best_practices -e 'app/helpers,app/models' .
   - rubycritic --format json --mode-ci --no-browser
   - bundle outdated --major
 
