@@ -18,6 +18,18 @@ RSpec.describe FindEstates do
       expect(find_estates.to_sql).to include('estates.id = 42')
     end
 
+    it 'returns query with #filter_by_address' do
+      city     = create(:city)
+      street   = create(:street, city: city)
+      address1 = create(:address, street: street)
+      address2 = create(:address, street: street, building_number: '123')
+
+      params[:estate_city] = city.id
+      params[:estate_street] = street.id
+
+      expect(find_estates.to_sql).to include("`address_id` IN (#{address1.id},#{address2.id})")
+    end
+
     it 'returns query with #filter_by_estate_project' do
       params[:estate_project] = 42
       expect(find_estates.to_sql).to include('`estates`.`estate_project_id` = 42')

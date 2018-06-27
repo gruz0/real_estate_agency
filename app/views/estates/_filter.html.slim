@@ -17,6 +17,21 @@
             .col-sm-2
               = text_field :filter, :id, value: params.fetch(:id, ''), class: 'form-control', maxlength: 6
 
+          / City
+          .form-group.row
+            = label_tag :filter_city, City.model_name.human, class: 'col-sm-4 col-form-label'
+            .col-sm-8
+              = select :filter, :city, City.ordered_by_name.map { |c| [c.name, c.id] }, \
+                { selected: params.fetch(:estate_city, '') }, class: 'form-control'
+
+          / Street
+          .form-group.row
+            = label_tag :filter_street, Street.model_name.human, class: 'col-sm-4 col-form-label'
+            .col-sm-8
+              = select :filter, :street, \
+                Street.where(city_id: params.fetch(:estate_city, City.ordered_by_name.first)).map { |s| [s.name, s.id] }, \
+                { selected: params.fetch(:estate_street, '') }, class: 'form-control'
+
           / Estate project
           .form-group.row
             = label_tag :filter_estate_project, Estate.human_attribute_name(:estate_project), \

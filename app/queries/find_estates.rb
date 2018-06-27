@@ -8,6 +8,7 @@ class FindEstates
   def call(params)
     scoped = initial_scope
     scoped = filter_by_id(scoped, params[:id])
+    scoped = filter_by_address(scoped, params[:estate_city], params[:estate_street])
     scoped = filter_by_estate_project(scoped, params[:estate_project])
     scoped = filter_by_number_of_rooms(scoped, params[:number_of_rooms])
     scoped = filter_by_floor(scoped, params[:floor_from], params[:floor_to])
@@ -22,6 +23,14 @@ class FindEstates
 
   def filter_by_id(scoped, id = nil)
     id.present? ? scoped.where('estates.id = ?', id) : scoped
+  end
+
+  def filter_by_address(scoped, estate_city = nil, estate_street = nil)
+    return scoped unless estate_city && estate_street
+
+    streets = Street.select(:id).where('`city_id` = ? AND `id` = ?', estate_city, estate_street)
+    addresses = Address.select(:id).where('`street_id` IN (?)', streets.to_a)
+    scoped.where('`address_id` IN (?)', addresses.to_a)
   end
 
   def filter_by_estate_project(scoped, estate_project_id = nil)
