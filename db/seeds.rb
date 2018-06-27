@@ -67,7 +67,7 @@ end
     floor: rand(1..5),
     number_of_floors: rand(5..9),
     number_of_rooms: [nil, rand(1..4)].sample,
-    apartment_number: rand(100).to_s,
+    apartment_number: FFaker::AddressRU.unique.street_number,
     price: rand(30_000.00..99_000.99),
     status: :active
   )
