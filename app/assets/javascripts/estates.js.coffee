@@ -1,11 +1,19 @@
-loadStreets = (cityId, streetSelector) ->
+loadStreets = (cityId, streetSelector, addFirstEmptyItem = false) ->
+  unless cityId
+    $(streetSelector).html("<option value=''>#{i18n_all}</li>")
+    return
+
   $.ajax "/cities/#{cityId}/streets/search",
     dataType: 'json'
     success: (data, textStatus, jqXHR) ->
-      populateStreets(streetSelector, data)
+      populateStreets(streetSelector, data, addFirstEmptyItem)
 
-populateStreets = (streetSelector, json) ->
+populateStreets = (streetSelector, json, addFirstEmptyItem) ->
   streets = []
+
+  if addFirstEmptyItem
+    streets.push "<option value=''>#{i18n_all}</li>"
+
   $.each json, (_, street) ->
     streets.push "<option value='#{street.id}'>#{street.name}</li>"
     return
@@ -17,9 +25,11 @@ $(document).on 'turbolinks:load', () ->
     filterCity = ''
     filterStreet = ''
 
-    if $('#filter_city').val() && $('#filter_street').val()
+    if $('#filter_city').val()
       filterCity = $('#filter_city').val()
-      filterStreet = $('#filter_street').val()
+
+      if $('#filter_street').val()
+        filterStreet = $('#filter_street').val()
 
     filter = {
       id: $('#filter_id').val(),
@@ -45,6 +55,6 @@ $(document).on 'turbolinks:load', () ->
     loadStreets($(this).val(), '#city_streets')
 
   $('#filter_city').on 'change', ->
-    loadStreets($(this).val(), '#filter_street')
+    loadStreets($(this).val(), '#filter_street', true)
 
   return

@@ -21,7 +21,8 @@
           .form-group.row
             = label_tag :filter_city, City.model_name.human, class: 'col-sm-4 col-form-label'
             .col-sm-8
-              = select :filter, :city, City.ordered_by_name.map { |c| [c.name, c.id] }, \
+              = select :filter, :city, \
+                [[t('views.filter.select.all'), '']] + City.ordered_by_name.map { |c| [c.name, c.id] }, \
                 { selected: params.fetch(:estate_city, '') }, class: 'form-control'
 
           / Street
@@ -29,7 +30,7 @@
             = label_tag :filter_street, Street.model_name.human, class: 'col-sm-4 col-form-label'
             .col-sm-8
               = select :filter, :street, \
-                Street.where(city_id: params.fetch(:estate_city, City.ordered_by_name.first)).map { |s| [s.name, s.id] }, \
+                [[t('views.filter.select.all'), '']] + Street.where(city_id: params.fetch(:estate_city, '')).map { |s| [s.name, s.id] }, \
                 { selected: params.fetch(:estate_street, '') }, class: 'form-control'
 
           / Estate project

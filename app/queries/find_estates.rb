@@ -26,9 +26,14 @@ class FindEstates
   end
 
   def filter_by_address(scoped, estate_city = nil, estate_street = nil)
-    return scoped unless estate_city && estate_street
+    return scoped if estate_city.blank? && estate_street.blank?
 
-    streets = Street.select(:id).where('`city_id` = ? AND `id` = ?', estate_city, estate_street)
+    streets = if estate_street.blank?
+                Street.select(:id).where('`city_id` = ?', estate_city)
+              else
+                Street.select(:id).where('`city_id` = ? AND `id` = ?', estate_city, estate_street)
+              end
+
     addresses = Address.select(:id).where('`street_id` IN (?)', streets.to_a)
     scoped.where('`address_id` IN (?)', addresses.to_a)
   end

@@ -84,6 +84,13 @@ RSpec.describe 'estates/index', type: :view do
     # Filter bar
     assert_select '#estate_filter' do
       assert_select 'input#filter_id[type=text]', count: 1
+      assert_select 'select#filter_city', count: 1 do
+        assert_select 'option', text: I18n.t('views.filter.select.all'), count: 1
+        assert_select 'option', text: city.name, count: 1
+      end
+      assert_select 'select#filter_street', count: 1 do
+        assert_select 'option', text: I18n.t('views.filter.select.all'), count: 1
+      end
       assert_select 'select#filter_estate_project', count: 1 do
         assert_select 'option', text: I18n.t('views.filter.select.all'), count: 1
       end

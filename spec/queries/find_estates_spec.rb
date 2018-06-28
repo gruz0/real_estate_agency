@@ -18,16 +18,40 @@ RSpec.describe FindEstates do
       expect(find_estates.to_sql).to include('estates.id = 42')
     end
 
-    it 'returns query with #filter_by_address' do
-      city     = create(:city)
-      street   = create(:street, city: city)
-      address1 = create(:address, street: street)
-      address2 = create(:address, street: street, building_number: '123')
+    describe '#filter_by_address' do
+      before do
+        @city     = create(:city)
+        @street   = create(:street, city: @city)
+        @address1 = create(:address, street: @street)
+        @address2 = create(:address, street: @street, building_number: '123')
+      end
 
-      params[:estate_city] = city.id
-      params[:estate_street] = street.id
+      context 'when city and street was not selected' do
+        it 'returns query' do
+          params[:estate_city] = ''
+          params[:estate_street] = ''
 
-      expect(find_estates.to_sql).to include("`address_id` IN (#{address1.id},#{address2.id})")
+          expect(find_estates.to_sql).not_to include("`address_id` IN (#{@address1.id},#{@address2.id})")
+        end
+      end
+
+      context 'when only city selected' do
+        it 'returns query' do
+          params[:estate_city] = @city.id
+          params[:estate_street] = ''
+
+          expect(find_estates.to_sql).to include("`address_id` IN (#{@address1.id},#{@address2.id})")
+        end
+      end
+
+      context 'when city and street selected' do
+        it 'returns query' do
+          params[:estate_city] = @city.id
+          params[:estate_street] = @street.id
+
+          expect(find_estates.to_sql).to include("`address_id` IN (#{@address1.id},#{@address2.id})")
+        end
+      end
     end
 
     it 'returns query with #filter_by_estate_project' do
