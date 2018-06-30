@@ -27,22 +27,7 @@ class FindEstates
   end
 
   def filter_by_address(scoped, estate_city = nil, estate_street = nil, estate_building_number = nil)
-    return scoped if address_fields_blank?(estate_city, estate_street, estate_building_number)
-
-    if estate_building_number.blank?
-      streets = if estate_street.blank?
-                  Street.select(:id).where('`city_id` = ?', estate_city)
-                else
-                  Street.select(:id).where('`city_id` = ? AND `id` = ?', estate_city, estate_street)
-                end
-
-      addresses = Address.select(:id).where('`street_id` IN (?)', streets.to_a)
-      scoped.where('`address_id` IN (?)', addresses.to_a)
-    else
-      street  = Street.select(:id).find_by(city_id: estate_city, id: estate_street)
-      address = Address.select(:id).find_by(street_id: street.id, building_number: estate_building_number)
-      scoped.where('`address_id` = ?', address ? address.id : 0)
-    end
+    FilterByAddress.new(scoped).call(estate_city, estate_street, estate_building_number)
   end
 
   def filter_by_estate_project(scoped, estate_project_id = nil)
@@ -86,9 +71,5 @@ class FindEstates
     else
       scoped.where("estates.#{column} <= ?", to)
     end
-  end
-
-  def address_fields_blank?(estate_city = nil, estate_street = nil, estate_building_number = nil)
-    estate_city.blank? && estate_street.blank? && estate_building_number.blank?
   end
 end
