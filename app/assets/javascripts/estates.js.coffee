@@ -24,6 +24,7 @@ $(document).on 'turbolinks:load', () ->
   $('#filter').on 'click', ->
     filterCity = ''
     filterStreet = ''
+    filterBuildingNumber = ''
 
     if $('#filter_city').val()
       filterCity = $('#filter_city').val()
@@ -31,10 +32,14 @@ $(document).on 'turbolinks:load', () ->
       if $('#filter_street').val()
         filterStreet = $('#filter_street').val()
 
+        if $('#filter_building_number').val()
+          filterBuildingNumber = $('#filter_building_number').val()
+
     filter = {
       id: $('#filter_id').val(),
       estate_city: filterCity,
       estate_street: filterStreet,
+      estate_building_number: filterBuildingNumber,
       estate_project: $('#filter_estate_project').val(),
       number_of_rooms: $('#filter_number_of_rooms').val(),
       floor_from: $('#filter_floor_from').val(),

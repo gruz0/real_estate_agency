@@ -28,10 +28,15 @@
           / Street
           .form-group.row
             = label_tag :filter_street, Street.model_name.human, class: 'col-sm-4 col-form-label'
-            .col-sm-8
+            .col-sm-4
               = select :filter, :street, \
                 [[t('views.filter.select.all'), '']] + Street.where(city_id: params.fetch(:estate_city, '')).map { |s| [s.name, s.id] }, \
                 { selected: params.fetch(:estate_street, '') }, class: 'form-control'
+            .col-sm-4
+              .row
+                = label_tag :filter_building_number, Address.human_attribute_name(:building_number), class: 'col-form-label'
+                .col-sm-6
+                  = text_field :filter, :building_number, value: params.fetch(:estate_building_number, ''), class: 'form-control', maxlength: 4
 
           / Estate project
           .form-group.row

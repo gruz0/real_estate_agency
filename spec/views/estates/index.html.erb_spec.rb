@@ -91,6 +91,7 @@ RSpec.describe 'estates/index', type: :view do
       assert_select 'select#filter_street', count: 1 do
         assert_select 'option', text: I18n.t('views.filter.select.all'), count: 1
       end
+      assert_select 'input#filter_building_number[type=text]', count: 1
       assert_select 'select#filter_estate_project', count: 1 do
         assert_select 'option', text: I18n.t('views.filter.select.all'), count: 1
       end

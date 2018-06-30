@@ -26,30 +26,36 @@ RSpec.describe FindEstates do
         @address2 = create(:address, street: @street, building_number: '123')
       end
 
-      context 'when city and street was not selected' do
-        it 'returns query' do
-          params[:estate_city] = ''
-          params[:estate_street] = ''
-
-          expect(find_estates.to_sql).not_to include("`address_id` IN (#{@address1.id},#{@address2.id})")
-        end
-      end
-
-      context 'when only city selected' do
+      context 'when all fields filled' do
         it 'returns query' do
           params[:estate_city] = @city.id
-          params[:estate_street] = ''
+          params[:estate_street] = @street.id
+          params[:estate_building_number] = @address2.building_number
 
-          expect(find_estates.to_sql).to include("`address_id` IN (#{@address1.id},#{@address2.id})")
+          expect(find_estates.to_sql).to include("`address_id` = #{@address2.id}")
         end
       end
 
-      context 'when city and street selected' do
+      context 'when building_number was not filled' do
         it 'returns query' do
           params[:estate_city] = @city.id
           params[:estate_street] = @street.id
 
           expect(find_estates.to_sql).to include("`address_id` IN (#{@address1.id},#{@address2.id})")
+        end
+      end
+
+      context 'when estate_street was not filled' do
+        it 'returns query' do
+          params[:estate_city] = @city.id
+
+          expect(find_estates.to_sql).to include("`address_id` IN (#{@address1.id},#{@address2.id})")
+        end
+      end
+
+      context 'when all fields are empty' do
+        it 'returns query without condition' do
+          expect(find_estates.to_sql).not_to include("`address_id`")
         end
       end
     end
