@@ -108,4 +108,25 @@ RSpec.describe 'estates/index', type: :view do
       assert_select 'button#filter', tetx: I18n.t('helpers.submit.filter'), count: 1
     end
   end
+
+  it 'renders notice if estates was not found' do
+    estates = []
+
+    allow(view).to receive(:current_employee).and_return(employee)
+    assign(:estates, Kaminari.paginate_array(estates).page(1))
+
+    render template: 'estates/index', layout: 'layouts/application'
+
+    assert_select 'title', text: I18n.t('views.estate.index.title'), count: 1
+    assert_select 'h1', text: I18n.t('views.estate.index.title'), count: 1
+
+    expect(response.body).to have_link(I18n.t('views.estate.index.new'), href: new_estate_path)
+
+    assert_select 'table' do
+      assert_select 'tbody' do
+        assert_select 'tr', count: 1
+        assert_select 'tr>th', text: I18n.t('views.estate.index.estates_was_not_found'), count: 1
+      end
+    end
+  end
 end

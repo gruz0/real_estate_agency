@@ -30,27 +30,31 @@ table.table.table-sm.table-hover
           = button_tag '&times;'.html_safe, id: :reset_filter, class: 'btn btn-danger'
 
   tbody
-    - @estates.each do |estate|
+    - if @estates.size.positive?
+      - @estates.each do |estate|
+        tr
+          th scope="row" = estate.id
+          td = address_full_name_for(estate)
+          td = estate.estate_project_name
+          td = number_of_rooms_for(estate)
+          td = number_of_floors_for(estate)
+          td = format_price(estate.price)
+          td = estate.client_phone_numbers
+          td = person_shortname(estate.responsible_employee)
+          td = l(estate.created_at, format: :custom)
+          td
+            .dropdown.show
+              = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \
+                data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }
+              .dropdown-menu.dropdown-menu-right
+                = link_to t('views.show'), estate, class: 'dropdown-item'
+                = link_to t('views.edit'), edit_estate_path(estate), class: 'dropdown-item'
+                .dropdown-divider
+                = link_to t('views.destroy'), estate, class: 'dropdown-item text-danger', method: :delete, \
+                  data: { confirm: t('views.are_you_sure') }
+    - else
       tr
-        th scope="row" = estate.id
-        td = address_full_name_for(estate)
-        td = estate.estate_project_name
-        td = number_of_rooms_for(estate)
-        td = number_of_floors_for(estate)
-        td = format_price(estate.price)
-        td = estate.client_phone_numbers
-        td = person_shortname(estate.responsible_employee)
-        td = l(estate.created_at, format: :custom)
-        td
-          .dropdown.show
-            = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \
-              data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }
-            .dropdown-menu.dropdown-menu-right
-              = link_to t('views.show'), estate, class: 'dropdown-item'
-              = link_to t('views.edit'), edit_estate_path(estate), class: 'dropdown-item'
-              .dropdown-divider
-              = link_to t('views.destroy'), estate, class: 'dropdown-item text-danger', method: :delete, \
-                data: { confirm: t('views.are_you_sure') }
+        th colspan=11 scope="row" = t('views.estate.index.estates_was_not_found')
 
   tfoot
     tr

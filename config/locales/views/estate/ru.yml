@@ -4,6 +4,7 @@ ru:
       index:
         title: 'Список объектов'
         new: 'Новый объект'
+        estates_was_not_found: 'Объекты не найдены'
       new:
         title: 'Создание объекта'
       edit:
