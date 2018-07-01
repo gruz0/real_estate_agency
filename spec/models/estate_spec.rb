@@ -197,6 +197,8 @@ RSpec.describe Estate, type: :model do
       it { expect(estate).to respond_to(:estate_type_name) }
       it { expect(estate).to respond_to(:estate_project_name) }
       it { expect(estate).to respond_to(:estate_material_name) }
+      it { expect(estate).to respond_to(:created_by?) }
+      it { expect(estate).to respond_to(:assigned_to?) }
     end
 
     describe 'executes methods correctly' do
@@ -221,6 +223,46 @@ RSpec.describe Estate, type: :model do
       describe '#estate_material_name' do
         it 'returns EstateMaterial name' do
           expect(estate.estate_material_name).to eq(estate.estate_material.name)
+        end
+      end
+
+      describe '#created_by?' do
+        let(:employee) { create(:employee) }
+        let(:saved_estate) do
+          estate.update_attributes!(created_by_employee: employee)
+          estate.reload
+        end
+
+        context 'when argument equals to created_by_employee' do
+          it 'returns true' do
+            expect(saved_estate.created_by?(employee)).to eq(true)
+          end
+        end
+
+        context 'when argument equals to another employee' do
+          it 'returns false' do
+            expect(saved_estate.created_by?(create(:employee))).to eq(false)
+          end
+        end
+      end
+
+      describe '#assigned_to?' do
+        let(:employee) { create(:employee) }
+        let(:saved_estate) do
+          estate.update_attributes!(responsible_employee: employee)
+          estate.reload
+        end
+
+        context 'when argument equals to responsible_employee' do
+          it 'returns true' do
+            expect(saved_estate.assigned_to?(employee)).to eq(true)
+          end
+        end
+
+        context 'when argument equals to another employee' do
+          it 'returns false' do
+            expect(saved_estate.assigned_to?(create(:employee))).to eq(false)
+          end
         end
       end
     end

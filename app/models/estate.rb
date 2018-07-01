@@ -83,6 +83,14 @@ class Estate < ApplicationRecord
 
   before_save :clear_client_phone_numbers
 
+  def created_by?(employee)
+    created_by_employee.eql?(employee)
+  end
+
+  def assigned_to?(employee)
+    responsible_employee.eql?(employee)
+  end
+
   def client_full_name=(value)
     new_value = value.try(:strip).to_s.mb_chars.titleize
     super(new_value)

@@ -43,18 +43,16 @@ class EstatesController < ApplicationController
   end
 
   def redirect_if_employee_does_not_have_access_to_updateable_estate
-    # FIXME: It should be moved to @estate.created_by?(current_employee)
-    if @estate.created_by_employee.eql?(current_employee)
-      if @estate.responsible_employee.eql?(current_employee)
+    if @estate.created_by?(current_employee)
+      if @estate.assigned_to?(current_employee)
         return if @attributes[:responsible_employee].eql?(current_employee)
       else
-        return if @estate.responsible_employee.eql?(@attributes[:responsible_employee])
+        return if @estate.assigned_to?(@attributes[:responsible_employee])
       end
 
       redirect_to(edit_estate_path(@estate), alert: t('estates.update.you_can_not_change_responsible_employee'))
     else
-      # FIXME: It should be moved to @estate.assigned_to?(current_employee)
-      if @estate.responsible_employee.eql?(current_employee)
+      if @estate.assigned_to?(current_employee)
         return if @attributes[:responsible_employee].eql?(current_employee)
         redirect_to(edit_estate_path(@estate), alert: t('estates.update.you_can_not_change_responsible_employee'))
       else
