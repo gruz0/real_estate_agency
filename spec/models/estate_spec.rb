@@ -119,13 +119,24 @@ RSpec.describe Estate, type: :model do
         end
 
         context 'when apartment_number is not unique' do
-          let(:another_estate) { create(:estate, apartment_number: apartment_number) }
-          let(:estate) { build(:estate, address: another_estate.address, apartment_number: apartment_number) }
+          context 'when another estate already has this apartment number' do
+            let(:another_estate) { create(:estate, apartment_number: apartment_number) }
+            let(:estate) { build(:estate, address: another_estate.address, apartment_number: apartment_number) }
 
-          it 'returns validation error' do
-            expect(estate).to be_invalid
-            expect(estate.errors.full_messages)
-              .to include(I18n.t('activerecord.errors.messages.estate_at_this_address_already_exists'))
+            it 'returns validation error' do
+              expect(estate).to be_invalid
+              expect(estate.errors.full_messages)
+                .to include(I18n.t('activerecord.errors.messages.estate_at_this_address_already_exists'))
+            end
+          end
+
+          context 'when apartment number was not changed' do
+            let(:estate) { create(:estate, apartment_number: '123') }
+
+            it 'returns valid object' do
+              estate.update_attributes!(apartment_number: '123')
+              expect(estate).to be_valid
+            end
           end
         end
       end
