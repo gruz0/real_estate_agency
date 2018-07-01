@@ -5,6 +5,8 @@ class EstatesController < ApplicationController
 
   before_action :set_estate, only: %i[show edit update destroy]
   before_action :set_attributes!, only: %i[create update]
+  before_action :redirect_if_employee_does_not_have_access_to_updateable_estate, only: %i[update],
+                                                                                 if: -> { current_employee.user? }
 
   include PeopleHelper
 
@@ -38,6 +40,27 @@ class EstatesController < ApplicationController
 
   def set_estate
     @estate = Estate.find(params[:id])
+  end
+
+  def redirect_if_employee_does_not_have_access_to_updateable_estate
+    # FIXME: It should be moved to @estate.created_by?(current_employee)
+    if @estate.created_by_employee.eql?(current_employee)
+      if @estate.responsible_employee.eql?(current_employee)
+        return if @attributes[:responsible_employee].eql?(current_employee)
+      else
+        return if @estate.responsible_employee.eql?(@attributes[:responsible_employee])
+      end
+
+      redirect_to(edit_estate_path(@estate), alert: t('estates.update.you_can_not_change_responsible_employee'))
+    else
+      # FIXME: It should be moved to @estate.assigned_to?(current_employee)
+      if @estate.responsible_employee.eql?(current_employee)
+        return if @attributes[:responsible_employee].eql?(current_employee)
+        redirect_to(edit_estate_path(@estate), alert: t('estates.update.you_can_not_change_responsible_employee'))
+      else
+        redirect_to(edit_estate_path(@estate), alert: t('estates.update.you_can_not_update_not_owned_estate'))
+      end
+    end
   end
 
   def set_attributes!
