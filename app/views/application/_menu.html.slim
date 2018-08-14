@@ -43,3 +43,4 @@
     li.nav-item
       = link_to(destroy_employee_session_path, method: :delete, class: 'nav-link') do
         = t('views.layout.menu.logout')
+        = " (#{person_shortname(current_employee)})"

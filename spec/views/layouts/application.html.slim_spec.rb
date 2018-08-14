@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'layouts/application', type: :view do
+  include PeopleHelper
+
   context 'when user is an employee' do
     login_employee
 
@@ -18,6 +20,8 @@ RSpec.describe 'layouts/application', type: :view do
         assert_select 'ul.navbar-nav > li.nav-item' do |li|
           expect(li).to have_link(I18n.t('views.layout.menu.estates'), href: estates_path)
           expect(li).not_to have_link(I18n.t('views.layout.menu.audits'), href: audits_path)
+          expect(li).to have_link("#{I18n.t('views.layout.menu.logout')} (#{person_shortname(authenticated_employee)})",
+                                  href: destroy_employee_session_path)
         end
 
         assert_select 'ul.navbar-nav > li.dropdown' do |dropdown|
@@ -53,6 +57,8 @@ RSpec.describe 'layouts/application', type: :view do
       assert_select 'body > .navbar' do |_navbar|
         assert_select 'ul.navbar-nav > li.nav-item' do |li|
           expect(li).not_to have_link(I18n.t('views.layout.menu.audits'), href: audits_path)
+          expect(li).to have_link("#{I18n.t('views.layout.menu.logout')} (#{person_shortname(authenticated_admin)})",
+                                  href: destroy_employee_session_path)
         end
 
         assert_select 'ul.navbar-nav > li.dropdown' do |dropdown|
@@ -78,6 +84,9 @@ RSpec.describe 'layouts/application', type: :view do
       assert_select 'body > .navbar' do |_navbar|
         assert_select 'ul.navbar-nav > li.nav-item' do |li|
           expect(li).to have_link(I18n.t('views.layout.menu.audits'), href: audits_path)
+          expect(li)
+            .to have_link("#{I18n.t('views.layout.menu.logout')} (#{person_shortname(authenticated_service_admin)})",
+                          href: destroy_employee_session_path)
         end
 
         assert_select 'ul.navbar-nav > li.dropdown' do |dropdown|

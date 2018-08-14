@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_employee!
 
+  include PeopleHelper
+
   protected
 
   def redirect_if_employee_is_not_admin_or_service_admin
