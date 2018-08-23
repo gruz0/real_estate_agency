@@ -126,6 +126,7 @@ class Estate < ApplicationRecord
 
       similar_estates = Estate.where(address: address, client_phone_numbers: client_phone_numbers)
       return if similar_estates.size.zero?
+      return if similar_estates.any? { |estate| estate.id == id }
 
       errors.add(:base, :client_phone_numbers_at_this_building_number_already_exist)
     else

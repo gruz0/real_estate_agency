@@ -94,6 +94,16 @@ RSpec.describe Estate, type: :model do
           end
         end
 
+        context 'when try to save estate' do
+          it 'will not returns the error' do
+            estate.save
+
+            expect(estate).to be_valid
+            expect(estate.errors[:base]).not_to \
+              include(I18n.t('activerecord.errors.messages.client_phone_numbers_at_this_building_number_already_exist'))
+          end
+        end
+
         context 'when client phone numbers are not unique' do
           let(:another_estate) { create(:estate) }
           let(:estate) do
