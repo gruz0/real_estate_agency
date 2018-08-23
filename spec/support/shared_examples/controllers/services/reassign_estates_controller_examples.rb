@@ -67,11 +67,11 @@ RSpec.shared_examples :services_reassign_estates_controller_allow_update_action_
     end
 
     it 'redirects to index page if from_employee was not found' do
-      put :update, params: { reassign_estates: new_attributes.merge(from_employee: 42) }
+      put :update, params: { reassign_estates: new_attributes.merge(from_employee: 100_500) }
     end
 
     it 'redirects to index page if to_employee was not found' do
-      put :update, params: { reassign_estates: new_attributes.merge(to_employee: 42) }
+      put :update, params: { reassign_estates: new_attributes.merge(to_employee: 100_500) }
     end
   end
 end

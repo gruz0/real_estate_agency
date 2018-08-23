@@ -33,13 +33,13 @@ RSpec.describe StreetsController, type: :controller do
     end
 
     it 'redirects to index page if city was not found' do
-      get :show, params: { city_id: 42, id: 42 }
+      get :show, params: { city_id: 100_500, id: 100_500 }
       expect(response).to be_redirect
       expect(flash[:alert]).to eq(I18n.t('views.city.flash_messages.city_was_not_found'))
     end
 
     it 'redirects to index page if street was not found' do
-      get :show, params: { city_id: city.to_param, id: 42 }
+      get :show, params: { city_id: city.to_param, id: 100_500 }
       expect(response).to be_redirect
       expect(flash[:alert]).to eq(I18n.t('views.street.flash_messages.street_was_not_found'))
     end
@@ -63,13 +63,13 @@ RSpec.describe StreetsController, type: :controller do
     end
 
     it 'redirects to index page if city was not found' do
-      get :edit, params: { city_id: 42, id: 42 }
+      get :edit, params: { city_id: 100_500, id: 100_500 }
       expect(response).to be_redirect
       expect(flash[:alert]).to eq(I18n.t('views.city.flash_messages.city_was_not_found'))
     end
 
     it 'redirects to index page if street was not found' do
-      get :edit, params: { city_id: city.to_param, id: 42 }
+      get :edit, params: { city_id: city.to_param, id: 100_500 }
       expect(response).to be_redirect
       expect(flash[:alert]).to eq(I18n.t('views.street.flash_messages.street_was_not_found'))
     end
@@ -179,13 +179,13 @@ RSpec.describe StreetsController, type: :controller do
       end
 
       it 'redirects to index page if city was not found' do
-        put :update, params: { city_id: 42, id: 42, street: invalid_attributes }
+        put :update, params: { city_id: 100_500, id: 100_500, street: invalid_attributes }
         expect(response).to be_redirect
         expect(flash[:alert]).to eq(I18n.t('views.city.flash_messages.city_was_not_found'))
       end
 
       it 'redirects to index page if street was not found' do
-        put :update, params: { city_id: city.to_param, id: 42, street: invalid_attributes }
+        put :update, params: { city_id: city.to_param, id: 100_500, street: invalid_attributes }
         expect(response).to be_redirect
         expect(flash[:alert]).to eq(I18n.t('views.street.flash_messages.street_was_not_found'))
       end
@@ -229,13 +229,13 @@ RSpec.describe StreetsController, type: :controller do
 
     context 'with invalid params' do
       it 'redirects to index page if city was not found' do
-        delete :destroy, params: { city_id: 42, id: 42 }
+        delete :destroy, params: { city_id: 100_500, id: 100_500 }
         expect(response).to be_redirect
         expect(flash[:alert]).to eq(I18n.t('views.city.flash_messages.city_was_not_found'))
       end
 
       it 'redirects to index page if street was not found' do
-        delete :destroy, params: { city_id: city.to_param, id: 42 }
+        delete :destroy, params: { city_id: city.to_param, id: 100_500 }
         expect(response).to be_redirect
         expect(flash[:alert]).to eq(I18n.t('views.street.flash_messages.street_was_not_found'))
       end

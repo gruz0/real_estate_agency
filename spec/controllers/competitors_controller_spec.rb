@@ -32,7 +32,7 @@ RSpec.describe CompetitorsController, type: :controller do
     end
 
     it 'redirects to index page if record was not found' do
-      get :show, params: { id: 42 }
+      get :show, params: { id: 100_500 }
       expect(response).to be_redirect
       expect(flash[:alert]).to eq(I18n.t('views.competitor.flash_messages.competitor_was_not_found'))
     end
@@ -56,7 +56,7 @@ RSpec.describe CompetitorsController, type: :controller do
     end
 
     it 'redirects to index page if record was not found' do
-      get :edit, params: { id: 42 }
+      get :edit, params: { id: 100_500 }
       expect(response).to be_redirect
       expect(flash[:alert]).to eq(I18n.t('views.competitor.flash_messages.competitor_was_not_found'))
     end
@@ -130,7 +130,7 @@ RSpec.describe CompetitorsController, type: :controller do
       end
 
       it 'redirects to index page if record was not found' do
-        put :update, params: { id: 42, competitor: invalid_attributes }
+        put :update, params: { id: 100_500, competitor: invalid_attributes }
         expect(response).to be_redirect
         expect(flash[:alert]).to eq(I18n.t('views.competitor.flash_messages.competitor_was_not_found'))
       end
@@ -162,7 +162,7 @@ RSpec.describe CompetitorsController, type: :controller do
 
     context 'with invalid params' do
       it 'redirects to index page if record was not found' do
-        delete :destroy, params: { id: 42 }
+        delete :destroy, params: { id: 100_500 }
         expect(response).to be_redirect
         expect(flash[:alert]).to eq(I18n.t('views.competitor.flash_messages.competitor_was_not_found'))
       end
