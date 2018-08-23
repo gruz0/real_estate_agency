@@ -178,7 +178,7 @@ RSpec.shared_examples :employees_controller_allow_lock_action_to_admins do
 
   context 'with invalid params' do
     it 'redirects to index page if record was not found' do
-      post :lock, params: { id: 42 }
+      post :lock, params: { id: 100_500 }
       expect(response).to be_redirect
       expect(flash[:alert]).to eq(I18n.t('views.employee.flash_messages.employee_was_not_found'))
     end
