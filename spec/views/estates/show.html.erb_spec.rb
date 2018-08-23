@@ -12,6 +12,7 @@ RSpec.describe 'estates/show', type: :view do
   let(:estate_material) { create(:estate_material, name: 'Арбоблочный') }
   let(:estate) { create(:estate, valid_attributes) }
 
+  let(:link_in_description) { 'https://github.com/gruz0/real_estate_agency/blob/master/.env.sample' }
   let(:valid_attributes) do
     {
       created_by_employee: create(:employee, last_name: 'Сергеев', first_name: 'Алексей'),
@@ -29,7 +30,7 @@ RSpec.describe 'estates/show', type: :view do
       number_of_floors: 10,
       total_square_meters: 122.1,
       kitchen_square_meters: 17.8,
-      description: 'Описание объекта',
+      description: "Описание объекта - #{link_in_description}",
       price: 99_999
     }
   end
@@ -54,6 +55,7 @@ RSpec.describe 'estates/show', type: :view do
     expect(response.body).to match(/122\.1/)
     expect(response.body).to match(/17\.8/)
     expect(response.body).to match(/Описание объекта/)
+    expect(response.body).to have_link(link_in_description, href: link_in_description)
     expect(response.body).to match(/Сергеев Алексей/)
     expect(response.body).to match(/#{I18n.l(estate.created_at, format: :short)}/)
     expect(response.body).to match(/Петров Олег/)

@@ -81,7 +81,7 @@ table.table.table-sm.table-hover
       th scope="row"
         = Estate.human_attribute_name(:description)
       td
-        = @estate.description
+        = raw(Rinku.auto_link(h(@estate.description), :all, 'target="_blank"'))
 
     tr
       th scope="row"
