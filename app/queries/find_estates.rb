@@ -14,6 +14,7 @@ class FindEstates
     scoped = filter_by_number_of_rooms(scoped, params[:number_of_rooms])
     scoped = filter_by_floor(scoped, params[:floor_from], params[:floor_to])
     scoped = filter_by_price(scoped, params[:price_from], params[:price_to])
+    scoped = filter_by_total_square_meters(scoped, params[:total_square_meters_from], params[:total_square_meters_to])
     scoped = filter_by_client_phone_numbers(scoped, params[:client_phone_numbers])
     scoped = filter_by_responsible_employee(scoped, params[:responsible_employee])
     scoped = paginate(scoped, params[:page])
@@ -44,6 +45,10 @@ class FindEstates
 
   def filter_by_price(scoped, price_from = nil, price_to = nil)
     filter_from_to(scoped, :price, price_from, price_to)
+  end
+
+  def filter_by_total_square_meters(scoped, total_square_meters_from = nil, total_square_meters_to = nil)
+    filter_from_to(scoped, :total_square_meters, total_square_meters_from, total_square_meters_to)
   end
 
   def filter_by_client_phone_numbers(scoped, client_phone_numbers = nil)

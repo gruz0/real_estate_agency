@@ -82,6 +82,17 @@
                   .input-group-text
                     | 000
 
+          / Total square meters
+          .form-group.row
+            = label_tag :filter_total_square_meters_from, Estate.human_attribute_name(:total_square_meters), \
+              class: 'col-sm-4 col-form-label'
+            .col-sm-4
+              = text_field :filter, :total_square_meters_from, value: params.fetch(:total_square_meters_from, ''), \
+                class: 'form-control', maxlength: 2
+            .col-sm-4
+              = text_field :filter, :total_square_meters_to, value: params.fetch(:total_square_meters_to, ''), \
+                class: 'form-control', maxlength: 3
+
           / Client phone numbers
           .form-group.row
             = label_tag :filter_client_phone_numbers , Estate.human_attribute_name(:client_phone_numbers), \
