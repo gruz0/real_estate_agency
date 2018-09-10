@@ -1,13 +1,12 @@
-.PHONY: help docker_run docker_build docker_push
+.PHONY: help dockerize docker_build docker_push
 
 help:
 	@echo 'Available targets:'
-	@echo '  make docker_run'
+	@echo '  make dockerize'
 	@echo '  make docker_build'
 	@echo '  make docker_push'
 
-docker_run:
-	rm -f tmp/pids/server.pid
+dockerize:
 	docker-compose up --build
 
 docker_build:
