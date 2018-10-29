@@ -200,6 +200,28 @@ RSpec.describe EstatesController, type: :controller do
           }
           expect(flash[:notice]).to eq(I18n.t('views.estate.flash_messages.estate_was_successfully_updated'))
         end
+
+        context 'when estate was not assigned to current employee' do
+          let(:estate) do
+            create(:estate, valid_attributes.except(:city, :street, :building_number))
+          end
+
+          context 'when employee try to update estate attributes except responsible employee' do
+            it 'updates record' do
+              responsible_employee = estate.responsible_employee
+
+              put :update, params: {
+                id: estate.to_param,
+                estate: new_attributes.merge(responsible_employee: estate.responsible_employee)
+              }
+              expect(response).to redirect_to(estate)
+              expect(flash[:notice]).to eq(I18n.t('views.estate.flash_messages.estate_was_successfully_updated'))
+
+              estate.reload
+              expect(estate.responsible_employee).to eq(responsible_employee)
+            end
+          end
+        end
       end
 
       context 'with invalid params' do
@@ -268,10 +290,10 @@ RSpec.describe EstatesController, type: :controller do
               create(:estate, valid_attributes.except(:city, :street, :building_number))
             end
 
-            it 'renders an error if employee try to update not owned record' do
-              put :update, params: { id: estate.to_param, estate: valid_attributes }
+            it 'renders an error if employee try to change responsible employee' do
+              put :update, params: { id: estate.to_param, estate: new_attributes }
               expect(response).to redirect_to(edit_estate_path(estate))
-              expect(flash[:alert]).to eq(I18n.t('estates.update.you_can_not_update_not_owned_estate'))
+              expect(flash[:alert]).to eq(I18n.t('estates.update.you_can_not_change_responsible_employee'))
             end
           end
         end

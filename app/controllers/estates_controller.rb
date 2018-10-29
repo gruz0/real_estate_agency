@@ -56,7 +56,11 @@ class EstatesController < ApplicationController
         return if @attributes[:responsible_employee].eql?(current_employee)
         redirect_to(edit_estate_path(@estate), alert: t('estates.update.you_can_not_change_responsible_employee'))
       else
-        redirect_to(edit_estate_path(@estate), alert: t('estates.update.you_can_not_update_not_owned_estate'))
+        if @attributes[:responsible_employee].eql?(@estate.responsible_employee)
+          @attributes[:responsible_employee] = @estate.responsible_employee
+        else
+          redirect_to(edit_estate_path(@estate), alert: t('estates.update.you_can_not_change_responsible_employee'))
+        end
       end
     end
   end
