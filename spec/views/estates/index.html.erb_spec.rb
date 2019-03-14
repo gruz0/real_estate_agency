@@ -55,7 +55,7 @@ RSpec.describe 'estates/index', type: :view do
         assert_select 'th', text: Estate.human_attribute_name(:price), count: 1
         assert_select 'th', text: Client.model_name.human, count: 1
         assert_select 'th', text: Estate.human_attribute_name(:responsible_employee), count: 1
-        assert_select 'th', text: Estate.human_attribute_name(:created_at), count: 1
+        assert_select 'th', text: Estate.human_attribute_name(:updated_at), count: 1
 
         assert_select 'button#show_filter', count: 1
         assert_select 'button#reset_filter', count: 1

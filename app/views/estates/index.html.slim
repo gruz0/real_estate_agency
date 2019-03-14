@@ -18,7 +18,7 @@ table.table.table-sm.table-hover
       th scope="col" = Estate.human_attribute_name(:price)
       th scope="col" = Client.model_name.human
       th scope="col" = Estate.human_attribute_name(:responsible_employee)
-      th.created-at scope="col" = Estate.human_attribute_name(:created_at)
+      th.created-at scope="col" = Estate.human_attribute_name(:updated_at)
       th.action scope="col"
 
     tr
@@ -41,7 +41,7 @@ table.table.table-sm.table-hover
           td = format_price(estate.price)
           td = estate.client_phone_numbers
           td = person_shortname(estate.responsible_employee)
-          td = l(estate.created_at, format: :custom)
+          td = l(estate.updated_at, format: :custom)
           td
             .dropdown.show
               = link_to t('views.action'), '#', class: 'btn btn-sm btn-secondary dropdown-toggle', \
