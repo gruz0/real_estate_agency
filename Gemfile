@@ -17,7 +17,7 @@ gem 'kaminari'
 gem 'mini_racer', platforms: :ruby
 gem 'mysql2', '>= 0.3.18', '< 0.5'
 gem 'puma', '~> 3.7'
-gem 'rails', '~> 5.2.1', '>= 5.2.1.1'
+gem 'rails', '~> 5.2.2', '>= 5.2.2.1'
 gem 'rinku'
 gem 'sass-rails', '~> 5.0'
 gem 'slim-rails'
