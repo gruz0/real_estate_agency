@@ -23,6 +23,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'slim-rails'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
+gem 'validates_timeliness', '~> 5.0.0.alpha3'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

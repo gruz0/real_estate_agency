@@ -26,7 +26,14 @@ ru:
         description: 'Описание объекта'
         created_at: 'Создано'
         updated_at: 'Изменено'
+        delayed_until: 'Отложено до'
     errors:
+      models:
+        estate:
+          attributes:
+            delayed_until:
+              invalid_datetime: 'некорректная дата'
+              after: 'должно быть после %{restriction}'
       messages:
         estate_at_this_address_already_exists: 'Объект с таким номером квартиры по указанному адресу уже существует'
         client_phone_numbers_at_this_building_number_already_exist: 'Существует объект с этим номером телефона по указанному адресу'
