@@ -22,6 +22,7 @@ RSpec.describe Estate, type: :model do
     # Format validations
     it { expect(estate).to allow_value(:archived).for(:status) }
     it { expect(estate).to allow_value(:active).for(:status) }
+    it { expect(estate).to allow_value(:delayed).for(:status) }
 
     it { expect(estate).not_to allow_value(nil).for(:responsible_employee) }
     it { expect(estate).not_to allow_value(nil).for(:created_by_employee) }
@@ -73,6 +74,11 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).to allow_value(33.11).for(:kitchen_square_meters) }
     it { expect(estate).to allow_value(nil).for(:kitchen_square_meters) }
     it { expect(estate).not_to allow_value('qwe').for(:kitchen_square_meters) }
+
+    it { expect(estate).to allow_value(nil).for(:delayed_until) }
+    it { expect(estate).to allow_value(Time.zone.now + 2.days).for(:delayed_until) }
+    it { expect(estate).not_to allow_value(Time.zone.now).for(:delayed_until) }
+    it { expect(estate).not_to allow_value('qwe').for(:delayed_until) }
 
     # Inclusion/acceptance of values
     it { expect(estate).to validate_length_of(:client_full_name).is_at_least(1) }
@@ -201,6 +207,7 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).to have_db_column(:total_square_meters).of_type(:float).with_options(null: true) }
     it { expect(estate).to have_db_column(:kitchen_square_meters).of_type(:float).with_options(null: true) }
     it { expect(estate).to have_db_column(:description).of_type(:text).with_options(null: true) }
+    it { expect(estate).to have_db_column(:delayed_until).of_type(:datetime).with_options(null: true) }
   end
 
   describe 'strip attributes' do
@@ -220,6 +227,7 @@ RSpec.describe Estate, type: :model do
       it { expect(estate).to respond_to(:estate_material_name) }
       it { expect(estate).to respond_to(:created_by?) }
       it { expect(estate).to respond_to(:assigned_to?) }
+      it { expect(estate).to respond_to(:delay!) }
     end
 
     describe 'executes methods correctly' do
@@ -283,6 +291,50 @@ RSpec.describe Estate, type: :model do
         context 'when argument equals to another employee' do
           it 'returns false' do
             expect(saved_estate.assigned_to?(create(:employee))).to eq(false)
+          end
+        end
+      end
+
+      describe '#delay!' do
+        let(:employee) { create(:employee) }
+        subject(:result) do
+          estate.delay!(employee: employee, delayed_until: delayed_until)
+          estate.reload
+        end
+
+        context 'when value is valid' do
+          let(:delayed_until) { Time.zone.now + 2.days }
+
+          it 'changes status to delayed' do
+            expect(subject.delayed?).to eq(true)
+          end
+
+          it 'updates delayed_until column' do
+            expect(subject.delayed_until.to_s).to eq(delayed_until.to_s)
+          end
+
+          it 'updates updated_at column' do
+            expect { subject }.to change(estate, :updated_at)
+          end
+
+          it 'updates updated_by_employee column' do
+            expect { subject }.to change(estate, :updated_by_employee).to(employee)
+          end
+        end
+
+        context 'when value is not a valid datetime' do
+          let(:delayed_until) { 'qwe' }
+
+          it 'raises exception' do
+            expect { subject }.to raise_exception(ActiveRecord::RecordInvalid, 'Возникли ошибки: Отложено до некорректная дата')
+          end
+        end
+
+        context 'when value is not greater than now' do
+          let(:delayed_until) { Time.zone.now }
+
+          it 'raises exception' do
+            expect { subject }.to raise_exception(ActiveRecord::RecordInvalid, "Возникли ошибки: Отложено до должно быть после #{delayed_until.strftime('%Y-%m-%d %H:%M:%S')}")
           end
         end
       end
