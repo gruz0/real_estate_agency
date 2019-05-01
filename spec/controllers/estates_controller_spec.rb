@@ -345,4 +345,82 @@ RSpec.describe EstatesController, type: :controller do
       end
     end
   end
+
+  describe 'PATCH #delay' do
+    let(:valid_attributes) do
+      {
+        id: estate.to_param,
+        estate: {
+          delayed_until: Time.zone.now + 3.days
+        }
+      }
+    end
+
+    context 'when user is an employee' do
+      login_employee
+
+      let(:current_employee) { authenticated_employee }
+      let(:estate) do
+        create(:estate, created_by_employee: current_employee, responsible_employee: current_employee)
+      end
+
+      context 'with valid params' do
+        before do
+          patch :delay, params: valid_attributes
+        end
+
+        it 'updates the requested estate' do
+          estate.reload
+
+          expect(estate.updated_by_employee).to eq(current_employee)
+          expect(estate.delayed_until.to_s).to eq(valid_attributes[:estate][:delayed_until].to_s)
+          expect(estate.status).to eq('delayed')
+        end
+
+        it 'redirects to the estate' do
+          expect(response).to redirect_to(estate)
+        end
+
+        it 'renders flash notice' do
+          expect(flash[:notice]).to eq(I18n.t('views.estate.flash_messages.estate_was_successfully_delayed'))
+        end
+      end
+
+      context 'with invalid params' do
+        context 'when ID is invalid' do
+          before do
+            patch :delay, params: { id: 100_500 }
+          end
+
+          it 'redirects to index page' do
+            expect(response).to be_redirect
+          end
+
+          it 'renders flash notice' do
+            expect(flash[:alert]).to eq(I18n.t('views.estate.flash_messages.estate_was_not_found'))
+          end
+        end
+
+        context 'when delayed_until is empty' do
+          let(:invalid_attributes) do
+            valid_attributes[:estate][:delayed_until] = ''
+            valid_attributes
+          end
+
+          before do
+            patch :delay, params: invalid_attributes
+          end
+
+          it 'redirects to index page' do
+            expect(response).to be_redirect
+          end
+
+          it 'renders flash notice' do
+            # FIXME: It should be replaced with locale
+            expect(flash[:alert]).to eq('Отложено до некорректная дата')
+          end
+        end
+      end
+    end
+  end
 end

@@ -3,7 +3,7 @@ class EstatesController < ApplicationController
     redirect_to estates_path, alert: t('views.estate.flash_messages.estate_was_not_found')
   end
 
-  before_action :set_estate, only: %i[show edit update destroy]
+  before_action :set_estate, only: %i[show edit update destroy delay]
   before_action :set_attributes!, only: %i[create update]
   before_action :redirect_if_employee_does_not_have_access_to_updateable_estate, only: %i[update],
                                                                                  if: -> { current_employee.user? }
@@ -34,6 +34,14 @@ class EstatesController < ApplicationController
 
   def destroy
     super(@estate, estates_url, t('views.estate.flash_messages.estate_was_successfully_destroyed'))
+  end
+
+  def delay
+    if @estate.delay(employee: current_employee, delayed_until: estate_params[:delayed_until])
+      redirect_to @estate, notice: t('views.estate.flash_messages.estate_was_successfully_delayed', estate_params[:delayed_until])
+    else
+      redirect_to estates_path, alert: @estate.errors.full_messages.join
+    end
   end
 
   private
@@ -86,12 +94,12 @@ class EstatesController < ApplicationController
                                    :city, :street, :building_number, :apartment_number,
                                    :estate_type, :estate_project, :estate_material, :number_of_rooms,
                                    :floor, :number_of_floors, :total_square_meters, :kitchen_square_meters,
-                                   :description, :status, :price)
+                                   :description, :status, :price, :delayed_until)
   end
 
   def permitted_params
     params.permit(:page, :id, :estate_city, :estate_street, :estate_building_number, :estate_project, :number_of_rooms,
                   :floor_from, :floor_to, :price_from, :price_to, :total_square_meters_from, :total_square_meters_to,
-                  :client_phone_numbers, :responsible_employee)
+                  :client_phone_numbers, :responsible_employee, :delayed_until)
   end
 end

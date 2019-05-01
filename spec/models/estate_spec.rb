@@ -227,7 +227,7 @@ RSpec.describe Estate, type: :model do
       it { expect(estate).to respond_to(:estate_material_name) }
       it { expect(estate).to respond_to(:created_by?) }
       it { expect(estate).to respond_to(:assigned_to?) }
-      it { expect(estate).to respond_to(:delay!) }
+      it { expect(estate).to respond_to(:delay) }
     end
 
     describe 'executes methods correctly' do
@@ -295,14 +295,15 @@ RSpec.describe Estate, type: :model do
         end
       end
 
-      describe '#delay!' do
+      describe '#delay' do
         let(:employee) { create(:employee) }
-        subject(:result) do
-          estate.delay!(employee: employee, delayed_until: delayed_until)
-          estate.reload
-        end
 
         context 'when value is valid' do
+          subject(:result) do
+            estate.delay(employee: employee, delayed_until: delayed_until)
+            estate.reload
+          end
+
           let(:delayed_until) { Time.zone.now + 2.days }
 
           it 'changes status to delayed' do
@@ -325,16 +326,36 @@ RSpec.describe Estate, type: :model do
         context 'when value is not a valid datetime' do
           let(:delayed_until) { 'qwe' }
 
-          it 'raises exception' do
-            expect { subject }.to raise_exception(ActiveRecord::RecordInvalid, 'Возникли ошибки: Отложено до некорректная дата')
+          before do
+            estate.delay(employee: employee, delayed_until: delayed_until)
+          end
+
+          it 'is invalid' do
+            expect(estate).not_to be_valid
+          end
+
+          it 'has error' do
+            expect(estate.errors.messages).to have_key(:delayed_until)
+            # FIXME: It should be replaced with locale
+            expect(estate.errors.messages[:delayed_until]).to eq(['некорректная дата'])
           end
         end
 
         context 'when value is not greater than now' do
           let(:delayed_until) { Time.zone.now }
 
-          it 'raises exception' do
-            expect { subject }.to raise_exception(ActiveRecord::RecordInvalid, "Возникли ошибки: Отложено до должно быть после #{delayed_until.strftime('%Y-%m-%d %H:%M:%S')}")
+          before do
+            estate.delay(employee: employee, delayed_until: delayed_until)
+          end
+
+          it 'is invalid' do
+            expect(estate).not_to be_valid
+          end
+
+          it 'has error' do
+            expect(estate.errors.messages).to have_key(:delayed_until)
+            # FIXME: It should be replaced with locale
+            expect(estate.errors.messages[:delayed_until]).to eq(["должно быть после #{Time.zone.now.strftime('%Y-%m-%d %H:%M:%S')}"])
           end
         end
       end

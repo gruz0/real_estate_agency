@@ -75,7 +75,7 @@ class Estate < ApplicationRecord
   validates :total_square_meters, allow_blank: true, numericality: { greater_than: 0, less_than: 1000 }
   validates :kitchen_square_meters, allow_blank: true, numericality: { greater_than: 0, less_than: 1000 }
   validate :client_phone_numbers_valid?
-  validates_datetime :delayed_until, allow_blank: true, after: -> { Time.zone.now }
+  validates_datetime :delayed_until, allow_nil: true, after: -> { Time.zone.now }
   validate :estate_saveable?
 
   delegate :building_number, to: :address, allow_nil: true
@@ -102,12 +102,12 @@ class Estate < ApplicationRecord
     super(value.try(:strip))
   end
 
-  def delay!(employee:, delayed_until:)
+  def delay(employee:, delayed_until:)
     self.updated_by_employee = employee
     self.delayed_until = delayed_until
     self.status = :delayed
 
-    save!
+    save
   end
 
   private
