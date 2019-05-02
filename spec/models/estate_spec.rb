@@ -76,8 +76,8 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).not_to allow_value('qwe').for(:kitchen_square_meters) }
 
     it { expect(estate).to allow_value(nil).for(:delayed_until) }
-    it { expect(estate).to allow_value(Time.zone.now + 2.days).for(:delayed_until) }
-    it { expect(estate).not_to allow_value(Time.zone.now).for(:delayed_until) }
+    it { expect(estate).to allow_value(Date.current + 2.days).for(:delayed_until) }
+    it { expect(estate).not_to allow_value(Date.current).for(:delayed_until) }
     it { expect(estate).not_to allow_value('qwe').for(:delayed_until) }
 
     # Inclusion/acceptance of values
@@ -207,7 +207,7 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).to have_db_column(:total_square_meters).of_type(:float).with_options(null: true) }
     it { expect(estate).to have_db_column(:kitchen_square_meters).of_type(:float).with_options(null: true) }
     it { expect(estate).to have_db_column(:description).of_type(:text).with_options(null: true) }
-    it { expect(estate).to have_db_column(:delayed_until).of_type(:datetime).with_options(null: true) }
+    it { expect(estate).to have_db_column(:delayed_until).of_type(:date).with_options(null: true) }
   end
 
   describe 'strip attributes' do
@@ -304,7 +304,7 @@ RSpec.describe Estate, type: :model do
             estate.reload
           end
 
-          let(:delayed_until) { Time.zone.now + 2.days }
+          let(:delayed_until) { Date.current + 2.days }
 
           it 'changes status to delayed' do
             expect(subject.delayed?).to eq(true)
@@ -342,7 +342,7 @@ RSpec.describe Estate, type: :model do
         end
 
         context 'when value is not greater than now' do
-          let(:delayed_until) { Time.zone.now }
+          let(:delayed_until) { Date.current }
 
           before do
             estate.delay(employee: employee, delayed_until: delayed_until)
@@ -355,7 +355,7 @@ RSpec.describe Estate, type: :model do
           it 'has error' do
             expect(estate.errors.messages).to have_key(:delayed_until)
             # FIXME: It should be replaced with locale
-            expect(estate.errors.messages[:delayed_until]).to eq(["должно быть после #{Time.zone.now.strftime('%Y-%m-%d %H:%M:%S')}"])
+            expect(estate.errors.messages[:delayed_until]).to eq(["должно быть после #{Date.current} 00:00:00"])
           end
         end
       end

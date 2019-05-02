@@ -1,6 +1,6 @@
 class AddDelayedUntilColumnToEstates < ActiveRecord::Migration[5.1]
   def self.up
-    add_column :estates, :delayed_until, :datetime, null: true
+    add_column :estates, :delayed_until, :date, null: true
   end
 
   def self.down

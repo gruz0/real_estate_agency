@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(version: 20190317154500) do
     t.datetime "updated_at", null: false
     t.string "client_full_name", default: "", null: false
     t.string "client_phone_numbers", default: "", null: false
-    t.datetime "delayed_until"
+    t.date "delayed_until"
     t.index ["address_id"], name: "index_estates_on_address_id"
     t.index ["created_by_employee_id"], name: "index_estates_on_created_by_employee_id"
     t.index ["estate_material_id"], name: "index_estates_on_estate_material_id"
