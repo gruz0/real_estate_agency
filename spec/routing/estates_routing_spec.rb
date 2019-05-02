@@ -37,5 +37,9 @@ RSpec.describe EstatesController, type: :routing do
     it 'routes to #delay via PATCH' do
       expect(patch: '/estates/1/delay').to route_to('estates#delay', id: '1')
     end
+
+    it 'routes to #cancel_delay via DELETE' do
+      expect(delete: '/estates/1/cancel_delay').to route_to('estates#cancel_delay', id: '1')
+    end
   end
 end

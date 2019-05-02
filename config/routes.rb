@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :addresses, only: %i[index show destroy]
   resources :estates do
     patch :delay, on: :member
+    delete :cancel_delay, on: :member
   end
   resources :audits, only: %i[index show]
   namespace :services do

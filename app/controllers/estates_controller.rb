@@ -3,7 +3,7 @@ class EstatesController < ApplicationController
     redirect_to estates_path, alert: t('views.estate.flash_messages.estate_was_not_found')
   end
 
-  before_action :set_estate, only: %i[show edit update destroy delay]
+  before_action :set_estate, only: %i[show edit update destroy delay cancel_delay]
   before_action :set_attributes!, only: %i[create update]
   before_action :redirect_if_employee_does_not_have_access_to_updateable_estate, only: %i[update],
                                                                                  if: -> { current_employee.user? }
@@ -38,6 +38,14 @@ class EstatesController < ApplicationController
 
   def delay
     if @estate.delay(employee: current_employee, delayed_until: estate_params[:delayed_until])
+      redirect_to @estate, notice: t('views.estate.flash_messages.estate_was_successfully_updated')
+    else
+      render :edit
+    end
+  end
+
+  def cancel_delay
+    if @estate.cancel_delay(employee: current_employee)
       redirect_to @estate, notice: t('views.estate.flash_messages.estate_was_successfully_updated')
     else
       render :edit
