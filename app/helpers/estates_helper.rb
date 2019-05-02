@@ -45,6 +45,13 @@ module EstatesHelper
     estate.address.full_name + apartment_number_for(estate)
   end
 
+  def datepicker_input(form, field)
+    content_tag :td do
+      concat(form.label :delayed_until)
+      concat(form.text_field field, id: 'datepicker', class: 'form-control')
+    end
+  end
+
   private
 
   def apartment_number_for(estate)

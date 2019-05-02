@@ -26,7 +26,8 @@ RSpec.describe 'estates/edit', type: :view do
       number_of_floors: 9,
       kitchen_square_meters: 42.1,
       total_square_meters: 99.3,
-      description: 'Описание объекта недвижимости'
+      description: 'Описание объекта недвижимости',
+      delayed_until: Date.current + 3.days
     }
   end
 
@@ -39,6 +40,11 @@ RSpec.describe 'estates/edit', type: :view do
 
     assert_select 'title', text: I18n.t('views.estate.edit.title'), count: 1
     assert_select 'h1', text: I18n.t('views.estate.edit.title'), count: 1
+
+    assert_select '#nav-tab', count: 1 do |link|
+      assert_select 'a', text: I18n.t('views.estate.edit.card_link_title'), count: 1
+      assert_select 'a', text: I18n.t('views.estate.edit.delay_link_title'), count: 1
+    end
 
     assert_select 'form[action=?][method=?]', estate_path(estate), 'post' do
       assert_select 'input[name=?][value=?]', 'estate[client_full_name]', valid_attributes[:client_full_name]
@@ -68,6 +74,11 @@ RSpec.describe 'estates/edit', type: :view do
       assert_select selected_option, 'estate[street]', street.id.to_s
       assert_select selected_option, 'estate[estate_project]', estate_project.id.to_s
       assert_select selected_option, 'estate[estate_material]', estate_material.id.to_s
+    end
+
+    assert_select 'form[action=?][method=?]', delay_estate_path(estate), 'post' do
+      assert_select 'input[type=hidden][name=?][value=?]', '_method', 'patch'
+      assert_select 'input[name=?][value=?]', 'estate[delayed_until]', valid_attributes[:delayed_until].to_s
     end
 
     expect(response.body).to have_button(I18n.t('helpers.submit.update'))

@@ -5,6 +5,27 @@
   .col-lg-9
     h1 = title
 
+- if @estate.errors.any?
+  .row.col-lg-10
+    .col-lg-9
+      #error_explanation
+        h2 = t('activerecord.errors.template.header', model: Estate.model_name.human, count: @estate.errors.count)
+        ul
+          - @estate.errors.full_messages.each do |message|
+            li = message
+
 .row.col-lg-10
   .col-lg-9
-    = render 'form', estate: @estate
+    .nav
+      #nav-tab.nav.nav-tabs role="tablist"
+        a.nav-item.nav-link.active id="nav-card-tab" data-toggle="tab" href="#nav-card" role="tab" aria-controls="nav-card" aria-selected="true"
+          = t('views.estate.edit.card_link_title')
+        a.nav-item.nav-link id="nav-delay-tab" data-toggle="tab" href="#nav-delay" role="tab" aria-controls="nav-delay" aria-selected="false"
+          = t('views.estate.edit.delay_link_title')
+
+    .tab-content
+      .tab-pane.fade.show.active id="nav-card" role="tabpanel" aria-labelledby="nav-card-tab"
+        = render 'form', estate: @estate
+
+      .tab-pane.fade.show id="nav-delay" role="tabpanel" aria-labelledby="nav-delay-tab"
+        = render 'delay', estate: @estate

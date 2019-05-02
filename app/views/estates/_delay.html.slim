@@ -1,0 +1,9 @@
+= form_with(model: estate, local: true, url: delay_estate_path(estate), method: :patch) do |form|
+  table.table.table-sm.table-bordered
+    tbody
+      tr
+        = datepicker_input form, :delayed_until
+
+  .btn-group role="group" aria-label="#{t('views.action')}"
+    = link_to t('views.back'), estates_path, class: 'btn btn-secondary', role: 'button'
+    = form.submit class: 'btn btn-success'

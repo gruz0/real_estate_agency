@@ -9,6 +9,8 @@ ru:
         title: 'Создание объекта'
       edit:
         title: 'Редактирование объекта'
+        card_link_title: 'Карточка объекта'
+        delay_link_title: 'Отложить объект'
       show:
         title: 'Карточка объекта #%{id}'
       flash_messages:
