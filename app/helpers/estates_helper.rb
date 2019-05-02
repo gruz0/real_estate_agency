@@ -52,6 +52,16 @@ module EstatesHelper
     end
   end
 
+  def delayed_until(estate)
+    return unless estate.delayed?
+
+    content_tag :div, class: 'row col-lg-10' do
+      content_tag :div, class: 'alert alert-secondary' do
+        t('views.estate.show.delayed_until', delayed_until: estate.delayed_until)
+      end
+    end
+  end
+
   private
 
   def apartment_number_for(estate)

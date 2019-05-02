@@ -13,6 +13,7 @@ ru:
         delay_link_title: 'Отложить объект'
       show:
         title: 'Карточка объекта #%{id}'
+        delayed_until: 'Объект отложен до %{delayed_until}'
       flash_messages:
         estate_was_not_found: 'Объект не существует'
         estate_was_successfully_created: 'Объект был успешно создан'

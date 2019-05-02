@@ -176,4 +176,25 @@ RSpec.describe EstatesHelper, type: :helper do
       end
     end
   end
+
+  describe '#delayed_until' do
+    context 'when estate delayed' do
+      let(:delayed_until) { Date.current + 3.days }
+
+      it 'returns html' do
+        estate.update(status: :delayed, delayed_until: delayed_until)
+
+        expect(helper.delayed_until(estate.reload)).to eq(
+          '<div class="row col-lg-10"><div class="alert alert-secondary">' +
+          I18n.t('views.estate.show.delayed_until', delayed_until: delayed_until.strftime('%Y-%m-%d')) +
+          '</div></div>')
+      end
+    end
+
+    context 'when estate is not delayed' do
+      it 'returns nothing' do
+        expect(helper.delayed_until(estate)).to be_nil
+      end
+    end
+  end
 end
