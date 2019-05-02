@@ -21,6 +21,14 @@ populateStreets = (streetSelector, json, addFirstEmptyItem) ->
   $(streetSelector).html(streets.join(''))
 
 $(document).on 'turbolinks:load', () ->
+  $('#datepicker').datepicker({
+    language: 'ru',
+    autoclose: true,
+    clearBtn: true,
+    format: 'yyyy-mm-dd',
+    orientation: 'bottom left'
+  })
+
   $('#filter').on 'click', ->
     filterCity = ''
     filterStreet = ''
