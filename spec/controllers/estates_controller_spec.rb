@@ -351,7 +351,7 @@ RSpec.describe EstatesController, type: :controller do
       {
         id: estate.to_param,
         estate: {
-          delayed_until: Time.zone.now + 3.days
+          delayed_until: Date.current + 3.days
         }
       }
     end
@@ -382,7 +382,26 @@ RSpec.describe EstatesController, type: :controller do
         end
 
         it 'renders flash notice' do
-          expect(flash[:notice]).to eq(I18n.t('views.estate.flash_messages.estate_was_successfully_delayed'))
+          expect(flash[:notice]).to eq(I18n.t('views.estate.flash_messages.estate_was_successfully_updated'))
+        end
+
+        context 'when delayed_until is empty' do
+          let(:attributes) do
+            valid_attributes[:estate][:delayed_until] = ''
+            valid_attributes
+          end
+
+          before do
+            patch :delay, params: attributes
+          end
+
+          it 'redirects to the estate' do
+            expect(response).to redirect_to(estate)
+          end
+
+          it 'renders flash notice' do
+            expect(flash[:notice]).to eq(I18n.t('views.estate.flash_messages.estate_was_successfully_updated'))
+          end
         end
       end
 
@@ -398,26 +417,6 @@ RSpec.describe EstatesController, type: :controller do
 
           it 'renders flash notice' do
             expect(flash[:alert]).to eq(I18n.t('views.estate.flash_messages.estate_was_not_found'))
-          end
-        end
-
-        context 'when delayed_until is empty' do
-          let(:invalid_attributes) do
-            valid_attributes[:estate][:delayed_until] = ''
-            valid_attributes
-          end
-
-          before do
-            patch :delay, params: invalid_attributes
-          end
-
-          it 'redirects to index page' do
-            expect(response).to be_redirect
-          end
-
-          it 'renders flash notice' do
-            # FIXME: It should be replaced with locale
-            expect(flash[:alert]).to eq('Отложено до некорректная дата')
           end
         end
       end

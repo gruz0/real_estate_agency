@@ -38,9 +38,9 @@ class EstatesController < ApplicationController
 
   def delay
     if @estate.delay(employee: current_employee, delayed_until: estate_params[:delayed_until])
-      redirect_to @estate, notice: t('views.estate.flash_messages.estate_was_successfully_delayed', estate_params[:delayed_until])
+      redirect_to @estate, notice: t('views.estate.flash_messages.estate_was_successfully_updated')
     else
-      redirect_to estates_path, alert: @estate.errors.full_messages.join
+      render :edit
     end
   end
 

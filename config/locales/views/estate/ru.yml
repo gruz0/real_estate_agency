@@ -16,4 +16,3 @@ ru:
         estate_was_successfully_created: 'Объект был успешно создан'
         estate_was_successfully_updated: 'Объект был успешно обновлён'
         estate_was_successfully_destroyed: 'Объект был успешно удалён'
-        estate_was_successfully_delayed: 'Объект был успешно отложен до ${delayed_until}'
