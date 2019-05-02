@@ -102,10 +102,20 @@ class Estate < ApplicationRecord
     super(value.try(:strip))
   end
 
+  # FIXME: It should be moved to EstateForm
   def delay(employee:, delayed_until:)
     self.updated_by_employee = employee
     self.delayed_until = delayed_until
     self.status = :delayed
+
+    save
+  end
+
+  # FIXME: It should be moved to EstateForm
+  def cancel_delay(employee:)
+    self.updated_by_employee = employee
+    self.delayed_until = nil
+    self.status = :active
 
     save
   end

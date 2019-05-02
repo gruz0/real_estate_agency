@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Estate, type: :model do
   let(:estate) { build(:estate) }
+  let(:employee) { create(:employee) }
 
   it 'has a valid factory' do
     expect(estate).to be_valid
@@ -228,6 +229,7 @@ RSpec.describe Estate, type: :model do
       it { expect(estate).to respond_to(:created_by?) }
       it { expect(estate).to respond_to(:assigned_to?) }
       it { expect(estate).to respond_to(:delay) }
+      it { expect(estate).to respond_to(:cancel_delay) }
     end
 
     describe 'executes methods correctly' do
@@ -256,7 +258,6 @@ RSpec.describe Estate, type: :model do
       end
 
       describe '#created_by?' do
-        let(:employee) { create(:employee) }
         let(:saved_estate) do
           estate.update_attributes!(created_by_employee: employee)
           estate.reload
@@ -276,7 +277,6 @@ RSpec.describe Estate, type: :model do
       end
 
       describe '#assigned_to?' do
-        let(:employee) { create(:employee) }
         let(:saved_estate) do
           estate.update_attributes!(responsible_employee: employee)
           estate.reload
@@ -296,8 +296,6 @@ RSpec.describe Estate, type: :model do
       end
 
       describe '#delay' do
-        let(:employee) { create(:employee) }
-
         context 'when value is valid' do
           subject(:result) do
             estate.delay(employee: employee, delayed_until: delayed_until)
@@ -357,6 +355,29 @@ RSpec.describe Estate, type: :model do
             # FIXME: It should be replaced with locale
             expect(estate.errors.messages[:delayed_until]).to eq(["должно быть после #{Date.current} 00:00:00"])
           end
+        end
+      end
+
+      describe '#cancel_delay' do
+        subject(:result) do
+          estate.cancel_delay(employee: employee)
+          estate.reload
+        end
+
+        it 'changes status to active' do
+          expect(subject.active?).to eq(true)
+        end
+
+        it 'updates delayed_until column' do
+          expect(subject.delayed_until).to be_nil
+        end
+
+        it 'updates updated_at column' do
+          expect { subject }.to change(estate, :updated_at)
+        end
+
+        it 'updates updated_by_employee column' do
+          expect { subject }.to change(estate, :updated_by_employee).to(employee)
         end
       end
     end
