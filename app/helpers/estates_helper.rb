@@ -62,6 +62,15 @@ module EstatesHelper
     end
   end
 
+  def cancel_delay(estate)
+    return unless estate.delayed?
+
+    form_with(model: estate, local: true, url: cancel_delay_estate_path(estate), method: :delete) do |form|
+      concat(tag :hr)
+      concat(form.submit class: 'btn btn-warning', value: t('helpers.submit.cancel_delay'))
+    end
+  end
+
   private
 
   def apartment_number_for(estate)

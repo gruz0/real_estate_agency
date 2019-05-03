@@ -197,4 +197,27 @@ RSpec.describe EstatesHelper, type: :helper do
       end
     end
   end
+
+  describe '#cancel_delay' do
+    context 'when estate delayed' do
+      it 'returns html' do
+        estate.update(status: :delayed, delayed_until: Date.current + 3.days)
+
+        expect(helper.cancel_delay(estate.reload)).to eq(
+          '<form action="' + cancel_delay_estate_path(estate) + '" accept-charset="UTF-8" method="post">' +
+          '<input name="utf8" type="hidden" value="&#x2713;" />' +
+          '<input type="hidden" name="_method" value="delete" />' +
+          '<hr />' +
+          '<input type="submit" name="commit" value="' + I18n.t('helpers.submit.cancel_delay') +
+          '" class="btn btn-warning" data-disable-with="' + I18n.t('helpers.submit.update') + '" />' +
+          '</form>')
+      end
+    end
+
+    context 'when estate is not delayed' do
+      it 'returns nothing' do
+        expect(helper.cancel_delay(estate)).to be_nil
+      end
+    end
+  end
 end

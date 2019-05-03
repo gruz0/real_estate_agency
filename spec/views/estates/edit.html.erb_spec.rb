@@ -27,6 +27,7 @@ RSpec.describe 'estates/edit', type: :view do
       kitchen_square_meters: 42.1,
       total_square_meters: 99.3,
       description: 'Описание объекта недвижимости',
+      status: :delayed,
       delayed_until: Date.current + 3.days
     }
   end
@@ -79,6 +80,11 @@ RSpec.describe 'estates/edit', type: :view do
     assert_select 'form[action=?][method=?]', delay_estate_path(estate), 'post' do
       assert_select 'input[type=hidden][name=?][value=?]', '_method', 'patch'
       assert_select 'input[name=?][value=?]', 'estate[delayed_until]', valid_attributes[:delayed_until].to_s
+    end
+
+    assert_select 'form[action=?][method=?]', cancel_delay_estate_path(estate), 'post' do
+      assert_select 'input[type=hidden][name=?][value=?]', '_method', 'delete'
+      expect(response.body).to have_button(I18n.t('helpers.submit.cancel_delay'))
     end
 
     expect(response.body).to have_button(I18n.t('helpers.submit.update'))
