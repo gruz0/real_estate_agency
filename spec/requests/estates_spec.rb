@@ -17,7 +17,7 @@ RSpec.describe 'Estates', type: :request do
       {
         id: estate.to_param,
         estate: {
-          delayed_until: Time.zone.now + 3.days
+          delayed_until: Date.current + 3.days
         }
       }
     end
