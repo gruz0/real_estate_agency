@@ -75,7 +75,7 @@ class Estate < ApplicationRecord
   validates :total_square_meters, allow_blank: true, numericality: { greater_than: 0, less_than: 1000 }
   validates :kitchen_square_meters, allow_blank: true, numericality: { greater_than: 0, less_than: 1000 }
   validate :client_phone_numbers_valid?
-  validates_datetime :delayed_until, allow_blank: true, after: -> { Date.current }
+  validates_datetime :delayed_until, allow_nil: true, after: -> { Date.current }
   validate :estate_saveable?
 
   delegate :building_number, to: :address, allow_nil: true

@@ -78,6 +78,7 @@ RSpec.describe Estate, type: :model do
 
     it { expect(estate).to allow_value(nil).for(:delayed_until) }
     it { expect(estate).to allow_value(Date.current + 2.days).for(:delayed_until) }
+    it { expect(estate).not_to allow_value('').for(:delayed_until) }
     it { expect(estate).not_to allow_value(Date.current).for(:delayed_until) }
     it { expect(estate).not_to allow_value('qwe').for(:delayed_until) }
 
@@ -318,6 +319,24 @@ RSpec.describe Estate, type: :model do
 
           it 'updates updated_by_employee column' do
             expect { subject }.to change(estate, :updated_by_employee).to(employee)
+          end
+        end
+
+        context 'when value is empty' do
+          let(:delayed_until) { '' }
+
+          before do
+            estate.delay(employee: employee, delayed_until: delayed_until)
+          end
+
+          it 'is invalid' do
+            expect(estate).not_to be_valid
+          end
+
+          it 'has error' do
+            expect(estate.errors.messages).to have_key(:delayed_until)
+            # FIXME: It should be replaced with locale
+            expect(estate.errors.messages[:delayed_until]).to eq(['некорректная дата'])
           end
         end
 
