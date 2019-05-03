@@ -174,7 +174,7 @@ RSpec.describe EmployeesController, type: :controller do
           new_attributes = {
             last_name: FFaker::NameRU.last_name,
             first_name: FFaker::NameRU.first_name,
-            middle_name: FFaker::NameRU.patronymic,
+            middle_name: FFaker::NameRU.middle_name_male,
             phone_numbers: FFaker::PhoneNumber.phone_number,
             role: 'service_admin'
           }
@@ -192,7 +192,7 @@ RSpec.describe EmployeesController, type: :controller do
           new_attributes = {
             last_name: FFaker::NameRU.last_name,
             first_name: FFaker::NameRU.first_name,
-            middle_name: FFaker::NameRU.patronymic,
+            middle_name: FFaker::NameRU.middle_name_male,
             phone_numbers: FFaker::PhoneNumber.phone_number,
             role: 'service_admin'
           }
