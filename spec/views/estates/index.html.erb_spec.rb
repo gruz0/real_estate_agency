@@ -131,4 +131,19 @@ RSpec.describe 'estates/index', type: :view do
       end
     end
   end
+
+  it 'colorize delayed estate' do
+    delayed_estate = create(:estate, status: :delayed, delayed_until: Date.current + 3.days)
+
+    estates = [estate1, delayed_estate]
+    allow(view).to receive(:current_employee).and_return(employee)
+    assign(:estates, Kaminari.paginate_array(estates).page(1))
+
+    render template: 'estates/index', layout: 'layouts/application'
+
+    assert_select 'table tbody' do
+      assert_select 'tr', count: 2
+      assert_select 'tr.table-secondary', count: 1
+    end
+  end
 end

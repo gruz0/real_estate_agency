@@ -71,6 +71,12 @@ module EstatesHelper
     end
   end
 
+  def add_classes_to_estate_row(estate)
+    return if estate.active?
+
+    'table-secondary'
+  end
+
   private
 
   def apartment_number_for(estate)

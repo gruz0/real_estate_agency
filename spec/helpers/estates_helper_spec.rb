@@ -220,4 +220,20 @@ RSpec.describe EstatesHelper, type: :helper do
       end
     end
   end
+
+  describe '#add_classes_to_estate_row' do
+    context 'when estate delayed' do
+      it 'returns table-secondary class' do
+        estate.update(status: :delayed, delayed_until: Date.current + 3.days)
+
+        expect(helper.add_classes_to_estate_row(estate.reload)).to eq('table-secondary')
+      end
+    end
+
+    context 'when estate is not delayed' do
+      it 'returns row without classes' do
+        expect(helper.add_classes_to_estate_row(estate)).to be_nil
+      end
+    end
+  end
 end

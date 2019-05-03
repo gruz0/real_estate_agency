@@ -32,7 +32,7 @@ table.table.table-sm.table-hover
   tbody
     - if @estates.size.positive?
       - @estates.each do |estate|
-        tr
+        tr class="#{add_classes_to_estate_row(estate)}"
           th scope="row" = estate.id
           td = address_full_name_for(estate)
           td = estate.estate_project_name
