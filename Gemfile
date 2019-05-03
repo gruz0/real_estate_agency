@@ -7,7 +7,8 @@ end
 
 gem 'audited', '~> 4.7'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'bootstrap', '~> 4.1.2'
+gem 'bootstrap', '>= 4.3.1'
+gem 'bootstrap-datepicker-rails'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'dotenv-rails'
@@ -17,12 +18,13 @@ gem 'kaminari'
 gem 'mini_racer', platforms: :ruby
 gem 'mysql2', '>= 0.3.18', '< 0.5'
 gem 'puma', '~> 3.7'
-gem 'rails', '~> 5.2.2', '>= 5.2.2.1'
+gem 'rails', '~> 5.2.3'
 gem 'rinku'
 gem 'sass-rails', '~> 5.0'
 gem 'slim-rails'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
+gem 'validates_timeliness', '~> 5.0.0.alpha3'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

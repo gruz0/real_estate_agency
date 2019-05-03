@@ -107,6 +107,11 @@ RSpec.describe 'estates/index', type: :view do
         assert_select 'option', text: I18n.t('views.filter.select.all'), count: 1
         assert_select 'option', text: I18n.t('views.filter.select.i_am'), count: 1
       end
+      assert_select 'select#filter_status', count: 1 do
+        assert_select 'option', text: I18n.t('views.filter.select.all'), count: 1
+        assert_select 'option', text: I18n.t('views.filter.select.active'), count: 1
+        assert_select 'option', text: I18n.t('views.filter.select.delayed'), count: 1
+      end
       assert_select 'button#filter', tetx: I18n.t('helpers.submit.filter'), count: 1
     end
   end
@@ -129,6 +134,21 @@ RSpec.describe 'estates/index', type: :view do
         assert_select 'tr', count: 1
         assert_select 'tr>th', text: I18n.t('views.estate.index.estates_was_not_found'), count: 1
       end
+    end
+  end
+
+  it 'colorize delayed estate' do
+    delayed_estate = create(:estate, status: :delayed, delayed_until: Date.current + 3.days)
+
+    estates = [estate1, delayed_estate]
+    allow(view).to receive(:current_employee).and_return(employee)
+    assign(:estates, Kaminari.paginate_array(estates).page(1))
+
+    render template: 'estates/index', layout: 'layouts/application'
+
+    assert_select 'table tbody' do
+      assert_select 'tr', count: 2
+      assert_select 'tr.table-secondary', count: 1
     end
   end
 end

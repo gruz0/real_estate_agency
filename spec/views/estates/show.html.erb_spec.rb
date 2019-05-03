@@ -31,17 +31,20 @@ RSpec.describe 'estates/show', type: :view do
       total_square_meters: 122.1,
       kitchen_square_meters: 17.8,
       description: "Описание объекта - #{link_in_description}",
-      price: 99_999
+      price: 99_999,
+      status: :delayed,
+      delayed_until: Date.current + 3.days
     }
   end
 
-  it 'renders attributes in <p>' do
+  it 'renders attributes' do
     assign(:estate, estate)
 
     render template: 'estates/show', layout: 'layouts/application'
 
     assert_select 'title', text: I18n.t('views.estate.show.title', id: estate.id), count: 1
     expect(response.body).to match(I18n.t('views.estate.show.title', id: estate.id))
+    expect(response.body).to match(I18n.t('views.estate.show.delayed_until', delayed_until: estate.delayed_until))
 
     expect(response.body).to match(/Нефтеюганск, Ленина, 9а, 55/)
     expect(response.body).to match(/99 999 000/)

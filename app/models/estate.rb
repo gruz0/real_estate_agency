@@ -23,6 +23,7 @@
 #  updated_at              :datetime         not null
 #  client_full_name        :string(255)      default(""), not null
 #  client_phone_numbers    :string(255)      default(""), not null
+#  delayed_until           :date
 #
 # Indexes
 #
@@ -52,7 +53,7 @@ class Estate < ApplicationRecord
 
   PHONE_NUMBERS_REGEX = /\A[+\d]+\z/
 
-  enum status: { archived: 0, active: 1 }
+  enum status: { archived: 0, active: 1, delayed: 2 }
 
   belongs_to :responsible_employee, class_name: 'Employee', inverse_of: :estate,
                                     foreign_key: :responsible_employee_id, required: true, validate: true
@@ -74,6 +75,7 @@ class Estate < ApplicationRecord
   validates :total_square_meters, allow_blank: true, numericality: { greater_than: 0, less_than: 1000 }
   validates :kitchen_square_meters, allow_blank: true, numericality: { greater_than: 0, less_than: 1000 }
   validate :client_phone_numbers_valid?
+  validates_datetime :delayed_until, allow_nil: true, after: -> { Date.current }
   validate :estate_saveable?
 
   delegate :building_number, to: :address, allow_nil: true
@@ -98,6 +100,24 @@ class Estate < ApplicationRecord
 
   def description=(value)
     super(value.try(:strip))
+  end
+
+  # FIXME: It should be moved to EstateForm
+  def delay(employee:, delayed_until:)
+    self.updated_by_employee = employee
+    self.delayed_until = delayed_until
+    self.status = :delayed
+
+    save
+  end
+
+  # FIXME: It should be moved to EstateForm
+  def cancel_delay(employee:)
+    self.updated_by_employee = employee
+    self.delayed_until = nil
+    self.status = :active
+
+    save
   end
 
   private

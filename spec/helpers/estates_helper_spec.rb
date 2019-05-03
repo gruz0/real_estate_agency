@@ -176,4 +176,64 @@ RSpec.describe EstatesHelper, type: :helper do
       end
     end
   end
+
+  describe '#delayed_until' do
+    context 'when estate delayed' do
+      let(:delayed_until) { Date.current + 3.days }
+
+      it 'returns html' do
+        estate.update(status: :delayed, delayed_until: delayed_until)
+
+        expect(helper.delayed_until(estate.reload)).to eq(
+          '<div class="row col-lg-10"><div class="alert alert-secondary">' +
+          I18n.t('views.estate.show.delayed_until', delayed_until: delayed_until.strftime('%Y-%m-%d')) +
+          '</div></div>')
+      end
+    end
+
+    context 'when estate is not delayed' do
+      it 'returns nothing' do
+        expect(helper.delayed_until(estate)).to be_nil
+      end
+    end
+  end
+
+  describe '#cancel_delay' do
+    context 'when estate delayed' do
+      it 'returns html' do
+        estate.update(status: :delayed, delayed_until: Date.current + 3.days)
+
+        expect(helper.cancel_delay(estate.reload)).to eq(
+          '<form action="' + cancel_delay_estate_path(estate) + '" accept-charset="UTF-8" method="post">' +
+          '<input name="utf8" type="hidden" value="&#x2713;" />' +
+          '<input type="hidden" name="_method" value="delete" />' +
+          '<hr />' +
+          '<input type="submit" name="commit" value="' + I18n.t('helpers.submit.cancel_delay') +
+          '" class="btn btn-warning" data-disable-with="' + I18n.t('helpers.submit.update') + '" />' +
+          '</form>')
+      end
+    end
+
+    context 'when estate is not delayed' do
+      it 'returns nothing' do
+        expect(helper.cancel_delay(estate)).to be_nil
+      end
+    end
+  end
+
+  describe '#add_classes_to_estate_row' do
+    context 'when estate delayed' do
+      it 'returns table-secondary class' do
+        estate.update(status: :delayed, delayed_until: Date.current + 3.days)
+
+        expect(helper.add_classes_to_estate_row(estate.reload)).to eq('table-secondary')
+      end
+    end
+
+    context 'when estate is not delayed' do
+      it 'returns row without classes' do
+        expect(helper.add_classes_to_estate_row(estate)).to be_nil
+      end
+    end
+  end
 end

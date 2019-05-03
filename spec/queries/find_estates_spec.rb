@@ -127,5 +127,10 @@ RSpec.describe FindEstates do
       params[:responsible_employee] = 42
       expect(find_estates.to_sql).to include('`estates`.`responsible_employee_id` = 42')
     end
+
+    it 'returns query with #filter_by_status' do
+      params[:status] = :delayed
+      expect(find_estates.to_sql).to include('`estates`.`status` = 2')
+    end
   end
 end

@@ -14,7 +14,7 @@ shell:
 	docker-compose exec app bash
 
 docker_build:
-	docker build -f Dockerfile.real_estate_agency -t gruz0/real_estate_agency:0.2 .
+	docker build -f Dockerfile.real_estate_agency -t gruz0/real_estate_agency:0.3 .
 
 docker_push:
 	docker push gruz0/real_estate_agency

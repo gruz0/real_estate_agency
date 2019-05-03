@@ -1,11 +1,4 @@
 = form_with(model: estate, local: true) do |form|
-  - if estate.errors.any?
-    #error_explanation
-      h2 = t('activerecord.errors.template.header', model: Estate.model_name.human, count: estate.errors.count)
-      ul
-        - estate.errors.full_messages.each do |message|
-          li = message
-
   table.table.table-sm.table-bordered
     tbody
       tr

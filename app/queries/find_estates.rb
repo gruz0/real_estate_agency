@@ -17,6 +17,7 @@ class FindEstates
     scoped = filter_by_total_square_meters(scoped, params[:total_square_meters_from], params[:total_square_meters_to])
     scoped = filter_by_client_phone_numbers(scoped, params[:client_phone_numbers])
     scoped = filter_by_responsible_employee(scoped, params[:responsible_employee])
+    scoped = filter_by_status(scoped, params[:status])
     scoped = paginate(scoped, params[:page])
     scoped
   end
@@ -58,6 +59,10 @@ class FindEstates
 
   def filter_by_responsible_employee(scoped, responsible_employee_id = nil)
     responsible_employee_id.present? ? scoped.where(responsible_employee_id: responsible_employee_id) : scoped
+  end
+
+  def filter_by_status(scoped, status = nil)
+    status.present? ? scoped.where(status: status) : scoped
   end
 
   def paginate(scoped, page_number = 0)

@@ -18,7 +18,10 @@ Rails.application.routes.draw do
     end
   end
   resources :addresses, only: %i[index show destroy]
-  resources :estates
+  resources :estates do
+    patch :delay, on: :member
+    delete :cancel_delay, on: :member
+  end
   resources :audits, only: %i[index show]
   namespace :services do
     resources :reassign_estates, only: %i[index]

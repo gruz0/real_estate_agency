@@ -16,6 +16,7 @@
 //= require_tree .
 //= require popper
 //= require bootstrap
+//= require bootstrap-datepicker
 
 function encodeQueryData(data) {
   let ret = [];
