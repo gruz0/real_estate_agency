@@ -47,8 +47,8 @@ module EstatesHelper
 
   def datepicker_input(form, field)
     content_tag :td do
-      concat(form.label :delayed_until)
-      concat(form.text_field field, id: 'datepicker', class: 'form-control')
+      concat(form.label(:delayed_until))
+      concat(form.text_field(field, id: 'datepicker', class: 'form-control'))
     end
   end
 
@@ -66,8 +66,8 @@ module EstatesHelper
     return unless estate.delayed?
 
     form_with(model: estate, local: true, url: cancel_delay_estate_path(estate), method: :delete) do |form|
-      concat(tag :hr)
-      concat(form.submit class: 'btn btn-warning', value: t('helpers.submit.cancel_delay'))
+      concat(tag(:hr))
+      concat(form.submit(class: 'btn btn-warning', value: t('helpers.submit.cancel_delay')))
     end
   end
 
