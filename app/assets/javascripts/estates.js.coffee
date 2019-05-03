@@ -57,7 +57,8 @@ $(document).on 'turbolinks:load', () ->
       total_square_meters_from: $('#filter_total_square_meters_from').val(),
       total_square_meters_to: $('#filter_total_square_meters_to').val(),
       client_phone_numbers: $('#filter_client_phone_numbers').val(),
-      responsible_employee: $('#filter_responsible_employee').val()
+      responsible_employee: $('#filter_responsible_employee').val(),
+      status: $('#filter_status').val()
     }
     window.location = '/estates?' + encodeQueryData(filter)
     return

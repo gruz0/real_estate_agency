@@ -5,3 +5,5 @@ ru:
       select:
         all: 'Все'
         i_am: 'Я'
+        active: 'Активные'
+        delayed: 'Отложенные'

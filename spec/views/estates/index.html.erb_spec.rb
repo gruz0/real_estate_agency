@@ -107,6 +107,11 @@ RSpec.describe 'estates/index', type: :view do
         assert_select 'option', text: I18n.t('views.filter.select.all'), count: 1
         assert_select 'option', text: I18n.t('views.filter.select.i_am'), count: 1
       end
+      assert_select 'select#filter_status', count: 1 do
+        assert_select 'option', text: I18n.t('views.filter.select.all'), count: 1
+        assert_select 'option', text: I18n.t('views.filter.select.active'), count: 1
+        assert_select 'option', text: I18n.t('views.filter.select.delayed'), count: 1
+      end
       assert_select 'button#filter', tetx: I18n.t('helpers.submit.filter'), count: 1
     end
   end
