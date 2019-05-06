@@ -1,17 +1,13 @@
-require: rubocop-rspec
+require:
+  - rubocop-rspec
+  - rubocop-performance
 
 AllCops:
   TargetRubyVersion: 2.5
   DisplayCopNames: true
-  Include:
-    - Gemfile
-    - Rakefile
-    - config.ru
-    - lib/**/*.rake
   Exclude:
     - db/schema.rb
-    - tmp/**/*.rb
-    - vendor/
+    - tmp/**/*
     - lib/tasks/import/*.rake
 
 #
@@ -30,6 +26,7 @@ Metrics/LineLength:
 
 Metrics/BlockLength:
   Exclude:
+    - config/routes.rb
     - config/environments/*.rb
     - lib/tasks/auto_annotate_models.rake
     - spec/**/*.rb
@@ -81,13 +78,13 @@ RSpec/DescribeClass:
     - spec/features/*
 
 RSpec/MultipleExpectations:
-  Max: 20
+  Max: 30
 
 RSpec/ExampleLength:
   Enabled: false
 
 RSpec/NestedGroups:
-  Max: 4
+  Max: 6
 
 #
 # Capybara
