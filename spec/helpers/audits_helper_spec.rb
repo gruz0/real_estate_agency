@@ -49,7 +49,7 @@ RSpec.describe AuditsHelper, type: :helper do
 
     it 'returns empty string on update action' do
       city = create(:city)
-      city.update_attributes!(name: 'Test')
+      city.update!(name: 'Test')
 
       expect(helper.audit_row_class_depends_on(audit.action)).to eq('')
     end

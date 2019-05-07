@@ -121,7 +121,8 @@ RSpec.describe Estate, type: :model do
           it 'returns validation error' do
             expect(estate).to be_invalid
             expect(estate.errors.full_messages).to include(
-              I18n.t('activerecord.errors.messages.client_phone_numbers_at_this_building_number_already_exist'))
+              I18n.t('activerecord.errors.messages.client_phone_numbers_at_this_building_number_already_exist')
+            )
           end
         end
       end
@@ -152,7 +153,7 @@ RSpec.describe Estate, type: :model do
             let(:estate) { create(:estate, apartment_number: '123') }
 
             it 'returns valid object' do
-              estate.update_attributes!(apartment_number: '123')
+              estate.update!(apartment_number: '123')
               expect(estate).to be_valid
             end
           end
@@ -260,7 +261,7 @@ RSpec.describe Estate, type: :model do
 
       describe '#created_by?' do
         let(:saved_estate) do
-          estate.update_attributes!(created_by_employee: employee)
+          estate.update!(created_by_employee: employee)
           estate.reload
         end
 
@@ -279,7 +280,7 @@ RSpec.describe Estate, type: :model do
 
       describe '#assigned_to?' do
         let(:saved_estate) do
-          estate.update_attributes!(responsible_employee: employee)
+          estate.update!(responsible_employee: employee)
           estate.reload
         end
 
@@ -306,19 +307,19 @@ RSpec.describe Estate, type: :model do
           let(:delayed_until) { Date.current + 2.days }
 
           it 'changes status to delayed' do
-            expect(subject.delayed?).to eq(true)
+            expect(result.delayed?).to eq(true)
           end
 
           it 'updates delayed_until column' do
-            expect(subject.delayed_until.to_s).to eq(delayed_until.to_s)
+            expect(result.delayed_until.to_s).to eq(delayed_until.to_s)
           end
 
           it 'updates updated_at column' do
-            expect { subject }.to change(estate, :updated_at)
+            expect { result }.to change(estate, :updated_at)
           end
 
           it 'updates updated_by_employee column' do
-            expect { subject }.to change(estate, :updated_by_employee).to(employee)
+            expect { result }.to change(estate, :updated_by_employee).to(employee)
           end
         end
 
@@ -384,19 +385,19 @@ RSpec.describe Estate, type: :model do
         end
 
         it 'changes status to active' do
-          expect(subject.active?).to eq(true)
+          expect(result.active?).to eq(true)
         end
 
         it 'updates delayed_until column' do
-          expect(subject.delayed_until).to be_nil
+          expect(result.delayed_until).to be_nil
         end
 
         it 'updates updated_at column' do
-          expect { subject }.to change(estate, :updated_at)
+          expect { result }.to change(estate, :updated_at)
         end
 
         it 'updates updated_by_employee column' do
-          expect { subject }.to change(estate, :updated_by_employee).to(employee)
+          expect { result }.to change(estate, :updated_by_employee).to(employee)
         end
       end
     end

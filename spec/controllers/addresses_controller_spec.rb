@@ -12,12 +12,12 @@ RSpec.describe AddressesController, type: :controller do
   describe 'GET #index' do
     context 'when user is an employee' do
       login_employee
-      include_examples :addresses_controller_forbidden_index_action_for_non_service_admin
+      include_examples 'addresses controller forbidden index action for non service admin'
     end
 
     context 'when user is an admin' do
       login_admin
-      include_examples :addresses_controller_forbidden_index_action_for_non_service_admin
+      include_examples 'addresses controller forbidden index action for non service admin'
     end
 
     context 'when user is a service_admin' do
@@ -34,12 +34,12 @@ RSpec.describe AddressesController, type: :controller do
   describe 'GET #show' do
     context 'when user is an employee' do
       login_employee
-      include_examples :addresses_controller_forbidden_show_action_for_non_service_admin
+      include_examples 'addresses controller forbidden show action for non service admin'
     end
 
     context 'when user is an admin' do
       login_admin
-      include_examples :addresses_controller_forbidden_show_action_for_non_service_admin
+      include_examples 'addresses controller forbidden show action for non service admin'
     end
 
     context 'when user is a service_admin' do
@@ -61,12 +61,12 @@ RSpec.describe AddressesController, type: :controller do
   describe 'DELETE #destroy' do
     context 'when user is an employee' do
       login_employee
-      include_examples :addresses_controller_forbidden_destroy_action_for_non_service_admin
+      include_examples 'addresses controller forbidden destroy action for non service admin'
     end
 
     context 'when user is an admin' do
       login_admin
-      include_examples :addresses_controller_forbidden_destroy_action_for_non_service_admin
+      include_examples 'addresses controller forbidden destroy action for non service admin'
     end
 
     context 'when user is a service_admin' do

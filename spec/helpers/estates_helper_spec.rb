@@ -187,7 +187,8 @@ RSpec.describe EstatesHelper, type: :helper do
         expect(helper.delayed_until(estate.reload)).to eq(
           '<div class="row col-lg-10"><div class="alert alert-secondary">' +
           I18n.t('views.estate.show.delayed_until', delayed_until: delayed_until.strftime('%Y-%m-%d')) +
-          '</div></div>')
+          '</div></div>'
+        )
       end
     end
 
@@ -204,13 +205,14 @@ RSpec.describe EstatesHelper, type: :helper do
         estate.update(status: :delayed, delayed_until: Date.current + 3.days)
 
         expect(helper.cancel_delay(estate.reload)).to eq(
-          '<form action="' + cancel_delay_estate_path(estate) + '" accept-charset="UTF-8" method="post">' +
-          '<input name="utf8" type="hidden" value="&#x2713;" />' +
-          '<input type="hidden" name="_method" value="delete" />' +
-          '<hr />' +
+          '<form action="' + cancel_delay_estate_path(estate) + '" accept-charset="UTF-8" method="post">' \
+          '<input name="utf8" type="hidden" value="&#x2713;" />' \
+          '<input type="hidden" name="_method" value="delete" />' \
+          '<hr />' \
           '<input type="submit" name="commit" value="' + I18n.t('helpers.submit.cancel_delay') +
-          '" class="btn btn-warning" data-disable-with="' + I18n.t('helpers.submit.update') + '" />' +
-          '</form>')
+          '" class="btn btn-warning" data-disable-with="' + I18n.t('helpers.submit.update') + '" />' \
+          '</form>'
+        )
       end
     end
 

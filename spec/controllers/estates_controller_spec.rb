@@ -304,14 +304,16 @@ RSpec.describe EstatesController, type: :controller do
       login_admin
 
       let(:current_employee) { authenticated_admin }
-      include_examples :estates_controller_allow_update_action_to_admins
+
+      include_examples 'estates controller allow update action to admins'
     end
 
     context 'when user is a service_admin' do
       login_service_admin
 
       let(:current_employee) { authenticated_service_admin }
-      include_examples :estates_controller_allow_update_action_to_admins
+
+      include_examples 'estates controller allow update action to admins'
     end
   end
 

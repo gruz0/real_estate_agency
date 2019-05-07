@@ -8,7 +8,7 @@ RSpec.describe 'Streets', type: :request do
       city = create(:city)
 
       get city_streets_path(city)
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
     end
   end
 
@@ -19,7 +19,7 @@ RSpec.describe 'Streets', type: :request do
       city = create(:city)
 
       get search_city_streets_path(city)
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
     end
   end
 end

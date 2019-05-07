@@ -8,7 +8,7 @@ RSpec.describe 'Estates', type: :request do
       sign_in authenticated_employee
 
       get estates_path
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
     end
   end
 
@@ -28,7 +28,7 @@ RSpec.describe 'Estates', type: :request do
     end
 
     it 'returns 302 HTTP Status Code' do
-      expect(response).to have_http_status(302)
+      expect(response).to have_http_status(:found)
     end
 
     it 'redirects to estate page' do
@@ -43,7 +43,7 @@ RSpec.describe 'Estates', type: :request do
     end
 
     it 'returns 302 HTTP Status Code' do
-      expect(response).to have_http_status(302)
+      expect(response).to have_http_status(:found)
     end
 
     it 'redirects to estate page' do

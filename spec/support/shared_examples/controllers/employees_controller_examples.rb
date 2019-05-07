@@ -1,11 +1,11 @@
-RSpec.shared_examples :employees_controller_allow_index_action_to_admins do
+RSpec.shared_examples 'employees controller allow index action to admins' do
   it 'returns a success response' do
     get :index, params: {}
     expect(response).to be_successful
   end
 end
 
-RSpec.shared_examples :employees_controller_allow_show_action_to_admins do
+RSpec.shared_examples 'employees controller allow show action to admins' do
   it 'returns a success response' do
     get :show, params: { id: employee.to_param }
     expect(response).to be_successful
@@ -18,14 +18,14 @@ RSpec.shared_examples :employees_controller_allow_show_action_to_admins do
   end
 end
 
-RSpec.shared_examples :employees_controller_allow_new_action_to_admins do
+RSpec.shared_examples 'employees controller allow new action to admins' do
   it 'returns a success response' do
     get :new, params: {}
     expect(response).to be_successful
   end
 end
 
-RSpec.shared_examples :employees_controller_allow_edit_action_to_admins do
+RSpec.shared_examples 'employees controller allow edit action to admins' do
   it 'returns a success response' do
     get :edit, params: { id: employee.to_param }
     expect(response).to be_successful
@@ -38,7 +38,7 @@ RSpec.shared_examples :employees_controller_allow_edit_action_to_admins do
   end
 end
 
-RSpec.shared_examples :employees_controller_allow_create_action_to_admins do
+RSpec.shared_examples 'employees controller allow create action to admins' do
   context 'with valid params' do
     it 'creates a new Employee' do
       expect do
@@ -66,7 +66,7 @@ RSpec.shared_examples :employees_controller_allow_create_action_to_admins do
   end
 end
 
-RSpec.shared_examples :employees_controller_allow_update_action_to_admins do
+RSpec.shared_examples 'employees controller allow update action to admins' do
   context 'with valid params' do
     let(:new_attributes) do
       {
@@ -115,7 +115,7 @@ RSpec.shared_examples :employees_controller_allow_update_action_to_admins do
   end
 end
 
-RSpec.shared_examples :employees_controller_allow_destroy_action_to_admins do
+RSpec.shared_examples 'employees controller allow destroy action to admins' do
   context 'with valid params' do
     it 'destroys the requested employee' do
       employee
@@ -154,7 +154,7 @@ RSpec.shared_examples :employees_controller_allow_destroy_action_to_admins do
   end
 end
 
-RSpec.shared_examples :employees_controller_prevent_to_destroy_yourself do
+RSpec.shared_examples 'employees controller prevent to destroy yourself' do
   it 'redirects to root_path with alert' do
     delete :destroy, params: { id: current_employee.to_param }
     expect(response).to be_redirect
@@ -162,7 +162,7 @@ RSpec.shared_examples :employees_controller_prevent_to_destroy_yourself do
   end
 end
 
-RSpec.shared_examples :employees_controller_allow_lock_action_to_admins do
+RSpec.shared_examples 'employees controller allow lock action to admins' do
   context 'with valid params' do
     it 'redirects to the employees list' do
       post :lock, params: { id: employee.to_param }
@@ -185,7 +185,7 @@ RSpec.shared_examples :employees_controller_allow_lock_action_to_admins do
   end
 end
 
-RSpec.shared_examples :employees_controller_prevent_to_lock_yourself do
+RSpec.shared_examples 'employees controller prevent to lock yourself' do
   it 'redirects to root_path with alert' do
     post :lock, params: { id: current_employee.to_param }
     expect(response).to be_redirect
@@ -193,7 +193,7 @@ RSpec.shared_examples :employees_controller_prevent_to_lock_yourself do
   end
 end
 
-RSpec.shared_examples :employees_controller_allow_unlock_action_to_admins do
+RSpec.shared_examples 'employees controller allow unlock action to admins' do
   context 'with valid params' do
     it 'redirects to the employees list' do
       post :unlock, params: { id: employee.to_param }
@@ -216,7 +216,7 @@ RSpec.shared_examples :employees_controller_allow_unlock_action_to_admins do
   end
 end
 
-RSpec.shared_examples :employees_controller_prevent_to_unlock_yourself do
+RSpec.shared_examples 'employees controller prevent to unlock yourself' do
   it 'redirects to root_path with alert' do
     post :unlock, params: { id: current_employee.to_param }
     expect(response).to be_redirect
