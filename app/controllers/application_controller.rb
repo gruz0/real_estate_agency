@@ -8,11 +8,13 @@ class ApplicationController < ActionController::Base
 
   def redirect_if_employee_is_not_admin_or_service_admin
     return if current_employee.admin? || current_employee.service_admin?
+
     redirect_to(root_path, alert: t('errors.messages.forbidden'))
   end
 
   def redirect_if_employee_is_not_service_admin
     return if current_employee.service_admin?
+
     redirect_to(root_path, alert: t('errors.messages.forbidden'))
   end
 

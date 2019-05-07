@@ -53,27 +53,32 @@ class EmployeesController < ApplicationController
   def redirect_if_admin_try_to_set_user_role_to_service_admin
     return if current_employee.service_admin?
     return unless employee_params[:role] == 'service_admin'
+
     redirect_to(root_path, alert: t('errors.messages.forbidden'))
   end
 
   def redirect_if_admin_try_to_edit_service_admin
     return if current_employee.service_admin?
     return unless @employee.service_admin?
+
     redirect_to(root_path, alert: t('errors.messages.forbidden'))
   end
 
   def redirect_if_admin_or_service_admin_try_to_destroy_himself
     return unless @employee.eql?(current_employee)
+
     redirect_to(root_path, alert: t('.you_can_not_destroy_yourself'))
   end
 
   def redirect_if_admin_or_service_admin_try_to_lock_himself
     return unless @employee.eql?(current_employee)
+
     redirect_to(root_path, alert: t('.you_can_not_lock_yourself'))
   end
 
   def redirect_if_admin_or_service_admin_try_to_unlock_himself
     return unless @employee.eql?(current_employee)
+
     redirect_to(root_path, alert: t('.you_can_not_unlock_yourself'))
   end
 
