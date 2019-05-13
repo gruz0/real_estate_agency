@@ -54,6 +54,7 @@ class FindEstates
 
   def filter_by_client_phone_numbers(scoped, client_phone_numbers = nil)
     return scoped if client_phone_numbers.blank?
+
     scoped.where('estates.client_phone_numbers LIKE ?', "%#{client_phone_numbers}%")
   end
 
