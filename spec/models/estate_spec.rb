@@ -95,7 +95,7 @@ RSpec.describe Estate, type: :model do
   end
 
   describe 'custom validations' do
-    describe '#estate_saveable?' do
+    describe '#saveable?' do
       context 'when apartment_number is not present' do
         context 'when client phone numbers are unique' do
           it 'returns valid object' do

@@ -74,7 +74,7 @@ class Estate < ApplicationRecord
   validates :kitchen_square_meters, allow_blank: true, numericality: { greater_than: 0, less_than: 1000 }
   validate :client_phone_numbers_valid?
   validates_datetime :delayed_until, allow_nil: true, after: -> { Date.current }
-  validate :estate_saveable?
+  validate :saveable?
 
   delegate :building_number, to: :address, allow_nil: true
   delegate :name, to: :estate_type, prefix: true
@@ -140,7 +140,7 @@ class Estate < ApplicationRecord
     end
   end
 
-  def estate_saveable?
+  def saveable?
     if apartment_number.blank?
       return if client_phone_numbers.blank?
 
