@@ -91,6 +91,10 @@ class Estate < ApplicationRecord
     responsible_employee.eql?(employee)
   end
 
+  def updateable_by?(employee)
+    created_by?(employee) || assigned_to?(employee)
+  end
+
   def client_full_name=(value)
     new_value = value.try(:strip).to_s.mb_chars.titleize
     super(new_value)
