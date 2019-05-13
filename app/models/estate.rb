@@ -126,7 +126,7 @@ class Estate < ApplicationRecord
 
   def clear_client_phone_numbers
     self.client_phone_numbers = client_phone_numbers.split(',').map do |phone_number|
-      phone_number.strip.gsub(/\A[^+\d]+\z/, '')
+      phone_number.strip.gsub(PHONE_NUMBERS_REGEX.to_s, '')
     end.join(',')
   end
 
