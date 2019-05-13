@@ -54,15 +54,15 @@ class Estate < ApplicationRecord
   enum status: { archived: 0, active: 1, delayed: 2 }
 
   belongs_to :responsible_employee, class_name: 'Employee', inverse_of: :estate,
-                                    foreign_key: :responsible_employee_id, required: true, validate: true
+                                    foreign_key: :responsible_employee_id, validate: true
   belongs_to :created_by_employee, class_name: 'Employee', inverse_of: :estate,
-                                   foreign_key: :created_by_employee_id, required: true, validate: true
+                                   foreign_key: :created_by_employee_id, validate: true
   belongs_to :updated_by_employee, class_name: 'Employee', inverse_of: :estate,
-                                   foreign_key: :updated_by_employee_id, required: false, validate: true
-  belongs_to :address, required: true, validate: true
-  belongs_to :estate_type, required: true, validate: true
-  belongs_to :estate_project, required: true, validate: true
-  belongs_to :estate_material, required: true, validate: true
+                                   foreign_key: :updated_by_employee_id, optional: true, validate: true
+  belongs_to :address, validate: true
+  belongs_to :estate_type, validate: true
+  belongs_to :estate_project, validate: true
+  belongs_to :estate_material, validate: true
 
   validates :client_full_name, presence: true, length: { minimum: 1 }
   validates :client_phone_numbers, presence: true, length: { minimum: 6 }
