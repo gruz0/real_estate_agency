@@ -40,6 +40,7 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).to allow_value('89991112233   ').for(:client_phone_numbers) }
     it { expect(estate).to allow_value('89991112233   ,  +79991113388').for(:client_phone_numbers) }
     it { expect(estate).to allow_value('111222').for(:client_phone_numbers) }
+    it { expect(estate).not_to allow_value(nil).for(:client_phone_numbers) }
     it { expect(estate).not_to allow_value('11122').for(:client_phone_numbers) }
     it { expect(estate).not_to allow_value('8(999)1112233').for(:client_phone_numbers) }
     it { expect(estate).not_to allow_value('8-999-111-2233').for(:client_phone_numbers) }

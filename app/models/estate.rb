@@ -146,17 +146,24 @@ class Estate < ApplicationRecord
 
       clear_client_phone_numbers
 
-      similar_estates = Estate.where(address: address, client_phone_numbers: client_phone_numbers)
-      return if similar_estates.size.zero?
-      return if similar_estates.any? { |estate| estate.id == id }
+      return unless similar_estates_exist?
 
       errors.add(:base, :client_phone_numbers_at_this_building_number_already_exist)
-    else
-      estate = Estate.find_by(address: address, apartment_number: apartment_number)
-      return unless estate
-      return if estate.id == id
-
-      errors.add(:base, :estate_at_this_address_already_exists)
+      return false
     end
+
+    estate = Estate.find_by(address: address, apartment_number: apartment_number)
+    return unless estate
+    return if estate.id == id
+
+    errors.add(:base, :estate_at_this_address_already_exists)
+  end
+
+  def similar_estates_exist?
+    similar_estates = Estate.where(address: address, client_phone_numbers: client_phone_numbers)
+    return if similar_estates.size.zero?
+    return if similar_estates.any? { |estate| estate.id == id }
+
+    true
   end
 end
