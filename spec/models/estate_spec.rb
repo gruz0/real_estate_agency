@@ -231,6 +231,7 @@ RSpec.describe Estate, type: :model do
       it { expect(estate).to respond_to(:estate_material_name) }
       it { expect(estate).to respond_to(:created_by?) }
       it { expect(estate).to respond_to(:assigned_to?) }
+      it { expect(estate).to respond_to(:updateable_by?) }
       it { expect(estate).to respond_to(:delay) }
       it { expect(estate).to respond_to(:cancel_delay) }
     end
@@ -294,6 +295,35 @@ RSpec.describe Estate, type: :model do
         context 'when argument equals to another employee' do
           it 'returns false' do
             expect(saved_estate.assigned_to?(create(:employee))).to eq(false)
+          end
+        end
+      end
+
+      describe '#updateable_by?' do
+        let(:saved_estate) do
+          estate.update(attributes)
+          estate.reload
+        end
+
+        context 'when argument equals to created_by_employee' do
+          let(:attributes) { { created_by_employee: employee } }
+
+          it 'returns true' do
+            expect(saved_estate.updateable_by?(employee)).to eq(true)
+          end
+        end
+
+        context 'when argument equals to responsible_employee' do
+          let(:attributes) { { responsible_employee: employee } }
+
+          it 'returns true' do
+            expect(saved_estate.updateable_by?(employee)).to eq(true)
+          end
+        end
+
+        context 'when estate created and assigned to another employee' do
+          it 'returns false' do
+            expect(estate.updateable_by?(employee)).to eq(false)
           end
         end
       end
