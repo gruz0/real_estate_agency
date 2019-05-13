@@ -51,8 +51,6 @@
 class Estate < ApplicationRecord
   audited
 
-  PHONE_NUMBERS_REGEX = /\A[+\d]+\z/
-
   enum status: { archived: 0, active: 1, delayed: 2 }
 
   belongs_to :responsible_employee, class_name: 'Employee', inverse_of: :estate,
