@@ -13,6 +13,7 @@ plugins:
 
   rubocop:
     enabled: true
+    channel: rubocop-0-67
 
   bundler-audit:
     enabled: true
