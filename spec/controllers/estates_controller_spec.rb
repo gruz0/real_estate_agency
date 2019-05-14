@@ -135,6 +135,7 @@ RSpec.describe EstatesController, type: :controller do
         street: street,
         building_number: '11/2',
         apartment_number: 30,
+        # FIXME: It should be changed?
         estate_type: estate_type,
         estate_project: create(:estate_project),
         estate_material: create(:estate_material),
@@ -200,25 +201,60 @@ RSpec.describe EstatesController, type: :controller do
           }
           expect(flash[:notice]).to eq(I18n.t('views.estate.flash_messages.estate_was_successfully_updated'))
         end
+      end
 
-        context 'when estate was not assigned to current employee' do
-          let(:estate) do
-            create(:estate, valid_attributes.except(:city, :street, :building_number))
+      describe '#responsible_employee' do
+        let(:new_employee) { create(:employee) }
+
+        context 'when estate created by me' do
+          it 'is updated' do
+            put :update, params: {
+              id: estate.to_param,
+              estate: new_attributes.merge(responsible_employee: new_employee)
+            }
+            expect(response).to redirect_to(estate)
+            expect(flash[:notice]).to eq(I18n.t('views.estate.flash_messages.estate_was_successfully_updated'))
+          end
+        end
+
+        context 'when estate created not by me' do
+          context 'when I am responsible employee' do
+            let(:estate) { create(:estate, responsible_employee: current_employee) }
+
+            it 'is updated' do
+              put :update, params: {
+                id: estate.to_param,
+                estate: new_attributes
+              }
+
+              expect(response).to redirect_to(estate)
+              expect(flash[:notice]).to eq(I18n.t('views.estate.flash_messages.estate_was_successfully_updated'))
+            end
           end
 
-          context 'when employee try to update estate attributes except responsible employee' do
-            it 'updates record' do
-              responsible_employee = estate.responsible_employee
+          context 'when I am not responsible employee' do
+            it 'is updated if responsible employee was not changed' do
+              estate = create(:estate)
 
               put :update, params: {
                 id: estate.to_param,
                 estate: new_attributes.merge(responsible_employee: estate.responsible_employee)
               }
+
               expect(response).to redirect_to(estate)
               expect(flash[:notice]).to eq(I18n.t('views.estate.flash_messages.estate_was_successfully_updated'))
+            end
 
-              estate.reload
-              expect(estate.responsible_employee).to eq(responsible_employee)
+            it 'is not updated if responsible employee was changed' do
+              estate = create(:estate, responsible_employee: new_employee)
+
+              put :update, params: {
+                id: estate.to_param,
+                estate: new_attributes
+              }
+
+              expect(response).to redirect_to(edit_estate_path(estate))
+              expect(flash[:alert]).to eq(I18n.t('estates.update.you_can_not_change_responsible_employee'))
             end
           end
         end
@@ -237,65 +273,6 @@ RSpec.describe EstatesController, type: :controller do
           put :update, params: { id: 100_500, estate: invalid_attributes }
           expect(response).to be_redirect
           expect(flash[:alert]).to eq(I18n.t('views.estate.flash_messages.estate_was_not_found'))
-        end
-
-        context 'when estate created by current employee' do
-          context 'when estate assigned to current employee' do
-            let(:estate) do
-              create(:estate, valid_attributes.except(:city, :street, :building_number)
-                                              .merge(created_by_employee: current_employee,
-                                                     responsible_employee: current_employee))
-            end
-
-            it 'renders an error if employee try to change responsible employee' do
-              put :update, params: { id: estate.to_param, estate: valid_attributes }
-              expect(response).to redirect_to(edit_estate_path(estate))
-              expect(flash[:alert]).to eq(I18n.t('estates.update.you_can_not_change_responsible_employee'))
-            end
-          end
-
-          context 'when estate was not assigned to current employee' do
-            let(:estate) do
-              create(:estate, valid_attributes.except(:city, :street, :building_number)
-                                              .merge(created_by_employee: current_employee))
-            end
-
-            it 'renders an error if employee try to change responsible employee to himself' do
-              put :update, params: {
-                id: estate.to_param,
-                estate: valid_attributes.merge(responsible_employee: current_employee)
-              }
-              expect(response).to redirect_to(edit_estate_path(estate))
-              expect(flash[:alert]).to eq(I18n.t('estates.update.you_can_not_change_responsible_employee'))
-            end
-          end
-        end
-
-        context 'when estate was not created by current employee' do
-          context 'when estate assigned to current employee' do
-            let(:estate) do
-              create(:estate, valid_attributes.except(:city, :street, :building_number)
-                                              .merge(responsible_employee: current_employee))
-            end
-
-            it 'renders an error if employee try to change responsible employee' do
-              put :update, params: { id: estate.to_param, estate: valid_attributes }
-              expect(response).to redirect_to(edit_estate_path(estate))
-              expect(flash[:alert]).to eq(I18n.t('estates.update.you_can_not_change_responsible_employee'))
-            end
-          end
-
-          context 'when estate was not assigned to current employee' do
-            let(:estate) do
-              create(:estate, valid_attributes.except(:city, :street, :building_number))
-            end
-
-            it 'renders an error if employee try to change responsible employee' do
-              put :update, params: { id: estate.to_param, estate: new_attributes }
-              expect(response).to redirect_to(edit_estate_path(estate))
-              expect(flash[:alert]).to eq(I18n.t('estates.update.you_can_not_change_responsible_employee'))
-            end
-          end
         end
       end
     end
