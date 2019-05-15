@@ -6,7 +6,7 @@ RSpec.describe 'EstateTypes', type: :request do
       sign_in authenticated_employee
 
       get estate_types_path
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
     end
   end
 end

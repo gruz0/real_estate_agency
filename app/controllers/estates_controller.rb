@@ -5,8 +5,6 @@ class EstatesController < ApplicationController
 
   before_action :set_estate, only: %i[show edit update destroy delay cancel_delay]
   before_action :set_attributes!, only: %i[create update]
-  before_action :redirect_if_employee_does_not_have_access_to_updateable_estate, only: %i[update],
-                                                                                 if: -> { current_employee.user? }
 
   include PeopleHelper
 
@@ -28,8 +26,17 @@ class EstatesController < ApplicationController
   end
 
   def update
-    super(@estate, @attributes.merge!(updated_by_employee: current_employee),
-          t('views.estate.flash_messages.estate_was_successfully_updated'))
+    # FIXME: It should be extracted to EstateService#updateable?(current_employee)
+    if current_employee.admin? || current_employee.service_admin? || @estate.updateable_by?(current_employee) || !responsible_employee_changed?
+      return super(@estate, @attributes.merge!(updated_by_employee: current_employee),
+            t('views.estate.flash_messages.estate_was_successfully_updated'))
+    end
+
+    redirect_to(edit_estate_path(@estate), alert: t('estates.update.you_can_not_change_responsible_employee'))
+  end
+
+  def responsible_employee_changed?
+    !@estate.assigned_to?(@attributes[:responsible_employee])
   end
 
   def destroy
@@ -56,29 +63,6 @@ class EstatesController < ApplicationController
 
   def set_estate
     @estate = Estate.find(params[:id])
-  end
-
-  def redirect_if_employee_does_not_have_access_to_updateable_estate
-    if @estate.created_by?(current_employee)
-      if @estate.assigned_to?(current_employee)
-        return if @attributes[:responsible_employee].eql?(current_employee)
-      else
-        return if @estate.assigned_to?(@attributes[:responsible_employee])
-      end
-
-      redirect_to(edit_estate_path(@estate), alert: t('estates.update.you_can_not_change_responsible_employee'))
-    else
-      if @estate.assigned_to?(current_employee)
-        return if @attributes[:responsible_employee].eql?(current_employee)
-        redirect_to(edit_estate_path(@estate), alert: t('estates.update.you_can_not_change_responsible_employee'))
-      else
-        if @attributes[:responsible_employee].eql?(@estate.responsible_employee)
-          @attributes[:responsible_employee] = @estate.responsible_employee
-        else
-          redirect_to(edit_estate_path(@estate), alert: t('estates.update.you_can_not_change_responsible_employee'))
-        end
-      end
-    end
   end
 
   def set_attributes!

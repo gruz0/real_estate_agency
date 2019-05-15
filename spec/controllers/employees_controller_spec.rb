@@ -30,12 +30,12 @@ RSpec.describe EmployeesController, type: :controller do
 
     context 'when user is an admin' do
       login_admin
-      include_examples :employees_controller_allow_index_action_to_admins
+      include_examples 'employees controller allow index action to admins'
     end
 
     context 'when user is a service_admin' do
       login_service_admin
-      include_examples :employees_controller_allow_index_action_to_admins
+      include_examples 'employees controller allow index action to admins'
     end
   end
 
@@ -52,12 +52,12 @@ RSpec.describe EmployeesController, type: :controller do
 
     context 'when user is an admin' do
       login_admin
-      include_examples :employees_controller_allow_show_action_to_admins
+      include_examples 'employees controller allow show action to admins'
     end
 
     context 'when user is a service_admin' do
       login_service_admin
-      include_examples :employees_controller_allow_show_action_to_admins
+      include_examples 'employees controller allow show action to admins'
     end
   end
 
@@ -74,12 +74,12 @@ RSpec.describe EmployeesController, type: :controller do
 
     context 'when user is an admin' do
       login_admin
-      include_examples :employees_controller_allow_new_action_to_admins
+      include_examples 'employees controller allow new action to admins'
     end
 
     context 'when user is a service_admin' do
       login_service_admin
-      include_examples :employees_controller_allow_new_action_to_admins
+      include_examples 'employees controller allow new action to admins'
     end
   end
 
@@ -98,12 +98,12 @@ RSpec.describe EmployeesController, type: :controller do
       login_admin
 
       context 'when editable user is an employee' do
-        include_examples :employees_controller_allow_edit_action_to_admins
+        include_examples 'employees controller allow edit action to admins'
       end
 
       context 'when editable user is a service_admin' do
         it 'redirects to root_path with alert' do
-          employee.update_attributes!(role: :service_admin)
+          employee.update!(role: :service_admin)
 
           get :edit, params: { id: employee.to_param }
           expect(response).to be_redirect
@@ -114,7 +114,7 @@ RSpec.describe EmployeesController, type: :controller do
 
     context 'when user is a service_admin' do
       login_service_admin
-      include_examples :employees_controller_allow_edit_action_to_admins
+      include_examples 'employees controller allow edit action to admins'
     end
   end
 
@@ -133,7 +133,7 @@ RSpec.describe EmployeesController, type: :controller do
       login_admin
 
       context 'when new user is an employee' do
-        include_examples :employees_controller_allow_create_action_to_admins
+        include_examples 'employees controller allow create action to admins'
       end
 
       context 'when new user is a service_admin' do
@@ -147,7 +147,7 @@ RSpec.describe EmployeesController, type: :controller do
 
     context 'when user is a service_admin' do
       login_service_admin
-      include_examples :employees_controller_allow_create_action_to_admins
+      include_examples 'employees controller allow create action to admins'
     end
   end
 
@@ -166,7 +166,7 @@ RSpec.describe EmployeesController, type: :controller do
       login_admin
 
       context 'when updateable user is an employee' do
-        include_examples :employees_controller_allow_update_action_to_admins
+        include_examples 'employees controller allow update action to admins'
       end
 
       context 'when updateable user is a service_admin' do
@@ -187,7 +187,7 @@ RSpec.describe EmployeesController, type: :controller do
 
       context 'when change role to service_admin for updating user' do
         it 'redirects to root_path with alert' do
-          employee.update_attributes!(role: :service_admin)
+          employee.update!(role: :service_admin)
 
           new_attributes = {
             last_name: FFaker::NameRU.last_name,
@@ -206,7 +206,7 @@ RSpec.describe EmployeesController, type: :controller do
 
     context 'when user is a service_admin' do
       login_service_admin
-      include_examples :employees_controller_allow_update_action_to_admins
+      include_examples 'employees controller allow update action to admins'
     end
   end
 
@@ -225,18 +225,18 @@ RSpec.describe EmployeesController, type: :controller do
       login_admin
 
       context 'when destroyable user is an employee' do
-        include_examples :employees_controller_allow_destroy_action_to_admins
+        include_examples 'employees controller allow destroy action to admins'
       end
 
       context 'when try to destroy himself' do
         let(:current_employee) { authenticated_admin }
 
-        include_examples :employees_controller_prevent_to_destroy_yourself
+        include_examples 'employees controller prevent to destroy yourself'
       end
 
       context 'when destroyable user is a service_admin' do
         it 'redirects to root_path with alert' do
-          employee.update_attributes!(role: :service_admin)
+          employee.update!(role: :service_admin)
 
           delete :destroy, params: { id: employee.to_param }
           expect(response).to be_redirect
@@ -249,13 +249,13 @@ RSpec.describe EmployeesController, type: :controller do
       login_service_admin
 
       context 'when destroyable user is an employee' do
-        include_examples :employees_controller_allow_destroy_action_to_admins
+        include_examples 'employees controller allow destroy action to admins'
       end
 
       context 'when try to destroy himself' do
         let(:current_employee) { authenticated_service_admin }
 
-        include_examples :employees_controller_prevent_to_destroy_yourself
+        include_examples 'employees controller prevent to destroy yourself'
       end
     end
   end
@@ -275,18 +275,18 @@ RSpec.describe EmployeesController, type: :controller do
       login_admin
 
       context 'when lockable user is an employee' do
-        include_examples :employees_controller_allow_lock_action_to_admins
+        include_examples 'employees controller allow lock action to admins'
       end
 
       context 'when try to lock himself' do
         let(:current_employee) { authenticated_admin }
 
-        include_examples :employees_controller_prevent_to_lock_yourself
+        include_examples 'employees controller prevent to lock yourself'
       end
 
       context 'when lockable user is a service_admin' do
         it 'redirects to root_path with alert' do
-          employee.update_attributes!(role: :service_admin)
+          employee.update!(role: :service_admin)
 
           post :lock, params: { id: employee.to_param }
           expect(response).to be_redirect
@@ -299,13 +299,13 @@ RSpec.describe EmployeesController, type: :controller do
       login_service_admin
 
       context 'when lockable user is an employee' do
-        include_examples :employees_controller_allow_lock_action_to_admins
+        include_examples 'employees controller allow lock action to admins'
       end
 
       context 'when try to lock himself' do
         let(:current_employee) { authenticated_service_admin }
 
-        include_examples :employees_controller_prevent_to_lock_yourself
+        include_examples 'employees controller prevent to lock yourself'
       end
     end
   end
@@ -325,18 +325,18 @@ RSpec.describe EmployeesController, type: :controller do
       login_admin
 
       context 'when unlockable user is an employee' do
-        include_examples :employees_controller_allow_unlock_action_to_admins
+        include_examples 'employees controller allow unlock action to admins'
       end
 
       context 'when try to unlock himself' do
         let(:current_employee) { authenticated_admin }
 
-        include_examples :employees_controller_prevent_to_unlock_yourself
+        include_examples 'employees controller prevent to unlock yourself'
       end
 
       context 'when unlockable user is a service_admin' do
         it 'redirects to root_path with alert' do
-          employee.update_attributes!(role: :service_admin)
+          employee.update!(role: :service_admin)
 
           post :unlock, params: { id: employee.to_param }
           expect(response).to be_redirect
@@ -349,13 +349,13 @@ RSpec.describe EmployeesController, type: :controller do
       login_service_admin
 
       context 'when unlockable user is an employee' do
-        include_examples :employees_controller_allow_unlock_action_to_admins
+        include_examples 'employees controller allow unlock action to admins'
       end
 
       context 'when try to unlock himself' do
         let(:current_employee) { authenticated_service_admin }
 
-        include_examples :employees_controller_prevent_to_unlock_yourself
+        include_examples 'employees controller prevent to unlock yourself'
       end
     end
   end

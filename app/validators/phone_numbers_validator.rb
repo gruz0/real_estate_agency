@@ -1,6 +1,4 @@
 class PhoneNumbersValidator < ActiveModel::Validator
-  PHONE_NUMBERS_REGEX = /\A[+\d]+\z/
-
   attr_reader :record
 
   def validate(record)

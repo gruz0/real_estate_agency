@@ -14,23 +14,20 @@ module Services
     def index; end
 
     def update
-      created_by_employee = Estate.select(:id).where(created_by_employee: @from_employee)
-      responsible_employee = Estate.select(:id).where(responsible_employee: @from_employee)
-
       if created_by_employee.empty? && responsible_employee.empty?
         return redirect_to(services_reassign_estates_path, notice: t('.nothing_to_reassign'))
       end
 
       if created_by_employee.present?
-        created_by_employee.update_all(created_by_employee_id: @to_employee.id,
-                                       updated_by_employee_id: current_employee.id,
-                                       updated_at: Time.zone.now)
+        created_by_employee.update(created_by_employee_id: @to_employee.id,
+                                   updated_by_employee_id: current_employee.id,
+                                   updated_at: Time.zone.now)
       end
 
       if responsible_employee.present?
-        responsible_employee.update_all(responsible_employee_id: @to_employee.id,
-                                        updated_by_employee_id: current_employee.id,
-                                        updated_at: Time.zone.now)
+        responsible_employee.update(responsible_employee_id: @to_employee.id,
+                                    updated_by_employee_id: current_employee.id,
+                                    updated_at: Time.zone.now)
       end
 
       redirect_to services_reassign_estates_path,
@@ -51,9 +48,22 @@ module Services
 
     private
 
+    # FIXME: It should be refactored.
+    # When service admin reassigns estates from self to another employee.
+    # Current behaviour: it returns error message.
+    # Expexted behavious: estates reassigned.
     def redirect_if_admin_try_to_reassign_service_admin_estates
       return unless @from_employee.service_admin?
+
       redirect_to(services_reassign_estates_path, alert: t('.you_can_not_reassign_service_admin_estates'))
+    end
+
+    def created_by_employee
+      @created_by_employee ||= Estate.where(created_by_employee: @from_employee)
+    end
+
+    def responsible_employee
+      @responsible_employee ||= Estate.where(responsible_employee: @from_employee)
     end
   end
 end

@@ -40,6 +40,7 @@ RSpec.describe Estate, type: :model do
     it { expect(estate).to allow_value('89991112233   ').for(:client_phone_numbers) }
     it { expect(estate).to allow_value('89991112233   ,  +79991113388').for(:client_phone_numbers) }
     it { expect(estate).to allow_value('111222').for(:client_phone_numbers) }
+    it { expect(estate).not_to allow_value(nil).for(:client_phone_numbers) }
     it { expect(estate).not_to allow_value('11122').for(:client_phone_numbers) }
     it { expect(estate).not_to allow_value('8(999)1112233').for(:client_phone_numbers) }
     it { expect(estate).not_to allow_value('8-999-111-2233').for(:client_phone_numbers) }
@@ -94,7 +95,7 @@ RSpec.describe Estate, type: :model do
   end
 
   describe 'custom validations' do
-    describe '#estate_saveable?' do
+    describe '#saveable?' do
       context 'when apartment_number is not present' do
         context 'when client phone numbers are unique' do
           it 'returns valid object' do
@@ -121,7 +122,8 @@ RSpec.describe Estate, type: :model do
           it 'returns validation error' do
             expect(estate).to be_invalid
             expect(estate.errors.full_messages).to include(
-              I18n.t('activerecord.errors.messages.client_phone_numbers_at_this_building_number_already_exist'))
+              I18n.t('activerecord.errors.messages.client_phone_numbers_at_this_building_number_already_exist')
+            )
           end
         end
       end
@@ -152,7 +154,7 @@ RSpec.describe Estate, type: :model do
             let(:estate) { create(:estate, apartment_number: '123') }
 
             it 'returns valid object' do
-              estate.update_attributes!(apartment_number: '123')
+              estate.update!(apartment_number: '123')
               expect(estate).to be_valid
             end
           end
@@ -229,6 +231,7 @@ RSpec.describe Estate, type: :model do
       it { expect(estate).to respond_to(:estate_material_name) }
       it { expect(estate).to respond_to(:created_by?) }
       it { expect(estate).to respond_to(:assigned_to?) }
+      it { expect(estate).to respond_to(:updateable_by?) }
       it { expect(estate).to respond_to(:delay) }
       it { expect(estate).to respond_to(:cancel_delay) }
     end
@@ -260,7 +263,7 @@ RSpec.describe Estate, type: :model do
 
       describe '#created_by?' do
         let(:saved_estate) do
-          estate.update_attributes!(created_by_employee: employee)
+          estate.update!(created_by_employee: employee)
           estate.reload
         end
 
@@ -279,7 +282,7 @@ RSpec.describe Estate, type: :model do
 
       describe '#assigned_to?' do
         let(:saved_estate) do
-          estate.update_attributes!(responsible_employee: employee)
+          estate.update!(responsible_employee: employee)
           estate.reload
         end
 
@@ -296,6 +299,35 @@ RSpec.describe Estate, type: :model do
         end
       end
 
+      describe '#updateable_by?' do
+        let(:saved_estate) do
+          estate.update(attributes)
+          estate.reload
+        end
+
+        context 'when argument equals to created_by_employee' do
+          let(:attributes) { { created_by_employee: employee } }
+
+          it 'returns true' do
+            expect(saved_estate.updateable_by?(employee)).to eq(true)
+          end
+        end
+
+        context 'when argument equals to responsible_employee' do
+          let(:attributes) { { responsible_employee: employee } }
+
+          it 'returns true' do
+            expect(saved_estate.updateable_by?(employee)).to eq(true)
+          end
+        end
+
+        context 'when estate created and assigned to another employee' do
+          it 'returns false' do
+            expect(estate.updateable_by?(employee)).to eq(false)
+          end
+        end
+      end
+
       describe '#delay' do
         context 'when value is valid' do
           subject(:result) do
@@ -306,19 +338,19 @@ RSpec.describe Estate, type: :model do
           let(:delayed_until) { Date.current + 2.days }
 
           it 'changes status to delayed' do
-            expect(subject.delayed?).to eq(true)
+            expect(result.delayed?).to eq(true)
           end
 
           it 'updates delayed_until column' do
-            expect(subject.delayed_until.to_s).to eq(delayed_until.to_s)
+            expect(result.delayed_until.to_s).to eq(delayed_until.to_s)
           end
 
           it 'updates updated_at column' do
-            expect { subject }.to change(estate, :updated_at)
+            expect { result }.to change(estate, :updated_at)
           end
 
           it 'updates updated_by_employee column' do
-            expect { subject }.to change(estate, :updated_by_employee).to(employee)
+            expect { result }.to change(estate, :updated_by_employee).to(employee)
           end
         end
 
@@ -384,19 +416,19 @@ RSpec.describe Estate, type: :model do
         end
 
         it 'changes status to active' do
-          expect(subject.active?).to eq(true)
+          expect(result.active?).to eq(true)
         end
 
         it 'updates delayed_until column' do
-          expect(subject.delayed_until).to be_nil
+          expect(result.delayed_until).to be_nil
         end
 
         it 'updates updated_at column' do
-          expect { subject }.to change(estate, :updated_at)
+          expect { result }.to change(estate, :updated_at)
         end
 
         it 'updates updated_by_employee column' do
-          expect { subject }.to change(estate, :updated_by_employee).to(employee)
+          expect { result }.to change(estate, :updated_by_employee).to(employee)
         end
       end
     end

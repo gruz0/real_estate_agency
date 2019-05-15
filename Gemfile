@@ -50,6 +50,7 @@ group :test do
   gem 'rails_best_practices', require: false
   gem 'rspec-rails', '~> 3.7'
   gem 'rubocop', require: false
+  gem 'rubocop-performance'
   gem 'rubocop-rspec'
   gem 'selenium-webdriver'
   gem 'shoulda-callback-matchers', '~> 1.1.1'

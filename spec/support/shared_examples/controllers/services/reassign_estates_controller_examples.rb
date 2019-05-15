@@ -1,11 +1,11 @@
-RSpec.shared_examples :services_reassign_estates_controller_allow_index_action_to_admins do
+RSpec.shared_examples 'services reassign estates controller allow index action to admins' do
   it 'returns a success response' do
     get :index, params: {}
     expect(response).to be_successful
   end
 end
 
-RSpec.shared_examples :services_reassign_estates_controller_allow_update_action_to_admins do
+RSpec.shared_examples 'services reassign estates controller allow update action to admins' do
   let(:from_employee) { create(:employee) }
   let(:to_employee) { create(:employee) }
   let(:new_attributes) do
@@ -61,17 +61,18 @@ RSpec.shared_examples :services_reassign_estates_controller_allow_update_action_
   end
 
   context 'with invalid params' do
-    after do
+    it 'redirects to index page if from_employee was not found' do
+      put :update, params: { reassign_estates: new_attributes.merge(from_employee: 100_500) }
+
       expect(response).to be_redirect
       expect(flash[:alert]).to eq(I18n.t('views.employee.flash_messages.employee_was_not_found'))
     end
 
-    it 'redirects to index page if from_employee was not found' do
-      put :update, params: { reassign_estates: new_attributes.merge(from_employee: 100_500) }
-    end
-
     it 'redirects to index page if to_employee was not found' do
       put :update, params: { reassign_estates: new_attributes.merge(to_employee: 100_500) }
+
+      expect(response).to be_redirect
+      expect(flash[:alert]).to eq(I18n.t('views.employee.flash_messages.employee_was_not_found'))
     end
   end
 end

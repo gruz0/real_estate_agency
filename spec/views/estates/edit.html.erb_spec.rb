@@ -42,7 +42,7 @@ RSpec.describe 'estates/edit', type: :view do
     assert_select 'title', text: I18n.t('views.estate.edit.title'), count: 1
     assert_select 'h1', text: I18n.t('views.estate.edit.title'), count: 1
 
-    assert_select '#nav-tab', count: 1 do |link|
+    assert_select '#nav-tab', count: 1 do |_link|
       assert_select 'a', text: I18n.t('views.estate.edit.card_link_title'), count: 1
       assert_select 'a', text: I18n.t('views.estate.edit.delay_link_title'), count: 1
     end

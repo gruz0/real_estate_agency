@@ -51,20 +51,18 @@
 class Estate < ApplicationRecord
   audited
 
-  PHONE_NUMBERS_REGEX = /\A[+\d]+\z/
-
   enum status: { archived: 0, active: 1, delayed: 2 }
 
   belongs_to :responsible_employee, class_name: 'Employee', inverse_of: :estate,
-                                    foreign_key: :responsible_employee_id, required: true, validate: true
+                                    foreign_key: :responsible_employee_id, validate: true
   belongs_to :created_by_employee, class_name: 'Employee', inverse_of: :estate,
-                                   foreign_key: :created_by_employee_id, required: true, validate: true
+                                   foreign_key: :created_by_employee_id, validate: true
   belongs_to :updated_by_employee, class_name: 'Employee', inverse_of: :estate,
-                                   foreign_key: :updated_by_employee_id, required: false, validate: true
-  belongs_to :address, required: true, validate: true
-  belongs_to :estate_type, required: true, validate: true
-  belongs_to :estate_project, required: true, validate: true
-  belongs_to :estate_material, required: true, validate: true
+                                   foreign_key: :updated_by_employee_id, optional: true, validate: true
+  belongs_to :address, validate: true
+  belongs_to :estate_type, validate: true
+  belongs_to :estate_project, validate: true
+  belongs_to :estate_material, validate: true
 
   validates :client_full_name, presence: true, length: { minimum: 1 }
   validates :client_phone_numbers, presence: true, length: { minimum: 6 }
@@ -76,7 +74,7 @@ class Estate < ApplicationRecord
   validates :kitchen_square_meters, allow_blank: true, numericality: { greater_than: 0, less_than: 1000 }
   validate :client_phone_numbers_valid?
   validates_datetime :delayed_until, allow_nil: true, after: -> { Date.current }
-  validate :estate_saveable?
+  validate :saveable?
 
   delegate :building_number, to: :address, allow_nil: true
   delegate :name, to: :estate_type, prefix: true
@@ -91,6 +89,10 @@ class Estate < ApplicationRecord
 
   def assigned_to?(employee)
     responsible_employee.eql?(employee)
+  end
+
+  def updateable_by?(employee)
+    created_by?(employee) || assigned_to?(employee)
   end
 
   def client_full_name=(value)
@@ -124,7 +126,7 @@ class Estate < ApplicationRecord
 
   def clear_client_phone_numbers
     self.client_phone_numbers = client_phone_numbers.split(',').map do |phone_number|
-      phone_number.strip.gsub(/\A[^+\d]+\z/, '')
+      phone_number.strip.gsub(PHONE_NUMBERS_REGEX.to_s, '')
     end.join(',')
   end
 
@@ -138,23 +140,30 @@ class Estate < ApplicationRecord
     end
   end
 
-  def estate_saveable?
+  def saveable?
     if apartment_number.blank?
       return if client_phone_numbers.blank?
 
       clear_client_phone_numbers
 
-      similar_estates = Estate.where(address: address, client_phone_numbers: client_phone_numbers)
-      return if similar_estates.size.zero?
-      return if similar_estates.any? { |estate| estate.id == id }
+      return unless similar_estates_exist?
 
       errors.add(:base, :client_phone_numbers_at_this_building_number_already_exist)
-    else
-      estate = Estate.find_by(address: address, apartment_number: apartment_number)
-      return unless estate
-      return if estate.id == id
-
-      errors.add(:base, :estate_at_this_address_already_exists)
+      return false
     end
+
+    estate = Estate.find_by(address: address, apartment_number: apartment_number)
+    return unless estate
+    return if estate.id == id
+
+    errors.add(:base, :estate_at_this_address_already_exists)
+  end
+
+  def similar_estates_exist?
+    similar_estates = Estate.where(address: address, client_phone_numbers: client_phone_numbers)
+    return if similar_estates.size.zero?
+    return if similar_estates.any? { |estate| estate.id == id }
+
+    true
   end
 end

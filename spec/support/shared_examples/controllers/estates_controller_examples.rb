@@ -1,4 +1,4 @@
-RSpec.shared_examples :estates_controller_allow_update_action_to_admins do
+RSpec.shared_examples 'estates controller allow update action to admins' do
   context 'with valid params' do
     it 'updates the requested estate' do
       put :update, params: { id: estate.to_param, estate: new_attributes }

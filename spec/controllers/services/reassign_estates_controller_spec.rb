@@ -14,12 +14,12 @@ RSpec.describe Services::ReassignEstatesController, type: :controller do
 
     context 'when user is an admin' do
       login_admin
-      include_examples :services_reassign_estates_controller_allow_index_action_to_admins
+      include_examples 'services reassign estates controller allow index action to admins'
     end
 
     context 'when user is a service_admin' do
       login_service_admin
-      include_examples :services_reassign_estates_controller_allow_index_action_to_admins
+      include_examples 'services reassign estates controller allow index action to admins'
     end
   end
 
@@ -38,7 +38,7 @@ RSpec.describe Services::ReassignEstatesController, type: :controller do
       login_admin
       let(:current_user) { authenticated_admin }
 
-      include_examples :services_reassign_estates_controller_allow_update_action_to_admins
+      include_examples 'services reassign estates controller allow update action to admins'
 
       context 'when from_employee is a service_admin' do
         let(:new_attributes) do
@@ -62,7 +62,7 @@ RSpec.describe Services::ReassignEstatesController, type: :controller do
 
       let(:current_user) { authenticated_service_admin }
 
-      include_examples :services_reassign_estates_controller_allow_update_action_to_admins
+      include_examples 'services reassign estates controller allow update action to admins'
     end
   end
 end
