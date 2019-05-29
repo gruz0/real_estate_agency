@@ -26,6 +26,9 @@ RSpec.describe 'competitors/index', type: :view do
         assert_select 'th', text: Competitor.human_attribute_name(:phone_numbers), count: 1
         assert_select 'th', text: Competitor.human_attribute_name(:created_at), count: 1
         assert_select 'th', text: Competitor.human_attribute_name(:updated_at), count: 1
+
+        assert_select 'button#show_filter', count: 1
+        assert_select 'button#reset_competitors_filter', count: 1
       end
 
       assert_select 'tbody' do
