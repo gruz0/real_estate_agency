@@ -8,7 +8,7 @@ class CompetitorsController < ApplicationController
   include PeopleHelper
 
   def index
-    @competitors = Competitor.order('id DESC').page(params[:page])
+    @competitors = FindCompetitors.new(Competitor.order('id DESC')).call(permitted_params)
   end
 
   def show; end
@@ -39,5 +39,9 @@ class CompetitorsController < ApplicationController
 
   def competitor_params
     params.require(:competitor).permit(:name, :phone_numbers)
+  end
+
+  def permitted_params
+    params.permit(:phone_numbers)
   end
 end

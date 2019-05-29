@@ -1,0 +1,22 @@
+#competitors_filter.modal.fade tabindex="-1" role="dialog" aria-hidden="true"
+  .modal-dialog.modal-lg role="document"
+    .modal-content
+      .modal-header
+        h5.modal-title
+          = t('views.filter.title')
+
+        button.close type="button" data-dismiss="modal" aria-label="Close"
+          span aria-hidden="true"
+            | &times;
+
+      .modal-body
+        / Phone numbers
+        .form-group.row
+          = label_tag :filter_phone_numbers , Competitor.human_attribute_name(:phone_numbers), \
+            class: 'col-sm-4 col-form-label'
+          .col-sm-8
+            = text_field :filter, :phone_numbers, value: params.fetch(:phone_numbers, ''), \
+              class: 'form-control', maxlength: 15
+
+      .modal-footer
+        = button_tag t('helpers.submit.filter'), id: :filterize_competitors, class: 'btn btn-primary'
