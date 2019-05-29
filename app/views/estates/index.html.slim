@@ -26,8 +26,8 @@ table.table.table-sm.table-hover
       td scope="col"
         .btn-group.btn-group-sm role="group"
           = button_tag t('helpers.submit.filter'), id: :show_filter, class: 'btn btn-outline-primary', \
-            data: { toggle: 'modal', target: '#estate_filter' }
-          = button_tag '&times;'.html_safe, id: :reset_filter, class: 'btn btn-danger'
+            data: { toggle: 'modal', target: '#estates_filter' }
+          = button_tag '&times;'.html_safe, id: :reset_estates_filter, class: 'btn btn-danger'
 
   tbody
     - if @estates.size.positive?

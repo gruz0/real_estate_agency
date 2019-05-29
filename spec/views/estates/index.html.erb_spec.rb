@@ -58,7 +58,7 @@ RSpec.describe 'estates/index', type: :view do
         assert_select 'th', text: Estate.human_attribute_name(:updated_at), count: 1
 
         assert_select 'button#show_filter', count: 1
-        assert_select 'button#reset_filter', count: 1
+        assert_select 'button#reset_estates_filter', count: 1
       end
 
       assert_select 'tbody' do
@@ -82,7 +82,7 @@ RSpec.describe 'estates/index', type: :view do
     expect(response.body).to have_link(I18n.t('views.action'), href: '#', count: estates.size)
 
     # Filter bar
-    assert_select '#estate_filter' do
+    assert_select '#estates_filter' do
       assert_select 'input#filter_id[type=text]', count: 1
       assert_select 'select#filter_city', count: 1 do
         assert_select 'option', text: I18n.t('views.filter.select.all'), count: 1
@@ -112,7 +112,7 @@ RSpec.describe 'estates/index', type: :view do
         assert_select 'option', text: I18n.t('views.filter.select.active'), count: 1
         assert_select 'option', text: I18n.t('views.filter.select.delayed'), count: 1
       end
-      assert_select 'button#filter', tetx: I18n.t('helpers.submit.filter'), count: 1
+      assert_select 'button#filterize_estates', text: I18n.t('helpers.submit.filter'), count: 1
     end
   end
 

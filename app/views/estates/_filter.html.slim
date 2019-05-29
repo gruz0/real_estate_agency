@@ -1,4 +1,4 @@
-#estate_filter.modal.fade tabindex="-1" role="diaglog" aria-hidden="true"
+#estates_filter.modal.fade tabindex="-1" role="dialog" aria-hidden="true"
   .modal-dialog.modal-lg role="document"
     .modal-content
       .modal-header
@@ -10,6 +10,7 @@
             | &times;
 
       .modal-body
+        / FIXME: It should be removed
         = form_tag nil, id: :estate_filter
           / ID
           .form-group.row
@@ -95,7 +96,7 @@
 
           / Client phone numbers
           .form-group.row
-            = label_tag :filter_client_phone_numbers , Estate.human_attribute_name(:client_phone_numbers), \
+            = label_tag :filter_client_phone_numbers, Estate.human_attribute_name(:client_phone_numbers), \
               class: 'col-sm-4 col-form-label'
             .col-sm-8
               = text_field :filter, :client_phone_numbers, value: params.fetch(:client_phone_numbers, ''), \
@@ -125,4 +126,4 @@
                 { selected: params.fetch(:status, '') }, class: 'form-control'
 
       .modal-footer
-        = button_tag t('helpers.submit.filter'), id: :filter, class: 'btn btn-primary'
+        = button_tag t('helpers.submit.filter'), id: :filterize_estates, class: 'btn btn-primary'

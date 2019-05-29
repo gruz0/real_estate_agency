@@ -29,7 +29,7 @@ $(document).on 'turbolinks:load', () ->
     orientation: 'bottom left'
   })
 
-  $('#filter').on 'click', ->
+  $('#filterize_estates').on 'click', ->
     filterCity = ''
     filterStreet = ''
     filterBuildingNumber = ''
@@ -63,7 +63,7 @@ $(document).on 'turbolinks:load', () ->
     window.location = '/estates?' + encodeQueryData(filter)
     return
 
-  $('#reset_filter').on 'click', ->
+  $('#reset_estates_filter').on 'click', ->
     window.location = '/estates'
     return
 
