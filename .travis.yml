@@ -32,7 +32,7 @@ script:
   - bundle exec bundle-audit update && bundle exec bundle-audit -v
   - bundle exec rubocop -DS --force-exclusion -c .rubocop.yml -d -E
   - bundle exec rails_best_practices -e 'app/helpers,app/models' .
-  - rubycritic --format json --mode-ci --no-browser
+  - git checkout db/schema.rb config/database.yml && rubycritic --format json --mode-ci --no-browser
   - bundle outdated --major
 
 after_script:
