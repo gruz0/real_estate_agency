@@ -10,120 +10,118 @@
             | &times;
 
       .modal-body
-        / FIXME: It should be removed
-        = form_tag nil, id: :estate_filter
-          / ID
-          .form-group.row
-            = label_tag :filter_id, Estate.human_attribute_name(:id), class: 'col-sm-4 col-form-label'
-            .col-sm-2
-              = text_field :filter, :id, value: params.fetch(:id, ''), class: 'form-control', maxlength: 6
+        / ID
+        .form-group.row
+          = label_tag :filter_id, Estate.human_attribute_name(:id), class: 'col-sm-4 col-form-label'
+          .col-sm-2
+            = text_field :filter, :id, value: params.fetch(:id, ''), class: 'form-control', maxlength: 6
 
-          / City
-          .form-group.row
-            = label_tag :filter_city, City.model_name.human, class: 'col-sm-4 col-form-label'
-            .col-sm-8
-              = select :filter, :city, \
-                [[t('views.filter.select.all'), '']] + City.ordered_by_name.map { |c| [c.name, c.id] }, \
-                { selected: params.fetch(:estate_city, '') }, class: 'form-control'
+        / City
+        .form-group.row
+          = label_tag :filter_city, City.model_name.human, class: 'col-sm-4 col-form-label'
+          .col-sm-8
+            = select :filter, :city, \
+              [[t('views.filter.select.all'), '']] + City.ordered_by_name.map { |c| [c.name, c.id] }, \
+              { selected: params.fetch(:estate_city, '') }, class: 'form-control'
 
-          / Street
-          .form-group.row
-            = label_tag :filter_street, Street.model_name.human, class: 'col-sm-4 col-form-label'
-            .col-sm-4
-              = select :filter, :street, \
-                [[t('views.filter.select.all'), '']] + Street.where(city_id: params.fetch(:estate_city, '')).map { |s| [s.name, s.id] }, \
-                { selected: params.fetch(:estate_street, '') }, class: 'form-control'
-            .col-sm-4
-              .row
-                = label_tag :filter_building_number, Address.human_attribute_name(:building_number), class: 'col-form-label'
-                .col-sm-6
-                  = text_field :filter, :building_number, value: params.fetch(:estate_building_number, ''), class: 'form-control', maxlength: 4
+        / Street
+        .form-group.row
+          = label_tag :filter_street, Street.model_name.human, class: 'col-sm-4 col-form-label'
+          .col-sm-4
+            = select :filter, :street, \
+              [[t('views.filter.select.all'), '']] + Street.where(city_id: params.fetch(:estate_city, '')).map { |s| [s.name, s.id] }, \
+              { selected: params.fetch(:estate_street, '') }, class: 'form-control'
+          .col-sm-4
+            .row
+              = label_tag :filter_building_number, Address.human_attribute_name(:building_number), class: 'col-form-label'
+              .col-sm-6
+                = text_field :filter, :building_number, value: params.fetch(:estate_building_number, ''), class: 'form-control', maxlength: 4
 
-          / Estate project
-          .form-group.row
-            = label_tag :filter_estate_project, Estate.human_attribute_name(:estate_project), \
-              class: 'col-sm-4 col-form-label'
-            .col-sm-8
-              = select :filter, :estate_project, \
-                [[t('views.filter.select.all'), '']] + EstateProject.ordered_by_name.map { |ep| [ep.name, ep.id] }, \
-                { selected: params.fetch(:estate_project, '') }, class: 'form-control'
+        / Estate project
+        .form-group.row
+          = label_tag :filter_estate_project, Estate.human_attribute_name(:estate_project), \
+            class: 'col-sm-4 col-form-label'
+          .col-sm-8
+            = select :filter, :estate_project, \
+              [[t('views.filter.select.all'), '']] + EstateProject.ordered_by_name.map { |ep| [ep.name, ep.id] }, \
+              { selected: params.fetch(:estate_project, '') }, class: 'form-control'
 
-          / Number of rooms
-          .form-group.row
-            = label_tag :filter_number_of_rooms, Estate.human_attribute_name(:number_of_rooms), \
-              class: 'col-sm-4 col-form-label'
-            .col-sm-4
-              = text_field :filter, :number_of_rooms, value: params.fetch(:number_of_rooms, ''), \
-                class: 'form-control', maxlength: 1
+        / Number of rooms
+        .form-group.row
+          = label_tag :filter_number_of_rooms, Estate.human_attribute_name(:number_of_rooms), \
+            class: 'col-sm-4 col-form-label'
+          .col-sm-4
+            = text_field :filter, :number_of_rooms, value: params.fetch(:number_of_rooms, ''), \
+              class: 'form-control', maxlength: 1
 
-          / Floor
-          .form-group.row
-            = label_tag :filter_floor_from, Estate.human_attribute_name(:floor), class: 'col-sm-4 col-form-label'
-            .col-sm-4
-              = text_field :filter, :floor_from, value: params.fetch(:floor_from, ''), class: 'form-control', \
-                maxlength: 2
-            .col-sm-4
-              = text_field :filter, :floor_to, value: params.fetch(:floor_to, ''), class: 'form-control', maxlength: 2
+        / Floor
+        .form-group.row
+          = label_tag :filter_floor_from, Estate.human_attribute_name(:floor), class: 'col-sm-4 col-form-label'
+          .col-sm-4
+            = text_field :filter, :floor_from, value: params.fetch(:floor_from, ''), class: 'form-control', \
+              maxlength: 2
+          .col-sm-4
+            = text_field :filter, :floor_to, value: params.fetch(:floor_to, ''), class: 'form-control', maxlength: 2
 
-          / Price
-          .form-group.row
-            = label_tag :filter_price_from, Estate.human_attribute_name(:price), class: 'col-sm-4 col-form-label'
-            .col-sm-4
-              .input-group
-                = text_field :filter, :price_from, value: params.fetch(:price_from, ''), maxlength: 5, \
-                  class: 'form-control'
-                .input-group-append
-                  .input-group-text
-                    | 000
-            .col-sm-4
-              .input-group
-                = text_field :filter, :price_to, value: params.fetch(:price_to, ''), maxlength: 5, \
-                  class: 'form-control'
-                .input-group-append
-                  .input-group-text
-                    | 000
+        / Price
+        .form-group.row
+          = label_tag :filter_price_from, Estate.human_attribute_name(:price), class: 'col-sm-4 col-form-label'
+          .col-sm-4
+            .input-group
+              = text_field :filter, :price_from, value: params.fetch(:price_from, ''), maxlength: 5, \
+                class: 'form-control'
+              .input-group-append
+                .input-group-text
+                  | 000
+          .col-sm-4
+            .input-group
+              = text_field :filter, :price_to, value: params.fetch(:price_to, ''), maxlength: 5, \
+                class: 'form-control'
+              .input-group-append
+                .input-group-text
+                  | 000
 
-          / Total square meters
-          .form-group.row
-            = label_tag :filter_total_square_meters_from, Estate.human_attribute_name(:total_square_meters), \
-              class: 'col-sm-4 col-form-label'
-            .col-sm-4
-              = text_field :filter, :total_square_meters_from, value: params.fetch(:total_square_meters_from, ''), \
-                class: 'form-control', maxlength: 2
-            .col-sm-4
-              = text_field :filter, :total_square_meters_to, value: params.fetch(:total_square_meters_to, ''), \
-                class: 'form-control', maxlength: 3
+        / Total square meters
+        .form-group.row
+          = label_tag :filter_total_square_meters_from, Estate.human_attribute_name(:total_square_meters), \
+            class: 'col-sm-4 col-form-label'
+          .col-sm-4
+            = text_field :filter, :total_square_meters_from, value: params.fetch(:total_square_meters_from, ''), \
+              class: 'form-control', maxlength: 2
+          .col-sm-4
+            = text_field :filter, :total_square_meters_to, value: params.fetch(:total_square_meters_to, ''), \
+              class: 'form-control', maxlength: 3
 
-          / Client phone numbers
-          .form-group.row
-            = label_tag :filter_client_phone_numbers, Estate.human_attribute_name(:client_phone_numbers), \
-              class: 'col-sm-4 col-form-label'
-            .col-sm-8
-              = text_field :filter, :client_phone_numbers, value: params.fetch(:client_phone_numbers, ''), \
-                class: 'form-control', maxlength: 15
+        / Client phone numbers
+        .form-group.row
+          = label_tag :filter_client_phone_numbers, Estate.human_attribute_name(:client_phone_numbers), \
+            class: 'col-sm-4 col-form-label'
+          .col-sm-8
+            = text_field :filter, :client_phone_numbers, value: params.fetch(:client_phone_numbers, ''), \
+              class: 'form-control', maxlength: 15
 
-          / Responsible employee
-          .form-group.row
-            = label_tag :filter_responsible_employee, Estate.human_attribute_name(:responsible_employee), \
-              class: 'col-sm-4 col-form-label'
-            .col-sm-8
-              = select :filter, :responsible_employee, \
-                [[t('views.filter.select.all'), ''], [t('views.filter.select.i_am'), current_employee.id]] + \
-                Employee.ordered_by_full_name.map { |e| [person_shortname(e), e.id] }, \
-                { selected: params.fetch(:responsible_employee, '') }, class: 'form-control'
+        / Responsible employee
+        .form-group.row
+          = label_tag :filter_responsible_employee, Estate.human_attribute_name(:responsible_employee), \
+            class: 'col-sm-4 col-form-label'
+          .col-sm-8
+            = select :filter, :responsible_employee, \
+              [[t('views.filter.select.all'), ''], [t('views.filter.select.i_am'), current_employee.id]] + \
+              Employee.ordered_by_full_name.map { |e| [person_shortname(e), e.id] }, \
+              { selected: params.fetch(:responsible_employee, '') }, class: 'form-control'
 
-          / Status
-          .form-group.row
-            = label_tag :filter_status, Estate.human_attribute_name(:status), \
-              class: 'col-sm-4 col-form-label'
-            .col-sm-8
-              = select :filter, :status, \
-                [ \
-                  [t('views.filter.select.all'), ''], \
-                  [t('views.filter.select.active'), 'active'], \
-                  [t('views.filter.select.delayed'), 'delayed'] \
-                ], \
-                { selected: params.fetch(:status, '') }, class: 'form-control'
+        / Status
+        .form-group.row
+          = label_tag :filter_status, Estate.human_attribute_name(:status), \
+            class: 'col-sm-4 col-form-label'
+          .col-sm-8
+            = select :filter, :status, \
+              [ \
+                [t('views.filter.select.all'), ''], \
+                [t('views.filter.select.active'), 'active'], \
+                [t('views.filter.select.delayed'), 'delayed'] \
+              ], \
+              { selected: params.fetch(:status, '') }, class: 'form-control'
 
       .modal-footer
         = button_tag t('helpers.submit.filter'), id: :filterize_estates, class: 'btn btn-primary'
