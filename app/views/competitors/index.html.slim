@@ -16,6 +16,15 @@ table.table.table-sm.table-hover
       th.created-at scope="col" = Competitor.human_attribute_name(:created_at)
       th.updated-at scope="col" = Competitor.human_attribute_name(:updated_at)
       th.action scope="col"
+
+    tr
+      td scope="col" colspan="5"
+      td scope="col"
+        .btn-group.btn-group-sm role="group"
+          = button_tag t('helpers.submit.filter'), id: :show_filter, class: 'btn btn-outline-primary', \
+            data: { toggle: 'modal', target: '#competitors_filter' }
+          = button_tag '&times;'.html_safe, id: :reset_competitors_filter, class: 'btn btn-danger'
+
   tbody
     - @competitors.each do |competitor|
       tr
@@ -40,3 +49,5 @@ table.table.table-sm.table-hover
       td colspan=6
         .container.pagination.justify-content-center
           = paginate(@competitors, theme: 'twitter-bootstrap-4')
+
+= render 'filter'

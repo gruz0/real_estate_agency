@@ -43,5 +43,11 @@ RSpec.describe 'competitors/index', type: :view do
       expect(response.body).to have_link(I18n.t('views.edit'), href: edit_competitor_path(competitor))
       expect(response.body).to have_link(I18n.t('views.destroy'), href: competitor_path(competitor))
     end
+
+    # Filter bar
+    assert_select '#competitors_filter' do
+      assert_select 'input#filter_phone_numbers[type=text]', count: 1
+      assert_select 'button#filterize_competitors', text: I18n.t('helpers.submit.filter'), count: 1
+    end
   end
 end
