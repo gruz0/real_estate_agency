@@ -33,7 +33,6 @@ script:
   - bundle exec rubocop -DS --force-exclusion -c .rubocop.yml -d -E
   - bundle exec rails_best_practices -e 'app/helpers,app/models' .
   - git checkout db/schema.rb config/database.yml && rubycritic --format json --mode-ci --no-browser
-  - bundle outdated --major
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
