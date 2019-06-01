@@ -5,6 +5,15 @@
   .col-lg-9
     h1 = title
 
+- if @estate.errors.any?
+  .row.col-lg-10
+    .col-lg-9
+      #error_explanation
+        h2 = t('activerecord.errors.template.header', model: Estate.model_name.human, count: @estate.errors.count)
+        ul
+          - @estate.errors.full_messages.each do |message|
+            li = message
+
 .row.col-lg-10
   .col-lg-9
     = render 'form', estate: @estate
