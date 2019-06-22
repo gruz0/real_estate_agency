@@ -13,7 +13,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'dotenv-rails'
 gem 'jbuilder', '~> 2.5'
-gem 'jquery-rails'
+gem 'jquery-rails', '>= 4.3.4'
 gem 'kaminari'
 gem 'mini_racer', platforms: :ruby
 gem 'mysql2', '>= 0.3.18', '< 0.5'
