@@ -52,7 +52,7 @@ group :test do
   gem 'rubocop', require: false
   gem 'rubocop-performance'
   gem 'rubocop-rspec'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '>= 3.142.3'
   gem 'shoulda-callback-matchers', '~> 1.1.1'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'simplecov', require: false
