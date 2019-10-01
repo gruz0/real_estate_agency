@@ -14,7 +14,6 @@ DSELECT::Clean "always";' >> /etc/apt/apt.conf.d/docker-no-cache
 
 RUN apt-get update -qq && \
     apt-get install -y build-essential libpq-dev graphviz graphviz-dev && \
-    gem install bundler && \
     mkdir /app
 
 WORKDIR /app
