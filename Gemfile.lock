@@ -168,7 +168,6 @@ GEM
       libv8 (>= 6.9.411)
     minitest (5.11.3)
     msgpack (1.2.10)
-    multi_json (1.13.1)
     mysql2 (0.4.10)
     nio4r (2.3.1)
     nokogiri (1.10.4)
@@ -231,8 +230,7 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rinku (2.0.6)
-    rollbar (2.20.0)
-      multi_json
+    rollbar (2.22.1)
     rspec-core (3.8.0)
       rspec-support (~> 3.8.0)
     rspec-expectations (3.8.3)
