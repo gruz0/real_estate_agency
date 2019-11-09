@@ -167,7 +167,7 @@ GEM
       libv8 (>= 6.9.411)
     minitest (5.13.0)
     msgpack (1.2.10)
-    mysql2 (0.4.10)
+    mysql2 (0.5.2)
     nio4r (2.3.1)
     nokogiri (1.10.5)
       mini_portile2 (~> 2.4.0)
@@ -361,7 +361,7 @@ DEPENDENCIES
   kaminari
   letter_opener
   mini_racer
-  mysql2 (>= 0.3.18, < 0.5)
+  mysql2 (>= 0.3.18, < 0.6)
   puma (~> 3.7)
   rails (~> 5.2.3)
   rails-erd
