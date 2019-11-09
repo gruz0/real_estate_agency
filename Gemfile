@@ -44,7 +44,7 @@ group :development do
 end
 
 group :test do
-  gem 'brakeman', require: false
+  gem 'brakeman', '>= 4.7.1', require: false
   gem 'bundle-audit', require: false
   gem 'capybara'
   gem 'rails_best_practices', require: false
