@@ -306,7 +306,7 @@ GEM
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.9)
-    timeliness (0.4.0)
+    timeliness (0.4.3)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -315,7 +315,7 @@ GEM
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     unicode-display_width (1.6.0)
-    validates_timeliness (5.0.0.alpha4)
+    validates_timeliness (5.0.0.alpha5)
       timeliness (>= 0.3.10, < 1)
     warden (1.2.8)
       rack (>= 2.0.6)
@@ -371,7 +371,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)
   uglifier (>= 1.3.0)
-  validates_timeliness (~> 5.0.0.alpha3)
+  validates_timeliness (~> 5.0.0.alpha5)
 
 BUNDLED WITH
    2.0.2
