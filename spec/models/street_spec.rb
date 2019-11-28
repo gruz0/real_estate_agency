@@ -13,15 +13,15 @@ RSpec.describe Street, type: :model do
       other_city = create(:city)
       create(:street, city: other_city, name: 'ул. Первая')
 
-      street = Street.new(city: city, name: 'ул. Первая')
+      street = described_class.new(city: city, name: 'ул. Первая')
 
       expect(street).to be_valid
     end
 
     it 'has a valid factory if name changed' do
-      Street.create!(city: city, name: 'ул. Первая')
+      described_class.create!(city: city, name: 'ул. Первая')
 
-      street = Street.create!(city: city, name: 'ул. Вторая')
+      street = described_class.create!(city: city, name: 'ул. Вторая')
       street.update!(name: 'ул. Вторая')
       street.reload
 
@@ -34,7 +34,7 @@ RSpec.describe Street, type: :model do
       city = create(:city)
       create(:street, city: city, name: 'ул. Первая')
 
-      street = Street.new(city: city, name: 'ул. Первая')
+      street = described_class.new(city: city, name: 'ул. Первая')
       expect(street).to be_invalid
       expect(street.errors.messages[:name]).to include(I18n.t('errors.messages.taken'))
     end
@@ -81,7 +81,7 @@ RSpec.describe Street, type: :model do
       street2 = create(:street, city: city, name: 'ул. Ленина')
       street3 = create(:street, city: city, name: 'ул. Арбатская')
 
-      streets = Street.ordered_by_name
+      streets = described_class.ordered_by_name
       expect(streets.size).to eq(3)
       expect(streets).to eq([street1, street3, street2])
     end

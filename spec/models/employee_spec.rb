@@ -101,7 +101,7 @@ RSpec.describe Employee, type: :model do
       employee2 = create(:employee, last_name: 'Афонин', first_name: 'Пётр')
       employee3 = create(:employee, last_name: 'Дмитриев', first_name: 'Денис')
 
-      employees = Employee.ordered_by_full_name
+      employees = described_class.ordered_by_full_name
       expect(employees.size).to eq(3)
       expect(employees).to eq([employee2, employee3, employee1])
     end

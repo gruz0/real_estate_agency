@@ -53,7 +53,7 @@ RSpec.describe City, type: :model do
       create(:street, city: city1)
       create(:street, city: city2)
 
-      cities_with_streets = City.with_streets
+      cities_with_streets = described_class.with_streets
       expect(cities_with_streets.size).to eq(2)
       expect(cities_with_streets).to include(city1)
       expect(cities_with_streets).to include(city2)
