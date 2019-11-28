@@ -134,7 +134,7 @@ class Estate < ApplicationRecord
     return if client_phone_numbers.blank?
 
     client_phone_numbers.split(',').each do |phone_number|
-      next if phone_number.strip =~ PHONE_NUMBERS_REGEX
+      next if PHONE_NUMBERS_REGEX.match?(phone_number.strip)
 
       errors.add(:client_phone_numbers, :invalid)
     end

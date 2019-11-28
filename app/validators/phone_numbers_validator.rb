@@ -13,7 +13,7 @@ class PhoneNumbersValidator < ActiveModel::Validator
     return if record.phone_numbers.blank?
 
     record.phone_numbers.split(',').each do |phone_number|
-      next if phone_number.strip =~ PHONE_NUMBERS_REGEX
+      next if PHONE_NUMBERS_REGEX.match?(phone_number.strip)
 
       record.errors.add(:phone_numbers, :invalid)
     end
