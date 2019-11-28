@@ -50,7 +50,7 @@ RSpec.describe Client, type: :model do
       client2 = create(:client, full_name: 'Алексеева Снежана')
       client3 = create(:client, full_name: 'Зубарева Наталья')
 
-      clients = Client.ordered_by_full_name
+      clients = described_class.ordered_by_full_name
       expect(clients.size).to eq(3)
       expect(clients).to eq([client2, client3, client1])
     end

@@ -48,7 +48,7 @@ RSpec.describe EstateMaterial, type: :model do
       estate_material2 = create(:estate_material, name: 'Деревянный')
       estate_material3 = create(:estate_material, name: 'Панельный')
 
-      estate_materials = EstateMaterial.ordered_by_name
+      estate_materials = described_class.ordered_by_name
       expect(estate_materials.size).to eq(3)
       expect(estate_materials).to eq([estate_material2, estate_material1, estate_material3])
     end

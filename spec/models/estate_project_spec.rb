@@ -48,7 +48,7 @@ RSpec.describe EstateProject, type: :model do
       estate_project2 = create(:estate_project, name: 'Московский')
       estate_project3 = create(:estate_project, name: 'Новый')
 
-      estate_projects = EstateProject.ordered_by_name
+      estate_projects = described_class.ordered_by_name
       expect(estate_projects.size).to eq(3)
       expect(estate_projects).to eq([estate_project2, estate_project3, estate_project1])
     end

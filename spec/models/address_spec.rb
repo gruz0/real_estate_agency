@@ -49,7 +49,7 @@ RSpec.describe Address, type: :model do
       estate1 = create(:estate, address: address)
       estate2 = create(:estate, address: address, apartment_number: '1', client_phone_numbers: '+79991112233')
 
-      address_with_estates = Address.with_estates.first
+      address_with_estates = described_class.with_estates.first
       expect(address_with_estates.estate.size).to eq(2)
       expect(address_with_estates.estate).to include(estate1)
       expect(address_with_estates.estate).to include(estate2)
