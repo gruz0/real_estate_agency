@@ -177,7 +177,7 @@ GEM
       ast (~> 2.4.0)
     popper_js (1.14.5)
     public_suffix (4.0.1)
-    puma (3.12.1)
+    puma (3.12.2)
     rack (2.0.7)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -351,7 +351,7 @@ DEPENDENCIES
   letter_opener
   mini_racer
   mysql2 (>= 0.3.18, < 0.6)
-  puma (~> 3.7)
+  puma (~> 3.12, >= 3.12.2)
   rails (~> 5.2.3)
   rails-erd
   rails_best_practices
@@ -374,4 +374,4 @@ DEPENDENCIES
   validates_timeliness (~> 5.0.0.alpha5)
 
 BUNDLED WITH
-   2.0.2
+   1.17.3
