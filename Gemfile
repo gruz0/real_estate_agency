@@ -54,6 +54,6 @@ group :test do
   gem 'rubocop-rspec'
   gem 'selenium-webdriver'
   gem 'shoulda-callback-matchers', '~> 1.1.1'
-  gem 'shoulda-matchers', '~> 3.1'
+  gem 'shoulda-matchers', '~> 4.1'
   gem 'simplecov', require: false
 end
