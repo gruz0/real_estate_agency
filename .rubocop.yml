@@ -19,11 +19,14 @@ AllCops:
 #
 
 #
-# Metrics
+# Layout
 #
-Metrics/LineLength:
+Layout/LineLength:
   Max: 150
 
+#
+# Metrics
+#
 Metrics/BlockLength:
   Exclude:
     - config/routes.rb
