@@ -12,7 +12,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'coffee-rails', '~> 5.0'
 gem 'devise'
 gem 'dotenv-rails'
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', '~> 2.10'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'mini_racer', platforms: :ruby
