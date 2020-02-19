@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Employee, type: :model do
@@ -77,20 +79,6 @@ RSpec.describe Employee, type: :model do
       it 'returns middle_name titleized' do
         person.middle_name = 'николаевич'
         expect(person.middle_name).to eq('Николаевич')
-      end
-    end
-  end
-
-  describe 'callbacks' do
-    it { expect(person).to callback(:prevent_to_destroy_last_employee).before(:destroy) }
-
-    describe '#prevent_to_destroy_last_employee' do
-      it 'has error for :last_employee attribute' do
-        last_employee = create(:employee)
-        last_employee.destroy
-
-        expect(last_employee.errors[:last_employee])
-          .to include(I18n.t('activerecord.errors.messages.unable_to_be_destroyed'))
       end
     end
   end
