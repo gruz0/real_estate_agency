@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe EmployeesController, type: :controller do
@@ -207,56 +209,6 @@ RSpec.describe EmployeesController, type: :controller do
     context 'when user is a service_admin' do
       login_service_admin
       include_examples 'employees controller allow update action to admins'
-    end
-  end
-
-  describe 'DELETE #destroy' do
-    context 'when user is an employee' do
-      login_employee
-
-      it 'redirects to root_path with alert' do
-        delete :destroy, params: { id: employee.to_param }
-        expect(response).to be_redirect
-        expect(flash[:alert]).to eq(I18n.t('errors.messages.forbidden'))
-      end
-    end
-
-    context 'when user is an admin' do
-      login_admin
-
-      context 'when destroyable user is an employee' do
-        include_examples 'employees controller allow destroy action to admins'
-      end
-
-      context 'when try to destroy himself' do
-        let(:current_employee) { authenticated_admin }
-
-        include_examples 'employees controller prevent to destroy yourself'
-      end
-
-      context 'when destroyable user is a service_admin' do
-        it 'redirects to root_path with alert' do
-          employee.update!(role: :service_admin)
-
-          delete :destroy, params: { id: employee.to_param }
-          expect(response).to be_redirect
-          expect(flash[:alert]).to eq(I18n.t('errors.messages.forbidden'))
-        end
-      end
-    end
-
-    context 'when user is a service_admin' do
-      login_service_admin
-
-      context 'when destroyable user is an employee' do
-        include_examples 'employees controller allow destroy action to admins'
-      end
-
-      context 'when try to destroy himself' do
-        let(:current_employee) { authenticated_service_admin }
-
-        include_examples 'employees controller prevent to destroy yourself'
-      end
     end
   end
 

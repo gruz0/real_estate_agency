@@ -115,53 +115,6 @@ RSpec.shared_examples 'employees controller allow update action to admins' do
   end
 end
 
-RSpec.shared_examples 'employees controller allow destroy action to admins' do
-  context 'with valid params' do
-    it 'destroys the requested employee' do
-      employee
-      expect do
-        delete :destroy, params: { id: employee.to_param }
-      end.to change(Employee, :count).by(-1)
-    end
-
-    it 'redirects to the employees list' do
-      delete :destroy, params: { id: employee.to_param }
-      expect(response).to redirect_to(employees_url)
-    end
-
-    it 'renders flash notice' do
-      delete :destroy, params: { id: employee.to_param }
-      expect(flash[:notice])
-        .to eq(I18n.t('views.employee.flash_messages.employee_was_successfully_destroyed'))
-    end
-  end
-
-  context 'with invalid params' do
-    it 'redirects to index page if record was not found' do
-      delete :destroy, params: { id: 100_500 }
-      expect(response).to be_redirect
-      expect(flash[:alert]).to eq(I18n.t('views.employee.flash_messages.employee_was_not_found'))
-    end
-
-    it 'redirects to index page if dependent association exists' do
-      create(:estate, responsible_employee: employee)
-
-      delete :destroy, params: { id: employee.to_param }
-      expect(response).to be_redirect
-      expect(flash[:alert])
-        .to eq(I18n.t('activerecord.errors.messages.restrict_dependent_destroy.has_many', record: :estate))
-    end
-  end
-end
-
-RSpec.shared_examples 'employees controller prevent to destroy yourself' do
-  it 'redirects to root_path with alert' do
-    delete :destroy, params: { id: current_employee.to_param }
-    expect(response).to be_redirect
-    expect(flash[:alert]).to eq(I18n.t('employees.destroy.you_can_not_destroy_yourself'))
-  end
-end
-
 RSpec.shared_examples 'employees controller allow lock action to admins' do
   context 'with valid params' do
     it 'redirects to the employees list' do
