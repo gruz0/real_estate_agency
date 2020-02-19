@@ -55,7 +55,6 @@ RSpec.describe 'employees/index', type: :view do
     employees.each do |employee|
       expect(response.body).to have_link(I18n.t('views.show'), href: employee_path(employee))
       expect(response.body).to have_link(I18n.t('views.edit'), href: edit_employee_path(employee))
-      expect(response.body).to have_link(I18n.t('views.destroy'), href: employee_path(employee))
 
       if employee.access_locked?
         expect(response.body).to have_link(I18n.t('views.unlock'), href: unlock_employee_path(employee))
