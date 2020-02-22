@@ -65,4 +65,12 @@ class Employee < ApplicationRecord
     new_value = value.try(:strip).to_s.mb_chars.titleize
     super(new_value)
   end
+
+  def active_for_authentication?
+    super && locked_at.blank?
+  end
+
+  def inactive_message
+    locked_at.blank? ? :locked : super
+  end
 end

@@ -22,4 +22,16 @@ RSpec.feature 'Signing in' do
 
     expect(page).to have_content(I18n.t('devise.failure.invalid', authentication_keys: 'Электронная почта'))
   end
+
+  scenario 'When employee is locked' do
+    employee.lock_access!
+
+    visit root_path
+
+    fill_in 'employee[email]', with: employee.email
+    fill_in 'employee[password]', with: employee.password
+    click_button I18n.t('views.auth.new.log_in')
+
+    expect(page).to have_content(I18n.t('devise.failure.locked'))
+  end
 end
