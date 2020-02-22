@@ -67,10 +67,10 @@ class Employee < ApplicationRecord
   end
 
   def active_for_authentication?
-    super && locked_at.blank?
+    super && !access_locked?
   end
 
   def inactive_message
-    locked_at.blank? ? :locked : super
+    access_locked? ? super : :locked
   end
 end
