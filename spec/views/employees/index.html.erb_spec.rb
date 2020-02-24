@@ -44,7 +44,7 @@ RSpec.describe 'employees/index', type: :view do
         assert_select 'tr>td', text: 'admin'.to_s, count: 1
         assert_select 'tr>td', text: I18n.t('helpers.label.true').to_s, count: 1
 
-        assert_select 'tr>td', text: 'Петров Сергей'.to_s, count: 1
+        assert_select 'tr>td', text: 'Петров Сергей (Заблокирован)'.to_s, count: 1
         assert_select 'tr>td', text: '+79993334455'.to_s, count: 1
         assert_select 'tr>td', text: 'me2@domain.tld'.to_s, count: 1
         assert_select 'tr>td', text: 'user'.to_s, count: 1
@@ -55,7 +55,6 @@ RSpec.describe 'employees/index', type: :view do
     employees.each do |employee|
       expect(response.body).to have_link(I18n.t('views.show'), href: employee_path(employee))
       expect(response.body).to have_link(I18n.t('views.edit'), href: edit_employee_path(employee))
-      expect(response.body).to have_link(I18n.t('views.destroy'), href: employee_path(employee))
 
       if employee.access_locked?
         expect(response.body).to have_link(I18n.t('views.unlock'), href: unlock_employee_path(employee))

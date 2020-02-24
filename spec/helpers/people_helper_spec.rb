@@ -28,6 +28,14 @@ RSpec.describe PeopleHelper, type: :helper do
         expect(helper.person_fullname(person)).to eq('')
       end
     end
+
+    context 'when employee is locked' do
+      before { person.lock_access! }
+
+      it 'returns locked text' do
+        expect(helper.person_fullname(person)).to eq('Иванов Пётр Сергеевич (Заблокирован)')
+      end
+    end
   end
 
   describe '#person_shortname' do
@@ -50,6 +58,14 @@ RSpec.describe PeopleHelper, type: :helper do
 
       it 'returns empty string' do
         expect(helper.person_shortname(person)).to eq('')
+      end
+    end
+
+    context 'when employee is locked' do
+      before { person.lock_access! }
+
+      it 'returns locked text' do
+        expect(helper.person_shortname(person)).to eq('Иванов П.С. (Заблокирован)')
       end
     end
   end

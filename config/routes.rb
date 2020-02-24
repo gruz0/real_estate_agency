@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :competitors
   resources :clients
-  resources :employees do
+  resources :employees, only: %i[index show new create edit update] do
     post 'lock', on: :member
     post 'unlock', on: :member
   end

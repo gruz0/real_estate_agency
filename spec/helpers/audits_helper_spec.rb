@@ -23,21 +23,6 @@ RSpec.describe AuditsHelper, type: :helper do
           .to eq(link_to('Иванов Иван Иванович', employee_path(audit.user)))
       end
     end
-
-    context 'when employee destroyed' do
-      it 'returns label Destroyed' do
-        create(:employee)
-        employee = create(:employee, last_name: 'Иванов', first_name: 'Иван', middle_name: 'Иванович')
-
-        Audited.audit_class.as_user(employee) { create(:city) }
-
-        audit = Audited::Audit.last
-
-        employee.destroy
-
-        expect(helper.render_audited_employee_for(audit)).to eq(I18n.t('helpers.label.destroyed'))
-      end
-    end
   end
 
   describe '#audit_row_class_depends_on' do

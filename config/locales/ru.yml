@@ -58,7 +58,6 @@ ru:
       unlock: 'Разблокировать'
       cancel_delay: 'Вернуть в активные'
     label:
-      destroyed: 'Удалён'
       "true": 'Да'
       "false": 'Нет'
 

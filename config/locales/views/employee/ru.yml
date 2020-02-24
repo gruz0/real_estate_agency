@@ -15,6 +15,5 @@ ru:
         employee_was_not_found: 'Сотрудник не существует'
         employee_was_successfully_created: 'Сотрудник был успешно создан'
         employee_was_successfully_updated: 'Сотрудник был успешно обновлён'
-        employee_was_successfully_destroyed: 'Сотрудник был успешно удалён'
         employee_was_successfully_locked: 'Сотрудник был успешно заблокирован'
         employee_was_successfully_unlocked: 'Сотрудник был успешно разблокирован'

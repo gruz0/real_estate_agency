@@ -30,10 +30,6 @@ RSpec.describe EmployeesController, type: :routing do
       expect(patch: '/employees/1').to route_to('employees#update', id: '1')
     end
 
-    it 'routes to #destroy' do
-      expect(delete: '/employees/1').to route_to('employees#destroy', id: '1')
-    end
-
     it 'routes to #lock' do
       expect(post: '/employees/1/lock').to route_to('employees#lock', id: '1')
     end

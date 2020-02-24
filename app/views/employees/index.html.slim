@@ -44,9 +44,6 @@ table.table.table-sm.table-hover
               - else
                 = link_to t('views.lock'), lock_employee_path(employee), class: 'dropdown-item text-warning',
                   method: :post, data: { confirm: t('views.are_you_sure') }
-              .dropdown-divider
-              = link_to t('views.destroy'), employee, class: 'dropdown-item text-danger', method: :delete, \
-                data: { confirm: t('views.are_you_sure') }
 
   tfoot
     tr
