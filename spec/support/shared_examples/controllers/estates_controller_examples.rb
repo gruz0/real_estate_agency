@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_examples 'estates controller allow update action to admins' do
   context 'with valid params' do
     it 'updates the requested estate' do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CompetitorsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound do |_|
     redirect_to competitors_path, alert: t('views.competitor.flash_messages.competitor_was_not_found')

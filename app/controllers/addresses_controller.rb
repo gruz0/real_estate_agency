@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddressesController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound do |_|
     redirect_to addresses_path, alert: t('views.address.flash_messages.address_was_not_found')

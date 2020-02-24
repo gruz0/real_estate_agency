@@ -6,6 +6,7 @@ AllCops:
   TargetRubyVersion: 2.5
   DisplayCopNames: true
   Exclude:
+    - bin/*
     - db/schema.rb
     - tmp/**/*
     - lib/tasks/import/*.rake
@@ -55,9 +56,6 @@ Style/Documentation:
   Enabled: false
 
 Style/AsciiComments:
-  Enabled: false
-
-Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/MixinUsage:

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   devise_for :employees, path: 'auth', controllers: {
     sessions: 'admin/sessions'

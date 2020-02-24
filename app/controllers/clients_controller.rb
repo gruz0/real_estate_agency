@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ClientsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound do |_|
     redirect_to clients_path, alert: t('views.client.flash_messages.client_was_not_found')

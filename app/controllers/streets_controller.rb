@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StreetsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound do |_|
     if @city

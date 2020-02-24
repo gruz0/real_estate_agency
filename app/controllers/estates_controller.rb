@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EstatesController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound do |_|
     redirect_to estates_path, alert: t('views.estate.flash_messages.estate_was_not_found')

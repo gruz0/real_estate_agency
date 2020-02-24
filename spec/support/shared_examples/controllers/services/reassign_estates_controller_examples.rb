@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_examples 'services reassign estates controller allow index action to admins' do
   it 'returns a success response' do
     get :index, params: {}

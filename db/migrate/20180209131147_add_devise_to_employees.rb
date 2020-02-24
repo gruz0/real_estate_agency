@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddDeviseToEmployees < ActiveRecord::Migration[5.1]
   def self.up
     change_table :employees, bulk: true do |t|

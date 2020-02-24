@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FilterByAddress
   attr_accessor :initial_scope
 

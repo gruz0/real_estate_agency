@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_examples 'addresses controller forbidden index action for non service admin' do
   it 'redirects to root_path with alert' do
     get :index, params: {}

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :estate do
     client_full_name { 'Иванова Наталья Сергеевна' }

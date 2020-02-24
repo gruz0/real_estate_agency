@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FindCompetitors
   attr_accessor :initial_scope
 

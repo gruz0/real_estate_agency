@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UpdateEstateClientColumns < ActiveRecord::Migration[5.1]
   def self.up
     remove_reference :estates, :client, foreign_key: true

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :client do
     full_name { "#{FFaker::NameRU.last_name} #{FFaker::NameRU.first_name}" }

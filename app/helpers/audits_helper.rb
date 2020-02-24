@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AuditsHelper
   def render_audited_employee_for(audit)
     return '' unless audit.user

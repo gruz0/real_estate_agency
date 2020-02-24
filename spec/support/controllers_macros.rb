@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ControllersMacros
   def login_employee
     before do
