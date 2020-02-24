@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :estate_type do
-    name { "#{FFaker::Lorem.word}-#{rand(100)}" }
+    name { generate(:random_name) }
   end
 end

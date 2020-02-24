@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AuditsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound do |_|
     redirect_to audits_path, alert: t('views.audit.flash_messages.audit_was_not_found')

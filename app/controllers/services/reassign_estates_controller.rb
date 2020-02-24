@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Services
   class ReassignEstatesController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound do |_|

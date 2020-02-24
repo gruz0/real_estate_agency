@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FindEstates
   attr_accessor :initial_scope
 

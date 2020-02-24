@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :app do
   desc 'Creates default dictionaries'
   task initialize: :environment do

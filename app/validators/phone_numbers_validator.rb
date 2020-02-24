@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PhoneNumbersValidator < ActiveModel::Validator
   attr_reader :record
 

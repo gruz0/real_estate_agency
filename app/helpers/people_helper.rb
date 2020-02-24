@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PeopleHelper
   def person_fullname(person)
     return '' unless person

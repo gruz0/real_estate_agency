@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module EstatesHelper
   def number_of_floors_for(estate)
     if estate.floor.present?
