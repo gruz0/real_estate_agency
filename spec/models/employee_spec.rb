@@ -84,18 +84,6 @@ RSpec.describe Employee, type: :model do
   end
 
   describe 'scopes' do
-    describe '.enabled' do
-      let!(:enabled_employee) { create(:employee) }
-      let!(:locked_employee) { create(:employee, :locked) }
-
-      it 'returns only enabled employees' do
-        employees = described_class.enabled
-
-        expect(employees).to include(enabled_employee)
-        expect(employees).not_to include(locked_employee)
-      end
-    end
-
     it '.ordered_by_full_name returns employees ordered by full_name ascending' do
       employee1 = create(:employee, last_name: 'Сергеев', first_name: 'Алексей')
       employee2 = create(:employee, last_name: 'Афонин', first_name: 'Пётр')
