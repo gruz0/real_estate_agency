@@ -49,7 +49,7 @@ group :test do
   gem 'bundle-audit', require: false
   gem 'capybara'
   gem 'rails_best_practices', require: false
-  gem 'rspec-rails', '~> 3.9'
+  gem 'rspec-rails', '~> 4.0'
   gem 'rubocop', require: false
   gem 'rubocop-performance'
   gem 'rubocop-rspec'
