@@ -15,7 +15,7 @@ gem 'coffee-rails', '~> 5.0'
 gem 'devise'
 gem 'dotenv-rails'
 gem 'jquery-rails'
-gem 'kaminari'
+gem 'kaminari', '>= 1.2.1'
 gem 'mini_racer', platforms: :ruby
 gem 'mysql2', '>= 0.3.18', '< 0.6'
 gem 'puma', '~> 3.12'
