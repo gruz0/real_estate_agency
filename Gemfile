@@ -19,7 +19,7 @@ gem 'kaminari'
 gem 'mini_racer', platforms: :ruby
 gem 'mysql2', '>= 0.3.18', '< 0.6'
 gem 'puma', '~> 3.12'
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 5.2.4', '>= 5.2.4.3'
 gem 'rinku'
 gem 'rollbar'
 gem 'sassc-rails'
