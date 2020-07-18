@@ -1,25 +1,24 @@
-version: '3'
+version: '3.7'
 
 services:
   app:
     environment:
-      MYSQL_USER: root
-      MYSQL_PASSWORD: example
+      DATABASE_URL: "mysql2://root:example@db/real_estate_agency_development"
     build: .
     command: ./docker-entrypoint.sh
     ports:
       - 3000:3000
     volumes:
-      - .:/app
+      - .:/home/user
     depends_on:
       - db
     networks:
       - default
 
   db:
+    image: mariadb:10
     environment:
       MYSQL_ROOT_PASSWORD: example
-    image: mariadb:10
     ports:
       - 3306:3306
     networks:

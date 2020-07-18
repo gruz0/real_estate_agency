@@ -12,7 +12,7 @@ This project is a database for a real estate agency.
 To run project the first one what you need is:
 
 ```bash
-docker-compose up --build
+make dockerize
 ```
 
 It builds and runs Docker containers: `app` and `db`.
@@ -20,12 +20,14 @@ It builds and runs Docker containers: `app` and `db`.
 All of your changes in the project automatically applied to Docker
 and you don't need to reload or rebuild container.
 
+The project will be available on `http://localhost:3000/`.
+
 ### System dependencies
 
 * Docker
 * Docker Compose
-* Ruby 2.3.5 (already installed to Docker)
-* Rails 5.1 (already installed to Docker)
+* Ruby 2.5.8 (already installed to Docker)
+* Rails 5.2 (already installed to Docker)
 * MariaDB 10.0 (as Docker image)
 
 ### Configuration
@@ -34,22 +36,11 @@ All configuration files stored in `config` directory in the project root path.
 You don't need to change it, because these already prepared to run
 in the Docker environment.
 
-### Database creation
+### Database creation and initialization
 
 ```bash
-docker-compose exec app rake db:drop db:create db:migrate
+docker-compose exec app rake db:drop db:create db:migrate db:seed
 ```
-
-### Database initialization
-
-```bash
-docker-compose exec app rake db:seed
-```
-
-### Database diagram (ERD)
-
-The diagram (`erd.pdf`) will be created after each of use
-the `rake db:migrate` command.
 
 ## Production
 
@@ -77,10 +68,24 @@ bundle exec rake app:initialize
 
 ## Tests
 
-### How to run the test suite in the Docker container
+### How to run the test suite locally
+
+Create a test database:
 
 ```bash
-docker-compose exec app bundle exec rspec --fail-fast
+make test_db_setup
+```
+
+Then run all tests:
+
+```bash
+make test
+```
+
+Or run specific test:
+
+```bash
+make test spec/routing/
 ```
 
 ### Travis CI

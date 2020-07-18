@@ -1,9 +1,11 @@
-FROM gruz0/real_estate_agency:0.4
+FROM gruz0/real_estate_agency:0.5
 MAINTAINER Alexander Kadyrov <gruz0.mail@gmail.com>
 
-COPY Gemfile Gemfile.lock /app/
-RUN gem install bundler && bundle install
-COPY . /app
+COPY --chown=user Gemfile Gemfile.lock ./
+RUN gem install bundler -v 2.1.4
+RUN bundle install --jobs 20 --retry 5
+
+COPY --chown=user . ./
 
 EXPOSE 3000
 CMD ./docker-entrypoint.sh

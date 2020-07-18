@@ -168,9 +168,6 @@ RSpec.describe Estate, type: :model do
   describe 'ActiveRecord associations' do
     # Associations
     it { expect(estate).not_to belong_to(:client) }
-    it { expect(estate).to belong_to(:responsible_employee).class_name('Employee').with_foreign_key(:responsible_employee_id) }
-    it { expect(estate).to belong_to(:created_by_employee).class_name('Employee').with_foreign_key(:created_by_employee_id) }
-    it { expect(estate).to belong_to(:updated_by_employee).class_name('Employee').with_foreign_key(:updated_by_employee_id) }
     it { expect(estate).to belong_to(:address) }
     it { expect(estate).to belong_to(:estate_type) }
     it { expect(estate).to belong_to(:estate_project) }
