@@ -57,7 +57,7 @@ group :test do
   gem 'rspec-rails', '~> 4.0'
   gem 'selenium-webdriver', require: false
   gem 'shoulda-callback-matchers', '~> 1.1.1'
-  gem 'shoulda-matchers', '~> 3.1'
+  gem 'shoulda-matchers', '~> 4.3'
   # Workaround for cc-test-reporter with SimpleCov 0.18.
   # Stop upgrading SimpleCov until the following issue will be resolved.
   # https://github.com/codeclimate/test-reporter/issues/418
