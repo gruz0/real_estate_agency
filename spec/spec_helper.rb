@@ -2,6 +2,8 @@
 
 require 'simplecov'
 SimpleCov.start 'rails' do
+  coverage_dir 'coverage/backend'
+
   add_filter 'app/mailers'
   add_filter 'app/jobs'
   add_filter 'app/views'

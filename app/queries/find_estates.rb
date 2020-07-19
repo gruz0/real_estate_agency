@@ -20,8 +20,7 @@ class FindEstates
     scoped = filter_by_client_phone_numbers(scoped, params[:client_phone_numbers])
     scoped = filter_by_responsible_employee(scoped, params[:responsible_employee])
     scoped = filter_by_status(scoped, params[:status])
-    scoped = paginate(scoped, params[:page])
-    scoped
+    paginate(scoped, params[:page])
   end
 
   private

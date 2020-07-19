@@ -10,8 +10,7 @@ class FindCompetitors
   def call(params)
     scoped = initial_scope
     scoped = filter_by_phone_numbers(scoped, params[:phone_numbers])
-    scoped = paginate(scoped, params[:page])
-    scoped
+    paginate(scoped, params[:page])
   end
 
   private

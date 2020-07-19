@@ -5,6 +5,7 @@
 # Docker
 .dockerignore
 Dockerfile
+Dockerfile.real_estate_agency
 docker-compose.yml
 
 #
@@ -36,18 +37,15 @@ Temporary Items
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+public/assets
 public/system
 coverage/
 **.orig
 /config/master.key
-.gitlab-ci.yml
-.rspec
 .rubocop.yml
 /bin/*
 !/bin/rails
-docs
 Makefile
-spec
 
 .bundle
 
@@ -55,6 +53,13 @@ spec
 .ruby-gemset
 .rvmrc
 
+.ash_history
+.codeclimate.yml
+.editorconfig
+.env.sample
+.travis.yml
+
+config.reek
+
 *.md
-*.pdf
 TODO

@@ -10,8 +10,7 @@ class FilterByAddress
   # FIXME: It should be refactored with stripping all params values inside filters
   def call(estate_city, estate_street, estate_building_number)
     scoped = initial_scope
-    scoped = filter(scoped, estate_city, estate_street, estate_building_number)
-    scoped
+    filter(scoped, estate_city, estate_street, estate_building_number)
   end
 
   private

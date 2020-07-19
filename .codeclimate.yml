@@ -1,6 +1,15 @@
-version: "2"
+version: 2
 
 plugins:
+  brakeman:
+    enabled: true
+
+  bundler-audit:
+    enabled: true
+
+  csslint:
+    enabled: true
+
   fixme:
     enabled: true
     config:
@@ -8,12 +17,14 @@ plugins:
       - # FIXME:
       - # TODO:
 
+  duplication:
+    enabled: true
+    config:
+      languages:
+        - ruby
+
   markdownlint:
     enabled: true
 
   rubocop:
-    enabled: true
-    channel: rubocop-0-67
-
-  bundler-audit:
-    enabled: true
+    enabled: false

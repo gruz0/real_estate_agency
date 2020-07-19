@@ -25,7 +25,7 @@ module EstatesHelper
     return '' if phone_numbers.blank?
 
     content = phone_numbers.split(',').map(&:strip).map do |phone_number|
-      content_tag(:a, phone_number, href: "tel://#{phone_number}")
+      tag.a(phone_number, href: "tel://#{phone_number}")
     end
 
     safe_join content, ', '
@@ -48,7 +48,7 @@ module EstatesHelper
   end
 
   def datepicker_input(form, field)
-    content_tag :td do
+    tag.td  do
       concat(form.label(:delayed_until))
       concat(form.text_field(field, id: 'datepicker', class: 'form-control'))
     end
@@ -57,8 +57,8 @@ module EstatesHelper
   def delayed_until(estate)
     return unless estate.delayed?
 
-    content_tag :div, class: 'row col-lg-10' do
-      content_tag :div, class: 'alert alert-secondary' do
+    tag.div class: 'row col-lg-10' do
+      tag.div class: 'alert alert-secondary' do
         t('views.estate.show.delayed_until', delayed_until: estate.delayed_until)
       end
     end

@@ -1,19 +1,9 @@
-FROM ruby:2.5.5
+FROM ruby:2.5.8-alpine
 MAINTAINER Alexander Kadyrov <gruz0.mail@gmail.com>
 
-RUN echo '\
-Dpkg {\n\
-  Cache "";\n\
-  Cache::archives "";\n\
-  Post-Invoke {"rm -rf /var/lib/apt/lists";};\n\
-}\n\
-APT {\n\
-  Install-Recommends "false";\n\
-}\n\
-DSELECT::Clean "always";' >> /etc/apt/apt.conf.d/docker-no-cache
+RUN apk --update add --no-cache build-base tzdata mariadb-dev nodejs
 
-RUN apt-get update -qq && \
-    apt-get install -y build-essential libpq-dev graphviz graphviz-dev && \
-    mkdir /app
-
-WORKDIR /app
+# Create an user for running the application
+RUN adduser -D user
+USER user
+WORKDIR /home/user
