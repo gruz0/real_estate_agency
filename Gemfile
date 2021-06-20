@@ -18,7 +18,7 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'mysql2', '>= 0.3.18', '< 0.6'
 gem 'puma', '~> 4.3'
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 5.2.4'
 gem 'rinku'
 gem 'rollbar'
 gem 'sassc-rails'
@@ -39,9 +39,13 @@ group :production do
 end
 
 group :development, :test do
-  gem 'database_cleaner'
-  gem 'factory_bot_rails'
-  gem 'ffaker'
+  gem 'brakeman', require: false
+  gem 'bundle-audit', require: false
+  gem 'rspec-rails', '~> 4.0'
+  gem 'rubocop', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 group :development do
@@ -53,9 +57,11 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', require: false
-  gem 'rspec-rails', '~> 4.0'
-  gem 'selenium-webdriver', require: false
+  gem 'capybara', require: 'capybara/rspec'
+  gem 'database_cleaner-active_record'
+  gem 'factory_bot_rails'
+  gem 'ffaker'
+  gem 'selenium-webdriver'
   gem 'shoulda-callback-matchers', '~> 1.1.1'
   gem 'shoulda-matchers', '~> 3.1'
   # Workaround for cc-test-reporter with SimpleCov 0.18.

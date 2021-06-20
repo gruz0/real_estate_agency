@@ -1,78 +1,81 @@
 # frozen_string_literal: true
 
-DatabaseCleaner.allow_remote_database_url = true
-
-DatabaseCleaner.clean_with(:truncation)
-
 #
 # Competitors
 #
-Array.new(30).each do
-  FactoryBot.create(:competitor, name: FFaker::NameRU.last_name, phone_numbers: "+7000111223#{rand(100)}")
-end
+Competitor.create!(name: 'Конкурент', phone_numbers: '+70001112234')
 
 #
 # Clients
 #
-Array.new(30).each { FactoryBot.create(:client, phone_numbers: "+7999111223#{rand(100)}") }
+Client.create!(full_name: 'Клиент', phone_numbers: '+79991112234')
 
 #
 # Employees
 #
-Array.new(30).each { FactoryBot.create(:employee, phone_numbers: "+7999999887#{rand(100)}") }
-FactoryBot.create(:employee, email: 'root@example.com', password: '123456', role: :service_admin)
-employee = FactoryBot.create(:employee, email: 'me@example.com', password: '123456', role: :admin)
+Employee.create!(
+  email: 'root@example.com',
+  password: '123456',
+  role: :service_admin,
+  last_name: 'Иванов',
+  first_name: 'Иван',
+  middle_name: 'Иванович'
+)
+admin = Employee.create!(
+  email: 'me@example.com',
+  password: '123456',
+  role: :admin,
+  last_name: 'Иванов',
+  first_name: 'Иван',
+  middle_name: 'Иванович'
+)
 
 #
 # EstateTypes
 #
-estate_types = Array.new(30).map { FactoryBot.create(:estate_type) }
+estate_type = EstateType.create!(name: 'Квартира')
 
 #
 # EstateProjects
 #
-estate_projects = Array.new(30).map { FactoryBot.create(:estate_project) }
+estate_project = EstateProject.create!(name: 'Уральский')
 
 #
 # EstateMaterials
 #
-estate_materials = Array.new(30).map { FactoryBot.create(:estate_material) }
+estate_material = EstateMaterial.create!(name: 'Бетон')
 
 #
 # Cities
 #
-cities = Array.new(30).map { FactoryBot.create(:city) }
+city = City.create!(name: 'Нефтеюганск')
 
 #
 # Streets
 #
-streets = Array.new(30).map { FactoryBot.create(:street, city: cities.sample) }
+street = city.street.create!(name: '1-й мкрн')
 
 #
 # Addresses
 #
-addresses = Array.new(30).map do
-  FactoryBot.create(:address, street: streets.sample, building_number: rand(1..100).to_s)
-end
+address = Address.create!(street: street, building_number: '2')
 
 #
 # Estates
 #
-500.times do |idx|
-  Estate.create!(
-    created_by_employee: employee,
-    responsible_employee: employee,
-    address: addresses.sample,
-    estate_type: estate_types.sample,
-    estate_project: estate_projects.sample,
-    estate_material: estate_materials.sample,
-    client_full_name: FFaker::NameRU.last_name,
-    client_phone_numbers: "+7999111223#{idx}",
-    floor: rand(1..5),
-    number_of_floors: rand(5..9),
-    number_of_rooms: [nil, rand(1..4)].sample,
-    apartment_number: FFaker::AddressRU.unique.street_number,
-    price: rand(30_000.00..99_000.99),
-    status: :active
-  )
-end
+Estate.create!(
+  created_by_employee: admin,
+  responsible_employee: admin,
+  address: address,
+  estate_type: estate_type,
+  estate_project: estate_project,
+  estate_material: estate_material,
+  client_full_name: 'Иванов Сергей',
+  client_phone_numbers: '+79991112233',
+  floor: 1,
+  number_of_floors: 5,
+  number_of_rooms: 3,
+  apartment_number: 999,
+  price: 30_000,
+  status: :active
+)

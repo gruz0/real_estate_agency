@@ -42,12 +42,6 @@ Metrics/MethodLength:
   Exclude:
     - db/migrate/*.rb
 
-# Metrics/ClassLength:
-#   Enabled: false
-#
-# Metrics/ModuleLength:
-#   Enabled: false
-
 Metrics/AbcSize:
   Enabled: false
 
@@ -84,6 +78,9 @@ RSpec/ExampleLength:
 
 RSpec/NestedGroups:
   Max: 6
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
 
 #
 # Capybara

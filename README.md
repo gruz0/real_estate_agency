@@ -46,6 +46,12 @@ docker-compose exec app rake db:drop db:create db:migrate db:seed
 
 All commands are available from the application directory (eg. `/var/www/real_estate_agency/current`)
 
+###
+
+```bash
+RAILS_ENV=production ./bin/rails db:migrate
+```
+
 ### Create default system administrator
 
 After deploy application to production server you need to create default administrators. The command below will create
