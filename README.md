@@ -48,19 +48,20 @@ docker-compose exec app rake db:drop db:create db:migrate db:seed
 
 All commands are available from the application directory (eg. `/var/www/real_estate_agency/current`)
 
-###
-
 ```bash
 RAILS_ENV=production ./bin/rails db:migrate
 ```
 
 ### Create default system administrator
 
-After deploy application to production server you need to create default administrators. The command below will create
-the administrators with emails `root@example.com` and `me@example.com` and default password `123456` for each of them.
-The first one will have the role `service_admin` and the other will have `admin`.
+After deploy application to production server you need to create default
+administrators. The command below will create the administrators with emails
+`root@example.com` and `me@example.com` and default password `123456` for each
+of them. The first one will have the role `service_admin` and the other will
+have `admin`.
 
-**NOTE:** Do not forget to create a new administrator after successfully logged in to the web.
+**NOTE:** Do not forget to create a new administrator after successfully logged
+in to the web.
 
 ```bash
 bundle exec rake app:create_admin
@@ -68,7 +69,8 @@ bundle exec rake app:create_admin
 
 ### Initialize dictionaries with default values
 
-The command below will populate dictionaries (`EstateType`, `EstateProject`, `EstateMaterial`) with default values
+The command below will populate dictionaries (`EstateType`, `EstateProject`,
+`EstateMaterial`) with default values.
 
 ```bash
 bundle exec rake app:initialize
@@ -77,6 +79,12 @@ bundle exec rake app:initialize
 ## Tests
 
 ### How to run the test suite locally
+
+Run dockerized database:
+
+```bash
+make test_db_up
+```
 
 Create a test database:
 
