@@ -1,0 +1,17 @@
+name: Bundle Audit
+
+on: [push]
+
+jobs:
+  bundle_audit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.5
+        bundler-cache: true
+
+    - name: Bundle Audit
+      run: bundle exec bundle-audit check --update

@@ -1,0 +1,52 @@
+name: RSpec
+
+on: [push]
+
+jobs:
+  rspec:
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: mysql2://root:example@localhost/real_estate_agency_test
+
+    services:
+      db:
+        image: mariadb:10
+        ports:
+          - 3306
+        env:
+          MYSQL_DATABASE: real_estate_agency_test
+          MYSQL_USER: app
+          MYSQL_PASSWORD: password
+          MYSQL_ROOT_PASSWORD: example
+        ports: ['5432:5432']
+        options: health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Verify MariaDB connection
+      env:
+        PORT: ${{ job.services.mariadb.ports[3306] }}
+      run: |
+        while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
+          sleep 1
+        done
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.5
+        bundler-cache: true
+
+    - name: Prepare .env
+      run: cp .env.sample .env.test
+
+    - name: Migrate database
+      run: bin/rails db:migrate
+
+    - name: Precompile assets
+      run: bundle exec rake assets:precompile
+
+    - name: RSpec
+      run: bundle exec rspec

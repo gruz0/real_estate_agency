@@ -1,6 +1,7 @@
 # Git
 .git
 .gitignore
+.github
 
 # Docker
 .dockerignore
@@ -57,7 +58,6 @@ Makefile
 .codeclimate.yml
 .editorconfig
 .env.sample
-.travis.yml
 
 config.reek
 

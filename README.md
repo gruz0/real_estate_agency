@@ -1,6 +1,8 @@
 # Real Estate Agency
 
-[![Build Status](https://travis-ci.org/gruz0/real_estate_agency.svg?branch=master)](https://travis-ci.org/gruz0/real_estate_agency)
+[![RuboCop](https://github.com/gruz0/real_estate_agency/actions/workflows/rubocop.yml/badge.svg)](https://github.com/gruz0/real_estate_agency/actions/workflows/rubocop.yml)
+[![Bundle Audit](https://github.com/gruz0/real_estate_agency/actions/workflows/bundle-audit.yml/badge.svg)](https://github.com/gruz0/real_estate_agency/actions/workflows/bundle-audit.yml)
+[![Brakeman](https://github.com/gruz0/real_estate_agency/actions/workflows/brakeman.yml/badge.svg)](https://github.com/gruz0/real_estate_agency/actions/workflows/brakeman.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/db0acd56daab29bab9ab/maintainability)](https://codeclimate.com/github/gruz0/real_estate_agency/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/db0acd56daab29bab9ab/test_coverage)](https://codeclimate.com/github/gruz0/real_estate_agency/test_coverage)
 [![Security](https://hakiri.io/github/gruz0/real_estate_agency/master.svg)](https://hakiri.io/github/gruz0/real_estate_agency/master)
@@ -93,10 +95,6 @@ Or run specific test:
 ```bash
 make test spec/routing/
 ```
-
-### Travis CI
-
-Application is ready to use Travis CI. Configuration file – `.travis.yml`.
 
 ## Docker
 
