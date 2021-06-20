@@ -82,9 +82,7 @@ class EmployeesController < ApplicationController
                              .permit(:email, :password, :password_confirmation,
                                      :first_name, :last_name, :middle_name, :phone_numbers)
 
-    if current_employee.admin? || current_employee.service_admin?
-      permitted_params[:role] = params[:employee][:role] if params[:employee][:role]
-    end
+    permitted_params[:role] = params[:employee][:role] if (current_employee.admin? || current_employee.service_admin?) && params[:employee][:role]
 
     permitted_params
   end

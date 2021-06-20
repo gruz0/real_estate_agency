@@ -17,7 +17,7 @@ RSpec.describe FindEstates do
   context 'with filters' do
     it 'returns query with #filter_by_id' do
       params[:id] = 42
-      expect(find_estates.to_sql).to include('estates.id = 42')
+      expect(find_estates.to_sql).to include('`estates`.`id` = 42')
     end
 
     describe '#filter_by_address' do
@@ -73,17 +73,17 @@ RSpec.describe FindEstates do
 
     it 'returns query with #filter_by_number_of_rooms' do
       params[:number_of_rooms] = 42
-      expect(find_estates.to_sql).to include('estates.number_of_rooms = 42')
+      expect(find_estates.to_sql).to include('`estates`.`number_of_rooms` = 42')
     end
 
     it 'returns query with #filter_by_floor_from' do
       params[:floor_from] = 42
-      expect(find_estates.to_sql).to include('estates.floor >= 42')
+      expect(find_estates.to_sql).to include('`estates`.`floor` >= 42')
     end
 
     it 'returns query with #filter_by_floor_to' do
       params[:floor_to] = 42
-      expect(find_estates.to_sql).to include('estates.floor <= 42')
+      expect(find_estates.to_sql).to include('`estates`.`floor` <= 42')
     end
 
     it 'returns query with #filter_by_floor_from and #filter_by_floor_to' do
@@ -94,12 +94,12 @@ RSpec.describe FindEstates do
 
     it 'returns query with #filter_by_price_from' do
       params[:price_from] = 42
-      expect(find_estates.to_sql).to include('estates.price >= 42')
+      expect(find_estates.to_sql).to include('`estates`.`price` >= 42')
     end
 
     it 'returns query with #filter_by_price_to' do
       params[:price_to] = 42
-      expect(find_estates.to_sql).to include('estates.price <= 42')
+      expect(find_estates.to_sql).to include('`estates`.`price` <= 42')
     end
 
     it 'returns query with #filter_by_price_from and #filter_by_price_to' do
@@ -110,12 +110,12 @@ RSpec.describe FindEstates do
 
     it 'returns query with #filter_by_total_square_meters_from' do
       params[:total_square_meters_from] = 42
-      expect(find_estates.to_sql).to include('estates.total_square_meters >= 42')
+      expect(find_estates.to_sql).to include('`estates`.`total_square_meters` >= 42')
     end
 
     it 'returns query with #filter_by_total_square_meters_to' do
       params[:total_square_meters_to] = 42
-      expect(find_estates.to_sql).to include('estates.total_square_meters <= 42')
+      expect(find_estates.to_sql).to include('`estates`.`total_square_meters` <= 42')
     end
 
     it 'returns query with #filter_by_total_square_meters_from and #filter_by_total_square_meters_to' do

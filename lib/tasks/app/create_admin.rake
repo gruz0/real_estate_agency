@@ -7,8 +7,8 @@ namespace :app do
       email: 'root@example.com',
       password: '123456',
       role: :service_admin,
-      last_name: 'Системный',
-      first_name: 'Администратор'
+      first_name: 'Администратор',
+      last_name: 'Системы'
     )
 
     Employee.create!(

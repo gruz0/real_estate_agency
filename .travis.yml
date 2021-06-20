@@ -32,7 +32,6 @@ install:
 
 before_script:
   - bundle exec rake db:drop db:create db:migrate
-  - gem install rubocop rubocop-rails rubocop-performance rubocop-rspec brakeman bundle-audit rails_best_practices
   - bundle exec rake assets:precompile
 
 script:
@@ -40,7 +39,6 @@ script:
   - brakeman -A -z
   - bundle-audit update && bundle-audit -v
   - rubocop -DS --force-exclusion -c .rubocop.yml -E
-  - rails_best_practices -e 'app/helpers,app/models' .
 
 after_script:
   - ./cc-test-reporter format-coverage -t simplecov -o coverage/codeclimate.backend.json coverage/backend/.resultset.json

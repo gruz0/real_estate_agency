@@ -26,7 +26,7 @@ class FindEstates
   private
 
   def filter_by_id(scoped, id = nil)
-    id.present? ? scoped.where('estates.id = ?', id) : scoped
+    id.present? ? scoped.where(estates: { id: id }) : scoped
   end
 
   def filter_by_address(scoped, estate_city = nil, estate_street = nil, estate_building_number = nil)
@@ -38,7 +38,7 @@ class FindEstates
   end
 
   def filter_by_number_of_rooms(scoped, number_of_rooms = nil)
-    number_of_rooms.present? ? scoped.where('estates.number_of_rooms = ?', number_of_rooms) : scoped
+    number_of_rooms.present? ? scoped.where(estates: { number_of_rooms: number_of_rooms }) : scoped
   end
 
   def filter_by_floor(scoped, floor_from = nil, floor_to = nil)
@@ -78,10 +78,10 @@ class FindEstates
       if to.present?
         scoped.where(estates: { column.to_sym => (from..to) })
       else
-        scoped.where("estates.#{column} >= ?", from)
+        scoped.where(Estate.arel_table[column.to_sym].gteq(from))
       end
     else
-      scoped.where("estates.#{column} <= ?", to)
+      scoped.where(Estate.arel_table[column.to_sym].lteq(to))
     end
   end
 end

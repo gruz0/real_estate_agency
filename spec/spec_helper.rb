@@ -15,13 +15,7 @@ SimpleCov.start 'rails' do
   add_group 'Libraries', 'lib'
 end
 
-require 'factory_bot'
-
-Dir[File.dirname(__FILE__) + '/support/**/*.rb'].sort.each { |f| require f }
-
 RSpec.configure do |config|
-  config.include AppHelper
-
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
