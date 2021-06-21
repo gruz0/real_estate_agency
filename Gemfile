@@ -25,7 +25,7 @@ gem 'sassc-rails'
 gem 'slim-rails'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
-gem 'validates_timeliness', '~> 5.0.0.beta2'
+gem 'validates_timeliness', '~> 6.0.0.alpha1'
 
 # NOTE: When we'll try to build this Docker image for production,
 # we'll have this issue when try to install mini_racer with v8 on Alpine Linux:
