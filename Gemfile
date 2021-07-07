@@ -51,13 +51,13 @@ end
 group :development do
   gem 'annotate'
   gem 'better_errors'
-  gem 'letter_opener'
+  gem 'letter_opener', '>= 1.7.0'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 group :test do
-  gem 'capybara', require: 'capybara/rspec'
+  gem 'capybara', '>= 3.33.0', require: 'capybara/rspec'
   gem 'database_cleaner-active_record'
   gem 'factory_bot_rails'
   gem 'ffaker'
