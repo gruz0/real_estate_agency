@@ -7,18 +7,18 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'audited', '~> 4.9'
+gem 'audited', '~> 4.9', '>= 4.9.0'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'bootstrap', '>= 4.3.1'
+gem 'bootstrap', '>= 4.5.0'
 gem 'bootstrap-datepicker-rails'
-gem 'coffee-rails', '~> 5.0'
+gem 'coffee-rails', '~> 5.0', '>= 5.0.0'
 gem 'devise'
 gem 'dotenv-rails'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'mysql2', '>= 0.3.18', '< 0.6'
 gem 'puma', '~> 4.3'
-gem 'rails', '~> 5.2.4'
+gem 'rails', '~> 5.2.6'
 gem 'rinku'
 gem 'rollbar'
 gem 'sassc-rails'
@@ -41,7 +41,7 @@ end
 group :development, :test do
   gem 'brakeman', require: false
   gem 'bundle-audit', require: false
-  gem 'rspec-rails', '~> 4.0'
+  gem 'rspec-rails', '~> 4.0', '>= 4.0.1'
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
@@ -62,8 +62,8 @@ group :test do
   gem 'factory_bot_rails'
   gem 'ffaker'
   gem 'selenium-webdriver'
-  gem 'shoulda-callback-matchers', '~> 1.1.1'
-  gem 'shoulda-matchers', '~> 3.1'
+  gem 'shoulda-callback-matchers', '~> 1.1.4'
+  gem 'shoulda-matchers', '~> 3.1', '>= 3.1.3'
   # Workaround for cc-test-reporter with SimpleCov 0.18.
   # Stop upgrading SimpleCov until the following issue will be resolved.
   # https://github.com/codeclimate/test-reporter/issues/418
