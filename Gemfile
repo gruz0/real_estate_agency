@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'audited', '~> 4.9'
+gem 'audited', '~> 4.9', '>= 4.9.0'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap', '>= 4.3.1'
 gem 'bootstrap-datepicker-rails'
@@ -18,7 +18,7 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'mysql2', '>= 0.3.18', '< 0.6'
 gem 'puma', '~> 4.3'
-gem 'rails', '~> 5.2.4'
+gem 'rails', '~> 5.2.8', '>= 5.2.8.1'
 gem 'rinku'
 gem 'rollbar'
 gem 'sassc-rails'
