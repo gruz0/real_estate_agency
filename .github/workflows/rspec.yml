@@ -6,10 +6,6 @@ jobs:
   rspec:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        ruby-version: ['2.7', '2.5']
-
     env:
       RAILS_ENV: test
       DATABASE_URL: mysql2://app:password@127.0.0.1/app_test
@@ -40,10 +36,10 @@ jobs:
           sleep 1
         done
 
-    - name: Set up Ruby ${{ matrix.ruby-version }}
+    - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: ${{ matrix.ruby-version }}
+        ruby-version: 2.7
         bundler-cache: true
 
     - name: Prepare .env
