@@ -1,11 +1,10 @@
-name: RSpec
+name: Zeitwerk
 
 on: [push]
 
 jobs:
-  rspec:
+  zeitwerk:
     runs-on: ubuntu-latest
-
     env:
       RAILS_ENV: test
       DATABASE_URL: mysql2://app:password@127.0.0.1/app_test
@@ -42,11 +41,5 @@ jobs:
         ruby-version: 2.7
         bundler-cache: true
 
-    - name: Prepare database
-      run: bin/rails db:prepare
-
-    - name: Precompile assets
-      run: bundle exec rake assets:precompile
-
-    - name: RSpec
-      run: bundle exec rspec
+    - name: Zeitwerk
+      run: bin/rails zeitwerk:check

@@ -1,34 +1,48 @@
-.PHONY: help dockerize shell docker_build docker_push test_db_setup test
+.DEFAULT_GOAL := help
 
-TEST_DATABASE_URL="mysql2://root:example@127.0.0.1:3307/real_estate_agency_test"
+BUNDLE_EXEC := bundle exec
+DOCKER_COMPOSE := docker compose
 
-help:
-	@echo 'Available targets:'
-	@echo '  make dockerize'
-	@echo '  make shell'
-	@echo '  make docker_build'
-	@echo '  make docker_push'
-	@echo '  make test_db_setup'
-	@echo '  make test'
+help: # Show this help
+	@egrep -h '\s#\s' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?# "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
-dockerize:
-	docker-compose down
-	docker-compose up --build
+setup: # Setup project
+	@bin/setup
 
-shell:
-	docker-compose exec app sh
+test: # Run tests
+	@RAILS_ENV=test ${BUNDLE_EXEC} rake factory_bot:lint
+	@RAILS_ENV=test ${BUNDLE_EXEC} rspec $(filter-out $@,$(MAKECMDGOALS))
 
-docker_build:
-	docker build --no-cache -f Dockerfile.real_estate_agency -t gruz0/real_estate_agency:0.6 .
+run: # Run the web server
+	@bin/rails s
 
-docker_push:
-	docker push gruz0/real_estate_agency:0.6
+docker-up: # Start Docker containers
+	@${DOCKER_COMPOSE} up
 
-test_db_up:
-	docker compose up db_test
+docker-down: # Stop Docker containers
+	@${DOCKER_COMPOSE} down
 
-test_db_setup:
-	DATABASE_URL=${TEST_DATABASE_URL} bundle exec rake db:drop db:create db:migrate
+docker-dev-db-up: # Run development database
+	@${DOCKER_COMPOSE} up db
 
-test:
-	DATABASE_URL=${TEST_DATABASE_URL} bundle exec rspec $(filter-out $@,$(MAKECMDGOALS))
+docker-dev-db-setup: # Set up development database
+	@bin/rails db:prepare
+
+docker-dev-db-migrate: # Migrate development database
+	@bin/rails db:migrate
+
+docker-dev-db-seed: # Populate development database with sample data
+	@bin/rails db:seed
+
+docker-test-db-up: # Run test database
+	@${DOCKER_COMPOSE} up db_test
+
+docker-test-db-setup: # Set up test database
+	@RAILS_ENV=test bin/rails db:prepare
+
+docker-test-db-migrate: # Migrate test database
+	@RAILS_ENV=test bin/rails db:migrate
+
+docker-clean: # Remove all Docker data
+	@${DOCKER_COMPOSE} down
+	@${DOCKER_COMPOSE} rm --force --stop --volumes
