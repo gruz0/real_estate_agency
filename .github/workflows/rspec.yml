@@ -5,22 +5,29 @@ on: [push]
 jobs:
   rspec:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        ruby-version: ['2.7', '2.5']
+
     env:
       RAILS_ENV: test
-      DATABASE_URL: mysql2://root:example@localhost/real_estate_agency_test
+      DATABASE_URL: mysql2://app:password@127.0.0.1/app_test
 
     services:
-      db:
+      mariadb:
         image: mariadb:10
-        ports:
-          - 3306
         env:
-          MYSQL_DATABASE: real_estate_agency_test
+          MYSQL_DATABASE: app_test
           MYSQL_USER: app
           MYSQL_PASSWORD: password
           MYSQL_ROOT_PASSWORD: example
-        ports: ['5432:5432']
-        options: health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
     - uses: actions/checkout@v2
@@ -33,15 +40,16 @@ jobs:
           sleep 1
         done
 
-    - name: Set up Ruby
+    - name: Set up Ruby ${{ matrix.ruby-version }}
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.5
+        ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true
 
     - name: Prepare .env
       run: cp .env.sample .env.test
 
+    # FIXME: Replace with db:prepare after migrate to Rails 6.x
     - name: Migrate database
       run: bin/rails db:migrate
 

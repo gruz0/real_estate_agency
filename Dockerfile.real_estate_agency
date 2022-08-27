@@ -1,4 +1,4 @@
-FROM ruby:2.5.8-alpine
+FROM ruby:2.7-alpine
 MAINTAINER Alexander Kadyrov <gruz0.mail@gmail.com>
 
 RUN apk --update add --no-cache build-base tzdata mariadb-dev nodejs
