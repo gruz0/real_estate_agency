@@ -1,6 +1,6 @@
 .PHONY: help dockerize shell docker_build docker_push test_db_setup test
 
-TEST_DATABASE_URL="mysql2://root:example@127.0.0.1/real_estate_agency_test"
+TEST_DATABASE_URL="mysql2://root:example@127.0.0.1:3307/real_estate_agency_test"
 
 help:
 	@echo 'Available targets:'
@@ -19,10 +19,13 @@ shell:
 	docker-compose exec app sh
 
 docker_build:
-	docker build -f Dockerfile.real_estate_agency -t gruz0/real_estate_agency:0.5 .
+	docker build --no-cache -f Dockerfile.real_estate_agency -t gruz0/real_estate_agency:0.6 .
 
 docker_push:
-	docker push gruz0/real_estate_agency
+	docker push gruz0/real_estate_agency:0.6
+
+test_db_up:
+	docker compose up db_test
 
 test_db_setup:
 	DATABASE_URL=${TEST_DATABASE_URL} bundle exec rake db:drop db:create db:migrate

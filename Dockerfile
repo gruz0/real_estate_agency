@@ -1,4 +1,4 @@
-FROM gruz0/real_estate_agency:0.5
+FROM gruz0/real_estate_agency:0.6
 MAINTAINER Alexander Kadyrov <gruz0.mail@gmail.com>
 
 COPY --chown=user Gemfile Gemfile.lock ./

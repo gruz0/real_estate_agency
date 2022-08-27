@@ -24,5 +24,14 @@ services:
     networks:
       - default
 
+  db_test:
+    image: mariadb:10
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    ports:
+      - 3307:3306
+    networks:
+      - default
+
 networks:
   default:

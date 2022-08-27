@@ -28,7 +28,7 @@ The project will be available on `http://localhost:3000/`.
 
 * Docker
 * Docker Compose
-* Ruby 2.5.8 (already installed to Docker)
+* Ruby 2.7 (already installed to Docker)
 * Rails 5.2 (already installed to Docker)
 * MariaDB 10.0 (as Docker image)
 
@@ -77,6 +77,12 @@ bundle exec rake app:initialize
 ## Tests
 
 ### How to run the test suite locally
+
+Run dockerized database:
+
+```bash
+make test_db_up
+```
 
 Create a test database:
 
