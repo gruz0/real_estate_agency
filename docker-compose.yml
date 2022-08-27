@@ -1,37 +1,31 @@
 version: '3.7'
 
-services:
-  app:
-    environment:
-      DATABASE_URL: "mysql2://root:example@db/real_estate_agency_development"
-    build: .
-    command: ./docker-entrypoint.sh
-    ports:
-      - 3000:3000
-    volumes:
-      - .:/home/user
-    depends_on:
-      - db
-    networks:
-      - default
+networks:
+  development:
 
+services:
   db:
     image: mariadb:10
     environment:
-      MYSQL_ROOT_PASSWORD: example
+      MARIADB_USER: app
+      MARIADB_PASSWORD: password
+      MARIADB_DATABASE: app_development
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
     ports:
-      - 3306:3306
+      - 127.0.0.1:3306:3306
     networks:
-      - default
+      - development
 
   db_test:
     image: mariadb:10
     environment:
-      MYSQL_ROOT_PASSWORD: example
+      MARIADB_USER: app
+      MARIADB_PASSWORD: password
+      MARIADB_DATABASE: app_test
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
     ports:
-      - 3307:3306
+      - 127.0.0.1:3307:3306
     networks:
-      - default
-
-networks:
-  default:
+      - development

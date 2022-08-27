@@ -227,7 +227,6 @@ RSpec.describe EstatesHelper, type: :helper do
 
         expect(html).to eq(
           "<form action=\"#{path}\" accept-charset=\"UTF-8\" method=\"post\">" \
-          '<input name="utf8" type="hidden" value="&#x2713;" />' \
           '<input type="hidden" name="_method" value="delete" />' \
           '<hr />' \
           "<input type=\"submit\" name=\"commit\" value=\"#{cancel_delay_label}\" class=\"btn btn-warning\" " \
