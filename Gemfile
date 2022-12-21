@@ -9,7 +9,7 @@ end
 
 gem 'audited', '~> 4.9'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'bootstrap', '>= 4.3.1'
+gem 'bootstrap', '>= 4.5.0'
 gem 'bootstrap-datepicker-rails'
 gem 'coffee-rails', '~> 5.0'
 gem 'devise'
@@ -18,7 +18,7 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'mysql2', '>= 0.3.18', '< 0.6'
 gem 'puma', '~> 5.6'
-gem 'rails', '~> 6.0'
+gem 'rails', '~> 6.0', '>= 6.0.5.1'
 gem 'rinku'
 gem 'rollbar'
 gem 'sassc-rails'
