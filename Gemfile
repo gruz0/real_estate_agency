@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'audited', '~> 4.9'
+gem 'audited', '~> 5.3', '>= 5.3.3'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap', '>= 4.3.1'
 gem 'bootstrap-datepicker-rails'
