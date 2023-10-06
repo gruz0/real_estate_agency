@@ -9,20 +9,20 @@ end
 
 gem 'audited', '~> 4.9'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'bootstrap', '>= 4.3.1'
-gem 'bootstrap-datepicker-rails'
+gem 'bootstrap', '>= 4.5.2'
+gem 'bootstrap-datepicker-rails', '>= 1.10.0.1'
 gem 'coffee-rails', '~> 5.0'
-gem 'devise'
-gem 'dotenv-rails'
-gem 'jquery-rails'
+gem 'devise', '>= 4.7.2'
+gem 'dotenv-rails', '>= 2.8.0'
+gem 'jquery-rails', '>= 4.5.0'
 gem 'kaminari'
 gem 'mysql2', '>= 0.3.18', '< 0.6'
 gem 'puma', '~> 5.6'
-gem 'rails', '~> 6.0'
+gem 'rails', '~> 7.1', '>= 7.1.0'
 gem 'rinku'
 gem 'rollbar'
 gem 'sassc-rails'
-gem 'slim-rails'
+gem 'slim-rails', '>= 3.3.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 gem 'validates_timeliness', '~> 5.0.0.beta2'
@@ -41,7 +41,7 @@ end
 group :development, :test do
   gem 'brakeman', require: false
   gem 'bundle-audit', require: false
-  gem 'rspec-rails', '~> 4.0'
+  gem 'rspec-rails', '~> 4.0', '>= 4.0.2'
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
@@ -59,7 +59,7 @@ end
 group :test do
   gem 'capybara', require: 'capybara/rspec'
   gem 'database_cleaner-active_record'
-  gem 'factory_bot_rails'
+  gem 'factory_bot_rails', '>= 5.2.0'
   gem 'ffaker'
   gem 'selenium-webdriver'
   gem 'shoulda-callback-matchers', '~> 1.1.1'
