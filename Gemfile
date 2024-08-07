@@ -9,7 +9,7 @@ end
 
 gem 'audited', '~> 4.9'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'bootstrap', '>= 4.3.1'
+gem 'bootstrap', '>= 5.0.0'
 gem 'bootstrap-datepicker-rails'
 gem 'coffee-rails', '~> 5.0'
 gem 'devise'
