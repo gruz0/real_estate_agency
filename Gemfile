@@ -42,10 +42,10 @@ group :development, :test do
   gem 'brakeman', require: false
   gem 'bundle-audit', require: false
   gem 'rspec-rails', '~> 4.0'
-  gem 'rubocop', require: false
-  gem 'rubocop-performance', require: false
-  gem 'rubocop-rails', require: false
-  gem 'rubocop-rspec', require: false
+  gem 'rubocop', '>= 0.91.0', require: false
+  gem 'rubocop-performance', '>= 1.8.1', require: false
+  gem 'rubocop-rails', '>= 2.8.1', require: false
+  gem 'rubocop-rspec', '>= 1.44.0', require: false
 end
 
 group :development do
