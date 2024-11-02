@@ -42,7 +42,7 @@ group :development, :test do
   gem 'brakeman', require: false
   gem 'bundle-audit', require: false
   gem 'rspec-rails', '~> 4.0'
-  gem 'rubocop', require: false
+  gem 'rubocop', '>= 1.66.0', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
