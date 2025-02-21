@@ -9,7 +9,7 @@ end
 
 gem 'audited', '~> 4.9'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'bootstrap', '>= 4.3.1'
+gem 'bootstrap', '>= 4.6.2.1'
 gem 'bootstrap-datepicker-rails'
 gem 'coffee-rails', '~> 5.0'
 gem 'devise'
@@ -18,7 +18,7 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'mysql2', '>= 0.3.18', '< 0.6'
 gem 'puma', '~> 5.6'
-gem 'rails', '~> 6.0'
+gem 'rails', '~> 7.0', '>= 7.0.0'
 gem 'rinku'
 gem 'rollbar'
 gem 'sassc-rails'
@@ -43,9 +43,9 @@ group :development, :test do
   gem 'bundle-audit', require: false
   gem 'rspec-rails', '~> 4.0'
   gem 'rubocop', require: false
-  gem 'rubocop-performance', require: false
-  gem 'rubocop-rails', require: false
-  gem 'rubocop-rspec', require: false
+  gem 'rubocop-performance', '>= 1.24.0', require: false
+  gem 'rubocop-rails', '>= 2.30.0', require: false
+  gem 'rubocop-rspec', '>= 3.5.0', require: false
 end
 
 group :development do
