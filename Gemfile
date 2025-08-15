@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'audited', '~> 4.9'
+gem 'audited', '~> 5.4', '>= 5.4.0'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap', '>= 4.3.1'
 gem 'bootstrap-datepicker-rails'
@@ -15,10 +15,10 @@ gem 'coffee-rails', '~> 5.0'
 gem 'devise'
 gem 'dotenv-rails'
 gem 'jquery-rails'
-gem 'kaminari'
+gem 'kaminari', '>= 1.2.2'
 gem 'mysql2', '>= 0.3.18', '< 0.6'
 gem 'puma', '~> 5.6'
-gem 'rails', '~> 6.0'
+gem 'rails', '~> 7.1', '>= 7.1.5.2'
 gem 'rinku'
 gem 'rollbar'
 gem 'sassc-rails'
@@ -49,7 +49,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'annotate'
+  gem 'annotate', '>= 3.2.0'
   gem 'better_errors'
   gem 'letter_opener'
   gem 'spring'
@@ -58,7 +58,7 @@ end
 
 group :test do
   gem 'capybara', require: 'capybara/rspec'
-  gem 'database_cleaner-active_record'
+  gem 'database_cleaner-active_record', '>= 2.1.0'
   gem 'factory_bot_rails'
   gem 'ffaker'
   gem 'selenium-webdriver'
