@@ -40,7 +40,7 @@ end
 
 group :development, :test do
   gem 'brakeman', require: false
-  gem 'bundle-audit', require: false
+  gem 'bundle-audit', '>= 0.2.0', require: false
   gem 'rspec-rails', '~> 4.0'
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
